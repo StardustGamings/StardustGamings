@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createHistory, pushHistory, redoHistory, undoHistory } from './history';
-import { fitZoom, nextZoom, ZOOM_MAX, ZOOM_MIN } from './zoom';
+import { nextZoom } from './zoom';
+import { docToScreen, screenToDoc, useCamera, ZOOM_MAX, ZOOM_MIN } from './camera';
 
 describe('history', () => {
   it('undoes and redoes in order', () => {
@@ -34,7 +35,7 @@ describe('history', () => {
   });
 });
 
-describe('zoom', () => {
+describe('zoom & camera', () => {
   it('steps through zoom levels within bounds', () => {
     expect(nextZoom(1, 1)).toBe(1.5);
     expect(nextZoom(1, -1)).toBe(0.75);
@@ -43,9 +44,40 @@ describe('zoom', () => {
     expect(nextZoom(0.44, 1)).toBe(0.5);
   });
 
-  it('fits slides into the viewport without upscaling', () => {
-    expect(fitZoom({ width: 1000, height: 800 }, { width: 1080, height: 1350 }, 1, 0)).toBeCloseTo(800 / 1350);
-    expect(fitZoom({ width: 5000, height: 5000 }, { width: 100, height: 100 }, 1, 0)).toBe(1);
-    expect(fitZoom({ width: 1200, height: 2000 }, { width: 1080, height: 1350 }, 3, 0)).toBeCloseTo(1200 / 3240);
+  it('keeps the point under the cursor fixed while zooming', () => {
+    const cam = useCamera.getState();
+    cam.reset();
+    cam.setViewport(1000, 800);
+    cam.fitTo({ x: 0, y: 0, width: 1080, height: 1350 }, 0);
+    const pointer = { x: 300, y: 200 };
+    const before = screenToDoc(pointer);
+    useCamera.getState().zoomAt(pointer, useCamera.getState().zoom * 2);
+    const after = screenToDoc(pointer);
+    expect(after.x).toBeCloseTo(before.x);
+    expect(after.y).toBeCloseTo(before.y);
+  });
+
+  it('fits content (never above 100%) and centres it', () => {
+    const cam = useCamera.getState();
+    cam.setViewport(1000, 800);
+    cam.fitTo({ x: 0, y: 0, width: 1080, height: 1350 }, 0);
+    expect(useCamera.getState().zoom).toBeCloseTo(800 / 1350);
+    const centre = docToScreen({ x: 540, y: 675 });
+    expect(centre.x).toBeCloseTo(500);
+    expect(centre.y).toBeCloseTo(400);
+    cam.fitTo({ x: 0, y: 0, width: 100, height: 100 }, 0);
+    expect(useCamera.getState().zoom).toBe(1);
+  });
+
+  it('never pans the content completely out of view', () => {
+    const cam = useCamera.getState();
+    cam.setViewport(1000, 800);
+    cam.setContent({ x: 0, y: 0, width: 1080, height: 1350 });
+    cam.fitTo({ x: 0, y: 0, width: 1080, height: 1350 }, 0);
+    useCamera.getState().panBy(-100000, -100000);
+    const { x, y, zoom } = useCamera.getState();
+    expect(x).toBeLessThanOrEqual(1080);
+    expect(y).toBeLessThanOrEqual(1350);
+    expect(x + 1000 / zoom).toBeGreaterThan(1080);
   });
 });

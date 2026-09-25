@@ -1,6 +1,5 @@
 import type { DesignDocument } from '@/types/document';
-import { documentFonts } from '@/projects/document';
-import { loadFonts } from '@/typography/fonts';
+import { ensureDocumentFonts } from './fonts';
 import { renderDocument, slideRegion } from './render';
 
 /**
@@ -9,7 +8,7 @@ import { renderDocument, slideRegion } from './render';
  */
 export async function renderThumbnail(doc: DesignDocument, maxSize = 480): Promise<Blob | null> {
   if (typeof document === 'undefined') return null;
-  await loadFonts(documentFonts(doc));
+  await ensureDocumentFonts(doc);
   const region = slideRegion(doc, 0);
   const scale = Math.min(maxSize / region.width, maxSize / region.height);
   const w = Math.max(1, Math.round(region.width * scale));

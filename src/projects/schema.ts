@@ -48,6 +48,7 @@ const base = {
   locked: z.boolean().optional(),
   hidden: z.boolean().optional(),
   shadow: shadow.optional(),
+  groupId: z.string().min(1).max(64).optional(),
 };
 
 const textElement = z.object({
@@ -114,6 +115,10 @@ export const documentSchema = z.object({
     .min(1)
     .max(MAX_SLIDES),
   elements: z.array(elementSchema).max(2000),
+  guides: z
+    .array(z.object({ id: z.string().min(1).max(64), axis: z.enum(['x', 'y']), position: coord }))
+    .max(200)
+    .optional(),
 });
 
 const formatIds = Object.keys(FORMATS) as [keyof typeof FORMATS, ...(keyof typeof FORMATS)[]];

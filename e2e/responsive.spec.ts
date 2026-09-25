@@ -31,6 +31,6 @@ test('editor shows the toolbar that fits the device', async ({ app: page, isMobi
   expect(visibleCount).toBe(1);
   if (isMobile) {
     await page.getByRole('button', { name: 'Background', exact: true }).click();
-    await expect(page.getByRole('dialog', { name: 'Background' })).toBeVisible();
+    await expect(page.getByTestId('mobile-sheet').getByTestId('background-panel')).toBeVisible();
   }
 });

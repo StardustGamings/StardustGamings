@@ -4,19 +4,17 @@ import { Reorder } from 'motion/react';
 import { ChevronLeft, ChevronRight, Copy, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { ScenePreview } from '@/canvas/ScenePreview';
-import { duplicateSlide, insertSlide, moveSlide, removeSlide } from '@/projects/document';
+import { moveSlide } from '@/projects/document';
+import { addSlide, deleteActiveSlide, duplicateActiveSlide, goToSlide } from './actions';
 import { MAX_SLIDES } from '@/projects/formats';
 import { IconButton } from '@/components/ui/IconButton';
-import { toast } from '@/components/ui/toast-store';
 import { cn } from '@/utils/cn';
 import { selectDoc, useEditor } from './store';
 
 export function SlideStrip() {
   const doc = useEditor(selectDoc);
   const active = useEditor((s) => s.activeSlide);
-  const setActive = useEditor((s) => s.setActiveSlide);
   const apply = useEditor((s) => s.apply);
-  const undo = useEditor((s) => s.undo);
   const ids = doc?.slides.map((s) => s.id) ?? [];
   const [order, setOrder] = useState(ids);
   const idsKey = ids.join('|');
@@ -32,21 +30,9 @@ export function SlideStrip() {
   const thumbH = 64;
   const thumbW = (doc.slideWidth / doc.slideHeight) * thumbH;
 
-  const add = () => {
-    apply((d) => insertSlide(d, active + 1));
-    setActive(active + 1);
-  };
-  const duplicate = () => {
-    apply((d) => duplicateSlide(d, active));
-    setActive(active + 1);
-  };
   const move = (dir: -1 | 1) => {
     apply((d) => moveSlide(d, active, active + dir));
-    setActive(active + dir);
-  };
-  const remove = () => {
-    apply((d) => removeSlide(d, active));
-    toast({ title: `Slide ${active + 1} deleted`, action: { label: 'Undo', onClick: undo } });
+    goToSlide(active + dir);
   };
 
   return (
@@ -63,8 +49,14 @@ export function SlideStrip() {
           disabled={active >= count - 1}
           onClick={() => move(1)}
         />
-        <IconButton label="Duplicate slide" icon={<Copy />} size="sm" disabled={count >= MAX_SLIDES} onClick={duplicate} />
-        <IconButton label="Delete slide" icon={<Trash2 />} size="sm" disabled={count <= 1} onClick={remove} />
+        <IconButton
+          label="Duplicate slide"
+          icon={<Copy />}
+          size="sm"
+          disabled={count >= MAX_SLIDES}
+          onClick={duplicateActiveSlide}
+        />
+        <IconButton label="Delete slide" icon={<Trash2 />} size="sm" disabled={count <= 1} onClick={deleteActiveSlide} />
       </div>
       <div className="h-8 w-px shrink-0 bg-line" />
       <Reorder.Group
@@ -85,7 +77,7 @@ export function SlideStrip() {
                 const to = order.indexOf(id);
                 if (to !== index && to >= 0) {
                   apply((d) => moveSlide(d, index, to));
-                  setActive(to);
+                  goToSlide(to);
                 }
               }}
               className="relative shrink-0 cursor-grab touch-pan-x active:cursor-grabbing"
@@ -93,7 +85,7 @@ export function SlideStrip() {
             >
               <button
                 type="button"
-                onClick={() => setActive(index)}
+                onClick={() => goToSlide(index)}
                 aria-label={`Slide ${index + 1}`}
                 aria-current={index === active ? 'true' : undefined}
                 className={cn(
@@ -121,7 +113,7 @@ export function SlideStrip() {
         <li className="shrink-0 list-none">
           <button
             type="button"
-            onClick={add}
+            onClick={addSlide}
             disabled={count >= MAX_SLIDES}
             aria-label="Add slide"
             className="flex items-center justify-center rounded-[8px] border-2 border-dashed border-line-strong text-fg-muted transition-colors hover:border-accent hover:text-accent-text disabled:opacity-40"

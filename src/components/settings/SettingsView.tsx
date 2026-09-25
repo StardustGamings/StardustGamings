@@ -503,27 +503,46 @@ function ShortcutsSection() {
   const mod = useClientValue(modKey, 'Ctrl');
   const rows: { keys: string[]; action: string; soon?: boolean }[] = [
     { keys: [mod, 'K'], action: 'Command palette' },
-    { keys: [mod, 'S'], action: 'Save now (editor)' },
-    { keys: [mod, 'Z'], action: 'Undo (editor)' },
-    { keys: [mod, '⇧', 'Z'], action: 'Redo (editor)' },
-    { keys: [mod, 'D'], action: 'Duplicate slide (editor)' },
-    { keys: ['←', '→'], action: 'Previous / next slide (editor)' },
-    { keys: [mod, '+'], action: 'Zoom in (editor)' },
-    { keys: [mod, '−'], action: 'Zoom out (editor)' },
-    { keys: ['⇧', '1'], action: 'Fit canvas (editor)' },
-    { keys: ["'"], action: 'Toggle grid (editor)' },
-    { keys: ['Esc'], action: 'Close dialogs & menus' },
-    { keys: [mod, 'C'], action: 'Copy element', soon: true },
-    { keys: [mod, 'V'], action: 'Paste element', soon: true },
-    { keys: ['Delete'], action: 'Delete element', soon: true },
-    { keys: ['Space'], action: 'Hold to pan the canvas', soon: true },
+    { keys: [mod, 'S'], action: 'Save now' },
+    { keys: [mod, 'Z'], action: 'Undo' },
+    { keys: [mod, '⇧', 'Z'], action: 'Redo' },
+    { keys: [mod, 'C'], action: 'Copy' },
+    { keys: [mod, 'X'], action: 'Cut' },
+    { keys: [mod, 'V'], action: 'Paste (elements or plain text)' },
+    { keys: [mod, 'D'], action: 'Duplicate selection (or slide)' },
+    { keys: ['Delete'], action: 'Delete selection' },
+    { keys: [mod, 'A'], action: 'Select all on slide (again: all)' },
+    { keys: [mod, 'G'], action: 'Group' },
+    { keys: [mod, '⇧', 'G'], action: 'Ungroup' },
+    { keys: [mod, ']'], action: 'Bring forward (⇧: to front)' },
+    { keys: [mod, '['], action: 'Send backward (⇧: to back)' },
+    { keys: [mod, '⇧', 'L'], action: 'Lock / unlock' },
+    { keys: [mod, '⇧', 'H'], action: 'Hide' },
+    { keys: ['←', '↑', '→', '↓'], action: 'Nudge 1px (⇧: 10px) · slides when nothing selected' },
+    { keys: ['Enter'], action: 'Edit selected text' },
+    { keys: ['Esc'], action: 'Deselect · close dialogs' },
+    { keys: ['V'], action: 'Select tool' },
+    { keys: ['T'], action: 'Text tool (click to place)' },
+    { keys: ['H'], action: 'Pan tool' },
+    { keys: ['Space'], action: 'Hold and drag to pan' },
+    { keys: [mod, 'Scroll'], action: 'Zoom at the pointer' },
+    { keys: [mod, '+'], action: 'Zoom in' },
+    { keys: [mod, '−'], action: 'Zoom out' },
+    { keys: [mod, '0'], action: 'Actual size' },
+    { keys: ['⇧', '1'], action: 'Fit slide' },
+    { keys: ['⇧', '2'], action: 'Fit all slides' },
+    { keys: ["'"], action: 'Toggle grid' },
+    { keys: ['⇧', 'R'], action: 'Toggle rulers & guides' },
+    { keys: ['Alt', 'Drag'], action: 'Duplicate while dragging' },
+    { keys: ['⇧', 'Drag'], action: 'Constrain / keep proportions' },
+    { keys: [mod, 'Drag'], action: 'Move without snapping · deep-select in groups' },
   ];
   return (
     <SettingsSection
       id="shortcuts"
       title="Keyboard shortcuts"
       icon={<Keyboard />}
-      description="Element shortcuts arrive with the canvas tools."
+      description="Editor shortcuts apply on the canvas. Touch: one finger drags, two fingers pan and pinch-zoom, double-tap edits text."
     >
       <ul className="grid gap-x-8 sm:grid-cols-2">
         {rows.map((r) => (
@@ -604,7 +623,7 @@ function AboutSection() {
   const { state, install } = useInstallPrompt();
   const setOnboardingReplay = useUi((s) => s.setOnboardingReplay);
   return (
-    <SettingsSection id="about" title="About Stardeck" icon={<Info />} badge={<Badge>v0.1 · Phase 1</Badge>}>
+    <SettingsSection id="about" title="About Stardeck" icon={<Info />} badge={<Badge>v0.2 · Phase 2</Badge>}>
       <div className="pb-4 text-sm leading-relaxed text-fg-muted">
         <p>
           <strong className="text-fg">Free forever.</strong> No watermarks, no “Pro” locks on the basics, no forced subscription.

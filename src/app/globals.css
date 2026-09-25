@@ -52,6 +52,7 @@
   --accent-fg: #0b0a12;
   --accent-text: #d4ff6b;
   --ring: #c6ff3d;
+  --selection: #7b61ff;
   --danger: #ff5c7a;
   --success: #3cf0c8;
   --warning: #ffd23d;
@@ -143,6 +144,7 @@
   --color-accent-fg: var(--accent-fg);
   --color-accent-text: var(--accent-text);
   --color-ring: var(--ring);
+  --color-selection: var(--selection);
   --color-danger: var(--danger);
   --color-success: var(--success);
   --color-warning: var(--warning);

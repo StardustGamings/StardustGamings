@@ -1,124 +1,291 @@
 'use client';
 
-import { Copy, Grid3x3, Maximize, Plus, Redo2, ScanLine, Trash2, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import {
+  ArrowDownToLine,
+  ArrowUpToLine,
+  Copy,
+  Grid3x3,
+  Group,
+  Hand,
+  Layers,
+  Lock,
+  Magnet,
+  Maximize,
+  MousePointer2,
+  Plus,
+  Redo2,
+  Ruler,
+  ScanLine,
+  Shapes,
+  Smile,
+  Trash2,
+  Type,
+  Undo2,
+  Ungroup,
+  ZoomIn,
+  ZoomOut,
+} from 'lucide-react';
 import { useEffect } from 'react';
-import { duplicateSlide, insertSlide, removeSlide } from '@/projects/document';
 import { useHotkeys } from '@/hooks/useHotkeys';
 import { useCommandRegistry } from '@/components/shell/commands';
 import { toast } from '@/components/ui/toast-store';
-import { useEditor } from './store';
-import { nextZoom } from './zoom';
+import * as actions from './actions';
+import { parseElements, serializeElements } from './core/clipboard';
+import { getElements } from './core/ops';
+import { TEXT_PRESETS } from './core/factory';
+import { selectDoc, useEditor } from './store';
 
-/** Keyboard shortcuts + command-palette entries for the editor. */
-export function useEditorShortcuts(currentZoom: number) {
+const ed = () => useEditor.getState();
+const hasSelection = () => ed().selection.length > 0;
+
+function isEditable(target: EventTarget | null) {
+  return target instanceof HTMLElement && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+}
+
+/** Keyboard shortcuts, clipboard events and command-palette entries for the editor. */
+export function useEditorShortcuts() {
   const register = useCommandRegistry((s) => s.register);
   const unregister = useCommandRegistry((s) => s.unregister);
 
   useHotkeys({
-    'mod+z': () => useEditor.getState().undo(),
-    'mod+shift+z': () => useEditor.getState().redo(),
-    'mod+y': () => useEditor.getState().redo(),
-    'mod+d': () => {
-      const { apply, activeSlide, setActiveSlide } = useEditor.getState();
-      apply((d) => duplicateSlide(d, activeSlide));
-      setActiveSlide(activeSlide + 1);
+    'mod+z': () => ed().undo(),
+    'mod+shift+z': () => ed().redo(),
+    'mod+y': () => ed().redo(),
+    'mod+d': actions.duplicateSelection,
+    delete: actions.deleteSelection,
+    'mod+a': actions.selectAll,
+    'mod+g': actions.groupSelection,
+    'mod+shift+g': actions.ungroupSelection,
+    'mod+]': () => actions.reorder('forward'),
+    'mod+[': () => actions.reorder('backward'),
+    'mod+shift+]': () => actions.reorder('front'),
+    'mod+shift+}': () => actions.reorder('front'),
+    'mod+shift+[': () => actions.reorder('back'),
+    'mod+shift+{': () => actions.reorder('back'),
+    'mod+shift+l': actions.toggleLock,
+    'mod+shift+h': actions.toggleHidden,
+    arrowleft: () => (hasSelection() ? actions.nudge(-1, 0) : actions.goToSlide(ed().activeSlide - 1)),
+    arrowright: () => (hasSelection() ? actions.nudge(1, 0) : actions.goToSlide(ed().activeSlide + 1)),
+    arrowup: () => hasSelection() && actions.nudge(0, -1),
+    arrowdown: () => hasSelection() && actions.nudge(0, 1),
+    'shift+arrowleft': () => actions.nudge(-10, 0),
+    'shift+arrowright': () => actions.nudge(10, 0),
+    'shift+arrowup': () => actions.nudge(0, -10),
+    'shift+arrowdown': () => actions.nudge(0, 10),
+    enter: () => {
+      const d = selectDoc(ed());
+      const [el] = d ? getElements(d, ed().selection) : [];
+      if (el?.type === 'text' && ed().selection.length === 1 && !el.locked) ed().setEditingText(el.id);
     },
-    arrowleft: () => {
-      const s = useEditor.getState();
-      s.setActiveSlide(s.activeSlide - 1);
+    escape: () => {
+      if (hasSelection()) ed().clearSelection();
+      else ed().setTool('select');
     },
-    arrowright: () => {
-      const s = useEditor.getState();
-      s.setActiveSlide(s.activeSlide + 1);
-    },
-    'mod+=': () => useEditor.getState().setZoom(nextZoom(currentZoom, 1)),
-    'mod++': () => useEditor.getState().setZoom(nextZoom(currentZoom, 1)),
-    'mod+-': () => useEditor.getState().setZoom(nextZoom(currentZoom, -1)),
-    'shift+!': () => useEditor.getState().setZoom(null),
-    'shift+1': () => useEditor.getState().setZoom(null),
-    "'": () => useEditor.getState().toggleGrid(),
+    v: () => ed().setTool('select'),
+    t: () => ed().setTool('text'),
+    h: () => ed().setTool('hand'),
+    'mod+=': () => actions.zoomStep(1),
+    'mod++': () => actions.zoomStep(1),
+    'mod+-': () => actions.zoomStep(-1),
+    'mod+0': () => actions.zoomTo(1),
+    'shift+!': () => actions.fitSlide(),
+    'shift+1': () => actions.fitSlide(),
+    'shift+@': () => actions.fitAll(),
+    'shift+2': () => actions.fitAll(),
+    "'": () => ed().toggleGrid(),
+    'shift+r': () => ed().toggleRulers(),
   });
 
   // Save works even while typing (e.g. in the project name field).
   useHotkeys(
     {
       'mod+s': async () => {
-        await useEditor.getState().save();
-        if (useEditor.getState().saveState === 'saved') toast({ title: 'Saved on this device', tone: 'success', duration: 1800 });
+        await ed().save();
+        if (ed().saveState === 'saved') toast({ title: 'Saved on this device', tone: 'success', duration: 1800 });
       },
     },
     { allowInInputs: true },
   );
 
+  // Native clipboard events work in every browser without permission prompts.
   useEffect(() => {
-    const ed = () => useEditor.getState();
+    const onCopy = (e: ClipboardEvent) => {
+      if (isEditable(e.target) || !hasSelection()) return;
+      const d = selectDoc(ed());
+      if (!d) return;
+      e.preventDefault();
+      const els = getElements(d, ed().selection);
+      e.clipboardData?.setData('text/plain', serializeElements(els));
+      void actions.copySelection();
+      if (e.type === 'cut') actions.deleteSelection();
+    };
+    const onPaste = (e: ClipboardEvent) => {
+      if (isEditable(e.target)) return;
+      const d = selectDoc(ed());
+      if (!d) return;
+      const text = e.clipboardData?.getData('text/plain') ?? '';
+      const elements = parseElements(text);
+      e.preventDefault();
+      if (elements) {
+        actions.pasteElements(elements);
+      } else if (text.trim()) {
+        actions.addText(
+          TEXT_PRESETS.find((p) => p.id === 'body'),
+          undefined,
+          { text: text.slice(0, 2000) },
+        );
+      } else {
+        void actions.paste();
+      }
+    };
+    window.addEventListener('copy', onCopy);
+    window.addEventListener('cut', onCopy);
+    window.addEventListener('paste', onPaste);
+    return () => {
+      window.removeEventListener('copy', onCopy);
+      window.removeEventListener('cut', onCopy);
+      window.removeEventListener('paste', onPaste);
+    };
+  }, []);
+
+  useEffect(() => {
     register('editor', [
+      {
+        id: 'ed-add-text',
+        label: 'Add text',
+        group: 'Editor',
+        icon: <Type />,
+        shortcut: 'T',
+        keywords: ['heading', 'caption', 'type'],
+        run: () => actions.addText(TEXT_PRESETS[0], undefined, { edit: true }),
+      },
+      {
+        id: 'ed-add-shape',
+        label: 'Add shape',
+        group: 'Editor',
+        icon: <Shapes />,
+        keywords: ['rectangle', 'circle', 'star'],
+        run: () => ed().setPanel('shapes'),
+      },
+      {
+        id: 'ed-add-sticker',
+        label: 'Add sticker',
+        group: 'Editor',
+        icon: <Smile />,
+        keywords: ['emoji', 'sparkle', 'heart'],
+        run: () => ed().setPanel('stickers'),
+      },
+      { id: 'ed-layers', label: 'Show layers', group: 'Editor', icon: <Layers />, run: () => ed().setPanel('layers') },
+      {
+        id: 'ed-duplicate',
+        label: 'Duplicate',
+        group: 'Editor',
+        icon: <Copy />,
+        shortcut: '⌘ D',
+        keywords: ['copy'],
+        run: actions.duplicateSelection,
+      },
+      {
+        id: 'ed-group',
+        label: 'Group selection',
+        group: 'Editor',
+        icon: <Group />,
+        shortcut: '⌘ G',
+        run: actions.groupSelection,
+      },
+      {
+        id: 'ed-ungroup',
+        label: 'Ungroup',
+        group: 'Editor',
+        icon: <Ungroup />,
+        shortcut: '⌘ ⇧ G',
+        run: actions.ungroupSelection,
+      },
+      { id: 'ed-front', label: 'Bring to front', group: 'Editor', icon: <ArrowUpToLine />, run: () => actions.reorder('front') },
+      { id: 'ed-back', label: 'Send to back', group: 'Editor', icon: <ArrowDownToLine />, run: () => actions.reorder('back') },
+      { id: 'ed-lock', label: 'Lock / unlock selection', group: 'Editor', icon: <Lock />, run: actions.toggleLock },
+      { id: 'ed-delete', label: 'Delete selection', group: 'Editor', icon: <Trash2 />, run: actions.deleteSelection },
+      { id: 'ed-undo', label: 'Undo', group: 'Editor', icon: <Undo2 />, shortcut: '⌘ Z', run: () => ed().undo() },
+      { id: 'ed-redo', label: 'Redo', group: 'Editor', icon: <Redo2 />, shortcut: '⌘ ⇧ Z', run: () => ed().redo() },
       {
         id: 'ed-add-slide',
         label: 'Add slide',
         group: 'Editor',
         icon: <Plus />,
         keywords: ['new slide', 'carousel'],
-        run: () => {
-          ed().apply((d) => insertSlide(d, ed().activeSlide + 1));
-          ed().setActiveSlide(ed().activeSlide + 1);
-        },
+        run: actions.addSlide,
       },
-      {
-        id: 'ed-dup-slide',
-        label: 'Duplicate slide',
-        group: 'Editor',
-        icon: <Copy />,
-        shortcut: '⌘ D',
-        keywords: ['duplicate', 'copy'],
-        run: () => {
-          ed().apply((d) => duplicateSlide(d, ed().activeSlide));
-          ed().setActiveSlide(ed().activeSlide + 1);
-        },
-      },
-      {
-        id: 'ed-del-slide',
-        label: 'Delete slide',
-        group: 'Editor',
-        icon: <Trash2 />,
-        keywords: ['remove'],
-        run: () => ed().apply((d) => removeSlide(d, ed().activeSlide)),
-      },
-      { id: 'ed-undo', label: 'Undo', group: 'Editor', icon: <Undo2 />, shortcut: '⌘ Z', run: () => ed().undo() },
-      { id: 'ed-redo', label: 'Redo', group: 'Editor', icon: <Redo2 />, shortcut: '⌘ ⇧ Z', run: () => ed().redo() },
-      {
-        id: 'ed-zoom-in',
-        label: 'Zoom in',
-        group: 'Editor',
-        icon: <ZoomIn />,
-        run: () => ed().setZoom(nextZoom(currentZoom, 1)),
-      },
+      { id: 'ed-dup-slide', label: 'Duplicate slide', group: 'Editor', icon: <Copy />, run: actions.duplicateActiveSlide },
+      { id: 'ed-del-slide', label: 'Delete slide', group: 'Editor', icon: <Trash2 />, run: actions.deleteActiveSlide },
+      { id: 'ed-zoom-in', label: 'Zoom in', group: 'View', icon: <ZoomIn />, shortcut: '⌘ +', run: () => actions.zoomStep(1) },
       {
         id: 'ed-zoom-out',
         label: 'Zoom out',
-        group: 'Editor',
+        group: 'View',
         icon: <ZoomOut />,
-        run: () => ed().setZoom(nextZoom(currentZoom, -1)),
+        shortcut: '⌘ −',
+        run: () => actions.zoomStep(-1),
       },
       {
         id: 'ed-fit',
         label: 'Fit canvas',
-        group: 'Editor',
+        group: 'View',
         icon: <Maximize />,
         shortcut: '⇧ 1',
         keywords: ['zoom to fit'],
-        run: () => ed().setZoom(null),
+        run: () => actions.fitSlide(),
       },
-      { id: 'ed-grid', label: 'Toggle grid', group: 'Editor', icon: <Grid3x3 />, shortcut: "'", run: () => ed().toggleGrid() },
+      {
+        id: 'ed-fit-all',
+        label: 'Fit all slides',
+        group: 'View',
+        icon: <Maximize />,
+        shortcut: '⇧ 2',
+        keywords: ['zoom out', 'overview'],
+        run: actions.fitAll,
+      },
+      { id: 'ed-grid', label: 'Toggle grid', group: 'View', icon: <Grid3x3 />, shortcut: "'", run: () => ed().toggleGrid() },
+      {
+        id: 'ed-rulers',
+        label: 'Toggle rulers & guides',
+        group: 'View',
+        icon: <Ruler />,
+        shortcut: '⇧ R',
+        run: () => ed().toggleRulers(),
+      },
+      {
+        id: 'ed-snap',
+        label: 'Toggle snapping',
+        group: 'View',
+        icon: <Magnet />,
+        keywords: ['smart guides', 'magnet'],
+        run: () => ed().toggleSnapping(),
+      },
       {
         id: 'ed-safe',
         label: 'Toggle safe areas',
-        group: 'Editor',
+        group: 'View',
         icon: <ScanLine />,
         keywords: ['guides'],
         run: () => ed().toggleSafeArea(),
       },
+      {
+        id: 'ed-tool-select',
+        label: 'Select tool',
+        group: 'View',
+        icon: <MousePointer2 />,
+        shortcut: 'V',
+        run: () => ed().setTool('select'),
+      },
+      {
+        id: 'ed-tool-hand',
+        label: 'Hand tool (pan)',
+        group: 'View',
+        icon: <Hand />,
+        shortcut: 'H',
+        run: () => ed().setTool('hand'),
+      },
     ]);
     return () => unregister('editor');
-  }, [register, unregister, currentZoom]);
+  }, [register, unregister]);
 }

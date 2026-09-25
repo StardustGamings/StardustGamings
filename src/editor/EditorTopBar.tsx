@@ -1,7 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronLeft, Command, Download, Maximize, Minus, Plus, Redo2, Undo2 } from 'lucide-react';
+import {
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  Command,
+  Download,
+  Maximize,
+  Minus,
+  Plus,
+  Redo2,
+  Undo2,
+  ZoomIn,
+  ZoomOut,
+} from 'lucide-react';
 import { useState } from 'react';
 import { FORMATS } from '@/projects/formats';
 import { MAX_NAME_LENGTH } from '@/projects/repository';
@@ -15,7 +28,9 @@ import { LogoMark } from '@/components/ui/Logo';
 import { FormatIcon } from '@/components/home/FormatIcon';
 import { SaveIndicator } from './SaveIndicator';
 import { useEditor } from './store';
-import { nextZoom } from './zoom';
+import * as actions from './actions';
+import { useCamera } from './camera';
+import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/components/ui/Menu';
 
 function NameField() {
   const meta = useEditor((s) => s.meta);
@@ -65,12 +80,70 @@ function NameInput() {
   );
 }
 
-export function EditorTopBar({ zoom }: { zoom: number }) {
+function ZoomMenu() {
+  const zoom = useCamera((s) => s.zoom);
+  const showGrid = useEditor((s) => s.showGrid);
+  const showRulers = useEditor((s) => s.showRulers);
+  const showSafeArea = useEditor((s) => s.showSafeArea);
+  const snapping = useEditor((s) => s.snapping);
+  const ed = useEditor.getState();
+  const check = (on: boolean) => <Check className={on ? 'opacity-100' : 'opacity-0'} />;
+  return (
+    <Menu>
+      <MenuTrigger asChild>
+        <button
+          type="button"
+          className="flex h-8 items-center gap-1 rounded-[10px] px-2 font-mono text-xs font-semibold text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active"
+          aria-label={`Zoom ${Math.round(zoom * 100)} percent — view options`}
+          data-testid="zoom-menu"
+        >
+          {Math.round(zoom * 100)}%
+          <ChevronDown className="size-3.5" />
+        </button>
+      </MenuTrigger>
+      <MenuContent align="end">
+        <MenuItem icon={<ZoomIn />} shortcut="⌘ +" onSelect={() => actions.zoomStep(1)}>
+          Zoom in
+        </MenuItem>
+        <MenuItem icon={<ZoomOut />} shortcut="⌘ −" onSelect={() => actions.zoomStep(-1)}>
+          Zoom out
+        </MenuItem>
+        <MenuItem icon={<Maximize />} shortcut="⇧ 1" onSelect={() => actions.fitSlide()}>
+          Fit slide
+        </MenuItem>
+        <MenuItem icon={<Maximize />} shortcut="⇧ 2" onSelect={actions.fitAll}>
+          Fit all slides
+        </MenuItem>
+        <MenuItem
+          icon={<span className="w-4 text-center font-mono text-[10px]">1:1</span>}
+          shortcut="⌘ 0"
+          onSelect={() => actions.zoomTo(1)}
+        >
+          Actual size
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem icon={check(snapping)} onSelect={(e) => (e.preventDefault(), ed.toggleSnapping())}>
+          Snapping
+        </MenuItem>
+        <MenuItem icon={check(showGrid)} shortcut="'" onSelect={(e) => (e.preventDefault(), ed.toggleGrid())}>
+          Grid
+        </MenuItem>
+        <MenuItem icon={check(showRulers)} shortcut="⇧ R" onSelect={(e) => (e.preventDefault(), ed.toggleRulers())}>
+          Rulers & guides
+        </MenuItem>
+        <MenuItem icon={check(showSafeArea)} onSelect={(e) => (e.preventDefault(), ed.toggleSafeArea())}>
+          Safe areas
+        </MenuItem>
+      </MenuContent>
+    </Menu>
+  );
+}
+
+export function EditorTopBar() {
   const undo = useEditor((s) => s.undo);
   const redo = useEditor((s) => s.redo);
   const canUndo = useEditor((s) => Boolean(s.history?.past.length));
   const canRedo = useEditor((s) => Boolean(s.history?.future.length));
-  const setZoom = useEditor((s) => s.setZoom);
   const setPaletteOpen = useUi((s) => s.setPaletteOpen);
   const mod = useClientValue(modKey, 'Ctrl');
 
@@ -106,25 +179,16 @@ export function EditorTopBar({ zoom }: { zoom: number }) {
             shortcut={`${mod} −`}
             icon={<Minus />}
             size="sm"
-            onClick={() => setZoom(nextZoom(zoom, -1))}
+            onClick={() => actions.zoomStep(-1)}
             tooltipSide="bottom"
           />
-          <Tooltip content="Fit to screen" shortcut="⇧ 1" side="bottom">
-            <button
-              type="button"
-              onClick={() => setZoom(null)}
-              className="h-8 w-14 rounded-[10px] text-center font-mono text-xs font-semibold text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
-              aria-label={`Zoom ${Math.round(zoom * 100)} percent. Click to fit.`}
-            >
-              {Math.round(zoom * 100)}%
-            </button>
-          </Tooltip>
+          <ZoomMenu />
           <IconButton
             label="Zoom in"
             shortcut={`${mod} +`}
             icon={<Plus />}
             size="sm"
-            onClick={() => setZoom(nextZoom(zoom, 1))}
+            onClick={() => actions.zoomStep(1)}
             tooltipSide="bottom"
           />
           <IconButton
@@ -132,7 +196,7 @@ export function EditorTopBar({ zoom }: { zoom: number }) {
             shortcut="⇧ 1"
             icon={<Maximize />}
             size="sm"
-            onClick={() => setZoom(null)}
+            onClick={() => actions.fitSlide()}
             tooltipSide="bottom"
           />
         </div>

@@ -8,7 +8,7 @@ thumbnails, collages, posters and moodboards.
 - **Local-first.** Projects, photos and settings stay in your browser (IndexedDB). Nothing is uploaded.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 
-> **Status: Phase 1 of 13 complete** — the application shell and visual design system. See
+> **Status: Phase 2 of 13 complete** — app shell, design system and the canvas editor. See
 > [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands next. Features that aren't built yet
 > are marked **Soon** in the UI; there are no fake buttons.
 
@@ -16,19 +16,19 @@ thumbnails, collages, posters and moodboards.
 
 ## What works today
 
-| Area                | What you can do                                                                                                                                                                                                                                   |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Home**            | Animated dashboard: Quick Create for 8 formats, recent projects (thumbnail, name, last edited, duplicate / rename / favourite / delete), trending templates · typography · layouts · effects · palettes · stickers, and a remix inspiration feed. |
-| **New design**      | Format, size preset (4:5, 1:1, 1.91:1, 9:16, 16:9, Pin, A-series, 4:3) or a custom size up to 8000px, slide count (1–30), background, or start from a template.                                                                                   |
-| **Editor shell**    | Seamless multi-slide canvas, zoom/fit (incl. Ctrl/⌘ + wheel), grid and platform safe-area overlays, slide filmstrip (add, duplicate, drag-reorder, move, delete), backgrounds & gradients that flow across slides, undo/redo, autosave.           |
-| **Templates**       | 15 original templates stored as validated JSON, rendered by the same engine used for export.                                                                                                                                                      |
-| **Trend engine**    | Trend packs are plain JSON in `public/trends/` — publish a new drop without rebuilding the app.                                                                                                                                                   |
-| **Projects**        | Search, format filters, sort, favourites, trash with undo and 30-day auto-clean, restore, delete forever.                                                                                                                                         |
-| **Settings**        | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Storage, Shortcuts, Accessibility, About.                                             |
-| **Command palette** | <kbd>Ctrl/⌘</kbd> + <kbd>K</kbd> — create, navigate, search templates, open recent projects, switch theme/motion, editor actions.                                                                                                                 |
-| **Onboarding**      | Five animated intro screens; skippable; never asks for an account.                                                                                                                                                                                |
-| **PWA / offline**   | Manifest, maskable icons, install prompt, service worker precaching the whole app, "Offline Mode" indicator.                                                                                                                                      |
-| **Accessibility**   | Keyboard navigation, focus rings, skip link, screen-reader labels, UI scale (87.5–125%), high contrast, reduced-motion support.                                                                                                                   |
+| Area                | What you can do                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Home**            | Animated dashboard: Quick Create for 8 formats, recent projects (thumbnail, name, last edited, duplicate / rename / favourite / delete), trending templates · typography · layouts · effects · palettes · stickers, and a remix inspiration feed.                                                                                                                                                             |
+| **New design**      | Format, size preset (4:5, 1:1, 1.91:1, 9:16, 16:9, Pin, A-series, 4:3) or a custom size up to 8000px, slide count (1–30), background, or start from a template.                                                                                                                                                                                                                                               |
+| **Canvas editor**   | Infinite canvas with pan/zoom (wheel, trackpad pinch, Space-drag, two-finger touch), text with in-place editing and 15 typography styles, shapes, 44 stickers, select/marquee/multi-select, move/resize/rotate with snapping & smart guides, rulers & draggable guides, grid, groups, lock/hide, layers panel, align/distribute, copy/paste/duplicate, context menu, keyboard shortcuts, undo/redo, autosave. |
+| **Templates**       | 15 original templates stored as validated JSON, rendered by the same engine used for export.                                                                                                                                                                                                                                                                                                                  |
+| **Trend engine**    | Trend packs are plain JSON in `public/trends/` — publish a new drop without rebuilding the app.                                                                                                                                                                                                                                                                                                               |
+| **Projects**        | Search, format filters, sort, favourites, trash with undo and 30-day auto-clean, restore, delete forever.                                                                                                                                                                                                                                                                                                     |
+| **Settings**        | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Storage, Shortcuts, Accessibility, About.                                                                                                                                                                                                         |
+| **Command palette** | <kbd>Ctrl/⌘</kbd> + <kbd>K</kbd> — create, navigate, search templates, open recent projects, switch theme/motion, editor actions.                                                                                                                                                                                                                                                                             |
+| **Onboarding**      | Five animated intro screens; skippable; never asks for an account.                                                                                                                                                                                                                                                                                                                                            |
+| **PWA / offline**   | Manifest, maskable icons, install prompt, service worker precaching the whole app, "Offline Mode" indicator.                                                                                                                                                                                                                                                                                                  |
+| **Accessibility**   | Keyboard navigation, focus rings, skip link, screen-reader labels, UI scale (87.5–125%), high contrast, reduced-motion support.                                                                                                                                                                                                                                                                               |
 
 ## Quick start
 
@@ -70,7 +70,10 @@ primitives · cmdk · IndexedDB (`idb`) · Zod · Vitest · Playwright.
 src/
   app/            Routes: / · /projects · /discover · /settings · /editor?id=…
   canvas/         Canvas2D scene renderer (fills, text layout, shapes, stickers), previews, thumbnails
-  editor/         Editor store (history, autosave), viewport, panels, filmstrip, shortcuts
+  editor/         Editor store (history, transactions, autosave), camera, actions, shortcuts
+    core/         Pure logic: geometry & transforms, snapping, element ops, factories, clipboard
+    canvas/       Viewport renderer, pointer/touch interactions, overlay (handles, guides), text editor, rulers
+    panels/       Properties, layers, text/shapes/stickers, background, font picker
   components/
     ui/           Design-system primitives (Button, Dialog, Segmented, Switch, Toaster, …)
     shell/        App shell: nav rail, bottom bar, top bar, command palette, providers, backdrop
@@ -93,6 +96,9 @@ Key decisions:
 - **One continuous canvas per carousel.** A design is a strip of `N` slides laid side by side; elements use strip
   coordinates and may straddle slide boundaries. Seamless "panorama" carousels are therefore the default, not a special
   mode. Slide operations (insert/duplicate/move/delete) move the elements that belong to each slide.
+- **Canvas + overlay editor.** The scene is drawn into one viewport-sized canvas (only the visible region, once per
+  animation frame); selection handles, guides and the text caret live in an SVG/DOM overlay. Gestures run as
+  _transactions_ — a drag previews continuously but lands as a single undo step.
 - **One renderer everywhere.** Thumbnails, template previews, the editor canvas and (Phase 7) exports all use the same
   pure `renderDocument()` Canvas2D function — what you see is exactly what you export, and it can run in a worker via
   `OffscreenCanvas`.

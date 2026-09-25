@@ -61,6 +61,10 @@ export function supportedWeight(family: string, weight: number): number {
 }
 
 const registered = new Set<string>();
+let loadedVersion = 0;
+
+/** Increments whenever a new face finishes loading (used to invalidate text layout caches). */
+export const fontsLoadedVersion = () => loadedVersion;
 const pending = new Map<string, Promise<void>>();
 
 /** Registers the @font-face rules for a bundled family (idempotent, lazy). */
@@ -91,7 +95,9 @@ export function loadFont(family: string, weight = 400, style = 'normal'): Promis
   if (existing) return existing;
   const promise = document.fonts
     .load(`${style} ${weight} 32px "${family}"`)
-    .then(() => undefined)
+    .then(() => {
+      loadedVersion++;
+    })
     .catch(() => undefined);
   pending.set(key, promise);
   return promise;

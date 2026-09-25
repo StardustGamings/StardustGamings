@@ -123,7 +123,7 @@ test('background changes persist across reloads', async ({ app: page, isMobile }
   await createCarousel(page, 2);
   await page.getByRole('button', { name: 'Background', exact: true }).first().click();
   await page.getByRole('button', { name: 'Solid #C6FF3D' }).click();
-  if (isMobile) await page.getByRole('button', { name: 'Close' }).click();
+  if (isMobile) await page.getByRole('button', { name: 'Close panel' }).click();
   await expect(page.getByTestId('save-indicator')).toHaveAttribute('data-state', 'saved', { timeout: 5000 });
   await page.reload();
   await page.getByRole('button', { name: 'Background', exact: true }).first().click();

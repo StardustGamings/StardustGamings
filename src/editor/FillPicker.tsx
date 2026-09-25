@@ -61,10 +61,14 @@ interface FillPickerProps {
   value: Fill;
   onChange: (fill: Fill) => void;
   label: string;
+  /** Hide gradient presets (strokes, tints). */
+  solidOnly?: boolean;
+  /** Colours already used in the design, offered first for consistency. */
+  docColors?: string[];
 }
 
 /** Solid swatches, gradient presets and a validated custom HEX field. */
-export function FillPicker({ value, onChange, label }: FillPickerProps) {
+export function FillPicker({ value, onChange, label, solidOnly = false, docColors = [] }: FillPickerProps) {
   const hexId = useId();
   const primary = fillPrimaryColor(value);
   const [hex, setHex] = useState(primary);
@@ -82,6 +86,23 @@ export function FillPicker({ value, onChange, label }: FillPickerProps) {
 
   return (
     <div className="flex flex-col gap-4" role="group" aria-label={label}>
+      {docColors.length > 0 && (
+        <div>
+          <p className="mb-2 text-[11px] font-semibold tracking-[0.08em] text-fg-subtle uppercase">In this design</p>
+          <div className="flex flex-wrap gap-1.5">
+            {docColors.slice(0, 12).map((c) => (
+              <button
+                key={c}
+                type="button"
+                aria-label={`Design colour ${c}`}
+                onClick={() => onChange({ type: 'solid', color: c })}
+                className="size-7 rounded-full border border-line-strong transition-transform hover:scale-110"
+                style={{ background: c }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-6 gap-2">
         {SOLIDS.map((c) => {
           const active = value.type === 'solid' && value.color.toUpperCase() === c;
@@ -101,7 +122,7 @@ export function FillPicker({ value, onChange, label }: FillPickerProps) {
           );
         })}
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className={cn('grid grid-cols-4 gap-2', solidOnly && 'hidden')}>
         {GRADIENTS.map((g, i) => {
           const active = same(g, value);
           return (

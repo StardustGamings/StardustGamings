@@ -76,7 +76,25 @@ export function wrapText(ctx: Ctx2D, text: string, maxWidth: number, spacing: nu
   return lines;
 }
 
+// Layouts are cached per (immutable) element object. The epoch invalidates every
+// cached layout when web fonts finish loading, since glyph metrics change then.
+const layoutCache = new WeakMap<TextElement, { epoch: number; layout: TextLayout }>();
+let fontEpoch = 0;
+
+export function invalidateTextLayouts(): void {
+  fontEpoch++;
+}
+
+if (typeof document !== 'undefined' && document.fonts?.addEventListener) {
+  document.fonts.addEventListener('loadingdone', invalidateTextLayouts);
+}
+
 export function layoutText(ctx: Ctx2D, el: TextElement): TextLayout {
+  const cached = layoutCache.get(el);
+  if (cached && cached.epoch === fontEpoch) {
+    ctx.font = cached.layout.font;
+    return cached.layout;
+  }
   const font = fontString(el);
   ctx.font = font;
   const spacing = el.letterSpacing * el.fontSize;
@@ -86,7 +104,38 @@ export function layoutText(ctx: Ctx2D, el: TextElement): TextLayout {
   const ascent = metrics.fontBoundingBoxAscent || el.fontSize * 0.8;
   const descent = metrics.fontBoundingBoxDescent || el.fontSize * 0.2;
   const lineHeight = el.fontSize * el.lineHeight;
-  return { lines, font, lineHeight, ascent, descent, spacing, blockHeight: lines.length * lineHeight };
+  const layout = { lines, font, lineHeight, ascent, descent, spacing, blockHeight: lines.length * lineHeight };
+  layoutCache.set(el, { epoch: fontEpoch, layout });
+  return layout;
+}
+
+let measureCtx: CanvasRenderingContext2D | null | undefined;
+
+function getMeasureCtx(): CanvasRenderingContext2D | null {
+  if (measureCtx === undefined) {
+    measureCtx = typeof document === 'undefined' ? null : document.createElement('canvas').getContext('2d');
+  }
+  return measureCtx;
+}
+
+/** Widest line of the text without wrapping (for sizing new text boxes to their content). */
+export function measureTextWidth(el: TextElement): number {
+  const ctx = getMeasureCtx();
+  const text = applyTransform(el.text, el.textTransform);
+  if (!ctx) return Math.max(...text.split('\n').map((l) => l.length)) * el.fontSize * 0.6;
+  ctx.font = fontString(el);
+  const spacing = el.letterSpacing * el.fontSize;
+  return Math.max(...text.split('\n').map((line) => measure(ctx, line, spacing)));
+}
+
+/** Height the text needs at its current width (used for auto-height text boxes). */
+export function measureTextHeight(el: TextElement): number {
+  getMeasureCtx();
+  if (!measureCtx) {
+    // No canvas (tests / very old browsers): estimate from explicit line breaks.
+    return Math.max(1, el.text.split('\n').length) * el.fontSize * el.lineHeight;
+  }
+  return layoutText(measureCtx, el).blockHeight;
 }
 
 function drawLine(ctx: Ctx2D, line: TextLine, x: number, baseline: number, spacing: number, mode: 'fill' | 'stroke'): void {

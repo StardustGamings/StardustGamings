@@ -2,8 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import type { DesignDocument } from '@/types/document';
-import { documentFonts } from '@/projects/document';
-import { loadFonts } from '@/typography/fonts';
+import { ensureDocumentFonts } from './fonts';
 import { cn } from '@/utils/cn';
 import { renderDocument, slideRegion, stripRegion } from './render';
 
@@ -81,8 +80,8 @@ export function ScenePreview({
   useEffect(() => {
     if (!visible) return;
     let cancelled = false;
-    void loadFonts(documentFonts(doc)).then(() => {
-      if (!cancelled) setFontTick((t) => t + 1);
+    void ensureDocumentFonts(doc).then((changed) => {
+      if (!cancelled && changed) setFontTick((t) => t + 1);
     });
     return () => {
       cancelled = true;

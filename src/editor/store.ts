@@ -7,9 +7,16 @@ import * as repo from '@/projects/repository';
 import { useProjects } from '@/projects/store';
 import { renderThumbnail } from '@/canvas/thumbnail';
 import { clamp } from '@/utils/math';
-import { createHistory, pushHistory, redoHistory, undoHistory, type History } from './history';
+import { createHistory, HISTORY_LIMIT, pushHistory, redoHistory, undoHistory, type History } from './history';
 
 export type SaveState = 'saved' | 'dirty' | 'saving' | 'error';
+export type Tool = 'select' | 'text' | 'hand';
+export type PanelId = 'design' | 'text' | 'shapes' | 'stickers' | 'layers' | 'properties';
+
+interface ApplyOptions {
+  /** Consecutive edits with the same key (e.g. dragging a colour picker) merge into one undo step. */
+  coalesce?: string;
+}
 
 interface EditorState {
   status: 'idle' | 'loading' | 'ready' | 'missing';
@@ -18,29 +25,53 @@ interface EditorState {
   saveState: SaveState;
   lastSavedAt: number | null;
   activeSlide: number;
-  /** `null` = fit to viewport. */
-  zoom: number | null;
+
+  selection: string[];
+  editingTextId: string | null;
+  tool: Tool;
+  panel: PanelId | null;
   showGrid: boolean;
   showSafeArea: boolean;
+  showRulers: boolean;
+  snapping: boolean;
 
   load: (id: string, prefs: { showGrid: boolean; showSafeArea: boolean }) => Promise<void>;
   reset: () => void;
   /** Apply an edit as one undoable step. */
-  apply: (recipe: (doc: DesignDocument) => DesignDocument) => void;
+  apply: (recipe: (doc: DesignDocument) => DesignDocument, options?: ApplyOptions) => void;
+  /**
+   * Gesture transactions: `preview` repeatedly recomputes the document from the
+   * state at the start of the gesture; `commit` records a single undo step.
+   */
+  preview: (recipe: (base: DesignDocument) => DesignDocument) => void;
+  commit: () => void;
+  cancel: () => void;
   undo: () => void;
   redo: () => void;
   save: () => Promise<void>;
   rename: (name: string) => Promise<void>;
   setActiveSlide: (index: number) => void;
-  setZoom: (zoom: number | null) => void;
+
+  select: (ids: string[]) => void;
+  clearSelection: () => void;
+  setEditingText: (id: string | null) => void;
+  setTool: (tool: Tool) => void;
+  setPanel: (panel: PanelId | null) => void;
   toggleGrid: () => void;
   toggleSafeArea: () => void;
+  toggleRulers: () => void;
+  toggleSnapping: () => void;
 }
 
 let saveTimer: ReturnType<typeof setTimeout> | undefined;
 let thumbTimer: ReturnType<typeof setTimeout> | undefined;
 const AUTOSAVE_DELAY = 700;
 const THUMB_DELAY = 1500;
+const COALESCE_WINDOW = 1200;
+
+/** Document at the start of the running gesture (null when none is in progress). */
+let txBase: DesignDocument | null = null;
+let lastCoalesce: { key: string; at: number } | null = null;
 
 export const useEditor = create<EditorState>()((set, get) => {
   const scheduleSave = () => {
@@ -56,9 +87,20 @@ export const useEditor = create<EditorState>()((set, get) => {
     }, THUMB_DELAY);
   };
 
-  const commit = (history: History<DesignDocument>) => {
-    const count = history.present.slides.length;
-    set({ history, saveState: 'dirty', activeSlide: clamp(get().activeSlide, 0, count - 1) });
+  /** Keeps selection/editing consistent with the elements that still exist. */
+  const reconcile = (doc: DesignDocument) => {
+    const ids = new Set(doc.elements.map((e) => e.id));
+    const { selection, editingTextId, activeSlide } = get();
+    const nextSelection = selection.filter((id) => ids.has(id));
+    return {
+      selection: nextSelection.length === selection.length ? selection : nextSelection,
+      editingTextId: editingTextId && ids.has(editingTextId) ? editingTextId : null,
+      activeSlide: clamp(activeSlide, 0, doc.slides.length - 1),
+    };
+  };
+
+  const commitHistory = (history: History<DesignDocument>) => {
+    set({ history, saveState: 'dirty', ...reconcile(history.present) });
     scheduleSave();
   };
 
@@ -69,13 +111,29 @@ export const useEditor = create<EditorState>()((set, get) => {
     saveState: 'saved',
     lastSavedAt: null,
     activeSlide: 0,
-    zoom: null,
+    selection: [],
+    editingTextId: null,
+    tool: 'select',
+    panel: null,
     showGrid: false,
     showSafeArea: true,
+    showRulers: false,
+    snapping: true,
 
     load: async (id, prefs) => {
       clearTimeout(saveTimer);
-      set({ status: 'loading', meta: null, history: null, activeSlide: 0, zoom: null, ...prefs });
+      txBase = null;
+      set({
+        status: 'loading',
+        meta: null,
+        history: null,
+        activeSlide: 0,
+        selection: [],
+        editingTextId: null,
+        tool: 'select',
+        panel: null,
+        ...prefs,
+      });
       try {
         const project = await repo.getProject(id);
         if (!project || project.meta.deletedAt !== null) {
@@ -95,35 +153,78 @@ export const useEditor = create<EditorState>()((set, get) => {
     },
 
     reset: () => {
+      get().commit();
       // Flush edits made inside the autosave window before tearing down.
       if (get().saveState === 'dirty') void get().save();
       clearTimeout(saveTimer);
-      set({ status: 'idle', meta: null, history: null, saveState: 'saved' });
+      set({ status: 'idle', meta: null, history: null, saveState: 'saved', selection: [], editingTextId: null });
     },
 
-    apply: (recipe) => {
+    apply: (recipe, options) => {
+      get().commit();
       const { history } = get();
       if (!history) return;
       const next = recipe(history.present);
       if (next === history.present) return;
-      commit(pushHistory(history, next));
+      const now = Date.now();
+      const merge =
+        options?.coalesce !== undefined &&
+        lastCoalesce?.key === options.coalesce &&
+        now - lastCoalesce.at < COALESCE_WINDOW &&
+        history.past.length > 0;
+      lastCoalesce = options?.coalesce ? { key: options.coalesce, at: now } : null;
+      commitHistory(merge ? { ...history, present: next, future: [] } : pushHistory(history, next));
+    },
+
+    preview: (recipe) => {
+      const { history } = get();
+      if (!history) return;
+      txBase ??= history.present;
+      const next = recipe(txBase);
+      set({ history: { ...history, present: next }, ...reconcile(next) });
+    },
+
+    commit: () => {
+      const { history } = get();
+      const base = txBase;
+      txBase = null;
+      if (!history || !base || base === history.present) return;
+      lastCoalesce = null;
+      const past = [...history.past, base];
+      commitHistory({
+        past: past.length > HISTORY_LIMIT ? past.slice(past.length - HISTORY_LIMIT) : past,
+        present: history.present,
+        future: [],
+      });
+    },
+
+    cancel: () => {
+      const { history } = get();
+      const base = txBase;
+      txBase = null;
+      if (history && base) set({ history: { ...history, present: base }, ...reconcile(base) });
     },
 
     undo: () => {
+      get().commit();
+      lastCoalesce = null;
       const { history } = get();
-      if (history?.past.length) commit(undoHistory(history));
+      if (history?.past.length) commitHistory(undoHistory(history));
     },
 
     redo: () => {
+      get().commit();
+      lastCoalesce = null;
       const { history } = get();
-      if (history?.future.length) commit(redoHistory(history));
+      if (history?.future.length) commitHistory(redoHistory(history));
     },
 
     save: async () => {
       clearTimeout(saveTimer);
       const { meta, history, saveState } = get();
       if (!meta || !history || saveState === 'saving') return;
-      const doc = history.present;
+      // Never persist a half-finished gesture.
+      const doc = txBase ?? history.present;
       set({ saveState: 'saving' });
       try {
         const saved = await repo.saveDocument(meta.id, doc);
@@ -132,7 +233,7 @@ export const useEditor = create<EditorState>()((set, get) => {
         // The editor may have closed (or opened another project) while writing.
         if (get().meta?.id !== meta.id) return;
         // Only mark clean if nothing changed while we were writing.
-        const stillCurrent = get().history?.present === doc;
+        const stillCurrent = get().history?.present === doc && txBase === null;
         set({ meta: saved, saveState: stillCurrent ? 'saved' : 'dirty', lastSavedAt: saved.updatedAt });
         if (!stillCurrent) scheduleSave();
       } catch {
@@ -152,9 +253,22 @@ export const useEditor = create<EditorState>()((set, get) => {
       const count = get().history?.present.slides.length ?? 1;
       set({ activeSlide: clamp(index, 0, count - 1) });
     },
-    setZoom: (zoom) => set({ zoom }),
+
+    select: (ids) => {
+      const { selection, editingTextId } = get();
+      const same = ids.length === selection.length && ids.every((id, i) => id === selection[i]);
+      if (!same) set({ selection: ids, editingTextId: editingTextId && ids.includes(editingTextId) ? editingTextId : null });
+    },
+    clearSelection: () => {
+      if (get().selection.length || get().editingTextId) set({ selection: [], editingTextId: null });
+    },
+    setEditingText: (id) => set(id ? { editingTextId: id, selection: [id] } : { editingTextId: null }),
+    setTool: (tool) => set({ tool }),
+    setPanel: (panel) => set({ panel }),
     toggleGrid: () => set((s) => ({ showGrid: !s.showGrid })),
     toggleSafeArea: () => set((s) => ({ showSafeArea: !s.showSafeArea })),
+    toggleRulers: () => set((s) => ({ showRulers: !s.showRulers })),
+    toggleSnapping: () => set((s) => ({ snapping: !s.snapping })),
   };
 });
 

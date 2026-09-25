@@ -15,6 +15,8 @@ export interface RenderOptions {
   images?: ImageResolver;
   /** Draw drop-zone glyphs for empty image frames (off for final exports). */
   placeholders?: boolean;
+  /** Elements to leave out (e.g. the text box being edited in place). */
+  skip?: ReadonlySet<string>;
 }
 
 export const EMOJI_FONT = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif';
@@ -245,7 +247,7 @@ export function renderDocument(ctx: Ctx2D, doc: DesignDocument, opts: RenderOpti
   });
 
   for (const el of doc.elements) {
-    if (el.hidden || el.opacity <= 0) continue;
+    if (el.hidden || el.opacity <= 0 || opts.skip?.has(el.id)) continue;
     if (!intersects(elementBounds(el), region)) continue;
     drawElement(ctx, el, opts, pixelScale);
   }

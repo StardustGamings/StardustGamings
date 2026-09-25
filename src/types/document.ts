@@ -48,6 +48,8 @@ interface ElementBase {
   locked?: boolean;
   hidden?: boolean;
   shadow?: Shadow;
+  /** Elements sharing a groupId select, move and transform together. */
+  groupId?: Id;
 }
 
 export interface TextElement extends ElementBase {
@@ -124,4 +126,12 @@ export interface DesignDocument {
   slides: Slide[];
   /** Bottom-most first. */
   elements: DesignElement[];
+  /** Ruler guides (editor-only, never exported). Positions are in strip coordinates. */
+  guides?: Guide[];
+}
+
+export interface Guide {
+  id: Id;
+  axis: 'x' | 'y';
+  position: number;
 }

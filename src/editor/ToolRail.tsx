@@ -1,7 +1,9 @@
 'use client';
 
 import {
+  Hand,
   Image as ImageIcon,
+  Layers,
   LayoutTemplate,
   MousePointer2,
   PaintBucket,
@@ -14,28 +16,36 @@ import {
 import type { ReactNode } from 'react';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { cn } from '@/utils/cn';
+import { useEditor, type PanelId, type Tool } from './store';
 
-export type PanelId = 'design';
-
-interface Tool {
+export interface ToolDef {
   id: string;
   label: string;
   icon: ReactNode;
-  /** Panel it opens; tools without one are not built yet. */
+  shortcut?: string;
+  /** Pointer mode it activates. */
+  tool?: Tool;
+  /** Panel it opens. */
   panel?: PanelId;
-  mode?: boolean;
+  /** Not built yet — shown, disabled and labelled "coming soon". */
+  soon?: boolean;
 }
 
-export const TOOLS: Tool[] = [
-  { id: 'select', label: 'Select', icon: <MousePointer2 />, mode: true },
+export const MODE_TOOLS: ToolDef[] = [
+  { id: 'select', label: 'Select', icon: <MousePointer2 />, tool: 'select', shortcut: 'V' },
+  { id: 'hand', label: 'Pan', icon: <Hand />, tool: 'hand', shortcut: 'H' },
+];
+
+export const PANEL_TOOLS: ToolDef[] = [
+  { id: 'text', label: 'Text', icon: <Type />, panel: 'text', shortcut: 'T' },
+  { id: 'shapes', label: 'Shapes', icon: <Shapes />, panel: 'shapes' },
+  { id: 'stickers', label: 'Stickers', icon: <Smile />, panel: 'stickers' },
   { id: 'design', label: 'Background', icon: <PaintBucket />, panel: 'design' },
-  { id: 'text', label: 'Text', icon: <Type /> },
-  { id: 'image', label: 'Photos', icon: <ImageIcon /> },
-  { id: 'shapes', label: 'Shapes', icon: <Shapes /> },
-  { id: 'stickers', label: 'Stickers', icon: <Smile /> },
-  { id: 'templates', label: 'Layouts', icon: <LayoutTemplate /> },
-  { id: 'filters', label: 'Filters', icon: <Wand2 /> },
-  { id: 'animate', label: 'Animate', icon: <Sparkles /> },
+  { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
+  { id: 'photos', label: 'Photos', icon: <ImageIcon />, soon: true },
+  { id: 'layouts', label: 'Layouts', icon: <LayoutTemplate />, soon: true },
+  { id: 'filters', label: 'Filters', icon: <Wand2 />, soon: true },
+  { id: 'animate', label: 'Animate', icon: <Sparkles />, soon: true },
 ];
 
 export function ToolButton({
@@ -44,54 +54,63 @@ export function ToolButton({
   onClick,
   orientation,
 }: {
-  tool: Tool;
+  tool: ToolDef;
   active: boolean;
   onClick: () => void;
   orientation: 'vertical' | 'horizontal';
 }) {
-  const available = Boolean(tool.panel || tool.mode);
   return (
     <Tooltip
-      content={available ? tool.label : `${tool.label} — coming in the next update`}
+      content={tool.soon ? `${tool.label} — coming in a later update` : tool.label}
+      shortcut={tool.shortcut}
       side={orientation === 'vertical' ? 'right' : 'top'}
     >
       <button
         type="button"
-        onClick={available ? onClick : undefined}
-        aria-disabled={!available}
-        aria-pressed={available ? active : undefined}
-        aria-label={available ? tool.label : `${tool.label} (coming soon)`}
+        onClick={tool.soon ? undefined : onClick}
+        aria-disabled={tool.soon || undefined}
+        aria-pressed={tool.soon ? undefined : active}
+        aria-label={tool.soon ? `${tool.label} (coming soon)` : tool.label}
         className={cn(
           'relative flex shrink-0 flex-col items-center justify-center gap-1 rounded-[14px] text-[10px] font-semibold transition-colors [&_svg]:size-5',
           orientation === 'vertical' ? 'h-14 w-[66px]' : 'h-14 w-16',
           active
             ? 'bg-accent text-accent-fg'
-            : available
-              ? 'text-fg-muted hover:bg-surface-hover hover:text-fg'
-              : 'cursor-not-allowed text-fg-subtle/60',
+            : tool.soon
+              ? 'cursor-not-allowed text-fg-subtle/60'
+              : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
         )}
       >
         {tool.icon}
         {tool.label}
-        {!available && <span aria-hidden className="absolute top-2 right-2 size-1.5 rounded-full bg-fg-subtle/60" />}
+        {tool.soon && <span aria-hidden className="absolute top-2 right-2 size-1.5 rounded-full bg-fg-subtle/60" />}
       </button>
     </Tooltip>
   );
 }
 
-export function ToolRail({ panel, onPanel }: { panel: PanelId | null; onPanel: (panel: PanelId | null) => void }) {
+/** Desktop tool rail: pointer modes on top, content panels below. */
+export function ToolRail() {
+  const tool = useEditor((s) => s.tool);
+  const panel = useEditor((s) => s.panel);
+  const setTool = useEditor((s) => s.setTool);
+  const setPanel = useEditor((s) => s.setPanel);
   return (
     <nav
       aria-label="Tools"
       className="z-10 hidden w-[80px] shrink-0 flex-col items-center gap-1 overflow-y-auto border-y-0 border-l-0 py-3 glass-strong lg:flex"
     >
-      {TOOLS.map((tool) => (
+      {MODE_TOOLS.map((t) => (
+        <ToolButton key={t.id} tool={t} orientation="vertical" active={tool === t.tool} onClick={() => setTool(t.tool!)} />
+      ))}
+      <span className="my-1 h-px w-10 bg-line" aria-hidden />
+      {PANEL_TOOLS.filter((t) => t.panel !== 'layers').map((t) => (
         <ToolButton
-          key={tool.id}
-          tool={tool}
+          key={t.id}
+          tool={t}
           orientation="vertical"
-          active={tool.panel ? panel === tool.panel : tool.mode === true && panel === null}
-          onClick={() => onPanel(tool.panel ?? null)}
+          active={panel === t.panel}
+          onClick={() => setPanel(panel === t.panel ? null : (t.panel ?? null))}
         />
       ))}
     </nav>
