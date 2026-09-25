@@ -1,0 +1,146 @@
+{
+  "id": "split-collage",
+  "name": "Diagonal Split",
+  "format": "collage",
+  "sizeId": "ig-square",
+  "description": "Four photos around a rotated title band — energetic and tidy.",
+  "tags": [
+    "collage",
+    "diagonal",
+    "split screen",
+    "sport"
+  ],
+  "palette": [
+    "#101014",
+    "#FF5C5C",
+    "#FFFFFF",
+    "#3CF0FF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#101014"
+    },
+    "slides": [
+      {
+        "id": "ss",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e7l",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#3A3F52"
+          }
+        },
+        "x": 0,
+        "y": 0,
+        "width": 530,
+        "height": 530
+      },
+      {
+        "id": "e7m",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#523A3F"
+          }
+        },
+        "x": 550,
+        "y": 0,
+        "width": 530,
+        "height": 530
+      },
+      {
+        "id": "e7n",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#3F523A"
+          }
+        },
+        "x": 0,
+        "y": 550,
+        "width": 530,
+        "height": 530
+      },
+      {
+        "id": "e7o",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#4B3A52"
+          }
+        },
+        "x": 550,
+        "y": 550,
+        "width": 530,
+        "height": 530
+      },
+      {
+        "id": "e7p",
+        "rotation": -8,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FF5C5C"
+        },
+        "x": -200,
+        "y": 450,
+        "width": 1480,
+        "height": 180
+      },
+      {
+        "id": "e7q",
+        "rotation": -8,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.02,
+        "x": -200,
+        "y": 450,
+        "width": 1480,
+        "height": 180,
+        "text": "GAME DAY RECAP",
+        "fontFamily": "Anton",
+        "fontSize": 132
+      }
+    ]
+  }
+}

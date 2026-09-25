@@ -1,0 +1,139 @@
+{
+  "id": "quiet-luxury",
+  "name": "Quiet Luxury",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "description": "Inset gold frame, wide-tracked caps and a whispered serif. Expensive silence.",
+  "tags": [
+    "luxury",
+    "minimal",
+    "fashion",
+    "dark"
+  ],
+  "palette": [
+    "#0F0E0D",
+    "#C9A96E",
+    "#EFE8DA",
+    "#2A2622"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#0F0E0D"
+    },
+    "slides": [
+      {
+        "id": "sn",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e6o",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "x": 50,
+        "y": 50,
+        "width": 980,
+        "height": 1250,
+        "stroke": {
+          "color": "#C9A96E",
+          "width": 2
+        }
+      },
+      {
+        "id": "e6p",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9A96E"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.4,
+        "x": 90,
+        "y": 108,
+        "width": 900,
+        "height": 36,
+        "text": "MAISON — AUTUMN EDIT",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "e6q",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2622"
+          }
+        },
+        "x": 190,
+        "y": 190,
+        "width": 700,
+        "height": 770
+      },
+      {
+        "id": "e6r",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#EFE8DA"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": 0,
+        "x": 90,
+        "y": 1000,
+        "width": 900,
+        "height": 220,
+        "text": "The Quiet\nCollection",
+        "fontFamily": "Playfair Display",
+        "fontSize": 104
+      },
+      {
+        "id": "e6s",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9A96E"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.35,
+        "x": 90,
+        "y": 1232,
+        "width": 900,
+        "height": 32,
+        "text": "DISCOVER — LINK IN BIO",
+        "fontFamily": "Manrope",
+        "fontSize": 22
+      }
+    ]
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "id": "2026-09",
+  "title": "September Drop",
+  "subtitle": "Back-to-everything season: loud type, soft edits, film everything.",
+  "publishedAt": "2026-09-01",
+  "accent": ["#C6FF3D", "#A06BFF"],
+  "templates": [
+    { "templateId": "big-type-drop", "label": "Giant type is back", "heat": 98 },
+    { "templateId": "scrapbook-dump", "label": "Scrapbook photo dumps", "heat": 95 },
+    { "templateId": "y2k-chrome", "label": "Chrome everything", "heat": 91 },
+    { "templateId": "soft-editorial", "label": "Slow-living editorial", "heat": 87 },
+    { "templateId": "cyber-grid", "label": "Neon hook thumbnails", "heat": 84 },
+    { "templateId": "quiet-luxury", "label": "Quiet luxury", "heat": 80 },
+    { "templateId": "reel-cover-pop", "label": "Outline cover type", "heat": 78 }
+  ],
+  "layouts": [
+    {
+      "id": "seamless-film",
+      "name": "Seamless film roll",
+      "templateId": "film-strip",
+      "description": "One strip of film that keeps going when you swipe.",
+      "heat": 93
+    },
+    {
+      "id": "stat-punch",
+      "name": "Stat punch",
+      "templateId": "brutal-stats",
+      "description": "One giant number per slide inside a heavy frame.",
+      "heat": 86
+    },
+    {
+      "id": "front-page",
+      "name": "Front page",
+      "templateId": "newsprint",
+      "description": "Masthead, columns and a headline that reads like breaking news.",
+      "heat": 82
+    },
+    {
+      "id": "bento-board",
+      "name": "Bento board",
+      "templateId": "moodboard-bento",
+      "description": "Rounded tiles of different sizes with a title block.",
+      "heat": 79
+    },
+    {
+      "id": "diagonal-band",
+      "name": "Diagonal band",
+      "templateId": "split-collage",
+      "description": "A rotated title band slicing a four-photo grid.",
+      "heat": 74
+    },
+    {
+      "id": "circle-crop",
+      "name": "Circle crop story",
+      "templateId": "dreamy-story",
+      "description": "Soft gradient, circle photo, pill tags underneath.",
+      "heat": 71
+    }
+  ],
+  "typography": [
+    {
+      "id": "chrome-wide",
+      "name": "Chrome Wide",
+      "vibe": "Y2K",
+      "sample": "SUMMER.EXE",
+      "heading": { "family": "Unbounded", "weight": 900, "transform": "uppercase" },
+      "body": { "family": "JetBrains Mono", "weight": 500 },
+      "heat": 94
+    },
+    {
+      "id": "soft-serif",
+      "name": "Soft Serif",
+      "vibe": "Editorial",
+      "sample": "doing less",
+      "heading": { "family": "Instrument Serif", "weight": 400, "style": "italic" },
+      "body": { "family": "Manrope", "weight": 600 },
+      "heat": 90
+    },
+    {
+      "id": "poster-stack",
+      "name": "Poster Stack",
+      "vibe": "Streetwear",
+      "sample": "NEW DROP",
+      "heading": { "family": "Anton", "weight": 400, "transform": "uppercase" },
+      "body": { "family": "Bricolage Grotesque", "weight": 600 },
+      "heat": 88
+    },
+    {
+      "id": "gothic-news",
+      "name": "Gothic News",
+      "vibe": "Newspaper",
+      "sample": "The Daily Scroll",
+      "heading": { "family": "UnifrakturMaguntia", "weight": 400 },
+      "body": { "family": "DM Serif Display", "weight": 400 },
+      "heat": 81
+    },
+    {
+      "id": "pixel-party",
+      "name": "Pixel Party",
+      "vibe": "Gaming",
+      "sample": "PLAYER 2",
+      "heading": { "family": "Silkscreen", "weight": 700, "transform": "uppercase" },
+      "body": { "family": "Space Grotesk", "weight": 500 },
+      "heat": 77
+    },
+    {
+      "id": "diary-hand",
+      "name": "Diary Hand",
+      "vibe": "Scrapbook",
+      "sample": "best night ever",
+      "heading": { "family": "Caveat", "weight": 700 },
+      "body": { "family": "Fraunces", "weight": 400 },
+      "heat": 76
+    },
+    {
+      "id": "maison",
+      "name": "Maison",
+      "vibe": "Luxury",
+      "sample": "The Quiet Edit",
+      "heading": { "family": "Playfair Display", "weight": 400, "style": "italic" },
+      "body": { "family": "Manrope", "weight": 500, "transform": "uppercase" },
+      "heat": 72
+    },
+    {
+      "id": "arcade-mono",
+      "name": "Arcade Mono",
+      "vibe": "Retro",
+      "sample": "AFTER HOURS",
+      "heading": { "family": "Rubik Mono One", "weight": 400, "transform": "uppercase" },
+      "body": { "family": "Space Grotesk", "weight": 600 },
+      "heat": 69
+    }
+  ],
+  "palettes": [
+    { "id": "acid-mint", "name": "Acid Mint", "mood": "Loud", "colors": ["#C6FF3D", "#3CF0C8", "#0B0A12", "#F4F1EA", "#7A5CFF"] },
+    {
+      "id": "chrome-dream",
+      "name": "Chrome Dream",
+      "mood": "Y2K",
+      "colors": ["#FFC2F2", "#A06BFF", "#2A1470", "#3CF0FF", "#F4F0FF"]
+    },
+    {
+      "id": "terracotta-paper",
+      "name": "Terracotta Paper",
+      "mood": "Editorial",
+      "colors": ["#F3EEE6", "#DCCFBE", "#B5553A", "#5B4636", "#1D1A17"]
+    },
+    {
+      "id": "night-arcade",
+      "name": "Night Arcade",
+      "mood": "Neon",
+      "colors": ["#0A0716", "#6B1FA8", "#FF3DDB", "#3CF0FF", "#FFD23D"]
+    },
+    {
+      "id": "sunday-haze",
+      "name": "Sunday Haze",
+      "mood": "Pastel",
+      "colors": ["#E9DFFF", "#FFE3D3", "#FFF4E0", "#F3D6E8", "#5B3E86"]
+    },
+    {
+      "id": "old-money",
+      "name": "Old Money",
+      "mood": "Dark luxury",
+      "colors": ["#0F0E0D", "#2A2622", "#C9A96E", "#EFE8DA", "#6E5B3E"]
+    },
+    {
+      "id": "citrus-pop",
+      "name": "Citrus Pop",
+      "mood": "Summer",
+      "colors": ["#FF6B2C", "#FFD23D", "#FFF1E0", "#1A0B05", "#3CC8FF"]
+    },
+    {
+      "id": "moss-and-clay",
+      "name": "Moss & Clay",
+      "mood": "Autumn",
+      "colors": ["#EFEAE2", "#C8A27A", "#8C5A3C", "#5B6B4F", "#2F2A26"]
+    }
+  ],
+  "effects": [
+    {
+      "id": "film-grain",
+      "name": "Film Grain",
+      "description": "Soft contrast and fine grain like a disposable camera.",
+      "css": "contrast(1.08) saturate(0.85) sepia(0.12)",
+      "overlay": "grain",
+      "heat": 92
+    },
+    {
+      "id": "chrome-glow",
+      "name": "Chrome Glow",
+      "description": "Cool highlights, lifted blacks and a dreamy bloom.",
+      "css": "brightness(1.08) saturate(1.25) hue-rotate(-12deg)",
+      "overlay": "bloom",
+      "heat": 88
+    },
+    {
+      "id": "vhs-bleed",
+      "name": "VHS Bleed",
+      "description": "Scanlines, colour bleed and a tape-worn tint.",
+      "css": "saturate(1.4) contrast(1.15) hue-rotate(8deg)",
+      "overlay": "scanlines",
+      "heat": 83
+    },
+    {
+      "id": "light-leak",
+      "name": "Light Leak",
+      "description": "Warm orange flare creeping in from the edge.",
+      "css": "brightness(1.05) saturate(1.1)",
+      "overlay": "leak",
+      "heat": 80
+    },
+    {
+      "id": "mono-noir",
+      "name": "Mono Noir",
+      "description": "High-contrast black and white with deep shadows.",
+      "css": "grayscale(1) contrast(1.35) brightness(0.95)",
+      "overlay": "vignette",
+      "heat": 77
+    },
+    {
+      "id": "faded-polaroid",
+      "name": "Faded Polaroid",
+      "description": "Washed-out pastels and a creamy white point.",
+      "css": "sepia(0.25) saturate(0.8) brightness(1.1) contrast(0.9)",
+      "overlay": "fade",
+      "heat": 75
+    }
+  ],
+  "stickers": [
+    "vector:sparkle",
+    "emoji:🫶",
+    "vector:y2k-star",
+    "vector:arrow-loop",
+    "emoji:💀",
+    "vector:heart",
+    "vector:tape",
+    "vector:daisy",
+    "emoji:✨",
+    "vector:pixel-heart",
+    "vector:burst",
+    "vector:scribble-circle",
+    "emoji:🦋",
+    "vector:lightning",
+    "vector:smiley",
+    "vector:crown"
+  ],
+  "formats": [
+    {
+      "id": "photo-dump",
+      "name": "Photo dump",
+      "kind": "carousel style",
+      "description": "10 slides, zero context, maximum vibes.",
+      "templateId": "scrapbook-dump"
+    },
+    {
+      "id": "caption-meme",
+      "name": "Caption meme",
+      "kind": "meme format",
+      "description": "White bar, relatable caption, reaction pic.",
+      "templateId": "meme-caption"
+    },
+    {
+      "id": "news-parody",
+      "name": "Breaking news",
+      "kind": "meme format",
+      "description": "Treat a tiny win like front-page news.",
+      "templateId": "newsprint"
+    },
+    {
+      "id": "event-flyer",
+      "name": "Event flyer",
+      "kind": "social format",
+      "description": "Ticket-stub poster for the group chat.",
+      "templateId": "night-out-poster"
+    }
+  ]
+}

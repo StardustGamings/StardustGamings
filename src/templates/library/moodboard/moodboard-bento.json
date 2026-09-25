@@ -1,0 +1,309 @@
+{
+  "id": "moodboard-bento",
+  "name": "Bento Mood",
+  "format": "moodboard",
+  "sizeId": "moodboard",
+  "description": "A bento grid for references, with a title tile and palette chips.",
+  "tags": [
+    "moodboard",
+    "aesthetic",
+    "grid",
+    "autumn"
+  ],
+  "palette": [
+    "#EFEAE2",
+    "#C8A27A",
+    "#8C5A3C",
+    "#E9D8C4",
+    "#5B6B4F",
+    "#2F2A26"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1600,
+    "slideHeight": 1200,
+    "background": {
+      "type": "solid",
+      "color": "#EFEAE2"
+    },
+    "slides": [
+      {
+        "id": "sp",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e6x",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D8C3A5"
+          }
+        },
+        "x": 60,
+        "y": 60,
+        "width": 620,
+        "height": 700,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e6y",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9B79C"
+          }
+        },
+        "x": 700,
+        "y": 60,
+        "width": 440,
+        "height": 330,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e6z",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#B7A58B"
+          }
+        },
+        "x": 700,
+        "y": 410,
+        "width": 440,
+        "height": 350,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e70",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#A9B39A"
+          }
+        },
+        "x": 1160,
+        "y": 60,
+        "width": 380,
+        "height": 520,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e71",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9C9B8"
+          }
+        },
+        "x": 60,
+        "y": 780,
+        "width": 400,
+        "height": 360,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e72",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#CDB9A0"
+          }
+        },
+        "x": 480,
+        "y": 780,
+        "width": 660,
+        "height": 360,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e73",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1B18"
+        },
+        "x": 1160,
+        "y": 600,
+        "width": 380,
+        "height": 540,
+        "cornerRadius": 24
+      },
+      {
+        "id": "e74",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#F3EDE3"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0,
+        "x": 1195,
+        "y": 640,
+        "width": 320,
+        "height": 250,
+        "text": "autumn\nmood",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 96
+      },
+      {
+        "id": "e75",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C8A27A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.25,
+        "x": 1195,
+        "y": 920,
+        "width": 320,
+        "height": 34,
+        "text": "BOARD 01 — SEP",
+        "fontFamily": "Manrope",
+        "fontSize": 22
+      },
+      {
+        "id": "e76",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#C8A27A"
+        },
+        "x": 1195,
+        "y": 1040,
+        "width": 52,
+        "height": 52,
+        "stroke": {
+          "color": "#F3EDE3",
+          "width": 3
+        }
+      },
+      {
+        "id": "e77",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#8C5A3C"
+        },
+        "x": 1259,
+        "y": 1040,
+        "width": 52,
+        "height": 52,
+        "stroke": {
+          "color": "#F3EDE3",
+          "width": 3
+        }
+      },
+      {
+        "id": "e78",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E9D8C4"
+        },
+        "x": 1323,
+        "y": 1040,
+        "width": 52,
+        "height": 52,
+        "stroke": {
+          "color": "#F3EDE3",
+          "width": 3
+        }
+      },
+      {
+        "id": "e79",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#5B6B4F"
+        },
+        "x": 1387,
+        "y": 1040,
+        "width": 52,
+        "height": 52,
+        "stroke": {
+          "color": "#F3EDE3",
+          "width": 3
+        }
+      },
+      {
+        "id": "e7a",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#2F2A26"
+        },
+        "x": 1451,
+        "y": 1040,
+        "width": 52,
+        "height": 52,
+        "stroke": {
+          "color": "#F3EDE3",
+          "width": 3
+        }
+      }
+    ]
+  }
+}

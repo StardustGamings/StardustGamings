@@ -1,0 +1,558 @@
+{
+  "id": "big-type-drop",
+  "name": "Big Type Drop",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "description": "Giant condensed type, acid lime, and a sparkle that spills across the swipe.",
+  "tags": [
+    "streetwear",
+    "giant typography",
+    "gen-z",
+    "seamless"
+  ],
+  "palette": [
+    "#C6FF3D",
+    "#0B0A12",
+    "#F4F1EA",
+    "#B3E62E"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#C6FF3D"
+    },
+    "slides": [
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      },
+      {
+        "id": "s3",
+        "fill": null
+      },
+      {
+        "id": "s4",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        }
+      },
+      {
+        "id": "s5",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e1",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.06,
+        "x": 80,
+        "y": 80,
+        "width": 560,
+        "height": 40,
+        "text": "VOL.07 — SEP '26",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      },
+      {
+        "id": "e2",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 560,
+        "y": 80,
+        "width": 440,
+        "height": 40,
+        "text": "@yourhandle",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      },
+      {
+        "id": "e3",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.92,
+        "letterSpacing": 0,
+        "x": 70,
+        "y": 190,
+        "width": 940,
+        "height": 960,
+        "text": "NEW\nDROP\nJUST\nLANDED",
+        "fontFamily": "Anton",
+        "fontSize": 260
+      },
+      {
+        "id": "e4",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 700,
+        "y": 1230,
+        "width": 220,
+        "height": 40,
+        "text": "swipe",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      },
+      {
+        "id": "e5",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:arrow-bold",
+        "x": 930,
+        "y": 1212,
+        "width": 80,
+        "height": 70,
+        "tint": "#0B0A12"
+      },
+      {
+        "id": "e6",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#B3E62E"
+          }
+        },
+        "x": 1160,
+        "y": 160,
+        "width": 920,
+        "height": 860,
+        "cornerRadius": 36
+      },
+      {
+        "id": "e7",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 1160,
+        "y": 80,
+        "width": 200,
+        "height": 40,
+        "text": "01",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      },
+      {
+        "id": "e8",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": -0.02,
+        "x": 1160,
+        "y": 1060,
+        "width": 920,
+        "height": 180,
+        "text": "the fit that broke\nthe group chat",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 72
+      },
+      {
+        "id": "e9",
+        "rotation": 12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "x": 950,
+        "y": 470,
+        "width": 260,
+        "height": 260,
+        "tint": "#0B0A12"
+      },
+      {
+        "id": "ea",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0,
+        "x": 2240,
+        "y": 110,
+        "width": 920,
+        "height": 300,
+        "text": "3 THINGS\nTO STEAL",
+        "fontFamily": "Anton",
+        "fontSize": 150
+      },
+      {
+        "id": "eb",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "x": 2240,
+        "y": 520,
+        "width": 130,
+        "height": 130
+      },
+      {
+        "id": "ec",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2240,
+        "y": 520,
+        "width": 130,
+        "height": 130,
+        "text": "1",
+        "fontFamily": "Anton",
+        "fontSize": 80
+      },
+      {
+        "id": "ed",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": -0.02,
+        "x": 2410,
+        "y": 520,
+        "width": 760,
+        "height": 130,
+        "text": "Oversized everything",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 62
+      },
+      {
+        "id": "ee",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "x": 2240,
+        "y": 740,
+        "width": 130,
+        "height": 130
+      },
+      {
+        "id": "ef",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2240,
+        "y": 740,
+        "width": 130,
+        "height": 130,
+        "text": "2",
+        "fontFamily": "Anton",
+        "fontSize": 80
+      },
+      {
+        "id": "eg",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": -0.02,
+        "x": 2410,
+        "y": 740,
+        "width": 760,
+        "height": 130,
+        "text": "Chrome accessories",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 62
+      },
+      {
+        "id": "eh",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "x": 2240,
+        "y": 960,
+        "width": 130,
+        "height": 130
+      },
+      {
+        "id": "ei",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2240,
+        "y": 960,
+        "width": 130,
+        "height": 130,
+        "text": "3",
+        "fontFamily": "Anton",
+        "fontSize": 80
+      },
+      {
+        "id": "ej",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": -0.02,
+        "x": 2410,
+        "y": 960,
+        "width": 760,
+        "height": 130,
+        "text": "One loud colour",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 62
+      },
+      {
+        "id": "ek",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:twin-sparkle",
+        "x": 4020,
+        "y": 150,
+        "width": 170,
+        "height": 170,
+        "tint": "#F4F1EA"
+      },
+      {
+        "id": "el",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "x": 3320,
+        "y": 380,
+        "width": 920,
+        "height": 420,
+        "text": "“dress like the\nalgorithm is\nwatching”",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 128
+      },
+      {
+        "id": "em",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#F4F1EA"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.08,
+        "x": 3320,
+        "y": 880,
+        "width": 920,
+        "height": 40,
+        "text": "— THE GROUP CHAT, 2026",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 28
+      },
+      {
+        "id": "en",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0,
+        "x": 4400,
+        "y": 260,
+        "width": 920,
+        "height": 520,
+        "text": "SAVE\nTHIS",
+        "fontFamily": "Anton",
+        "fontSize": 290
+      },
+      {
+        "id": "eo",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:bookmark",
+        "x": 4760,
+        "y": 860,
+        "width": 200,
+        "height": 200,
+        "tint": "#0B0A12"
+      },
+      {
+        "id": "ep",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 4400,
+        "y": 1120,
+        "width": 920,
+        "height": 70,
+        "text": "for your next fit check",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 52
+      }
+    ]
+  }
+}

@@ -1,0 +1,551 @@
+{
+  "id": "scrapbook-dump",
+  "name": "Scrapbook Dump",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "description": "Tilted polaroids, washi tape and handwritten notes on a gradient that flows across slides.",
+  "tags": [
+    "scrapbook",
+    "photo dump",
+    "cute",
+    "seamless"
+  ],
+  "palette": [
+    "#F7D6E0",
+    "#F9E8C9",
+    "#D8E8F7",
+    "#2B2233",
+    "#FF4F8B"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "linear",
+      "angle": 90,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#F7D6E0"
+        },
+        {
+          "offset": 0.5,
+          "color": "#F9E8C9"
+        },
+        {
+          "offset": 1,
+          "color": "#D8E8F7"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "sf",
+        "fill": null
+      },
+      {
+        "id": "sg",
+        "fill": null
+      },
+      {
+        "id": "sh",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e4b",
+        "rotation": -3,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0,
+        "x": 80,
+        "y": 90,
+        "width": 900,
+        "height": 290,
+        "text": "photo dump\n(no context)",
+        "fontFamily": "Caveat",
+        "fontSize": 140
+      },
+      {
+        "id": "e4c",
+        "rotation": 14,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:heart",
+        "x": 810,
+        "y": 150,
+        "width": 150,
+        "height": 150,
+        "tint": "#FF4F8B"
+      },
+      {
+        "id": "e4d",
+        "rotation": -5,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFDF8"
+        },
+        "x": 150,
+        "y": 510,
+        "width": 540,
+        "height": 640,
+        "shadow": {
+          "color": "rgba(43,34,51,0.22)",
+          "blur": 30,
+          "x": 0,
+          "y": 14
+        }
+      },
+      {
+        "id": "e4e",
+        "rotation": -5,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E9C4CF"
+          }
+        },
+        "x": 178.0422128626171,
+        "y": 542.5902650954126,
+        "width": 475.2,
+        "height": 475.2
+      },
+      {
+        "id": "e4f",
+        "rotation": -5,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 204.52012750935566,
+        "y": 1020.6342143756849,
+        "width": 475.2,
+        "height": 132.40000000000003,
+        "text": "day one",
+        "fontFamily": "Caveat",
+        "fontSize": 54
+      },
+      {
+        "id": "e4g",
+        "rotation": -1,
+        "opacity": 0.85,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "x": 284.1101623207494,
+        "y": 468.01769661064145,
+        "width": 216,
+        "height": 86.4
+      },
+      {
+        "id": "e4h",
+        "rotation": 8,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFDF8"
+        },
+        "x": 790,
+        "y": 375,
+        "width": 440,
+        "height": 530,
+        "shadow": {
+          "color": "rgba(43,34,51,0.22)",
+          "blur": 30,
+          "x": 0,
+          "y": 14
+        }
+      },
+      {
+        "id": "e4i",
+        "rotation": 8,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#EBD9B4"
+          }
+        },
+        "x": 822.662789543203,
+        "y": 401.83793690662935,
+        "width": 387.2,
+        "height": 387.2
+      },
+      {
+        "id": "e4j",
+        "rotation": 8,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 787.6190027214584,
+        "y": 790.5874366157567,
+        "width": 387.2,
+        "height": 116.40000000000003,
+        "text": "the view",
+        "fontFamily": "Caveat",
+        "fontSize": 44
+      },
+      {
+        "id": "e4k",
+        "rotation": 12,
+        "opacity": 0.85,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "x": 958.8808717544173,
+        "y": 342.3789617834839,
+        "width": 176,
+        "height": 70.4
+      },
+      {
+        "id": "e4l",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "emoji:✨",
+        "x": 110,
+        "y": 1170,
+        "width": 130,
+        "height": 130
+      },
+      {
+        "id": "e4m",
+        "rotation": -4,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFDF8"
+        },
+        "x": 1480,
+        "y": 400,
+        "width": 500,
+        "height": 600,
+        "shadow": {
+          "color": "rgba(43,34,51,0.22)",
+          "blur": 30,
+          "x": 0,
+          "y": 14
+        }
+      },
+      {
+        "id": "e4n",
+        "rotation": -4,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9DCEB"
+          }
+        },
+        "x": 1506.5121763127938,
+        "y": 430.12179748700873,
+        "width": 440,
+        "height": 440
+      },
+      {
+        "id": "e4o",
+        "rotation": -4,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 1526.3927713298694,
+        "y": 873.4275518110587,
+        "width": 440,
+        "height": 130,
+        "text": "best night",
+        "fontFamily": "Caveat",
+        "fontSize": 50
+      },
+      {
+        "id": "e4p",
+        "rotation": 0,
+        "opacity": 0.85,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "x": 1609.0730578767625,
+        "y": 360.73078492205275,
+        "width": 200,
+        "height": 80
+      },
+      {
+        "id": "e4q",
+        "rotation": -3,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 1200,
+        "y": 1110,
+        "width": 620,
+        "height": 130,
+        "text": "we said one more song…",
+        "fontFamily": "Caveat",
+        "fontSize": 80
+      },
+      {
+        "id": "e4r",
+        "rotation": -150,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:arrow-loop",
+        "x": 1200,
+        "y": 960,
+        "width": 220,
+        "height": 160,
+        "tint": "#2B2233"
+      },
+      {
+        "id": "e4s",
+        "rotation": 12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:daisy",
+        "x": 1960,
+        "y": 1130,
+        "width": 150,
+        "height": 150
+      },
+      {
+        "id": "e4t",
+        "rotation": 6,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFDF8"
+        },
+        "x": 2280,
+        "y": 210,
+        "width": 480,
+        "height": 580,
+        "shadow": {
+          "color": "rgba(43,34,51,0.22)",
+          "blur": 30,
+          "x": 0,
+          "y": 14
+        }
+      },
+      {
+        "id": "e4u",
+        "rotation": 6,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D4E5C8"
+          }
+        },
+        "x": 2314.026423163383,
+        "y": 239.07390523158637,
+        "width": 422.4,
+        "height": 422.4
+      },
+      {
+        "id": "e4v",
+        "rotation": 6,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2285.2183786868177,
+        "y": 663.9641395950823,
+        "width": 422.4,
+        "height": 128.80000000000007,
+        "text": "snack run",
+        "fontFamily": "Caveat",
+        "fontSize": 48
+      },
+      {
+        "id": "e4w",
+        "rotation": 10,
+        "opacity": 0.85,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "x": 2454.3132543476195,
+        "y": 173.18865034320075,
+        "width": 192,
+        "height": 76.8
+      },
+      {
+        "id": "e4x",
+        "rotation": -7,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFDF8"
+        },
+        "x": 2640,
+        "y": 635,
+        "width": 440,
+        "height": 530,
+        "shadow": {
+          "color": "rgba(43,34,51,0.22)",
+          "blur": 30,
+          "x": 0,
+          "y": 14
+        }
+      },
+      {
+        "id": "e4y",
+        "rotation": -7,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E6D0F0"
+          }
+        },
+        "x": 2660.9158795467683,
+        "y": 661.7354231761404,
+        "width": 387.2,
+        "height": 387.2
+      },
+      {
+        "id": "e4z",
+        "rotation": -7,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2691.6025802161844,
+        "y": 1051.0585441594253,
+        "width": 387.2,
+        "height": 116.40000000000003,
+        "text": "golden hour",
+        "fontFamily": "Caveat",
+        "fontSize": 44
+      },
+      {
+        "id": "e50",
+        "rotation": -3,
+        "opacity": 0.85,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "x": 2739.7046239976357,
+        "y": 601.7752698150496,
+        "width": 176,
+        "height": 70.4
+      },
+      {
+        "id": "e51",
+        "rotation": -2,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2233"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2250,
+        "y": 1190,
+        "width": 600,
+        "height": 110,
+        "text": "more soon…",
+        "fontFamily": "Caveat",
+        "fontSize": 96
+      },
+      {
+        "id": "e52",
+        "rotation": -10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:heart-outline",
+        "x": 2240,
+        "y": 90,
+        "width": 140,
+        "height": 140,
+        "tint": "#FF4F8B"
+      }
+    ]
+  }
+}

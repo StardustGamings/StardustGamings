@@ -1,0 +1,127 @@
+{
+  "id": "reel-cover-pop",
+  "name": "Cover Pop",
+  "format": "reel-cover",
+  "sizeId": "tiktok",
+  "description": "Outlined condensed type with a hard shadow — readable at thumbnail size.",
+  "tags": [
+    "travel",
+    "reels",
+    "bold",
+    "retro"
+  ],
+  "palette": [
+    "#FF6B2C",
+    "#1A0B05",
+    "#FFF1E0",
+    "#FFD23D"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#FF6B2C"
+    },
+    "slides": [
+      {
+        "id": "so",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e6t",
+        "rotation": 14,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:star",
+        "x": 770,
+        "y": 330,
+        "width": 230,
+        "height": 230,
+        "tint": "#FFD23D"
+      },
+      {
+        "id": "e6u",
+        "rotation": -6,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A0B05"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 150,
+        "y": 420,
+        "width": 780,
+        "height": 150,
+        "text": "you can’t miss",
+        "fontFamily": "Pacifico",
+        "fontSize": 92
+      },
+      {
+        "id": "e6v",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFF1E0"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0,
+        "x": 60,
+        "y": 600,
+        "width": 960,
+        "height": 720,
+        "text": "5 SPOTS\nIN\nLISBON",
+        "fontFamily": "Anton",
+        "fontSize": 270,
+        "stroke": {
+          "color": "#1A0B05",
+          "width": 10
+        },
+        "shadow": {
+          "color": "#1A0B05",
+          "blur": 0,
+          "x": 16,
+          "y": 16
+        }
+      },
+      {
+        "id": "e6w",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A0B05"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.08,
+        "x": 80,
+        "y": 1400,
+        "width": 920,
+        "height": 44,
+        "text": "EP. 04 · TRAVEL DIARIES",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 36
+      }
+    ]
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "id": "newsprint",
+  "name": "The Daily Scroll",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "description": "Blackletter masthead, columns and a headline your followers will read twice.",
+  "tags": [
+    "newspaper",
+    "retro",
+    "editorial",
+    "meme"
+  ],
+  "palette": [
+    "#ECE6D6",
+    "#1A1714",
+    "#C9C1AE",
+    "#8A8170"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#ECE6D6"
+    },
+    "slides": [
+      {
+        "id": "se",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e3x",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 40,
+        "y": 48,
+        "width": 1000,
+        "height": 140,
+        "text": "The Daily Scroll",
+        "fontFamily": "UnifrakturMaguntia",
+        "fontSize": 128
+      },
+      {
+        "id": "e3y",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "x": 40,
+        "y": 200,
+        "width": 1000,
+        "height": 6
+      },
+      {
+        "id": "e3z",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "x": 40,
+        "y": 214,
+        "width": 1000,
+        "height": 2
+      },
+      {
+        "id": "e40",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.06,
+        "x": 40,
+        "y": 228,
+        "width": 330,
+        "height": 34,
+        "text": "VOL. XXVI — NO. 9",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 24
+      },
+      {
+        "id": "e41",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.06,
+        "x": 375,
+        "y": 228,
+        "width": 330,
+        "height": 34,
+        "text": "SEPTEMBER 25, 2026",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 24
+      },
+      {
+        "id": "e42",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.06,
+        "x": 710,
+        "y": 228,
+        "width": 330,
+        "height": 34,
+        "text": "FREE, OBVIOUSLY",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 24
+      },
+      {
+        "id": "e43",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "x": 40,
+        "y": 270,
+        "width": 1000,
+        "height": 2
+      },
+      {
+        "id": "e44",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": 0,
+        "x": 40,
+        "y": 300,
+        "width": 1000,
+        "height": 280,
+        "text": "LOCAL CREATOR POSTS CAROUSEL, INTERNET LOSES ITS MIND",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 86
+      },
+      {
+        "id": "e45",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9C1AE"
+          }
+        },
+        "x": 40,
+        "y": 610,
+        "width": 620,
+        "height": 470
+      },
+      {
+        "id": "e46",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.2,
+        "letterSpacing": 0,
+        "x": 40,
+        "y": 1092,
+        "width": 620,
+        "height": 80,
+        "text": "Witnesses describe the swipe as “unreasonably smooth.”",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 28
+      },
+      {
+        "id": "e47",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "x": 679,
+        "y": 610,
+        "width": 2,
+        "height": 560
+      },
+      {
+        "id": "e48",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.25,
+        "letterSpacing": 0,
+        "x": 700,
+        "y": 606,
+        "width": 340,
+        "height": 570,
+        "text": "In a stunning turn of events, a ten-slide carousel posted at 9:41 this morning has been saved more times than anyone thought possible. Experts point to the cover slide, the font pairing, and a sticker placed with “surgical” confidence. More on slide two.",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 30
+      },
+      {
+        "id": "e49",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "x": 40,
+        "y": 1195,
+        "width": 1000,
+        "height": 2
+      },
+      {
+        "id": "e4a",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1714"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.1,
+        "x": 40,
+        "y": 1222,
+        "width": 1000,
+        "height": 44,
+        "text": "CONTINUED ON SLIDE 2 →",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 32
+      }
+    ]
+  }
+}

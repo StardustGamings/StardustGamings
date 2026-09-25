@@ -1,0 +1,192 @@
+{
+  "id": "y2k-chrome",
+  "name": "Y2K Chrome",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "description": "Chrome gradients, wire globes and a loading-bar pill. Very 2003, very now.",
+  "tags": [
+    "y2k",
+    "futuristic",
+    "gradient",
+    "music"
+  ],
+  "palette": [
+    "#FFB3F0",
+    "#A06BFF",
+    "#3A1D8F",
+    "#3CF0FF",
+    "#C6FF3D"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "radial",
+      "cx": 0.3,
+      "cy": 0.2,
+      "radius": 1.05,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#FFC2F2"
+        },
+        {
+          "offset": 0.42,
+          "color": "#A06BFF"
+        },
+        {
+          "offset": 1,
+          "color": "#2A1470"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "sa",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e1h",
+        "rotation": 12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:y2k-star",
+        "x": 700,
+        "y": 90,
+        "width": 300,
+        "height": 300,
+        "tint": "#F4F0FF",
+        "shadow": {
+          "color": "rgba(255,255,255,0.7)",
+          "blur": 40,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": "e1i",
+        "rotation": 0,
+        "opacity": 0.9,
+        "type": "sticker",
+        "stickerId": "vector:globe-y2k",
+        "x": 70,
+        "y": 930,
+        "width": 260,
+        "height": 260,
+        "tint": "#3CF0FF"
+      },
+      {
+        "id": "e1j",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "linear",
+          "angle": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#FFFFFF"
+            },
+            {
+              "offset": 0.55,
+              "color": "#D9E1FF"
+            },
+            {
+              "offset": 1,
+              "color": "#FF9BE6"
+            }
+          ]
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "x": 40,
+        "y": 430,
+        "width": 1000,
+        "height": 360,
+        "text": "SUMMER\n.EXE",
+        "fontFamily": "Unbounded",
+        "fontSize": 150,
+        "shadow": {
+          "color": "rgba(42,20,112,0.65)",
+          "blur": 0,
+          "x": 10,
+          "y": 10
+        }
+      },
+      {
+        "id": "e1k",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2A1470"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 240,
+        "y": 830,
+        "width": 600,
+        "height": 60,
+        "text": "LOADING VIBES…",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 36,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#C6FF3D"
+          },
+          "padding": 26,
+          "radius": 40
+        }
+      },
+      {
+        "id": "e1l",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:twin-sparkle",
+        "x": 820,
+        "y": 1000,
+        "width": 170,
+        "height": 170,
+        "tint": "#FFFFFF"
+      },
+      {
+        "id": "e1m",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.12,
+        "x": 40,
+        "y": 1250,
+        "width": 1000,
+        "height": 40,
+        "text": "© 2026 · PLAYLIST IN BIO",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26
+      }
+    ]
+  }
+}

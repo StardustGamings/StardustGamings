@@ -1,0 +1,40 @@
+{
+  "id": "/",
+  "name": "Stardeck — Create. Swipe. Flex.",
+  "short_name": "Stardeck",
+  "description": "A free, local-first studio for carousels, stories, covers, thumbnails and collages. No watermarks. Works offline.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#0A0A11",
+  "theme_color": "#0A0A11",
+  "categories": ["design", "photo", "social", "productivity"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    {
+      "name": "New carousel",
+      "short_name": "Carousel",
+      "url": "/?new=carousel",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "New story",
+      "short_name": "Story",
+      "url": "/?new=story",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My projects",
+      "short_name": "Projects",
+      "url": "/projects/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "$comment": "Bundled, offline-available font families (all SIL Open Font License). Run `npm run fonts` after editing to copy the woff2 files into public/fonts.",
+  "fonts": [
+    {
+      "id": "bricolage-grotesque",
+      "family": "Bricolage Grotesque",
+      "package": "@fontsource-variable/bricolage-grotesque",
+      "category": "sans",
+      "variable": true,
+      "weights": [200, 800],
+      "styles": ["normal"],
+      "vibes": ["gen-z", "editorial", "soft"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "manrope",
+      "family": "Manrope",
+      "package": "@fontsource-variable/manrope",
+      "category": "sans",
+      "variable": true,
+      "weights": [200, 800],
+      "styles": ["normal"],
+      "vibes": ["minimal", "clean"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "unbounded",
+      "family": "Unbounded",
+      "package": "@fontsource-variable/unbounded",
+      "category": "display",
+      "variable": true,
+      "weights": [200, 900],
+      "styles": ["normal"],
+      "vibes": ["y2k", "futuristic", "streetwear"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "space-grotesk",
+      "family": "Space Grotesk",
+      "package": "@fontsource-variable/space-grotesk",
+      "category": "sans",
+      "variable": true,
+      "weights": [300, 700],
+      "styles": ["normal"],
+      "vibes": ["cyber", "tech", "minimal"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "syne",
+      "family": "Syne",
+      "package": "@fontsource-variable/syne",
+      "category": "display",
+      "variable": true,
+      "weights": [400, 800],
+      "styles": ["normal"],
+      "vibes": ["editorial", "art", "futuristic"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "archivo",
+      "family": "Archivo",
+      "package": "@fontsource-variable/archivo",
+      "category": "sans",
+      "variable": true,
+      "weights": [100, 900],
+      "styles": ["normal", "italic"],
+      "vibes": ["brutalist", "streetwear", "magazine"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "anton",
+      "family": "Anton",
+      "package": "@fontsource/anton",
+      "category": "display",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal"],
+      "vibes": ["meme", "streetwear", "poster"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "rubik-mono-one",
+      "family": "Rubik Mono One",
+      "package": "@fontsource/rubik-mono-one",
+      "category": "display",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal"],
+      "vibes": ["y2k", "retro", "gaming"],
+      "fallback": "sans-serif"
+    },
+    {
+      "id": "instrument-serif",
+      "family": "Instrument Serif",
+      "package": "@fontsource/instrument-serif",
+      "category": "serif",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal", "italic"],
+      "vibes": ["editorial", "luxury", "soft"],
+      "fallback": "serif"
+    },
+    {
+      "id": "playfair-display",
+      "family": "Playfair Display",
+      "package": "@fontsource-variable/playfair-display",
+      "category": "serif",
+      "variable": true,
+      "weights": [400, 900],
+      "styles": ["normal", "italic"],
+      "vibes": ["magazine", "luxury"],
+      "fallback": "serif"
+    },
+    {
+      "id": "dm-serif-display",
+      "family": "DM Serif Display",
+      "package": "@fontsource/dm-serif-display",
+      "category": "serif",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal", "italic"],
+      "vibes": ["newspaper", "retro", "editorial"],
+      "fallback": "serif"
+    },
+    {
+      "id": "fraunces",
+      "family": "Fraunces",
+      "package": "@fontsource-variable/fraunces",
+      "category": "serif",
+      "variable": true,
+      "weights": [100, 900],
+      "styles": ["normal", "italic"],
+      "vibes": ["soft", "retro", "cute"],
+      "fallback": "serif"
+    },
+    {
+      "id": "unifrakturmaguntia",
+      "family": "UnifrakturMaguntia",
+      "package": "@fontsource/unifrakturmaguntia",
+      "category": "display",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal"],
+      "vibes": ["newspaper", "streetwear", "gothic"],
+      "fallback": "serif"
+    },
+    {
+      "id": "jetbrains-mono",
+      "family": "JetBrains Mono",
+      "package": "@fontsource-variable/jetbrains-mono",
+      "category": "mono",
+      "variable": true,
+      "weights": [100, 800],
+      "styles": ["normal", "italic"],
+      "vibes": ["cyber", "tech", "minimal"],
+      "fallback": "monospace"
+    },
+    {
+      "id": "silkscreen",
+      "family": "Silkscreen",
+      "package": "@fontsource/silkscreen",
+      "category": "display",
+      "variable": false,
+      "weights": [400, 700],
+      "styles": ["normal"],
+      "vibes": ["gaming", "y2k", "pixel"],
+      "fallback": "monospace"
+    },
+    {
+      "id": "caveat",
+      "family": "Caveat",
+      "package": "@fontsource-variable/caveat",
+      "category": "script",
+      "variable": true,
+      "weights": [400, 700],
+      "styles": ["normal"],
+      "vibes": ["handwritten", "scrapbook", "cute"],
+      "fallback": "cursive"
+    },
+    {
+      "id": "permanent-marker",
+      "family": "Permanent Marker",
+      "package": "@fontsource/permanent-marker",
+      "category": "script",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal"],
+      "vibes": ["meme", "scrapbook", "streetwear"],
+      "fallback": "cursive"
+    },
+    {
+      "id": "pacifico",
+      "family": "Pacifico",
+      "package": "@fontsource/pacifico",
+      "category": "script",
+      "variable": false,
+      "weights": [400],
+      "styles": ["normal"],
+      "vibes": ["retro", "cute", "vacation"],
+      "fallback": "cursive"
+    }
+  ]
+}

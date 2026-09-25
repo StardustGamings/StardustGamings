@@ -1,0 +1,143 @@
+'use client';
+
+import { create } from 'zustand';
+import type { ProjectMeta } from '@/types/project';
+import { renderThumbnail } from '@/canvas/thumbnail';
+import * as repo from './repository';
+
+type Status = 'idle' | 'loading' | 'ready' | 'error';
+
+interface ProjectsState {
+  status: Status;
+  projects: ProjectMeta[];
+  /** Object URLs for stored thumbnails, keyed by project id. */
+  thumbnails: Record<string, string>;
+  storageKind: 'indexeddb' | 'memory' | null;
+  load: () => Promise<void>;
+  create: (input: repo.CreateProjectInput) => Promise<ProjectMeta>;
+  duplicate: (id: string) => Promise<ProjectMeta>;
+  rename: (id: string, name: string) => Promise<void>;
+  toggleFavorite: (id: string) => Promise<void>;
+  trash: (id: string) => Promise<void>;
+  restore: (id: string) => Promise<void>;
+  deleteForever: (id: string) => Promise<void>;
+  emptyTrash: () => Promise<number>;
+  /** Merge a meta record updated elsewhere (e.g. by the editor's autosave). */
+  upsert: (meta: ProjectMeta) => void;
+  setThumbnail: (id: string, blob: Blob) => Promise<void>;
+  clearAll: () => Promise<void>;
+}
+
+const sortByUpdated = (list: ProjectMeta[]) => [...list].sort((a, b) => b.updatedAt - a.updatedAt);
+
+function revoke(url: string | undefined) {
+  if (url && typeof URL !== 'undefined' && URL.revokeObjectURL) URL.revokeObjectURL(url);
+}
+
+function toUrl(blob: Blob | null): string | null {
+  if (!blob || typeof URL === 'undefined' || !URL.createObjectURL) return null;
+  return URL.createObjectURL(blob);
+}
+
+export const useProjects = create<ProjectsState>()((set, get) => {
+  const replace = (meta: ProjectMeta) =>
+    set((s) => ({ projects: sortByUpdated([meta, ...s.projects.filter((p) => p.id !== meta.id)]) }));
+
+  const dropThumb = (id: string) =>
+    set((s) => {
+      revoke(s.thumbnails[id]);
+      const { [id]: _removed, ...rest } = s.thumbnails;
+      return { thumbnails: rest };
+    });
+
+  return {
+    status: 'idle',
+    projects: [],
+    thumbnails: {},
+    storageKind: null,
+
+    load: async () => {
+      if (get().status === 'loading') return;
+      set({ status: 'loading' });
+      try {
+        await repo.purgeExpiredTrash();
+        const [projects, kind] = await Promise.all([repo.listProjects(), repo.storageKind()]);
+        set({ projects, status: 'ready', storageKind: kind });
+        // Thumbnails stream in after the list so the dashboard paints immediately.
+        for (const p of projects) {
+          if (get().thumbnails[p.id]) continue;
+          const url = toUrl(await repo.getThumbnail(p.id));
+          if (url) set((s) => ({ thumbnails: { ...s.thumbnails, [p.id]: url } }));
+        }
+      } catch {
+        set({ status: 'error' });
+      }
+    },
+
+    create: async (input) => {
+      const project = await repo.createProject(input);
+      replace(project.meta);
+      void renderThumbnail(project.doc).then((blob) => (blob ? get().setThumbnail(project.meta.id, blob) : undefined));
+      return project.meta;
+    },
+
+    duplicate: async (id) => {
+      const project = await repo.duplicateProject(id);
+      replace(project.meta);
+      const url = toUrl(await repo.getThumbnail(project.meta.id));
+      if (url) set((s) => ({ thumbnails: { ...s.thumbnails, [project.meta.id]: url } }));
+      return project.meta;
+    },
+
+    rename: async (id, name) => replace(await repo.renameProject(id, name)),
+
+    toggleFavorite: async (id) => {
+      const current = get().projects.find((p) => p.id === id);
+      if (!current) return;
+      const meta = await repo.setFavorite(id, !current.favorite);
+      set((s) => ({ projects: s.projects.map((p) => (p.id === id ? meta : p)) }));
+    },
+
+    trash: async (id) => {
+      const meta = await repo.trashProject(id);
+      set((s) => ({ projects: s.projects.map((p) => (p.id === id ? meta : p)) }));
+    },
+
+    restore: async (id) => {
+      const meta = await repo.restoreProject(id);
+      set((s) => ({ projects: s.projects.map((p) => (p.id === id ? meta : p)) }));
+    },
+
+    deleteForever: async (id) => {
+      await repo.deleteProjectForever(id);
+      set((s) => ({ projects: s.projects.filter((p) => p.id !== id) }));
+      dropThumb(id);
+    },
+
+    emptyTrash: async () => {
+      const trashed = get().projects.filter((p) => p.deletedAt !== null);
+      const count = await repo.emptyTrash();
+      set((s) => ({ projects: s.projects.filter((p) => p.deletedAt === null) }));
+      trashed.forEach((p) => dropThumb(p.id));
+      return count;
+    },
+
+    upsert: (meta) => replace(meta),
+
+    setThumbnail: async (id, blob) => {
+      await repo.saveThumbnail(id, blob);
+      const url = toUrl(blob);
+      if (!url) return;
+      set((s) => {
+        revoke(s.thumbnails[id]);
+        return { thumbnails: { ...s.thumbnails, [id]: url } };
+      });
+    },
+
+    clearAll: async () => {
+      await repo.clearAllProjects();
+      Object.values(get().thumbnails).forEach(revoke);
+      set({ projects: [], thumbnails: {} });
+    },
+  };
+});
