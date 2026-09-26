@@ -1,0 +1,570 @@
+{
+  "id": "pinned-board",
+  "name": "Pinned Board",
+  "format": "moodboard",
+  "sizeId": "moodboard",
+  "style": "scrapbook",
+  "description": "A cork board of pinned prints and sticky notes for planning trips, outfits or shoots.",
+  "tags": [
+    "moodboard",
+    "cork",
+    "planning",
+    "sticky notes",
+    "scrapbook"
+  ],
+  "palette": [
+    "#C9A27E",
+    "#FBFAF7",
+    "#FFE680",
+    "#2B2530",
+    "#E4574B"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1600,
+    "slideHeight": 1200,
+    "background": {
+      "type": "solid",
+      "color": "#C9A27E"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "pb0",
+        "x": 80,
+        "y": 90,
+        "width": 360,
+        "height": 432,
+        "rotation": -6,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 18,
+          "x": 0,
+          "y": 7.2
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 4.32
+      },
+      {
+        "id": "pb1",
+        "x": 97.83697532236445,
+        "y": 111.79721176674215,
+        "width": 316.8,
+        "height": 316.8,
+        "rotation": -6,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9C1A6"
+          }
+        }
+      },
+      {
+        "id": "pb2",
+        "x": 119.28621598488698,
+        "y": 433.95310469631187,
+        "width": 316.8,
+        "height": 80.64,
+        "rotation": -6,
+        "opacity": 1,
+        "type": "text",
+        "text": "the spot",
+        "fontFamily": "Caveat",
+        "fontSize": 30.6,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pb3",
+        "x": 520,
+        "y": 150,
+        "width": 330,
+        "height": 396,
+        "rotation": 4,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 16.5,
+          "x": 0,
+          "y": 6.6000000000000005
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 3.96
+      },
+      {
+        "id": "pb4",
+        "x": 542.1019636335561,
+        "y": 169.88038634142583,
+        "width": 290.4,
+        "height": 290.4,
+        "rotation": 4,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#CDB297"
+          }
+        }
+      },
+      {
+        "id": "pb5",
+        "x": 528.9807709222862,
+        "y": 465.7621841952987,
+        "width": 290.4,
+        "height": 73.92000000000002,
+        "rotation": 4,
+        "opacity": 1,
+        "type": "text",
+        "text": "outfit idea",
+        "fontFamily": "Caveat",
+        "fontSize": 28.05,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pb6",
+        "x": 1160,
+        "y": 80,
+        "width": 360,
+        "height": 432,
+        "rotation": 7,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 18,
+          "x": 0,
+          "y": 7.2
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 4.32
+      },
+      {
+        "id": "pb7",
+        "x": 1185.9872963625853,
+        "y": 101.86833854091239,
+        "width": 316.8,
+        "height": 316.8,
+        "rotation": 7,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D4BCA0"
+          }
+        }
+      },
+      {
+        "id": "pb8",
+        "x": 1160.9797070958489,
+        "y": 423.6188088577117,
+        "width": 316.8,
+        "height": 80.64,
+        "rotation": 7,
+        "opacity": 1,
+        "type": "text",
+        "text": "golden hour",
+        "fontFamily": "Caveat",
+        "fontSize": 30.6,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pb9",
+        "x": 900,
+        "y": 600,
+        "width": 330,
+        "height": 396,
+        "rotation": -4,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 16.5,
+          "x": 0,
+          "y": 6.6000000000000005
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 3.96
+      },
+      {
+        "id": "pba",
+        "x": 917.4980363664438,
+        "y": 619.8803863414257,
+        "width": 290.4,
+        "height": 290.4,
+        "rotation": -4,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9C1A6"
+          }
+        }
+      },
+      {
+        "id": "pbb",
+        "x": 930.6192290777137,
+        "y": 915.7621841952987,
+        "width": 290.4,
+        "height": 73.92000000000002,
+        "rotation": -4,
+        "opacity": 1,
+        "type": "text",
+        "text": "must eat here",
+        "fontFamily": "Caveat",
+        "fontSize": 28.05,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pbc",
+        "x": 160,
+        "y": 680,
+        "width": 300,
+        "height": 300,
+        "rotation": 3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(43,37,48,0.25)",
+          "blur": 16,
+          "x": 0,
+          "y": 8
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFE680"
+        }
+      },
+      {
+        "id": "pbd",
+        "x": 184,
+        "y": 710,
+        "width": 252,
+        "height": 250,
+        "rotation": 3,
+        "opacity": 1,
+        "type": "text",
+        "text": "pack:\n- film\n- linen shirt\n- sunscreen",
+        "fontFamily": "Caveat",
+        "fontSize": 44,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pbe",
+        "x": 560,
+        "y": 700,
+        "width": 300,
+        "height": 300,
+        "rotation": -5,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(43,37,48,0.25)",
+          "blur": 16,
+          "x": 0,
+          "y": 8
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFC2D1"
+        }
+      },
+      {
+        "id": "pbf",
+        "x": 584,
+        "y": 730,
+        "width": 252,
+        "height": 250,
+        "rotation": -5,
+        "opacity": 1,
+        "type": "text",
+        "text": "leave at 6am\n(for real)",
+        "fontFamily": "Caveat",
+        "fontSize": 44,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pbg",
+        "x": 1280,
+        "y": 620,
+        "width": 300,
+        "height": 300,
+        "rotation": 5,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(43,37,48,0.25)",
+          "blur": 16,
+          "x": 0,
+          "y": 8
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#BFE7FF"
+        }
+      },
+      {
+        "id": "pbh",
+        "x": 1304,
+        "y": 650,
+        "width": 252,
+        "height": 250,
+        "rotation": 5,
+        "opacity": 1,
+        "type": "text",
+        "text": "budget:\nvibes",
+        "fontFamily": "Caveat",
+        "fontSize": 44,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pbi",
+        "x": 250,
+        "y": 100,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      },
+      {
+        "id": "pbj",
+        "x": 680,
+        "y": 160,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      },
+      {
+        "id": "pbk",
+        "x": 1330,
+        "y": 90,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      },
+      {
+        "id": "pbl",
+        "x": 1060,
+        "y": 610,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      },
+      {
+        "id": "pbm",
+        "x": 300,
+        "y": 690,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      },
+      {
+        "id": "pbn",
+        "x": 700,
+        "y": 710,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      },
+      {
+        "id": "pbo",
+        "x": 1420,
+        "y": 630,
+        "width": 30,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.3)",
+          "blur": 6,
+          "x": 2,
+          "y": 3
+        },
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E4574B"
+        }
+      }
+    ]
+  }
+}

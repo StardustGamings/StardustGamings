@@ -3,6 +3,7 @@
   "name": "Brutal Stats",
   "format": "carousel",
   "sizeId": "ig-square",
+  "style": "brutalist",
   "description": "Thick frames, huge numbers, zero fluff. Data that hits.",
   "tags": [
     "brutalist",

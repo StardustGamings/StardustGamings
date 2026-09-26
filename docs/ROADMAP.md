@@ -9,8 +9,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 2   | Canvas editor              | ✅ Done |
 | 3   | Image manipulation         | ✅ Done |
 | 4   | Carousel tools             | ✅ Done |
-| 5   | Template engine            | ⏭️ Next |
-| 6   | Filters & effects          | Planned |
+| 5   | Template engine            | ✅ Done |
+| 6   | Filters & effects          | ⏭️ Next |
 | 7   | Export                     | Planned |
 | 8   | Offline storage & projects | Planned |
 | 9   | Animations & video         | Planned |
@@ -128,11 +128,42 @@ cut-out mask and exporting at full original resolution come with later phases (e
   swipe + slide count + preview navigation, collage remix + keep-in-place + undo, phone shuffle).
 
 Known limits: photo dump captions are generic per vibe (editable text) — smarter wording is an optional AI feature in
-Phase 11; saving a layout as a reusable template comes with the template engine in Phase 5.
+Phase 11. (Saving a collage as a reusable template arrived in Phase 5: with _Keep my photos_ on it stays shuffleable.)
+
+## Phase 5 — Template engine ✅
+
+- **Format:** a template is JSON — metadata (name, format, size, style, tags, palette) plus a full design document
+  carrying the canvas size, slides, backgrounds and every element with its position, fonts, colours and photo frames.
+  One Zod schema validates bundled templates, saved ones and imported files. See [TEMPLATES.md](TEMPLATES.md).
+- **Library:** 51 original templates (36 new) across all 8 formats and 12 styles — magazine issue, tips list, polaroid
+  wall, cinema stills, diagonal lookbook, sticker board, torn-paper journal, then & now split screen, month recap,
+  brutalist portfolio, giant seamless type, overlapping photos, Y2K; quote card, launch post, gilded frame, ransom-note
+  news, date-stamped print; this-or-that, Q&A, countdown, film roll and cinematic stories; episode, minimal and GRWM reel
+  covers; versus, reaction and vlog thumbnails; nine-grid and taped-strip collages; Swiss, gig and exhibition posters;
+  editorial and cork-board moodboards. 46 of them have photo frames.
+- **Engine:** JSON files in `src/templates/library/<format>/`, indexed by a script and loaded lazily (a separate,
+  precached chunk) with a small synchronous catalog for search and trend packs. An authoring kit (`npm run templates`)
+  writes most of them; `npm run templates:check` measures every text box with the real fonts in Chromium.
+- **Using templates:** a Templates page (nav + phone tab bar) with search, format and style filters; a preview with
+  swipe preview, facts, colourways from the trend palettes and _use with my photos_ (fills frames in reading order).
+  In the editor, a Templates panel adds a template's slides after the current one — scaled to the canvas, seamless
+  gradients kept — or fills an empty design; _Replace design_ swaps it; all undoable.
+- **Your templates:** _Save as template_ from the editor, command palette or any project's menu (style, tags,
+  description; photos become empty frames unless you keep them — they stay on the device and are protected from storage
+  cleanup). Rename, duplicate, delete with undo. Export/import `.stardeck-template.json` files — exported files never
+  include photos, personal stickers or file names; imports are validated and can't reference local photos.
+- **Quality:** 202 unit/component tests (library integrity: schema, bundled fonts, known stickers, text on canvas, size
+  presets, generated index in sync; engine: id remapping, photo filling, insert/replace with scaling, save/strip,
+  file round-trip and rejection, store); 76 Playwright runs across desktop, phone and no-WebGL (browse/search/filter,
+  preview + colourway + use, use with photos, editor panel fill/add/replace/undo, save/rename/export/delete/undo/import,
+  project-menu save, phone flow).
+
+Known limits: template animation data arrives with animations in Phase 9; adapting a template to a very different shape
+(e.g. a story template into a thumbnail) scales it to fit rather than re-flowing the layout — smarter resizing is part of
+the optional AI tools in Phase 11.
 
 ## Later phases (summary)
 
-- **5 · Templates:** dozens of original layouts, save-as-template, template browser.
 - **6 · Filters & effects:** 14 one-tap looks with intensity (built on the Phase 3 adjustment pipeline), light leaks,
   textures.
 - **7 · Export:** PNG / JPG / WebP / PDF, per-slide / all / ZIP, quality presets, share sheet — never watermarked.

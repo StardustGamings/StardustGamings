@@ -1,0 +1,209 @@
+{
+  "id": "layers-of-us",
+  "name": "Layers of Us",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "editorial",
+  "description": "Overlapping photos on sage paper, with one frame crossing into the next slide.",
+  "tags": [
+    "overlapping photos",
+    "editorial",
+    "couple",
+    "friends",
+    "seamless"
+  ],
+  "palette": [
+    "#EEF0EA",
+    "#1D2A22",
+    "#6F8F72",
+    "#D5DCCF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#EEF0EA"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "lou0",
+        "x": 80,
+        "y": 60,
+        "width": 300,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Vol. 3",
+        "fontFamily": "Syne",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#6F8F72"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.1,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "lou1",
+        "x": 80,
+        "y": 140,
+        "width": 600,
+        "height": 800,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D5DCCF"
+          }
+        }
+      },
+      {
+        "id": "lou2",
+        "x": 520,
+        "y": 540,
+        "width": 700,
+        "height": 700,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "stroke": {
+          "color": "#EEF0EA",
+          "width": 16
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C3CDBC"
+          }
+        }
+      },
+      {
+        "id": "lou3",
+        "x": 80,
+        "y": 1000,
+        "width": 80,
+        "height": 4,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D2A22"
+        }
+      },
+      {
+        "id": "lou4",
+        "x": 80,
+        "y": 1030,
+        "width": 380,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Swipe",
+        "fontFamily": "Syne",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D2A22"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.1,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "lou5",
+        "x": 1480,
+        "y": 90,
+        "width": 580,
+        "height": 720,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D5DCCF"
+          }
+        }
+      },
+      {
+        "id": "lou6",
+        "x": 1260,
+        "y": 860,
+        "width": 860,
+        "height": 288,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Layers\nof us",
+        "fontFamily": "Syne",
+        "fontSize": 150,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D2A22"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": -0.02
+      },
+      {
+        "id": "lou7",
+        "x": 1680,
+        "y": 1150,
+        "width": 420,
+        "height": 73,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Some people feel like home in every frame.",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 30,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#1D2A22"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.15,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

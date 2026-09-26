@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import { getTemplate } from '@/templates/registry';
+import { useTemplateLookup } from '@/templates/store';
 import { useTrends } from '@/trends/store';
 import { Segmented } from '@/components/ui/Segmented';
 import { buttonClasses } from '@/components/ui/button-styles';
@@ -13,7 +13,7 @@ import { EffectCard } from './EffectCard';
 import { PaletteCard } from './PaletteCard';
 import { Rail } from './Rail';
 import { StickerTile } from './StickerTile';
-import { TemplateCard } from './TemplateCard';
+import { TemplateCard, TemplateCardSkeleton } from './TemplateCard';
 import { TypeCard } from './TypeCard';
 
 type Tab = 'templates' | 'typography' | 'layouts' | 'effects' | 'palettes' | 'stickers';
@@ -30,6 +30,7 @@ const TABS: { value: Tab; label: string }[] = [
 export function Trending() {
   const pack = useTrends((s) => s.pack);
   const [tab, setTab] = useState<Tab>('templates');
+  const templates = useTemplateLookup();
 
   const content = () => {
     switch (tab) {
@@ -37,23 +38,26 @@ export function Trending() {
         return (
           <Rail label="Trending templates" itemClassName="w-[200px] sm:w-[230px]">
             {pack.templates.map((t) => {
-              const template = getTemplate(t.templateId)!;
-              return <TemplateCard key={t.templateId} template={template} subtitle={t.label} heat={t.heat} />;
+              const template = templates.get(t.templateId);
+              return template ? (
+                <TemplateCard key={t.templateId} template={template} subtitle={t.label} heat={t.heat} />
+              ) : (
+                <TemplateCardSkeleton key={t.templateId} />
+              );
             })}
           </Rail>
         );
       case 'layouts':
         return (
           <Rail label="Trending layouts" itemClassName="w-[200px] sm:w-[230px]">
-            {pack.layouts.map((l) => (
-              <TemplateCard
-                key={l.id}
-                template={getTemplate(l.templateId)!}
-                title={l.name}
-                subtitle={l.description}
-                heat={l.heat}
-              />
-            ))}
+            {pack.layouts.map((l) => {
+              const template = templates.get(l.templateId);
+              return template ? (
+                <TemplateCard key={l.id} template={template} title={l.name} subtitle={l.description} heat={l.heat} />
+              ) : (
+                <TemplateCardSkeleton key={l.id} />
+              );
+            })}
           </Rail>
         );
       case 'typography':

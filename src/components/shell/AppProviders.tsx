@@ -12,6 +12,8 @@ import { NewProjectDialog } from '@/components/projects/NewProjectDialog';
 import { ProjectDialogs } from '@/components/projects/ProjectDialogs';
 import { Onboarding } from '@/components/onboarding/Onboarding';
 import { PhotoFlowDialog } from '@/components/magic/PhotoFlowDialog';
+import { SaveTemplateDialog } from '@/components/templates/SaveTemplateDialog';
+import { TemplatePreviewDialog } from '@/components/templates/TemplatePreviewDialog';
 import { Backdrop } from './Backdrop';
 import { CommandPalette } from './CommandPalette';
 import { ServiceWorker } from './ServiceWorker';
@@ -39,6 +41,8 @@ export function AppProviders({ children }: { children: ReactNode }) {
         <NewProjectDialog />
         <ProjectDialogs />
         <PhotoFlowDialog />
+        <TemplatePreviewDialog />
+        <SaveTemplateDialog />
         <CommandPalette />
         <Onboarding />
         <Toaster />

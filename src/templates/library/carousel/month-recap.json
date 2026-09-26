@@ -1,0 +1,510 @@
+{
+  "id": "month-recap",
+  "name": "Month Recap",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "soft",
+  "description": "A soft, blush photo diary: seven favourite moments and a list of the month’s best bits.",
+  "tags": [
+    "recap",
+    "photo dump",
+    "monthly",
+    "aesthetic",
+    "soft"
+  ],
+  "palette": [
+    "#F4E9E1",
+    "#3A2C28",
+    "#C9826B",
+    "#FFFFFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#F4E9E1"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      },
+      {
+        "id": "s3",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "mr0",
+        "x": 70,
+        "y": 70,
+        "width": 940,
+        "height": 294,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "September\nrecap",
+        "fontFamily": "Fraunces",
+        "fontSize": 150,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.92,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mr1",
+        "x": 300,
+        "y": 470,
+        "width": 480,
+        "height": 660,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "arch",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E3CFC3"
+          }
+        }
+      },
+      {
+        "id": "mr2",
+        "x": 70,
+        "y": 1200,
+        "width": 940,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "30 days · 7 favourites",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9826B"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.12,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "mr3",
+        "x": 800,
+        "y": 440,
+        "width": 130,
+        "height": 130,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:twin-sparkle",
+        "tint": "#C9826B"
+      },
+      {
+        "id": "mr4",
+        "x": 1150,
+        "y": 110,
+        "width": 560,
+        "height": 700,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 28,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E7D2C6"
+          }
+        }
+      },
+      {
+        "id": "mr5",
+        "x": 1600,
+        "y": 620,
+        "width": 490,
+        "height": 620,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 28,
+        "stroke": {
+          "color": "#F4E9E1",
+          "width": 16
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DCC3B5"
+          }
+        }
+      },
+      {
+        "id": "mr6",
+        "x": 1150,
+        "y": 870,
+        "width": 420,
+        "height": 132,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "first week\nof fall",
+        "fontFamily": "Fraunces",
+        "fontSize": 62,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mr7",
+        "x": 2220,
+        "y": 60,
+        "width": 960,
+        "height": 700,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 28,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E7D2C6"
+          }
+        }
+      },
+      {
+        "id": "mr8",
+        "x": 2220,
+        "y": 790,
+        "width": 470,
+        "height": 500,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 28,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DCC3B5"
+          }
+        }
+      },
+      {
+        "id": "mr9",
+        "x": 2710,
+        "y": 790,
+        "width": 470,
+        "height": 500,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 28,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E3CFC3"
+          }
+        }
+      },
+      {
+        "id": "mra",
+        "x": 2250,
+        "y": 680,
+        "width": 500,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "little things",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 14,
+          "radius": 24
+        }
+      },
+      {
+        "id": "mrb",
+        "x": 3630,
+        "y": 90,
+        "width": 300,
+        "height": 300,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "ellipse",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E3CFC3"
+          }
+        }
+      },
+      {
+        "id": "mrc",
+        "x": 3330,
+        "y": 450,
+        "width": 900,
+        "height": 620,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "cornerRadius": 36
+      },
+      {
+        "id": "mrd",
+        "x": 3390,
+        "y": 510,
+        "width": 780,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Favourite song",
+        "fontFamily": "Manrope",
+        "fontSize": 24,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9826B"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.16,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "mre",
+        "x": 3390,
+        "y": 550,
+        "width": 780,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "the one on repeat",
+        "fontFamily": "Fraunces",
+        "fontSize": 52,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mrf",
+        "x": 3390,
+        "y": 650,
+        "width": 780,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#EBDDD3"
+        }
+      },
+      {
+        "id": "mrg",
+        "x": 3390,
+        "y": 690,
+        "width": 780,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Favourite place",
+        "fontFamily": "Manrope",
+        "fontSize": 24,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9826B"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.16,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "mrh",
+        "x": 3390,
+        "y": 730,
+        "width": 780,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "that corner café",
+        "fontFamily": "Fraunces",
+        "fontSize": 52,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mri",
+        "x": 3390,
+        "y": 830,
+        "width": 780,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#EBDDD3"
+        }
+      },
+      {
+        "id": "mrj",
+        "x": 3390,
+        "y": 870,
+        "width": 780,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Favourite moment",
+        "fontFamily": "Manrope",
+        "fontSize": 24,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9826B"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.16,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "mrk",
+        "x": 3390,
+        "y": 910,
+        "width": 780,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "sunset from the roof",
+        "fontFamily": "Fraunces",
+        "fontSize": 52,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mrl",
+        "x": 3330,
+        "y": 1130,
+        "width": 900,
+        "height": 79,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "see you, October",
+        "fontFamily": "Caveat",
+        "fontSize": 64,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#3A2C28"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

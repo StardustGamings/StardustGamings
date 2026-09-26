@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { ScenePreview } from '@/canvas/ScenePreview';
-import { getTemplate } from '@/templates/registry';
+import { useTemplateLookup } from '@/templates/store';
 import { useSettings } from '@/settings/store';
 import { useUi } from '@/settings/ui-store';
 import { useFullMotion } from '@/hooks/usePreferences';
@@ -27,6 +27,7 @@ const SHOWCASE = [
 
 function Showcase() {
   const full = useFullMotion();
+  const templates = useTemplateLookup();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rx = useSpring(useTransform(my, [-1, 1], [8, -8]), { stiffness: 120, damping: 16 });
@@ -49,7 +50,7 @@ function Showcase() {
     >
       <motion.div className="relative h-[360px] w-[288px] [transform-style:preserve-3d]" style={{ rotateX: rx, rotateY: ry }}>
         {SHOWCASE.map((card, i) => {
-          const template = getTemplate(card.id);
+          const template = templates.get(card.id);
           if (!template) return null;
           return (
             <motion.div
@@ -111,7 +112,7 @@ export function HomeHero() {
           >
             New carousel
           </Button>
-          <Link href="/discover/" className={buttonClasses({ variant: 'secondary', size: 'lg' })}>
+          <Link href="/templates/" className={buttonClasses({ variant: 'secondary', size: 'lg' })}>
             Browse templates
           </Link>
         </div>

@@ -14,7 +14,8 @@ export function BottomNav() {
   const pathname = usePathname();
   const openNewProject = useUi((s) => s.openNewProject);
   const defaultFormat = useSettings((s) => s.editor.defaultFormat);
-  const [left, right] = [NAV_ITEMS.slice(0, 2), NAV_ITEMS.slice(2)];
+  const items = NAV_ITEMS.filter((item) => item.phone);
+  const [left, right] = [items.slice(0, 2), items.slice(2)];
 
   const renderItem = (item: (typeof NAV_ITEMS)[number]) => {
     const active = item.match(pathname);

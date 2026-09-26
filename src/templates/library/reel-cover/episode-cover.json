@@ -1,0 +1,162 @@
+{
+  "id": "episode-cover",
+  "name": "Episode Cover",
+  "format": "reel-cover",
+  "sizeId": "tiktok",
+  "style": "bold",
+  "description": "A series cover with a giant episode number — kept inside the grid-safe area.",
+  "tags": [
+    "series",
+    "episode",
+    "reels",
+    "tiktok",
+    "bold"
+  ],
+  "palette": [
+    "#FFE14D",
+    "#141414",
+    "#FFFFFF",
+    "#FF6A3D"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#FFE14D"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ec0",
+        "x": 80,
+        "y": 400,
+        "width": 500,
+        "height": 171,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Ep.",
+        "fontFamily": "Anton",
+        "fontSize": 140,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#141414"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "ec1",
+        "x": 60,
+        "y": 500,
+        "width": 700,
+        "height": 560,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "04",
+        "fontFamily": "Anton",
+        "fontSize": 560,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#141414"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ec2",
+        "x": 620,
+        "y": 460,
+        "width": 400,
+        "height": 400,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "ellipse",
+        "stroke": {
+          "color": "#141414",
+          "width": 10
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F2C94C"
+          }
+        }
+      },
+      {
+        "id": "ec3",
+        "x": 80,
+        "y": 1160,
+        "width": 920,
+        "height": 251,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Thrift flip\nchallenge",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 124,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#141414"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": -0.02
+      },
+      {
+        "id": "ec4",
+        "x": 80,
+        "y": 1460,
+        "width": 920,
+        "height": 54,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "$20 · 3 stores · 1 fit",
+        "fontFamily": "Manrope",
+        "fontSize": 44,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FF6A3D"
+          },
+          "padding": 18,
+          "radius": 30
+        }
+      }
+    ]
+  }
+}

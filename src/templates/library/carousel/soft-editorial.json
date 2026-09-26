@@ -3,6 +3,7 @@
   "name": "Soft Editorial",
   "format": "carousel",
   "sizeId": "ig-portrait",
+  "style": "editorial",
   "description": "Serif italics, hairline rules and calm cream paper — magazine energy.",
   "tags": [
     "editorial",
@@ -293,7 +294,7 @@
         "x": 1160,
         "y": 150,
         "width": 300,
-        "height": 140,
+        "height": 156,
         "text": "01",
         "fontFamily": "Instrument Serif",
         "fontSize": 140

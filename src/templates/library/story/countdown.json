@@ -1,0 +1,219 @@
+{
+  "id": "countdown",
+  "name": "Countdown",
+  "format": "story",
+  "sizeId": "story",
+  "style": "y2k",
+  "description": "A glowing chrome number counting down to something big.",
+  "tags": [
+    "countdown",
+    "launch",
+    "event",
+    "y2k",
+    "night"
+  ],
+  "palette": [
+    "#0D0B1F",
+    "#3A1C71",
+    "#FFFFFF",
+    "#7CF7FF",
+    "#FF6FD8"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "radial",
+      "cx": 0.5,
+      "cy": 0.4,
+      "radius": 0.8,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#3A1C71"
+        },
+        {
+          "offset": 1,
+          "color": "#0D0B1F"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "c0",
+        "x": 60,
+        "y": 200,
+        "width": 960,
+        "height": 98,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "in",
+        "fontFamily": "Unbounded",
+        "fontSize": 80,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7CF7FF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "c1",
+        "x": 60,
+        "y": 280,
+        "width": 960,
+        "height": 760,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(124,247,255,0.55)",
+          "blur": 60,
+          "x": 0,
+          "y": 0
+        },
+        "type": "text",
+        "text": "3",
+        "fontFamily": "Unbounded",
+        "fontSize": 760,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "linear",
+          "angle": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#FFFFFF"
+            },
+            {
+              "offset": 0.5,
+              "color": "#7CF7FF"
+            },
+            {
+              "offset": 1,
+              "color": "#FF6FD8"
+            }
+          ]
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "c2",
+        "x": 60,
+        "y": 1030,
+        "width": 960,
+        "height": 147,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "days",
+        "fontFamily": "Unbounded",
+        "fontSize": 120,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "c3",
+        "x": 340,
+        "y": 1240,
+        "width": 400,
+        "height": 400,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "star",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A1A55"
+          }
+        }
+      },
+      {
+        "id": "c4",
+        "x": 60,
+        "y": 1720,
+        "width": 960,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "set a reminder ✓",
+        "fontFamily": "Silkscreen",
+        "fontSize": 36,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7CF7FF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "c5",
+        "x": 820,
+        "y": 180,
+        "width": 160,
+        "height": 160,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:y2k-star",
+        "tint": "#FF6FD8"
+      },
+      {
+        "id": "c6",
+        "x": 120,
+        "y": 1080,
+        "width": 110,
+        "height": 110,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:y2k-star",
+        "tint": "#7CF7FF"
+      },
+      {
+        "id": "c7",
+        "x": 150,
+        "y": 260,
+        "width": 100,
+        "height": 100,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#FFFFFF"
+      }
+    ]
+  }
+}

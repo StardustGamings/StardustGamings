@@ -219,11 +219,18 @@ export function documentAssetIds(doc: DesignDocument): Set<string> {
   return ids;
 }
 
-/** assetId → ids of the projects (including trashed ones) that use it. */
+export const TEMPLATE_USAGE_PREFIX = 'template:';
+
+/**
+ * assetId → ids of the projects (including trashed ones) that use it. Saved
+ * templates that kept their photos count too, as `template:<id>`.
+ */
 export async function assetUsage(): Promise<Map<string, string[]>> {
-  const docs = await (await getStorage()).getAllDocuments();
+  const storage = await getStorage();
+  const [docs, templates] = await Promise.all([storage.getAllDocuments(), storage.getAllTemplates()]);
   const usage = new Map<string, string[]>();
-  for (const { id, doc } of docs) {
+  const sources = [...docs, ...templates.map((t) => ({ id: `${TEMPLATE_USAGE_PREFIX}${t.id}`, doc: t.doc }))];
+  for (const { id, doc } of sources) {
     for (const assetId of documentAssetIds(doc)) {
       const list = usage.get(assetId) ?? [];
       list.push(id);

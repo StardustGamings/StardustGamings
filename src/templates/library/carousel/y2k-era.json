@@ -1,0 +1,291 @@
+{
+  "id": "y2k-era",
+  "name": "Y2K Era",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "y2k",
+  "description": "Iridescent gradient, chrome-outlined type and star-shaped frames that flow across the swipe.",
+  "tags": [
+    "y2k",
+    "gradient",
+    "chrome",
+    "stars",
+    "seamless"
+  ],
+  "palette": [
+    "#B8F3FF",
+    "#E8C6FF",
+    "#FFD1EC",
+    "#2B1B5A",
+    "#FFFFFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "linear",
+      "angle": 90,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#B8F3FF"
+        },
+        {
+          "offset": 0.5,
+          "color": "#E8C6FF"
+        },
+        {
+          "offset": 1,
+          "color": "#FFD1EC"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ye0",
+        "x": 60,
+        "y": 90,
+        "width": 960,
+        "height": 564,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "New\nera",
+        "fontFamily": "Unbounded",
+        "fontSize": 300,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "linear",
+          "angle": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#FFFFFF"
+            },
+            {
+              "offset": 1,
+              "color": "#CFC6FF"
+            }
+          ]
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.88,
+        "letterSpacing": 0,
+        "textTransform": "uppercase",
+        "stroke": {
+          "color": "#2B1B5A",
+          "width": 8
+        }
+      },
+      {
+        "id": "ye1",
+        "x": 380,
+        "y": 700,
+        "width": 620,
+        "height": 620,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "star",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F3E2FF"
+          }
+        }
+      },
+      {
+        "id": "ye2",
+        "x": 60,
+        "y": 1180,
+        "width": 400,
+        "height": 49,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "loading…",
+        "fontFamily": "Silkscreen",
+        "fontSize": 40,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B1B5A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ye3",
+        "x": 1170,
+        "y": 150,
+        "width": 520,
+        "height": 620,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "heart",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFE3F3"
+          }
+        }
+      },
+      {
+        "id": "ye4",
+        "x": 1640,
+        "y": 780,
+        "width": 480,
+        "height": 558,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "it’s a\nvibe",
+        "fontFamily": "Unbounded",
+        "fontSize": 150,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0,
+        "textTransform": "uppercase",
+        "stroke": {
+          "color": "#2B1B5A",
+          "width": 6
+        }
+      },
+      {
+        "id": "ye5",
+        "x": 2320,
+        "y": 140,
+        "width": 760,
+        "height": 760,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "hexagon",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DDF7FF"
+          }
+        }
+      },
+      {
+        "id": "ye6",
+        "x": 2220,
+        "y": 960,
+        "width": 960,
+        "height": 223,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "save it\nforever",
+        "fontFamily": "Unbounded",
+        "fontSize": 110,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B1B5A"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "ye7",
+        "x": 880,
+        "y": 560,
+        "width": 170,
+        "height": 170,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:y2k-star",
+        "tint": "#FFFFFF"
+      },
+      {
+        "id": "ye8",
+        "x": 950,
+        "y": 120,
+        "width": 190,
+        "height": 190,
+        "rotation": 10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:globe-y2k",
+        "tint": "#2B1B5A"
+      },
+      {
+        "id": "ye9",
+        "x": 1780,
+        "y": 180,
+        "width": 220,
+        "height": 220,
+        "rotation": 14,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:y2k-star",
+        "tint": "#FFFFFF"
+      },
+      {
+        "id": "yea",
+        "x": 3040,
+        "y": 80,
+        "width": 140,
+        "height": 140,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#2B1B5A"
+      },
+      {
+        "id": "yeb",
+        "x": 2220,
+        "y": 90,
+        "width": 130,
+        "height": 130,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:pixel-heart",
+        "tint": "#FF6FB5"
+      }
+    ]
+  }
+}

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import {
+  BookmarkPlus,
   Check,
   ChevronDown,
   ChevronLeft,
@@ -206,6 +207,13 @@ export function EditorTopBar() {
           icon={<Play />}
           onClick={() => useUi.getState().setCarouselPreview(true)}
           tooltipSide="bottom"
+        />
+        <IconButton
+          label="Save as template"
+          icon={<BookmarkPlus />}
+          onClick={() => useUi.getState().openSaveTemplate({ source: 'editor' })}
+          tooltipSide="bottom"
+          className="hidden sm:inline-flex"
         />
         <IconButton
           label="Command palette"

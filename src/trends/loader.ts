@@ -1,5 +1,5 @@
 import bundledPack from '../../public/trends/2026/september.json';
-import { getTemplate } from '@/templates/registry';
+import { hasBundledTemplate } from '@/templates/registry';
 import { resolveSticker } from '@/stickers/library';
 import { trendIndexSchema, trendPackSchema, type TrendPack } from './schema';
 
@@ -8,12 +8,11 @@ export const BUNDLED_PACK: TrendPack = sanitizePack(trendPackSchema.parse(bundle
 
 /** Drops references to templates/stickers this build doesn't know about. */
 export function sanitizePack(pack: TrendPack): TrendPack {
-  const hasTemplate = (id: string) => Boolean(getTemplate(id));
   return {
     ...pack,
-    templates: pack.templates.filter((t) => hasTemplate(t.templateId)),
-    layouts: pack.layouts.filter((l) => hasTemplate(l.templateId)),
-    formats: pack.formats.filter((f) => hasTemplate(f.templateId)),
+    templates: pack.templates.filter((t) => hasBundledTemplate(t.templateId)),
+    layouts: pack.layouts.filter((l) => hasBundledTemplate(l.templateId)),
+    formats: pack.formats.filter((f) => hasBundledTemplate(f.templateId)),
     stickers: pack.stickers.filter((s) => resolveSticker(s) !== null),
   };
 }

@@ -1,0 +1,456 @@
+{
+  "id": "breaking-news",
+  "name": "Breaking News",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "retro",
+  "description": "A cut-and-paste ransom-note headline over a photo — for very important updates.",
+  "tags": [
+    "newspaper",
+    "cut out letters",
+    "meme",
+    "retro",
+    "announcement"
+  ],
+  "palette": [
+    "#F4F0E6",
+    "#161412",
+    "#E8432E",
+    "#F6D34A",
+    "#FFFFFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#F4F0E6"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "bn0",
+        "x": 60,
+        "y": 420,
+        "width": 960,
+        "height": 760,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9D2C2"
+          }
+        }
+      },
+      {
+        "id": "bn1",
+        "x": 70,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -6,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      },
+      {
+        "id": "bn2",
+        "x": 70,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -6,
+        "opacity": 1,
+        "type": "text",
+        "text": "B",
+        "fontFamily": "Anton",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bn3",
+        "x": 188,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 4,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        }
+      },
+      {
+        "id": "bn4",
+        "x": 188,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 4,
+        "opacity": 1,
+        "type": "text",
+        "text": "R",
+        "fontFamily": "Playfair Display",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bn5",
+        "x": 306,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#F6D34A"
+        }
+      },
+      {
+        "id": "bn6",
+        "x": 306,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -3,
+        "opacity": 1,
+        "type": "text",
+        "text": "E",
+        "fontFamily": "Archivo",
+        "fontSize": 100,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bn7",
+        "x": 424,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 7,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      },
+      {
+        "id": "bn8",
+        "x": 424,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 7,
+        "opacity": 1,
+        "type": "text",
+        "text": "A",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bn9",
+        "x": 542,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -5,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E8432E"
+        }
+      },
+      {
+        "id": "bna",
+        "x": 542,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -5,
+        "opacity": 1,
+        "type": "text",
+        "text": "K",
+        "fontFamily": "Rubik Mono One",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bnb",
+        "x": 660,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      },
+      {
+        "id": "bnc",
+        "x": 660,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 3,
+        "opacity": 1,
+        "type": "text",
+        "text": "I",
+        "fontFamily": "Fraunces",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bnd",
+        "x": 778,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -7,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        }
+      },
+      {
+        "id": "bne",
+        "x": 778,
+        "y": 90,
+        "width": 108,
+        "height": 150,
+        "rotation": -7,
+        "opacity": 1,
+        "type": "text",
+        "text": "N",
+        "fontFamily": "Anton",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bnf",
+        "x": 896,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 5,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(22,20,18,0.2)",
+          "blur": 8,
+          "x": 2,
+          "y": 4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#F6D34A"
+        }
+      },
+      {
+        "id": "bng",
+        "x": 896,
+        "y": 116,
+        "width": 108,
+        "height": 150,
+        "rotation": 5,
+        "opacity": 1,
+        "type": "text",
+        "text": "G",
+        "fontFamily": "Unbounded",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bnh",
+        "x": 60,
+        "y": 300,
+        "width": 960,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "news: i’m officially on holiday",
+        "fontFamily": "DM Serif Display",
+        "fontSize": 52,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#161412"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "bni",
+        "x": 60,
+        "y": 1230,
+        "width": 960,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "More at 11 · or never",
+        "fontFamily": "Manrope",
+        "fontSize": 26,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#E8432E"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "id": "still-life",
+  "name": "Still Life",
+  "format": "poster",
+  "sizeId": "poster",
+  "style": "luxury",
+  "description": "A gallery exhibition poster: arch photo, fine rules and an italic serif title.",
+  "tags": [
+    "exhibition",
+    "gallery",
+    "art",
+    "poster",
+    "elegant"
+  ],
+  "palette": [
+    "#F1ECE3",
+    "#1F1B16",
+    "#A8875A",
+    "#DCD3C4"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1240,
+    "slideHeight": 1754,
+    "background": {
+      "type": "solid",
+      "color": "#F1ECE3"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "sl0",
+        "x": 50,
+        "y": 50,
+        "width": 1140,
+        "height": 1654,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "stroke": {
+          "color": "#1F1B16",
+          "width": 2
+        }
+      },
+      {
+        "id": "sl1",
+        "x": 100,
+        "y": 110,
+        "width": 1040,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Galerie Nord — Autumn exhibition",
+        "fontFamily": "Manrope",
+        "fontSize": 26,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#A8875A"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.3,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "sl2",
+        "x": 320,
+        "y": 220,
+        "width": 600,
+        "height": 820,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "arch",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DCD3C4"
+          }
+        }
+      },
+      {
+        "id": "sl3",
+        "x": 100,
+        "y": 1110,
+        "width": 1040,
+        "height": 303,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Still Life,\nMoving",
+        "fontFamily": "Playfair Display",
+        "fontSize": 150,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#1F1B16"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sl4",
+        "x": 570,
+        "y": 1440,
+        "width": 100,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#A8875A"
+        }
+      },
+      {
+        "id": "sl5",
+        "x": 100,
+        "y": 1480,
+        "width": 1040,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "12 September — 30 November",
+        "fontFamily": "Playfair Display",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F1B16"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sl6",
+        "x": 100,
+        "y": 1560,
+        "width": 1040,
+        "height": 30,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Open daily · free entry",
+        "fontFamily": "Manrope",
+        "fontSize": 24,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F1B16"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.3,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

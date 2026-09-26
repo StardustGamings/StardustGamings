@@ -3,6 +3,7 @@
   "name": "Night Out",
   "format": "poster",
   "sizeId": "poster",
+  "style": "y2k",
   "description": "Event poster with pixel type, a halo gradient and ticket-stub details.",
   "tags": [
     "night out",

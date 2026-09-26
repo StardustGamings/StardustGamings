@@ -3,6 +3,7 @@
   "name": "Film Strip",
   "format": "carousel",
   "sizeId": "ig-square",
+  "style": "cinematic",
   "description": "One continuous roll of film that scrolls across every swipe.",
   "tags": [
     "film",
@@ -1323,10 +1324,10 @@
         "x": 90,
         "y": 930,
         "width": 900,
-        "height": 100,
+        "height": 72,
         "text": "LISBON, SUMMER",
         "fontFamily": "Syne",
-        "fontSize": 70
+        "fontSize": 58
       },
       {
         "id": "e3u",
@@ -1392,7 +1393,7 @@
         "x": 2250,
         "y": 920,
         "width": 900,
-        "height": 110,
+        "height": 125,
         "text": "fin.",
         "fontFamily": "Instrument Serif",
         "fontSize": 110

@@ -1,0 +1,575 @@
+{
+  "id": "raw-files",
+  "name": "Raw Files",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "brutalist",
+  "description": "Hard rules, monospace captions and a red block — a brutalist portfolio in three slides.",
+  "tags": [
+    "brutalist",
+    "portfolio",
+    "grid",
+    "architecture",
+    "design"
+  ],
+  "palette": [
+    "#EDEDED",
+    "#0A0A0A",
+    "#FF2E00",
+    "#BDBDBD"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#EDEDED"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "rf0",
+        "x": 40,
+        "y": 150,
+        "width": 1000,
+        "height": 6,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rf1",
+        "x": 40,
+        "y": 1190,
+        "width": 1000,
+        "height": 6,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rf2",
+        "x": 40,
+        "y": 80,
+        "width": 480,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Index/01",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rf3",
+        "x": 560,
+        "y": 80,
+        "width": 480,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "1/3",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rf4",
+        "x": 1120,
+        "y": 150,
+        "width": 1000,
+        "height": 6,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rf5",
+        "x": 1120,
+        "y": 1190,
+        "width": 1000,
+        "height": 6,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rf6",
+        "x": 1120,
+        "y": 80,
+        "width": 480,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Index/02",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rf7",
+        "x": 1640,
+        "y": 80,
+        "width": 480,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "2/3",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rf8",
+        "x": 2200,
+        "y": 150,
+        "width": 1000,
+        "height": 6,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rf9",
+        "x": 2200,
+        "y": 1190,
+        "width": 1000,
+        "height": 6,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rfa",
+        "x": 2200,
+        "y": 80,
+        "width": 480,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Index/03",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rfb",
+        "x": 2720,
+        "y": 80,
+        "width": 480,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "3/3",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rfc",
+        "x": 30,
+        "y": 190,
+        "width": 1000,
+        "height": 540,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Raw\nfiles",
+        "fontFamily": "Archivo",
+        "fontSize": 300,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.84,
+        "letterSpacing": -0.03,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rfd",
+        "x": 540,
+        "y": 740,
+        "width": 500,
+        "height": 420,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 25,
+          "saturation": -100
+        },
+        "stroke": {
+          "color": "#0A0A0A",
+          "width": 6
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#BDBDBD"
+          }
+        }
+      },
+      {
+        "id": "rfe",
+        "x": 40,
+        "y": 1040,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FF2E00"
+        }
+      },
+      {
+        "id": "rff",
+        "x": 40,
+        "y": 1230,
+        "width": 400,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "(swipe)",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 28,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rfg",
+        "x": 1120,
+        "y": 200,
+        "width": 1000,
+        "height": 640,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 25,
+          "saturation": -100
+        },
+        "stroke": {
+          "color": "#0A0A0A",
+          "width": 6
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C4C4C4"
+          }
+        }
+      },
+      {
+        "id": "rfh",
+        "x": 1120,
+        "y": 870,
+        "width": 620,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Fig. 02 — concrete, noon",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 28,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rfi",
+        "x": 1680,
+        "y": 870,
+        "width": 440,
+        "height": 336,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "02",
+        "fontFamily": "Archivo",
+        "fontSize": 300,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FF2E00"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rfj",
+        "x": 1120,
+        "y": 1230,
+        "width": 1000,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Plan · Build · Break · Repeat",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 28,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rfk",
+        "x": 2200,
+        "y": 220,
+        "width": 560,
+        "height": 270,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "01  Concept\n02  Process\n03  Result\n04  Notes",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 44,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.5,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rfl",
+        "x": 2780,
+        "y": 220,
+        "width": 420,
+        "height": 560,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 25,
+          "saturation": -100
+        },
+        "stroke": {
+          "color": "#0A0A0A",
+          "width": 6
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#BDBDBD"
+          }
+        }
+      },
+      {
+        "id": "rfm",
+        "x": 2200,
+        "y": 860,
+        "width": 1000,
+        "height": 300,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0A0A0A"
+        }
+      },
+      {
+        "id": "rfn",
+        "x": 2230,
+        "y": 860,
+        "width": 940,
+        "height": 300,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "End of file",
+        "fontFamily": "Archivo",
+        "fontSize": 118,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#EDEDED"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": -0.02,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "rfo",
+        "x": 2200,
+        "y": 1230,
+        "width": 1000,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Available for work",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 28,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FF2E00"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

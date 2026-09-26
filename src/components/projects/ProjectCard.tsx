@@ -3,10 +3,11 @@
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Copy, ExternalLink, MoreHorizontal, PenLine, RotateCcw, Star, Trash2, XCircle } from 'lucide-react';
+import { BookmarkPlus, Copy, ExternalLink, MoreHorizontal, PenLine, RotateCcw, Star, Trash2, XCircle } from 'lucide-react';
 import type { ProjectMeta } from '@/types/project';
 import { FORMATS } from '@/projects/formats';
 import { useProjects } from '@/projects/store';
+import { useUi } from '@/settings/ui-store';
 import { formatRelativeTime } from '@/utils/time';
 import { useNow } from '@/hooks/useClientValue';
 import { cn } from '@/utils/cn';
@@ -133,6 +134,12 @@ export function ProjectCard({ project, trashed = false }: { project: ProjectMeta
                   </MenuItem>
                   <MenuItem icon={<Copy />} onSelect={() => void actions.duplicate(project.id)}>
                     Duplicate
+                  </MenuItem>
+                  <MenuItem
+                    icon={<BookmarkPlus />}
+                    onSelect={() => useUi.getState().openSaveTemplate({ source: 'project', projectId: project.id })}
+                  >
+                    Save as template
                   </MenuItem>
                   <MenuItem icon={<Star />} onSelect={() => void actions.toggleFavorite(project.id)}>
                     {project.favorite ? 'Remove from favourites' : 'Add to favourites'}

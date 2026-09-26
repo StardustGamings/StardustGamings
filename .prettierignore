@@ -9,3 +9,4 @@ playwright-report
 package-lock.json
 public/workers/
 public/ml/
+src/templates/catalog.generated.json

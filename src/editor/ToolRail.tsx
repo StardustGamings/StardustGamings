@@ -3,6 +3,7 @@
 import {
   Hand,
   Image as ImageIcon,
+  LayoutGrid,
   Layers,
   LayoutTemplate,
   MousePointer2,
@@ -37,13 +38,14 @@ export const MODE_TOOLS: ToolDef[] = [
 ];
 
 export const PANEL_TOOLS: ToolDef[] = [
+  { id: 'templates', label: 'Templates', icon: <LayoutTemplate />, panel: 'templates' },
   { id: 'text', label: 'Text', icon: <Type />, panel: 'text', shortcut: 'T' },
   { id: 'photos', label: 'Photos', icon: <ImageIcon />, panel: 'photos', shortcut: 'P' },
   { id: 'shapes', label: 'Shapes', icon: <Shapes />, panel: 'shapes' },
   { id: 'stickers', label: 'Stickers', icon: <Smile />, panel: 'stickers' },
   { id: 'design', label: 'Background', icon: <PaintBucket />, panel: 'design' },
   { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
-  { id: 'layouts', label: 'Layouts', icon: <LayoutTemplate />, panel: 'layouts', shortcut: 'L' },
+  { id: 'layouts', label: 'Layouts', icon: <LayoutGrid />, panel: 'layouts', shortcut: 'L' },
   { id: 'filters', label: 'Filters', icon: <Wand2 />, soon: true },
   { id: 'animate', label: 'Animate', icon: <Sparkles />, soon: true },
 ];

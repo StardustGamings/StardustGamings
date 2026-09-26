@@ -1,25 +1,36 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import type { FormatId } from '@/types/project';
-import { FORMAT_ORDER, FORMATS } from '@/projects/formats';
-import { getTemplate, TEMPLATES } from '@/templates/registry';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { TEMPLATE_CATALOG } from '@/templates/registry';
+import { useTemplateLookup, useTemplates } from '@/templates/store';
 import { useTrends } from '@/trends/store';
 import { Badge } from '@/components/ui/Badge';
+import { buttonClasses } from '@/components/ui/button-styles';
 import { SectionHeader } from '@/components/home/SectionHeader';
-import { cn } from '@/utils/cn';
 import { EffectCard } from './EffectCard';
 import { InspirationFeed } from './InspirationFeed';
 import { PaletteCard } from './PaletteCard';
 import { StickerTile } from './StickerTile';
-import { TemplateCard } from './TemplateCard';
+import { TemplateCard, TemplateCardSkeleton } from './TemplateCard';
 import { TypeCard } from './TypeCard';
+
+/** A varied first row: one template per format, round-robin. */
+function useTemplateTeaser(count: number) {
+  const { bundled } = useTemplates();
+  const byFormat = new Map<string, typeof bundled>();
+  bundled.forEach((t) => byFormat.set(t.format, [...(byFormat.get(t.format) ?? []), t]));
+  const queues = [...byFormat.values()].map((q) => [...q]);
+  const out: typeof bundled = [];
+  while (out.length < count && queues.some((q) => q.length))
+    queues.forEach((q) => q.length && out.length < count && out.push(q.shift()!));
+  return out;
+}
 
 export function DiscoverView() {
   const pack = useTrends((s) => s.pack);
-  const [format, setFormat] = useState<FormatId | 'all'>('all');
-  const templates = useMemo(() => (format === 'all' ? TEMPLATES : TEMPLATES.filter((t) => t.format === format)), [format]);
-  const formatsWithTemplates = FORMAT_ORDER.filter((f) => TEMPLATES.some((t) => t.format === f));
+  const templates = useTemplateLookup();
+  const teaser = useTemplateTeaser(10);
 
   return (
     <>
@@ -43,57 +54,48 @@ export function DiscoverView() {
           eyebrow="Templates"
           title="Start from something good"
           description="Every template is fully original and yours to remix."
+          action={
+            <Link href="/templates/" className={buttonClasses({ variant: 'ghost', size: 'sm' })}>
+              All {TEMPLATE_CATALOG.length} <ArrowRight className="size-4" />
+            </Link>
+          }
         />
-        <div
-          className="-mx-4 mb-6 hide-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"
-          role="group"
-          aria-label="Filter templates by format"
-        >
-          {(['all', ...formatsWithTemplates] as const).map((f) => (
-            <button
-              key={f}
-              type="button"
-              aria-pressed={format === f}
-              onClick={() => setFormat(f)}
-              className={cn(
-                'h-8 shrink-0 rounded-full border px-3 text-xs font-semibold transition-colors',
-                format === f ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
-              )}
-            >
-              {f === 'all' ? `All · ${TEMPLATES.length}` : FORMATS[f].label}
-            </button>
-          ))}
-        </div>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {templates.map((t) => (
-            <TemplateCard key={t.id} template={t} subtitle={t.description} />
-          ))}
+          {teaser.length
+            ? teaser.map((t) => <TemplateCard key={t.id} template={t} subtitle={t.description} />)
+            : Array.from({ length: 10 }, (_, i) => <TemplateCardSkeleton key={i} />)}
         </div>
       </section>
 
       <section aria-labelledby="layouts" className="mb-14">
         <SectionHeader id="layouts" eyebrow="Layouts" title="Trending layouts" />
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {pack.layouts.map((l) => (
-            <TemplateCard
-              key={l.id}
-              template={getTemplate(l.templateId)!}
-              title={l.name}
-              subtitle={l.description}
-              heat={l.heat}
-            />
-          ))}
+          {pack.layouts.map((l) => {
+            const template = templates.get(l.templateId);
+            return template ? (
+              <TemplateCard key={l.id} template={template} title={l.name} subtitle={l.description} heat={l.heat} />
+            ) : (
+              <TemplateCardSkeleton key={l.id} />
+            );
+          })}
         </div>
       </section>
 
       <section aria-labelledby="formats" className="mb-14">
         <SectionHeader id="formats" eyebrow="Formats" title="Carousel styles & meme formats" />
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {pack.formats.map((f) => (
-            <div key={f.id}>
-              <TemplateCard template={getTemplate(f.templateId)!} title={f.name} subtitle={`${f.kind} — ${f.description}`} />
-            </div>
-          ))}
+          {pack.formats.map((f) => {
+            const template = templates.get(f.templateId);
+            return (
+              <div key={f.id}>
+                {template ? (
+                  <TemplateCard template={template} title={f.name} subtitle={`${f.kind} — ${f.description}`} />
+                ) : (
+                  <TemplateCardSkeleton />
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 

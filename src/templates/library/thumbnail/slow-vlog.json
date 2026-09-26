@@ -1,0 +1,133 @@
+{
+  "id": "slow-vlog",
+  "name": "Slow Vlog",
+  "format": "thumbnail",
+  "sizeId": "yt-thumbnail",
+  "style": "cinematic",
+  "description": "A quiet full-frame thumbnail: soft gradient, italic serif title, small episode tag.",
+  "tags": [
+    "vlog",
+    "travel",
+    "slow living",
+    "youtube",
+    "cinematic"
+  ],
+  "palette": [
+    "#1A1714",
+    "#FFFFFF",
+    "#E9DCC8",
+    "#7D6B58"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1280,
+    "slideHeight": 720,
+    "background": {
+      "type": "solid",
+      "color": "#1A1714"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "sv0",
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 6,
+          "temperature": 10,
+          "fade": 10
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#7D6B58"
+          }
+        }
+      },
+      {
+        "id": "sv1",
+        "x": 0,
+        "y": 0,
+        "width": 760,
+        "height": 720,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "linear",
+          "angle": 90,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "rgba(26,23,20,0.75)"
+            },
+            {
+              "offset": 1,
+              "color": "rgba(26,23,20,0)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "sv2",
+        "x": 70,
+        "y": 200,
+        "width": 400,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Vlog 12",
+        "fontFamily": "Manrope",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#E9DCC8"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.3,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "sv3",
+        "x": 64,
+        "y": 250,
+        "width": 700,
+        "height": 236,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "a slow week\nin lisbon",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 120,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.92,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

@@ -8,7 +8,7 @@ import type { FormatId, SizePresetId } from '@/types/project';
 import { CUSTOM_SIZE_LIMITS, FORMAT_ORDER, FORMATS, MAX_SLIDES, SIZE_PRESETS, ratioLabel } from '@/projects/formats';
 import { fillToCss } from '@/canvas/render';
 import { ScenePreview } from '@/canvas/ScenePreview';
-import { templatesForFormat } from '@/templates/registry';
+import { useTemplates } from '@/templates/store';
 import { useSettings } from '@/settings/store';
 import { useUi } from '@/settings/ui-store';
 import { Button } from '@/components/ui/Button';
@@ -127,7 +127,11 @@ export function NewProjectDialog() {
   const customW_ = parseDimension(customW);
   const customH_ = parseDimension(customH);
   const customInvalid = sizeId === 'custom' && (!customW_ || !customH_);
-  const templates = useMemo(() => templatesForFormat(format), [format]);
+  const library = useTemplates();
+  const templates = useMemo(
+    () => [...library.user, ...library.bundled].filter((t) => t.format === format),
+    [library.user, library.bundled, format],
+  );
 
   const submit = async () => {
     if (customInvalid || busy) return;

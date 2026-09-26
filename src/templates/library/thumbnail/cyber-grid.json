@@ -3,6 +3,7 @@
   "name": "Cyber Grid",
   "format": "thumbnail",
   "sizeId": "yt-thumbnail",
+  "style": "bold",
   "description": "Neon grid, highlighter hook and a glowing face frame. Built for the click.",
   "tags": [
     "cyber",

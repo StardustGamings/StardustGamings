@@ -37,6 +37,7 @@ import { EditorTopBar } from './EditorTopBar';
 import { TextPanel, ShapesPanel, StickersPanel } from './panels/AddPanels';
 import { PhotosPanel } from './panels/PhotosPanel';
 import { LayoutsPanel } from './panels/LayoutsPanel';
+import { TemplatesPanel } from './panels/TemplatesPanel';
 import { PreviewDialog } from './PreviewDialog';
 import { shuffleLayout } from './layout-actions';
 import { CropBar } from './CropBar';
@@ -54,6 +55,7 @@ import { PANEL_TOOLS, ToolButton, ToolRail } from './ToolRail';
 import { useEditorShortcuts } from './useEditorShortcuts';
 
 const PANEL_TITLES: Record<PanelId, string> = {
+  templates: 'Templates',
   text: 'Text',
   shapes: 'Shapes',
   stickers: 'Stickers',
@@ -66,6 +68,8 @@ const PANEL_TITLES: Record<PanelId, string> = {
 
 function PanelContent({ panel }: { panel: PanelId }) {
   switch (panel) {
+    case 'templates':
+      return <TemplatesPanel />;
     case 'text':
       return <TextPanel />;
     case 'shapes':
@@ -90,6 +94,7 @@ function Flyout() {
   const panel = useEditor((s) => s.panel);
   const setPanel = useEditor((s) => s.setPanel);
   const show =
+    panel === 'templates' ||
     panel === 'text' ||
     panel === 'shapes' ||
     panel === 'stickers' ||

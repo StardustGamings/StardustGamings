@@ -3,6 +3,7 @@
   "name": "Cover Pop",
   "format": "reel-cover",
   "sizeId": "tiktok",
+  "style": "retro",
   "description": "Outlined condensed type with a hard shadow — readable at thumbnail size.",
   "tags": [
     "travel",
@@ -84,7 +85,7 @@
         "x": 60,
         "y": 600,
         "width": 960,
-        "height": 720,
+        "height": 735,
         "text": "5 SPOTS\nIN\nLISBON",
         "fontFamily": "Anton",
         "fontSize": 270,

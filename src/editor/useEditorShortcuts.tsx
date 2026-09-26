@@ -2,6 +2,8 @@
 
 import {
   ArrowDownToLine,
+  BookmarkPlus,
+  LayoutTemplate,
   ArrowUpToLine,
   Copy,
   Crop,
@@ -259,6 +261,22 @@ export function useEditorShortcuts() {
         icon: <Sparkles />,
         keywords: ['carousel', 'auto', 'generate', 'photos'],
         run: () => useUi.getState().openPhotoFlow('dump', 'current'),
+      },
+      {
+        id: 'ed-templates',
+        label: 'Templates panel',
+        group: 'Editor',
+        icon: <LayoutTemplate />,
+        keywords: ['template', 'add slides', 'replace design', 'library'],
+        run: () => ed().setPanel('templates'),
+      },
+      {
+        id: 'ed-save-template',
+        label: 'Save as template…',
+        group: 'Editor',
+        icon: <BookmarkPlus />,
+        keywords: ['template', 'reuse', 'save design'],
+        run: () => useUi.getState().openSaveTemplate({ source: 'editor' }),
       },
       {
         id: 'ed-preview',

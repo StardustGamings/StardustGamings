@@ -21,12 +21,13 @@ import {
   Zap,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FORMAT_ORDER, FORMATS } from '@/projects/formats';
 import { useProjects } from '@/projects/store';
 import { useSettings } from '@/settings/store';
 import { useUi } from '@/settings/ui-store';
-import { TEMPLATES } from '@/templates/registry';
+import { TEMPLATE_CATALOG } from '@/templates/registry';
+import { findTemplate, useTemplateLibrary } from '@/templates/store';
 import { useHotkeys } from '@/hooks/useHotkeys';
 import { Kbd } from '@/components/ui/Kbd';
 import { toast } from '@/components/ui/toast-store';
@@ -49,9 +50,14 @@ export function CommandPalette() {
   const ambient = useSettings((s) => s.ambientEffects);
   const scoped = useCommandRegistry((s) => s.scoped);
   const createFromTemplate = useCreateFromTemplate();
+  const userTemplates = useTemplateLibrary((s) => s.user);
   const [search, setSearch] = useState('');
 
   useHotkeys({ 'mod+k': () => setOpen(!useUi.getState().paletteOpen) }, { allowInInputs: true });
+  // Your own templates are searchable too; load them (and the library) when the palette opens.
+  useEffect(() => {
+    if (open) void useTemplateLibrary.getState().load();
+  }, [open]);
 
   const go = (href: string) => () => router.push(href);
 
@@ -140,15 +146,26 @@ export function CommandPalette() {
       },
     );
 
-    TEMPLATES.forEach((t) =>
+    commands.push({
+      id: 'go-templates',
+      label: 'Browse templates',
+      group: 'Navigate',
+      icon: <LayoutTemplate />,
+      keywords: ['templates', 'library', 'your templates', 'import template'],
+      run: go('/templates/'),
+    });
+    [...userTemplates, ...TEMPLATE_CATALOG].forEach((t) =>
       commands.push({
         id: `tpl-${t.id}`,
         label: t.name,
         group: 'Templates',
-        hint: FORMATS[t.format].label,
+        hint: `${FORMATS[t.format].label}${'source' in t && t.source === 'user' ? ' · yours' : ''}`,
         icon: <LayoutTemplate />,
-        keywords: ['template', 'search templates', ...t.tags],
-        run: () => void createFromTemplate(t),
+        keywords: ['template', 'search templates', t.style, ...t.tags],
+        run: () =>
+          void findTemplate(t.id).then((template) => {
+            if (template) void createFromTemplate(template);
+          }),
       }),
     );
 
@@ -228,7 +245,18 @@ export function CommandPalette() {
     return [...byGroup.entries()];
     // `go` is recreated each render but only closes over the stable router.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scoped, projects, motionPref, ambient, openNewProject, update, setOnboardingReplay, createFromTemplate, router]);
+  }, [
+    scoped,
+    projects,
+    motionPref,
+    ambient,
+    openNewProject,
+    update,
+    setOnboardingReplay,
+    createFromTemplate,
+    userTemplates,
+    router,
+  ]);
 
   // Filter + rank ourselves (cmdk's filtering is disabled) so the best match is
   // always first, across groups.

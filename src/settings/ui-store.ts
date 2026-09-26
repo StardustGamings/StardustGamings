@@ -19,6 +19,15 @@ export interface PhotoFlowRequest {
   family?: CollageFamily;
 }
 
+/** Template preview: `new` starts a project; `editor` adds to (or replaces) the open design. */
+export interface TemplatePreviewRequest {
+  id: string;
+  target: 'new' | 'editor';
+}
+
+/** Save a design as a template: from the editor (`current`) or a project in the library. */
+export type SaveTemplateRequest = { source: 'editor' } | { source: 'project'; projectId: string };
+
 interface UiState {
   paletteOpen: boolean;
   setPaletteOpen: (open: boolean) => void;
@@ -39,6 +48,12 @@ interface UiState {
   /** Full-screen swipe preview of the carousel open in the editor. */
   carouselPreview: boolean;
   setCarouselPreview: (open: boolean) => void;
+  templatePreview: TemplatePreviewRequest | null;
+  openTemplate: (id: string, target?: TemplatePreviewRequest['target']) => void;
+  closeTemplate: () => void;
+  saveTemplate: SaveTemplateRequest | null;
+  openSaveTemplate: (request: SaveTemplateRequest) => void;
+  closeSaveTemplate: () => void;
 }
 
 export const useUi = create<UiState>()((set) => ({
@@ -58,4 +73,10 @@ export const useUi = create<UiState>()((set) => ({
   closePhotoFlow: () => set({ photoFlow: null }),
   carouselPreview: false,
   setCarouselPreview: (carouselPreview) => set({ carouselPreview }),
+  templatePreview: null,
+  openTemplate: (id, target = 'new') => set({ templatePreview: { id, target }, paletteOpen: false, newProject: null }),
+  closeTemplate: () => set({ templatePreview: null }),
+  saveTemplate: null,
+  openSaveTemplate: (saveTemplate) => set({ saveTemplate, paletteOpen: false }),
+  closeSaveTemplate: () => set({ saveTemplate: null }),
 }));

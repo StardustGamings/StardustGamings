@@ -1,0 +1,242 @@
+{
+  "id": "main-character",
+  "name": "Main Character",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "bold",
+  "description": "One giant word runs across all three slides, with photos layered over the type.",
+  "tags": [
+    "giant typography",
+    "seamless",
+    "gen-z",
+    "bold",
+    "pink"
+  ],
+  "palette": [
+    "#FF4F9A",
+    "#1A0F14",
+    "#FFF1E6",
+    "#FFE14D"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#FF4F9A"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "mc0",
+        "x": 20,
+        "y": 360,
+        "width": 3200,
+        "height": 514,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Main character",
+        "fontFamily": "Anton",
+        "fontSize": 480,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFF1E6"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "mc1",
+        "x": 700,
+        "y": 140,
+        "width": 460,
+        "height": 620,
+        "rotation": -4,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "stroke": {
+          "color": "#FFF1E6",
+          "width": 14
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F6B7D2"
+          }
+        }
+      },
+      {
+        "id": "mc2",
+        "x": 1880,
+        "y": 640,
+        "width": 500,
+        "height": 620,
+        "rotation": 5,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "stroke": {
+          "color": "#FFF1E6",
+          "width": 14
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F6B7D2"
+          }
+        }
+      },
+      {
+        "id": "mc3",
+        "x": 2720,
+        "y": 110,
+        "width": 420,
+        "height": 520,
+        "rotation": -3,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "stroke": {
+          "color": "#FFF1E6",
+          "width": 14
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F6B7D2"
+          }
+        }
+      },
+      {
+        "id": "mc4",
+        "x": 60,
+        "y": 60,
+        "width": 400,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "ep. 01",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A0F14"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.1,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "mc5",
+        "x": 60,
+        "y": 1000,
+        "width": 600,
+        "height": 121,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "a series about\ndoing it anyway",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 56,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A0F14"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mc6",
+        "x": 2240,
+        "y": 1100,
+        "width": 900,
+        "height": 108,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "(it’s giving)",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 88,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#1A0F14"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "mc7",
+        "x": 1030,
+        "y": 80,
+        "width": 180,
+        "height": 180,
+        "rotation": 12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:burst",
+        "tint": "#FFE14D"
+      },
+      {
+        "id": "mc8",
+        "x": 1320,
+        "y": 1080,
+        "width": 140,
+        "height": 140,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#FFE14D"
+      },
+      {
+        "id": "mc9",
+        "x": 2300,
+        "y": 150,
+        "width": 110,
+        "height": 110,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#FFF1E6"
+      }
+    ]
+  }
+}

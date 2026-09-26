@@ -3,6 +3,7 @@
   "name": "Bento Mood",
   "format": "moodboard",
   "sizeId": "moodboard",
+  "style": "soft",
   "description": "A bento grid for references, with a title tile and palette chips.",
   "tags": [
     "moodboard",

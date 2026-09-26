@@ -44,6 +44,7 @@ import { cn } from '@/utils/cn';
 import { SettingRow, SettingsSection } from './SettingRow';
 import { useAssets } from '@/assets/store';
 import { assetUsage, cleanupUnusedAssets } from '@/assets/repository';
+import { useTemplateLibrary } from '@/templates/store';
 import { ThemePicker } from './ThemePicker';
 
 const SECTIONS = [
@@ -433,7 +434,7 @@ function PhotoStorageRow() {
         open={confirm}
         onOpenChange={setConfirm}
         title="Delete photos no design uses?"
-        description={`Frees ${formatBytes(unused?.bytes ?? 0)}. Photos in any design (including ones in the trash) and your sticker library are kept.`}
+        description={`Frees ${formatBytes(unused?.bytes ?? 0)}. Photos in any design (including ones in the trash), in your saved templates and your sticker library are kept.`}
         confirmLabel="Clean up"
         destructive
         onConfirm={async () => {
@@ -538,12 +539,13 @@ function StorageSection() {
         open={confirm}
         onOpenChange={setConfirm}
         title="Erase all local data?"
-        description={`This permanently deletes ${projects.length} project${projects.length === 1 ? '' : 's'} and resets every setting.`}
+        description={`This permanently deletes ${projects.length} project${projects.length === 1 ? '' : 's'}, your photos and saved templates, and resets every setting.`}
         confirmLabel="Erase everything"
         destructive
         onConfirm={async () => {
           await clearAll();
           useAssets.setState({ status: 'idle', assets: [] });
+          useTemplateLibrary.getState().resetUser();
           try {
             localStorage.removeItem(SETTINGS_STORAGE_KEY);
           } catch {

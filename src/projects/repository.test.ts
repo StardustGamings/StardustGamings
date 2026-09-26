@@ -1,7 +1,7 @@
 import { IDBFactory } from 'fake-indexeddb';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { MemoryStorage, setStorageForTesting } from '@/storage/db';
-import { getTemplate } from '@/templates/registry';
+import { loadBundledTemplate } from '@/templates/registry';
 import { insertSlide } from './document';
 import * as repo from './repository';
 
@@ -37,7 +37,7 @@ describe('project repository (IndexedDB)', () => {
   });
 
   it('creates from a template with fresh ids', async () => {
-    const template = getTemplate('film-strip')!;
+    const template = (await loadBundledTemplate('film-strip'))!;
     const { doc } = await repo.createProject({ format: template.format, doc: template.doc, templateId: template.id });
     expect(doc.elements).toHaveLength(template.doc.elements.length);
     expect(doc.elements[0]!.id).not.toBe(template.doc.elements[0]!.id);

@@ -114,7 +114,8 @@ test('command palette switches theme and search templates opens the editor', asy
 
 test('templates from Discover open in the editor with their slides', async ({ app: page }) => {
   await page.goto('/discover/');
-  await page.getByRole('button', { name: 'Use template Big Type Drop' }).first().click();
+  await page.getByRole('button', { name: 'Template Big Type Drop' }).first().click();
+  await page.getByRole('dialog', { name: 'Big Type Drop' }).getByTestId('template-use').click();
   await expect(page).toHaveURL(/\/editor\//);
   await expect(page.getByTestId('slide-strip').getByRole('button', { name: /^Slide \d+$/ })).toHaveCount(5);
 });

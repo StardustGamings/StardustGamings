@@ -1,0 +1,439 @@
+{
+  "id": "cinema-frames",
+  "name": "Cinema Frames",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "cinematic",
+  "description": "A title card and widescreen stills with yellow subtitles — your trip, but make it a film.",
+  "tags": [
+    "cinematic",
+    "film",
+    "travel",
+    "subtitles",
+    "moody"
+  ],
+  "palette": [
+    "#0A0A0A",
+    "#F2EDE4",
+    "#FFE45C",
+    "#8A857C"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#0A0A0A"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      },
+      {
+        "id": "s3",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "cf0",
+        "x": 60,
+        "y": 440,
+        "width": 960,
+        "height": 27,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "A film by you",
+        "fontFamily": "Manrope",
+        "fontSize": 22,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#BDB7AC"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.4,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "cf1",
+        "x": 60,
+        "y": 500,
+        "width": 960,
+        "height": 303,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Somewhere\nWarm",
+        "fontFamily": "Playfair Display",
+        "fontSize": 150,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#F2EDE4"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cf2",
+        "x": 440,
+        "y": 850,
+        "width": 200,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        }
+      },
+      {
+        "id": "cf3",
+        "x": 60,
+        "y": 890,
+        "width": 960,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "In theatres never · swipe",
+        "fontFamily": "Manrope",
+        "fontSize": 20,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.3,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "cf4",
+        "x": 1120,
+        "y": 400,
+        "width": 400,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "00:12:48:02",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cf5",
+        "x": 1720,
+        "y": 400,
+        "width": 400,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Scene 01",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "cf6",
+        "x": 1080,
+        "y": 449,
+        "width": 1080,
+        "height": 452,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 12,
+          "temperature": 8,
+          "saturation": -18,
+          "fade": 12,
+          "grain": 22
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2622"
+          }
+        }
+      },
+      {
+        "id": "cf7",
+        "x": 1140,
+        "y": 790,
+        "width": 960,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.85)",
+          "blur": 6,
+          "x": 0,
+          "y": 2
+        },
+        "type": "text",
+        "text": "I think we were happy here.",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFE45C"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cf8",
+        "x": 2200,
+        "y": 400,
+        "width": 400,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "00:21:48:03",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cf9",
+        "x": 2800,
+        "y": 400,
+        "width": 400,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Scene 02",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "cfa",
+        "x": 2160,
+        "y": 449,
+        "width": 1080,
+        "height": 452,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 12,
+          "temperature": 8,
+          "saturation": -18,
+          "fade": 12,
+          "grain": 22
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2622"
+          }
+        }
+      },
+      {
+        "id": "cfb",
+        "x": 2220,
+        "y": 790,
+        "width": 960,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.85)",
+          "blur": 6,
+          "x": 0,
+          "y": 2
+        },
+        "type": "text",
+        "text": "Don’t look at the camera.",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFE45C"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cfc",
+        "x": 3280,
+        "y": 400,
+        "width": 400,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "00:30:48:04",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cfd",
+        "x": 3880,
+        "y": 400,
+        "width": 400,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Scene 03",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8A857C"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "cfe",
+        "x": 3240,
+        "y": 449,
+        "width": 1080,
+        "height": 452,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "contrast": 12,
+          "temperature": 8,
+          "saturation": -18,
+          "fade": 12,
+          "grain": 22
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2622"
+          }
+        }
+      },
+      {
+        "id": "cff",
+        "x": 3300,
+        "y": 790,
+        "width": 960,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.85)",
+          "blur": 6,
+          "x": 0,
+          "y": 2
+        },
+        "type": "text",
+        "text": "Some summers stay with you.",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFE45C"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

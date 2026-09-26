@@ -2,10 +2,11 @@ import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type { DesignDocument } from '@/types/document';
 import type { ProjectMeta } from '@/types/project';
 import type { AssetBlobs, AssetMeta, AssetVariant } from '@/assets/types';
+import type { UserTemplate } from '@/templates/user';
 
 export const DB_NAME = 'stardeck';
-/** v1: projects, documents, thumbnails · v2: assets + asset blobs. */
-export const DB_VERSION = 2;
+/** v1: projects, documents, thumbnails · v2: assets + asset blobs · v3: user templates. */
+export const DB_VERSION = 3;
 
 const VARIANTS: AssetVariant[] = ['original', 'preview', 'thumb'];
 const blobKey = (id: string, variant: AssetVariant) => `${id}/${variant}`;
@@ -32,6 +33,7 @@ interface StardeckSchema extends DBSchema {
   thumbnails: { key: string; value: ThumbnailRecord };
   assets: { key: string; value: AssetMeta; indexes: { 'by-hash': string } };
   assetBlobs: { key: string; value: AssetBlobRecord };
+  templates: { key: string; value: UserTemplate };
 }
 
 /**
@@ -60,7 +62,10 @@ export interface ProjectStorage {
   /** Writes meta + all variants atomically. */
   putAsset(meta: AssetMeta, blobs: AssetBlobs): Promise<void>;
   deleteAssets(ids: string[]): Promise<void>;
-  /** Removes projects and assets. */
+  getAllTemplates(): Promise<UserTemplate[]>;
+  putTemplate(template: UserTemplate): Promise<void>;
+  deleteTemplate(id: string): Promise<void>;
+  /** Removes projects, templates and assets. */
   clearAll(): Promise<void>;
 }
 
@@ -133,8 +138,17 @@ class IndexedDbStorage implements ProjectStorage {
       tx.done,
     ]);
   }
+  getAllTemplates() {
+    return this.db.getAll('templates');
+  }
+  async putTemplate(template: UserTemplate) {
+    await this.db.put('templates', template);
+  }
+  async deleteTemplate(id: string) {
+    await this.db.delete('templates', id);
+  }
   async clearAll() {
-    const stores = ['projects', 'documents', 'thumbnails', 'assets', 'assetBlobs'] as const;
+    const stores = ['projects', 'documents', 'thumbnails', 'assets', 'assetBlobs', 'templates'] as const;
     const tx = this.db.transaction([...stores], 'readwrite');
     await Promise.all([...stores.map((name) => tx.objectStore(name).clear()), tx.done]);
   }
@@ -147,6 +161,7 @@ export class MemoryStorage implements ProjectStorage {
   private thumbs = new Map<string, ThumbnailRecord>();
   private assets = new Map<string, AssetMeta>();
   private assetBlobs = new Map<string, Blob>();
+  private templates = new Map<string, UserTemplate>();
 
   async getAllMeta() {
     return [...this.metas.values()].map((m) => ({ ...m }));
@@ -203,7 +218,17 @@ export class MemoryStorage implements ProjectStorage {
       for (const v of VARIANTS) this.assetBlobs.delete(blobKey(id, v));
     }
   }
+  async getAllTemplates() {
+    return [...this.templates.values()].map((t) => structuredClone(t));
+  }
+  async putTemplate(template: UserTemplate) {
+    this.templates.set(template.id, structuredClone(template));
+  }
+  async deleteTemplate(id: string) {
+    this.templates.delete(id);
+  }
   async clearAll() {
+    this.templates.clear();
     this.metas.clear();
     this.docs.clear();
     this.thumbs.clear();
@@ -230,6 +255,7 @@ async function open(): Promise<ProjectStorage> {
           assets.createIndex('by-hash', 'hash');
           database.createObjectStore('assetBlobs', { keyPath: 'key' });
         }
+        if (oldVersion < 3) database.createObjectStore('templates', { keyPath: 'id' });
       },
       blocking() {
         // Another tab wants to upgrade the schema — step aside so it can.

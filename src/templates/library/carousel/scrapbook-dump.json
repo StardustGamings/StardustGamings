@@ -3,6 +3,7 @@
   "name": "Scrapbook Dump",
   "format": "carousel",
   "sizeId": "ig-portrait",
+  "style": "scrapbook",
   "description": "Tilted polaroids, washi tape and handwritten notes on a gradient that flows across slides.",
   "tags": [
     "scrapbook",
@@ -337,7 +338,7 @@
         "x": 1200,
         "y": 1110,
         "width": 620,
-        "height": 130,
+        "height": 180,
         "text": "we said one more song…",
         "fontFamily": "Caveat",
         "fontSize": 80
