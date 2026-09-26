@@ -71,9 +71,12 @@ export function ScenePreview({
   useLayoutEffect(() => {
     const el = boxRef.current;
     if (!el) return;
+    // Layout size (not getBoundingClientRect): it ignores transforms such as a dialog's
+    // zoom-in animation, which ResizeObserver wouldn't report once it settles.
     const measure = () => {
-      const rect = el.getBoundingClientRect();
-      setBox((prev) => (prev && prev.w === rect.width && prev.h === rect.height ? prev : { w: rect.width, h: rect.height }));
+      const w = el.offsetWidth;
+      const h = el.offsetHeight;
+      setBox((prev) => (prev && prev.w === w && prev.h === h ? prev : { w, h }));
     };
     measure();
     if (typeof ResizeObserver === 'undefined') return;

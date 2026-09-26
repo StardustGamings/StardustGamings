@@ -583,6 +583,7 @@ function ShortcutsSection() {
     { keys: ['V'], action: 'Select tool' },
     { keys: ['T'], action: 'Text tool (click to place)' },
     { keys: ['P'], action: 'Photos panel' },
+    { keys: ['L'], action: 'Layouts panel (collages, photo dump, seamless swipe)' },
     { keys: ['H'], action: 'Pan tool' },
     { keys: ['Space'], action: 'Hold and drag to pan' },
     { keys: [mod, 'Scroll'], action: 'Zoom at the pointer' },

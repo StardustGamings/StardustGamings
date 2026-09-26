@@ -43,7 +43,7 @@ export const PANEL_TOOLS: ToolDef[] = [
   { id: 'stickers', label: 'Stickers', icon: <Smile />, panel: 'stickers' },
   { id: 'design', label: 'Background', icon: <PaintBucket />, panel: 'design' },
   { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
-  { id: 'layouts', label: 'Layouts', icon: <LayoutTemplate />, soon: true },
+  { id: 'layouts', label: 'Layouts', icon: <LayoutTemplate />, panel: 'layouts', shortcut: 'L' },
   { id: 'filters', label: 'Filters', icon: <Wand2 />, soon: true },
   { id: 'animate', label: 'Animate', icon: <Sparkles />, soon: true },
 ];

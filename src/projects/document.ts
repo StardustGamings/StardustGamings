@@ -64,13 +64,29 @@ export function duplicateSlide(doc: DesignDocument, index: number): DesignDocume
   slides.splice(index + 1, 0, { ...createSlide(source.fill) });
   const elements: DesignElement[] = [];
   const copies: DesignElement[] = [];
+  // A duplicated collage becomes its own collage (shuffling one mustn't move the other).
+  const layoutMap = new Map<string, string>();
   for (const el of doc.elements) {
     const owner = slideIndexOf(el, doc);
     if (owner > index) elements.push(shiftX(el, doc.slideWidth));
     else elements.push(el);
-    if (owner === index) copies.push({ ...shiftX(el, doc.slideWidth), id: createId('el') });
+    if (owner === index) {
+      const { layout: _layout, ...rest } = el;
+      const copy: DesignElement = { ...shiftX(rest as DesignElement, doc.slideWidth), id: createId('el') };
+      // Only whole collages carry over; a slice of a panorama is just loose photos.
+      const spec = el.layout && doc.layouts?.find((l) => l.id === el.layout!.id);
+      if (el.layout && spec?.kind === 'collage') {
+        if (!layoutMap.has(el.layout.id)) layoutMap.set(el.layout.id, createId('lay'));
+        copy.layout = { ...el.layout, id: layoutMap.get(el.layout.id)! };
+      }
+      copies.push(copy);
+    }
   }
-  return { ...doc, slides, elements: [...elements, ...copies] };
+  const layouts = [
+    ...(doc.layouts ?? []),
+    ...(doc.layouts ?? []).filter((l) => layoutMap.has(l.id)).map((l) => ({ ...l, id: layoutMap.get(l.id)! })),
+  ];
+  return { ...doc, slides, elements: [...elements, ...copies], ...(doc.layouts ? { layouts } : {}) };
 }
 
 export function moveSlide(doc: DesignDocument, from: number, to: number): DesignDocument {

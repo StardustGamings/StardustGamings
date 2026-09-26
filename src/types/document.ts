@@ -50,6 +50,19 @@ interface ElementBase {
   shadow?: Shadow;
   /** Elements sharing a groupId select, move and transform together. */
   groupId?: Id;
+  /** Membership in a generated layout (collage / seamless panorama) that can be re-generated. */
+  layout?: LayoutMembership;
+}
+
+export interface LayoutMembership {
+  /** `DesignDocument.layouts[].id`. */
+  id: Id;
+  /** Photos are re-arranged when the layout is shuffled; decor (frames, tape, stickers) is re-created. */
+  role: 'photo' | 'decor';
+  /** Locked photos keep their spot when the layout is shuffled or restyled. */
+  locked?: boolean;
+  /** Photo order within the layout (kept stable so regenerating is repeatable). */
+  index?: number;
 }
 
 export interface TextElement extends ElementBase {
@@ -192,6 +205,40 @@ export interface StickerElement extends ElementBase {
 export type DesignElement = TextElement | ShapeElement | ImageElement | StickerElement;
 export type ElementType = DesignElement['type'];
 
+export type CollageFamily = 'grid' | 'editorial' | 'bento' | 'scrapbook' | 'polaroid' | 'filmstrip';
+
+/** A collage that fills an area of one slide. */
+export interface CollageLayout {
+  id: Id;
+  kind: 'collage';
+  family: CollageFamily;
+  seed: number;
+  /** 0 (tidy) … 1 (wild): rotation, overlap and size variety. */
+  chaos: number;
+  /** Space between photos as a fraction of the area's short side (0 … 0.1). */
+  gutter: number;
+  /** Area filled, relative to the slide the collage sits on (so slide moves don't break it). */
+  frame: { x: number; y: number; width: number; height: number };
+  /** Scatter stickers and tape (Gen-Z looks). */
+  decor?: boolean;
+}
+
+/** Photos flowing continuously across several slides — a seamless swipe. */
+export interface PanoramaLayout {
+  id: Id;
+  kind: 'panorama';
+  seed: number;
+  /** Number of slides the panorama spans. */
+  slides: number;
+  /** Gap between photos (and at both ends), as a fraction of the slide width (0 … 0.3). */
+  spacing: number;
+  /** Space above and below, as a fraction of the slide height (0 … 0.35). */
+  margin: number;
+  align: 'center' | 'top' | 'bottom' | 'stagger';
+}
+
+export type LayoutSpec = CollageLayout | PanoramaLayout;
+
 export interface Slide {
   id: Id;
   /** `null` lets the strip-wide background show through. */
@@ -209,6 +256,8 @@ export interface DesignDocument {
   elements: DesignElement[];
   /** Ruler guides (editor-only, never exported). Positions are in strip coordinates. */
   guides?: Guide[];
+  /** Generated layouts that can be shuffled or restyled later. */
+  layouts?: LayoutSpec[];
 }
 
 export interface Guide {

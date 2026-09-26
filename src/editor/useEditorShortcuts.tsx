@@ -5,7 +5,12 @@ import {
   ArrowUpToLine,
   Copy,
   Crop,
+  Dices,
+  Eye,
   FlipHorizontal2,
+  GalleryHorizontal,
+  LayoutGrid,
+  Sparkles,
   Grid3x3,
   ImagePlus,
   Group,
@@ -36,6 +41,8 @@ import { toast } from '@/components/ui/toast-store';
 import * as actions from './actions';
 import { imageFilesFrom, parseElements, serializeElements } from './core/clipboard';
 import { openPhotoPicker } from './file-picker';
+import { makeCollage, shuffleLayout } from './layout-actions';
+import { useUi } from '@/settings/ui-store';
 import { autoEnhance, cancelCrop, commitCrop, enterCrop, flipPhoto, importAndPlace, selectedImage } from './photo-actions';
 import { getElements } from './core/ops';
 import { TEXT_PRESETS } from './core/factory';
@@ -94,6 +101,7 @@ export function useEditorShortcuts() {
     v: () => ed().setTool('select'),
     t: () => ed().setTool('text'),
     p: () => ed().setPanel(ed().panel === 'photos' ? null : 'photos'),
+    l: () => ed().setPanel(ed().panel === 'layouts' ? null : 'layouts'),
     h: () => ed().setTool('hand'),
     'mod+=': () => actions.zoomStep(1),
     'mod++': () => actions.zoomStep(1),
@@ -214,6 +222,51 @@ export function useEditorShortcuts() {
         icon: <WandSparkles />,
         keywords: ['fix', 'improve', 'magic', 'adjust'],
         run: () => (selectedImage()?.assetId ? void autoEnhance() : toast({ title: 'Select a photo to enhance' })),
+      },
+      {
+        id: 'ed-shuffle',
+        label: 'Shuffle collage',
+        group: 'Editor',
+        icon: <Dices />,
+        keywords: ['layout', 'remix', 'random', 'panorama'],
+        run: shuffleLayout,
+      },
+      {
+        id: 'ed-collage',
+        label: 'Make a collage',
+        group: 'Editor',
+        icon: <LayoutGrid />,
+        keywords: ['grid', 'bento', 'scrapbook', 'polaroid', 'arrange photos'],
+        run: () => {
+          const d = selectDoc(ed());
+          const photos = d ? getElements(d, ed().selection).filter((e) => e.type === 'image' && e.assetId) : [];
+          if (photos.length >= 2) makeCollage('bento');
+          else useUi.getState().openPhotoFlow('collage', 'current');
+        },
+      },
+      {
+        id: 'ed-seamless',
+        label: 'Seamless swipe (panorama)…',
+        group: 'Editor',
+        icon: <GalleryHorizontal />,
+        keywords: ['carousel', 'panorama', 'continuous', 'split photo'],
+        run: () => useUi.getState().openPhotoFlow('seamless', 'current'),
+      },
+      {
+        id: 'ed-dump',
+        label: 'Smart photo dump…',
+        group: 'Editor',
+        icon: <Sparkles />,
+        keywords: ['carousel', 'auto', 'generate', 'photos'],
+        run: () => useUi.getState().openPhotoFlow('dump', 'current'),
+      },
+      {
+        id: 'ed-preview',
+        label: 'Swipe preview',
+        group: 'View',
+        icon: <Eye />,
+        keywords: ['preview', 'carousel', 'play'],
+        run: () => useUi.getState().setCarouselPreview(true),
       },
       {
         id: 'ed-add-shape',

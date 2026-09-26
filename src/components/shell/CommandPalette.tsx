@@ -5,7 +5,9 @@ import { Dialog as D } from 'radix-ui';
 import {
   Compass,
   FolderOpen,
+  GalleryHorizontal,
   Home,
+  LayoutGrid,
   LayoutTemplate,
   Monitor,
   Moon,
@@ -66,6 +68,33 @@ export function CommandPalette() {
         keywords: ['create', 'new', 'project', FORMATS[id].tagline],
         run: () => openNewProject(id),
       }),
+    );
+
+    commands.push(
+      {
+        id: 'magic-dump',
+        label: 'Smart photo dump',
+        group: 'Create',
+        icon: <Sparkles className="size-4" />,
+        keywords: ['photos', 'carousel', 'auto', 'generate', 'dump'],
+        run: () => useUi.getState().openPhotoFlow('dump', 'new'),
+      },
+      {
+        id: 'magic-seamless',
+        label: 'Seamless swipe carousel',
+        group: 'Create',
+        icon: <GalleryHorizontal className="size-4" />,
+        keywords: ['panorama', 'continuous', 'carousel', 'split photo'],
+        run: () => useUi.getState().openPhotoFlow('seamless', 'new'),
+      },
+      {
+        id: 'magic-collage',
+        label: 'Collage maker',
+        group: 'Create',
+        icon: <LayoutGrid className="size-4" />,
+        keywords: ['collage', 'grid', 'scrapbook', 'polaroid', 'photos'],
+        run: () => useUi.getState().openPhotoFlow('collage', 'new'),
+      },
     );
 
     projects

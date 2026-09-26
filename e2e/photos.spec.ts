@@ -1,42 +1,10 @@
 import type { Page } from '@playwright/test';
-import { expect, open, test } from './fixtures';
+import { expect, makePng, open, test, type Paint } from './fixtures';
 
 /**
  * Photo tools: import, crop, adjustments, frames, cut-outs, paste and stickers.
  * Test photos are painted in the browser, so no binary fixtures are needed.
  */
-
-type Paint = 'subject' | 'gradient';
-
-/** A PNG made in-page: a red disc on a pale studio background, or a colour gradient. */
-async function makePng(page: Page, paint: Paint, w = 1200, h = 900): Promise<Buffer> {
-  const dataUrl = await page.evaluate(
-    ({ paint, w, h }) => {
-      const c = document.createElement('canvas');
-      c.width = w;
-      c.height = h;
-      const x = c.getContext('2d')!;
-      if (paint === 'subject') {
-        x.fillStyle = '#F2F2F5';
-        x.fillRect(0, 0, w, h);
-        x.fillStyle = '#D0342C';
-        x.beginPath();
-        x.arc(w / 2, h / 2, Math.min(w, h) * 0.3, 0, Math.PI * 2);
-        x.fill();
-      } else {
-        const g = x.createLinearGradient(0, 0, w, 0);
-        g.addColorStop(0, '#FF2D55');
-        g.addColorStop(0.5, '#FFD60A');
-        g.addColorStop(1, '#0A84FF');
-        x.fillStyle = g;
-        x.fillRect(0, 0, w, h);
-      }
-      return c.toDataURL('image/png');
-    },
-    { paint, w, h },
-  );
-  return Buffer.from(dataUrl.split(',')[1]!, 'base64');
-}
 
 async function newPost(page: Page) {
   await open(page, '/');

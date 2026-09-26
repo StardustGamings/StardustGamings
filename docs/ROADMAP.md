@@ -8,8 +8,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 1   | App shell & design system  | ✅ Done |
 | 2   | Canvas editor              | ✅ Done |
 | 3   | Image manipulation         | ✅ Done |
-| 4   | Carousel tools             | ⏭️ Next |
-| 5   | Template engine            | Planned |
+| 4   | Carousel tools             | ✅ Done |
+| 5   | Template engine            | ⏭️ Next |
 | 6   | Filters & effects          | Planned |
 | 7   | Export                     | Planned |
 | 8   | Offline storage & projects | Planned |
@@ -100,10 +100,38 @@ upload and the Google Fonts catalogue are labelled "Soon"; photos arrive in Phas
 Known limits: one-tap filter looks arrive in Phase 6 (the adjustments to build them exist now); brush-refining a
 cut-out mask and exporting at full original resolution come with later phases (export is Phase 7).
 
+## Phase 4 — Carousel tools ✅
+
+- **Live layouts:** a collage or panorama is a small spec saved with the design (`doc.layouts`) plus a membership tag on
+  each of its elements. Generators are pure, seeded functions, so Shuffle, remixes and slider changes re-run them while
+  every photo keeps its identity, crop, adjustments and cut-out. Each change is one undo step; Detach turns the layout
+  back into ordinary elements; duplicating a slide duplicates its collage.
+- **Collage engine (2–20 photos):** six original styles — Grid (justified rows/columns by aspect ratio), Editorial (hero
+  photo + split), Bento (rounded tiles), Scrapbook (tilted, taped, overlapping), Polaroid (framed prints) and Filmstrip.
+  Controls: Shuffle, _More chaotic / minimal / aesthetic / editorial / Gen-Z_, style chips, spacing, messiness, tape &
+  stickers. **Keep in place:** kept photos never move when shuffling; when the style changes they take the nearest new
+  spot. Available from the Layouts panel (<kbd>L</kbd>), the canvas context menu and the phone selection bar.
+- **Seamless swipe:** one continuous panorama across 2–10 slides (auto-suggested from the photos' shapes), with slide
+  count, spacing between photos, margin, alignment (centre / top / bottom / stagger), crop position via crop mode, and
+  manual adjustment. Changing the slide count adds or removes empty slides at the end and re-flows the photos.
+- **Smart photo dump:** 3–20 photos + 12 vibes (Chaotic Gen-Z, Clean, Cinematic, Y2K, Travel, Birthday, College,
+  Streetwear, Vacation, Night out, Minimal, Aesthetic). Each vibe is a set of design rules — cover style, fonts, palette
+  (tinted from the photos' own colours), collage styles, stickers, captions, letterbox bars and a light adjustment look —
+  so it runs entirely on the device with no AI service. Starts a new project from the home screen, or appends slides to
+  the open design.
+- **Swipe preview:** a phone-style preview with scroll-snap slides, drag/swipe, arrow keys, previous/next and slide dots
+  — live inside every photo flow, and from the editor's top bar or the command palette.
+- **Photo chooser:** pick from the local library or straight from the device, in order, with limits per tool.
+- **Quality:** 179 unit/component tests (37 for layouts: partitioning, every style inside its frame, keep-in-place across
+  shuffles and restyles, detaching, slide duplication, panorama slide changes, and schema-valid output for all 12 vibes);
+  70 Playwright runs across desktop, phone and no-WebGL (photo dump from home and into an existing carousel, seamless
+  swipe + slide count + preview navigation, collage remix + keep-in-place + undo, phone shuffle).
+
+Known limits: photo dump captions are generic per vibe (editable text) — smarter wording is an optional AI feature in
+Phase 11; saving a layout as a reusable template comes with the template engine in Phase 5.
+
 ## Later phases (summary)
 
-- **4 · Carousels:** seamless panorama from multiple photos with live swipe preview, smart photo dump, collage engine
-  with shuffle / "more chaotic / minimal / editorial / Gen-Z" and photo locking.
 - **5 · Templates:** dozens of original layouts, save-as-template, template browser.
 - **6 · Filters & effects:** 14 one-tap looks with intensity (built on the Phase 3 adjustment pipeline), light leaks,
   textures.

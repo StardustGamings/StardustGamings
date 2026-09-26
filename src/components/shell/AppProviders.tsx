@@ -11,6 +11,7 @@ import { TooltipProvider } from '@/components/ui/Tooltip';
 import { NewProjectDialog } from '@/components/projects/NewProjectDialog';
 import { ProjectDialogs } from '@/components/projects/ProjectDialogs';
 import { Onboarding } from '@/components/onboarding/Onboarding';
+import { PhotoFlowDialog } from '@/components/magic/PhotoFlowDialog';
 import { Backdrop } from './Backdrop';
 import { CommandPalette } from './CommandPalette';
 import { ServiceWorker } from './ServiceWorker';
@@ -37,6 +38,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         {children}
         <NewProjectDialog />
         <ProjectDialogs />
+        <PhotoFlowDialog />
         <CommandPalette />
         <Onboarding />
         <Toaster />

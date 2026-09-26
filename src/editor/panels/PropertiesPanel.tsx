@@ -41,6 +41,8 @@ import { FontPicker } from './FontPicker';
 import { ElementIcon } from './ElementIcon';
 import { ImageSections } from './ImagePanels';
 import { CutoutSection } from './CutoutSection';
+import { LayoutSection } from './LayoutSection';
+import { getLayout } from '@/layouts/apply';
 import { updateSelection, useSelectedElements } from './useSelection';
 
 const refit = (el: DesignElement): DesignElement => (el.type === 'text' ? fitTextHeight(el) : el);
@@ -647,7 +649,10 @@ function ShadowSection({ el }: { el: DesignElement }) {
 /** Contextual editing controls for the current selection. */
 export function PropertiesPanel() {
   const els = useSelectedElements();
+  const doc = useEditor(selectDoc);
   if (els.length === 0) return null;
+  const layoutId = els.find((e) => e.layout)?.layout?.id;
+  const layout = doc && layoutId ? getLayout(doc, layoutId) : undefined;
   const single = els.length === 1 ? els[0]! : null;
   const allText = els.every((e) => e.type === 'text');
   const units = new Set(els.map((e) => e.groupId ?? e.id)).size;
@@ -656,6 +661,7 @@ export function PropertiesPanel() {
   return (
     <div data-testid="properties-panel">
       <Header els={els} />
+      {layout && <LayoutSection spec={layout} els={els} />}
       {!locked && (
         <>
           <Arrange count={units} />

@@ -49,6 +49,14 @@ const base = {
   hidden: z.boolean().optional(),
   shadow: shadow.optional(),
   groupId: z.string().min(1).max(64).optional(),
+  layout: z
+    .object({
+      id: z.string().min(1).max(64),
+      role: z.enum(['photo', 'decor']),
+      locked: z.boolean().optional(),
+      index: finite.min(0).max(10_000).optional(),
+    })
+    .optional(),
 };
 
 const textElement = z.object({
@@ -157,6 +165,28 @@ const stickerElement = z.object({
   tint: color.optional(),
 });
 
+const layoutSchema = z.discriminatedUnion('kind', [
+  z.object({
+    id: z.string().min(1).max(64),
+    kind: z.literal('collage'),
+    family: z.enum(['grid', 'editorial', 'bento', 'scrapbook', 'polaroid', 'filmstrip']),
+    seed: finite.min(0).max(2 ** 32),
+    chaos: finite.min(0).max(1),
+    gutter: finite.min(0).max(0.1),
+    frame: z.object({ x: coord, y: coord, width: size, height: size }),
+    decor: z.boolean().optional(),
+  }),
+  z.object({
+    id: z.string().min(1).max(64),
+    kind: z.literal('panorama'),
+    seed: finite.min(0).max(2 ** 32),
+    slides: finite.min(1).max(MAX_SLIDES),
+    spacing: finite.min(0).max(0.3),
+    margin: finite.min(0).max(0.35),
+    align: z.enum(['center', 'top', 'bottom', 'stagger']),
+  }),
+]);
+
 export const elementSchema = z.discriminatedUnion('type', [textElement, shapeElement, imageElement, stickerElement]);
 
 export const documentSchema = z.object({
@@ -173,6 +203,7 @@ export const documentSchema = z.object({
     .array(z.object({ id: z.string().min(1).max(64), axis: z.enum(['x', 'y']), position: coord }))
     .max(200)
     .optional(),
+  layouts: z.array(layoutSchema).max(200).optional(),
 });
 
 const formatIds = Object.keys(FORMATS) as [keyof typeof FORMATS, ...(keyof typeof FORMATS)[]];

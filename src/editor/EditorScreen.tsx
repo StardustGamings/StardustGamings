@@ -9,6 +9,7 @@ import {
   Check,
   Copy,
   Crop,
+  Dices,
   Grid3x3,
   ImageUp,
   Lock,
@@ -35,6 +36,9 @@ import { EditorCanvas } from './canvas/EditorCanvas';
 import { EditorTopBar } from './EditorTopBar';
 import { TextPanel, ShapesPanel, StickersPanel } from './panels/AddPanels';
 import { PhotosPanel } from './panels/PhotosPanel';
+import { LayoutsPanel } from './panels/LayoutsPanel';
+import { PreviewDialog } from './PreviewDialog';
+import { shuffleLayout } from './layout-actions';
 import { CropBar } from './CropBar';
 import { PhotoPicker } from './PhotoPicker';
 import { openPhotoPicker } from './file-picker';
@@ -54,6 +58,7 @@ const PANEL_TITLES: Record<PanelId, string> = {
   shapes: 'Shapes',
   stickers: 'Stickers',
   photos: 'Photos',
+  layouts: 'Layouts',
   design: 'Background',
   layers: 'Layers',
   properties: 'Edit',
@@ -69,6 +74,8 @@ function PanelContent({ panel }: { panel: PanelId }) {
       return <StickersPanel />;
     case 'photos':
       return <PhotosPanel />;
+    case 'layouts':
+      return <LayoutsPanel />;
     case 'design':
       return <BackgroundPanel />;
     case 'layers':
@@ -82,7 +89,13 @@ function PanelContent({ panel }: { panel: PanelId }) {
 function Flyout() {
   const panel = useEditor((s) => s.panel);
   const setPanel = useEditor((s) => s.setPanel);
-  const show = panel === 'text' || panel === 'shapes' || panel === 'stickers' || panel === 'photos' || panel === 'design';
+  const show =
+    panel === 'text' ||
+    panel === 'shapes' ||
+    panel === 'stickers' ||
+    panel === 'photos' ||
+    panel === 'layouts' ||
+    panel === 'design';
   return (
     <AnimatePresence initial={false}>
       {show && (
@@ -216,6 +229,7 @@ function MobileToolbar() {
               onClick={() => openPhotoPicker({ targetId: single.id, single: true })}
             />
           )}
+          {selected.some((e) => e.layout) && <MobileAction label="Shuffle" icon={<Dices />} onClick={shuffleLayout} />}
           <MobileAction label="Duplicate" icon={<Copy />} onClick={actions.duplicateSelection} />
           <MobileAction label="Forward" icon={<ArrowUp />} onClick={() => actions.reorder('forward')} />
           <MobileAction label="Back" icon={<ArrowDown />} onClick={() => actions.reorder('backward')} />
@@ -367,6 +381,7 @@ function Editor() {
         <Inspector />
       </div>
       <PhotoPicker />
+      <PreviewDialog />
     </div>
   );
 }

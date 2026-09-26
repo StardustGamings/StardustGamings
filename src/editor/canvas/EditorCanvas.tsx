@@ -6,6 +6,7 @@ import {
   ClipboardPaste,
   Copy,
   Crop,
+  Dices,
   EyeOff,
   ImageUp,
   Group,
@@ -42,6 +43,7 @@ import { DND_TYPE, type DragItem } from '../dnd';
 import { FRAME_PRESETS } from '../core/factory';
 import { addFrame, enterCrop, fillFrame, importAndPlace, placePhotos } from '../photo-actions';
 import { openPhotoPicker } from '../file-picker';
+import { shuffleLayout, toggleLayoutLock } from '../layout-actions';
 import { useAssets } from '@/assets/store';
 import { useInteraction } from './interaction-store';
 import type { Point } from '../core/geometry';
@@ -205,6 +207,19 @@ export function EditorCanvas() {
             <ContextMenuItem icon={<Copy />} shortcut={`${mod} D`} onSelect={actions.duplicateSelection}>
               Duplicate
             </ContextMenuItem>
+            {selectedEls.some((e) => e.layout) && (
+              <>
+                <ContextMenuSeparator />
+                <ContextMenuItem icon={<Dices />} onSelect={shuffleLayout}>
+                  Shuffle layout
+                </ContextMenuItem>
+                {selectedEls.length === 1 && selectedEls[0]!.layout?.role === 'photo' && (
+                  <ContextMenuItem icon={<Lock />} onSelect={() => toggleLayoutLock(selectedEls[0]!.id)}>
+                    {selectedEls[0]!.layout.locked ? 'Let it move when shuffling' : 'Keep in place when shuffling'}
+                  </ContextMenuItem>
+                )}
+              </>
+            )}
             {image && (
               <>
                 <ContextMenuSeparator />

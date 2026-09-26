@@ -76,7 +76,8 @@ export function duplicateElements(
     if (!groupMap.has(old)) groupMap.set(old, createId('grp'));
     return groupMap.get(old)!;
   };
-  const copies = source.map((e) => ({
+  // Copies don't join the original's generated layout (shuffling it would move them).
+  const copies = source.map(({ layout: _layout, ...e }) => ({
     ...structuredClone(e),
     id: createId('el'),
     x: e.x + offset.x,

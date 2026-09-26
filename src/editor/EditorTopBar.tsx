@@ -7,6 +7,7 @@ import {
   ChevronLeft,
   Command,
   Download,
+  Play,
   Maximize,
   Minus,
   Plus,
@@ -200,6 +201,12 @@ export function EditorTopBar() {
             tooltipSide="bottom"
           />
         </div>
+        <IconButton
+          label="Swipe preview"
+          icon={<Play />}
+          onClick={() => useUi.getState().setCarouselPreview(true)}
+          tooltipSide="bottom"
+        />
         <IconButton
           label="Command palette"
           shortcut={`${mod} K`}

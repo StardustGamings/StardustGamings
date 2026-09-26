@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { HomeHero } from '@/components/home/HomeHero';
 import { NewFromQuery } from '@/components/home/NewFromQuery';
 import { QuickCreate } from '@/components/home/QuickCreate';
+import { PhotoMagic } from '@/components/home/PhotoMagic';
 import { RecentProjects } from '@/components/home/RecentProjects';
 import { SectionHeader } from '@/components/home/SectionHeader';
 import { InspirationFeed } from '@/components/discover/InspirationFeed';
@@ -18,6 +19,7 @@ export default function HomePage() {
       </Suspense>
       <HomeHero />
       <QuickCreate />
+      <PhotoMagic />
       <RecentProjects />
       <Trending />
       <section aria-labelledby="inspiration" className="mt-14">
