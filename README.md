@@ -125,11 +125,42 @@ the file in `src/templates/registry.ts`; the test suite validates every template
 
 ## Deploying
 
-`npm run build` outputs a fully static site in `out/` — host it anywhere (Netlify, Cloudflare Pages, GitHub Pages, S3,
-Vercel static). `public/_headers` ships a strict Content-Security-Policy and caching rules for hosts that support it.
+`npm run build` outputs a fully static site in `out/` — host it anywhere (Netlify, Cloudflare Pages, S3, Vercel static).
+`public/_headers` ships a strict Content-Security-Policy and caching rules for hosts that support it (Netlify, Cloudflare
+Pages).
 
-**Mobile apps:** the static export is designed to be wrapped with [Capacitor](https://capacitorjs.com/) (`webDir: "out"`)
-for Android and iOS. No server is required for any current feature.
+The app must be served from the **root of a domain** (`https://example.com/`, not `https://example.com/stardeck/`),
+because the manifest scope, service worker and asset paths are absolute. That rules out a GitHub Pages _project_ site
+(`<user>.github.io/<repo>/`) for now; a custom domain on GitHub Pages works.
+
+Free hosting straight from this repository, no server needed:
+
+| Host             | Setup                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| Cloudflare Pages | _Workers & Pages → Create → Pages → Connect to Git_. Build command `npm run build`, output directory `out`.   |
+| Netlify          | _Add new site → Import an existing project_. Build command `npm run build`, publish directory `out`.          |
+| Vercel           | _Add New → Project → Import_. The Next.js preset works as-is (it runs `npm run build` and serves the export). |
+
+Pick the branch you want to publish as the production branch. The Node version comes from `.nvmrc` (Vercel reads
+`engines` in `package.json`). Every push to that branch redeploys automatically.
+
+## Installing the app
+
+Stardeck is a Progressive Web App: once it is hosted over HTTPS (or running at `http://localhost`), browsers can install
+it like a native app, with its own icon and window, and it keeps working offline.
+
+| Device                  | How to install                                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| Android (Chrome)        | Open the site → ⋮ menu → **Install app** (or **Add to Home screen**).                                 |
+| iPhone / iPad (Safari)  | Open the site → **Share** → **Add to Home Screen**.                                                   |
+| Windows / macOS / Linux | In Chrome or Edge, click the install icon in the address bar, or open **Settings → About → Install**. |
+
+The first visit caches the whole app (about 4 MB). After that the editor, templates and fonts all work with no
+connection. When you open it online, new versions download in the background and a **Reload** prompt appears.
+
+**Store apps:** native Android/iOS builds aren't published yet. The static export is designed to be wrapped with
+[Capacitor](https://capacitorjs.com/) (`webDir: "out"`), which is planned for a later phase. No server is required for
+any current feature.
 
 ## Privacy & security
 
