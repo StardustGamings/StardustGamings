@@ -4,7 +4,10 @@ import {
   ArrowDownToLine,
   ArrowUpToLine,
   Copy,
+  Crop,
+  FlipHorizontal2,
   Grid3x3,
+  ImagePlus,
   Group,
   Hand,
   Layers,
@@ -22,6 +25,7 @@ import {
   Type,
   Undo2,
   Ungroup,
+  WandSparkles,
   ZoomIn,
   ZoomOut,
 } from 'lucide-react';
@@ -30,7 +34,9 @@ import { useHotkeys } from '@/hooks/useHotkeys';
 import { useCommandRegistry } from '@/components/shell/commands';
 import { toast } from '@/components/ui/toast-store';
 import * as actions from './actions';
-import { parseElements, serializeElements } from './core/clipboard';
+import { imageFilesFrom, parseElements, serializeElements } from './core/clipboard';
+import { openPhotoPicker } from './file-picker';
+import { autoEnhance, cancelCrop, commitCrop, enterCrop, flipPhoto, importAndPlace, selectedImage } from './photo-actions';
 import { getElements } from './core/ops';
 import { TEXT_PRESETS } from './core/factory';
 import { selectDoc, useEditor } from './store';
@@ -73,16 +79,21 @@ export function useEditorShortcuts() {
     'shift+arrowup': () => actions.nudge(0, -10),
     'shift+arrowdown': () => actions.nudge(0, 10),
     enter: () => {
+      if (ed().croppingId) return commitCrop();
       const d = selectDoc(ed());
       const [el] = d ? getElements(d, ed().selection) : [];
-      if (el?.type === 'text' && ed().selection.length === 1 && !el.locked) ed().setEditingText(el.id);
+      if (ed().selection.length !== 1 || !el || el.locked) return;
+      if (el.type === 'text') ed().setEditingText(el.id);
+      if (el.type === 'image') enterCrop(el.id);
     },
     escape: () => {
-      if (hasSelection()) ed().clearSelection();
+      if (ed().croppingId) cancelCrop();
+      else if (hasSelection()) ed().clearSelection();
       else ed().setTool('select');
     },
     v: () => ed().setTool('select'),
     t: () => ed().setTool('text'),
+    p: () => ed().setPanel(ed().panel === 'photos' ? null : 'photos'),
     h: () => ed().setTool('hand'),
     'mod+=': () => actions.zoomStep(1),
     'mod++': () => actions.zoomStep(1),
@@ -123,6 +134,13 @@ export function useEditorShortcuts() {
       if (isEditable(e.target)) return;
       const d = selectDoc(ed());
       if (!d) return;
+      const images = imageFilesFrom(e.clipboardData);
+      if (images.length) {
+        e.preventDefault();
+        const frame = selectedImage();
+        void importAndPlace(images, { targetId: frame && !frame.assetId ? frame.id : null });
+        return;
+      }
       const text = e.clipboardData?.getData('text/plain') ?? '';
       const elements = parseElements(text);
       e.preventDefault();
@@ -158,6 +176,44 @@ export function useEditorShortcuts() {
         shortcut: 'T',
         keywords: ['heading', 'caption', 'type'],
         run: () => actions.addText(TEXT_PRESETS[0], undefined, { edit: true }),
+      },
+      {
+        id: 'ed-add-image',
+        label: 'Add image',
+        group: 'Editor',
+        icon: <ImagePlus />,
+        shortcut: 'P',
+        keywords: ['photo', 'picture', 'upload', 'import'],
+        run: () => {
+          ed().setPanel('photos');
+          openPhotoPicker();
+        },
+      },
+      {
+        id: 'ed-crop',
+        label: 'Crop photo',
+        group: 'Editor',
+        icon: <Crop />,
+        keywords: ['image', 'position', 'zoom', 'straighten'],
+        run: () => {
+          if (!enterCrop()) toast({ title: 'Select a photo to crop' });
+        },
+      },
+      {
+        id: 'ed-flip',
+        label: 'Flip photo horizontally',
+        group: 'Editor',
+        icon: <FlipHorizontal2 />,
+        keywords: ['mirror', 'image'],
+        run: () => (selectedImage()?.assetId ? flipPhoto('x') : toast({ title: 'Select a photo to flip' })),
+      },
+      {
+        id: 'ed-auto',
+        label: 'Auto-enhance photo',
+        group: 'Editor',
+        icon: <WandSparkles />,
+        keywords: ['fix', 'improve', 'magic', 'adjust'],
+        run: () => (selectedImage()?.assetId ? void autoEnhance() : toast({ title: 'Select a photo to enhance' })),
       },
       {
         id: 'ed-add-shape',

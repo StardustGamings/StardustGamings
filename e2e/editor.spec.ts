@@ -12,10 +12,22 @@ async function newPost(page: Page) {
 
 const field = (page: Page, label: string) => page.getByRole('textbox', { name: label, exact: true });
 
+/** Waits until an element stops moving (e.g. while a side panel animates open and shifts the canvas). */
+async function settle(page: Page, testId: string) {
+  let prev: { x: number; y: number } | null = null;
+  for (let i = 0; i < 40; i++) {
+    const box = await page.getByTestId(testId).boundingBox();
+    if (box && prev && Math.abs(box.x - prev.x) < 0.5 && Math.abs(box.y - prev.y) < 0.5) return;
+    prev = box;
+    await page.waitForTimeout(50);
+  }
+}
+
 async function addRectangle(page: Page) {
   await page.getByRole('button', { name: 'Shapes', exact: true }).first().click();
   await page.getByRole('button', { name: 'Add Rectangle' }).click();
   await expect(page.getByTestId('selection-frame')).toBeVisible();
+  await settle(page, 'selection-frame');
 }
 
 async function frameCenter(page: Page) {

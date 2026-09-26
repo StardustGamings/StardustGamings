@@ -7,3 +7,5 @@ src/typography/font-files.generated.json
 test-results
 playwright-report
 package-lock.json
+public/workers/
+public/ml/

@@ -1,19 +1,20 @@
 'use client';
 
-import { Search } from 'lucide-react';
+import { Search, Upload } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import type { DesignDocument } from '@/types/document';
 import { ScenePreview } from '@/canvas/ScenePreview';
 import { EMOJI_STICKERS, VECTOR_STICKERS, type StickerCategory } from '@/stickers/library';
 import { fontStack, loadFont } from '@/typography/fonts';
 import { useTrends } from '@/trends/store';
-import { SoonBadge } from '@/components/ui/Badge';
 import { cn } from '@/utils/cn';
 import { fillToCss } from '@/canvas/render/fill';
 import * as actions from '../actions';
 import { SHAPE_PRESETS, TEXT_PRESETS, type TextPreset } from '../core/factory';
 import { DND_TYPE, type DragItem } from '../dnd';
 import { selectDoc, useEditor } from '../store';
+import { openPhotoPicker } from '../file-picker';
+import { AssetLibrary } from './PhotosPanel';
 
 const dragProps = (item: DragItem) => ({
   draggable: true,
@@ -326,9 +327,19 @@ export function StickersPanel() {
         ))}
         {list.length === 0 && <p className="col-span-4 py-6 text-center text-sm text-fg-muted">No stickers match “{query}”.</p>}
       </div>
-      <p className="flex items-center justify-between gap-2 border-t border-line px-4 py-3 text-[12px] text-fg-subtle">
-        Upload your own PNG/SVG stickers <SoonBadge />
-      </p>
+      <div className="border-t border-line">
+        <div className="flex items-center justify-between gap-2 px-4 pt-4 pb-3">
+          <h3 className="text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Your stickers</h3>
+          <button
+            type="button"
+            onClick={() => openPhotoPicker({ kind: 'sticker' })}
+            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
+          >
+            <Upload className="size-3.5" /> Upload PNG / SVG
+          </button>
+        </div>
+        <AssetLibrary kind="sticker" emptyText="Upload transparent PNG, WebP or SVG stickers — they stay on this device." />
+      </div>
     </div>
   );
 }

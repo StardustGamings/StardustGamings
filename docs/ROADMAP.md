@@ -7,8 +7,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | --- | -------------------------- | ------- |
 | 1   | App shell & design system  | ✅ Done |
 | 2   | Canvas editor              | ✅ Done |
-| 3   | Image manipulation         | ⏭️ Next |
-| 4   | Carousel tools             | Planned |
+| 3   | Image manipulation         | ✅ Done |
+| 4   | Carousel tools             | ⏭️ Next |
 | 5   | Template engine            | Planned |
 | 6   | Filters & effects          | Planned |
 | 7   | Export                     | Planned |
@@ -69,18 +69,44 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 Known limits (by design, for later phases): no nested groups; multi-selection resize keeps proportions; custom font
 upload and the Google Fonts catalogue are labelled "Soon"; photos arrive in Phase 3.
 
-## Phase 3 — Image manipulation (next)
+## Phase 3 — Image manipulation ✅
 
-Local asset store (IndexedDB blobs), upload / drag-and-drop / paste images with Web Worker decode & downscale, image
-frames you can drop photos into, crop/rotate/flip, focal point, adjustments (brightness → curves) via WebGL with a
-Canvas2D fallback, and background removal behind a pluggable local-model / WASM / optional-server interface.
+- **Local photo library:** IndexedDB asset store (v2 schema: metadata + blobs) keeping an original (≤ 8192 px), a 2048 px
+  editing preview and a thumbnail per photo; de-duplicated by SHA-256; dominant colours extracted for the colour
+  pickers. Settings → Storage shows usage and cleans up photos no design uses.
+- **Import:** picker, drag-and-drop onto the canvas or into a frame, paste (screenshots, copied images), custom PNG/WebP/SVG
+  stickers. Files are identified by magic bytes; decode, EXIF orientation and high-quality downscaling run in a Web Worker
+  (main-thread fallback); friendly messages for HEIC on unsupported browsers, oversized or damaged files, and full
+  storage ("Oops — that image is huge. We're optimizing it for you…").
+- **Frames:** 10 frame presets (square, portrait, landscape, tall, rounded, circle, arch, heart, star, hexagon); any image
+  element can change shape, corner radius and border; empty frames are drop zones (double-tap to pick a photo).
+- **Crop mode:** double-click / Enter / Crop — pan the photo, scale from its corners, resize the crop window while the
+  photo stays put, rule-of-thirds grid, the whole photo ghosted outside the frame, aspect presets (free, original, 1:1,
+  4:5, 3:4, 9:16, 3:2, 16:9), zoom, straighten (−45…45° with automatic cover), rotate 90°, flip, reset; Esc cancels,
+  Enter/Done commits; every gesture is one undo step. Fill/fit and a focal point keep crops sensible when frames resize.
+- **Adjustments:** exposure, brightness, contrast, highlights, shadows, temperature, tint, saturation, vibrance, fade,
+  vignette (follows the frame), grain, sharpness, blur; RGB + per-channel tone curves (monotone cubic); keystone
+  perspective; one-tap auto-enhance from the histogram; hold to compare. WebGL 1 pipeline, cached per element and
+  resolution, with an identical CPU implementation in a worker where WebGL is unavailable.
+- **Background removal:** pluggable providers — on-device AI (U²-Netp on ONNX Runtime Web, ~19 MB cached on first
+  use), instant colour key, and an optional, consent-gated self-hosted server; guided-filter edge refinement; edge
+  softness; transparent, colour/gradient, portrait-blur or photo backdrops. See [BACKGROUND-REMOVAL.md](BACKGROUND-REMOVAL.md).
+- **Rendering:** one renderer for canvas, slide strip, previews and thumbnails; alpha-aware shadows for cut-outs and
+  stickers; loading and missing-photo states; memory budgets adapt to the device.
+- **Quality:** 142 unit/component tests, 56 Playwright tests (incl. upload, crop, adjustments, drop into frame,
+  colour-key and on-device AI cut-outs with a no-third-party-requests check, paste, sticker upload, storage cleanup, and
+  phone crop flow).
+
+Known limits: one-tap filter looks arrive in Phase 6 (the adjustments to build them exist now); brush-refining a
+cut-out mask and exporting at full original resolution come with later phases (export is Phase 7).
 
 ## Later phases (summary)
 
 - **4 · Carousels:** seamless panorama from multiple photos with live swipe preview, smart photo dump, collage engine
   with shuffle / "more chaotic / minimal / editorial / Gen-Z" and photo locking.
 - **5 · Templates:** dozens of original layouts, save-as-template, template browser.
-- **6 · Filters & effects:** 14 looks with intensity, grain, vignette, light leaks.
+- **6 · Filters & effects:** 14 one-tap looks with intensity (built on the Phase 3 adjustment pipeline), light leaks,
+  textures.
 - **7 · Export:** PNG / JPG / WebP / PDF, per-slide / all / ZIP, quality presets, share sheet — never watermarked.
 - **8 · Storage:** version history, folders, import/export project files, storage management.
 - **9 · Animation & video:** element animations, timeline, MP4/GIF export where supported.

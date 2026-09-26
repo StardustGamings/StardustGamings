@@ -8,7 +8,9 @@ import {
   ArrowUp,
   Check,
   Copy,
+  Crop,
   Grid3x3,
+  ImageUp,
   Lock,
   Maximize,
   PenLine,
@@ -32,6 +34,12 @@ import { useCamera } from './camera';
 import { EditorCanvas } from './canvas/EditorCanvas';
 import { EditorTopBar } from './EditorTopBar';
 import { TextPanel, ShapesPanel, StickersPanel } from './panels/AddPanels';
+import { PhotosPanel } from './panels/PhotosPanel';
+import { CropBar } from './CropBar';
+import { PhotoPicker } from './PhotoPicker';
+import { openPhotoPicker } from './file-picker';
+import { enterCrop, importAndPlace } from './photo-actions';
+import { useAssets } from '@/assets/store';
 import { BackgroundPanel, DocumentPanel } from './panels/DocumentPanels';
 import { LayersPanel } from './panels/LayersPanel';
 import { PropertiesPanel } from './panels/PropertiesPanel';
@@ -45,6 +53,7 @@ const PANEL_TITLES: Record<PanelId, string> = {
   text: 'Text',
   shapes: 'Shapes',
   stickers: 'Stickers',
+  photos: 'Photos',
   design: 'Background',
   layers: 'Layers',
   properties: 'Edit',
@@ -58,6 +67,8 @@ function PanelContent({ panel }: { panel: PanelId }) {
       return <ShapesPanel />;
     case 'stickers':
       return <StickersPanel />;
+    case 'photos':
+      return <PhotosPanel />;
     case 'design':
       return <BackgroundPanel />;
     case 'layers':
@@ -71,7 +82,7 @@ function PanelContent({ panel }: { panel: PanelId }) {
 function Flyout() {
   const panel = useEditor((s) => s.panel);
   const setPanel = useEditor((s) => s.setPanel);
-  const show = panel === 'text' || panel === 'shapes' || panel === 'stickers' || panel === 'design';
+  const show = panel === 'text' || panel === 'shapes' || panel === 'stickers' || panel === 'photos' || panel === 'design';
   return (
     <AnimatePresence initial={false}>
       {show && (
@@ -195,6 +206,16 @@ function MobileToolbar() {
           {single?.type === 'text' && !single.locked && (
             <MobileAction label="Text" icon={<PenLine />} onClick={() => useEditor.getState().setEditingText(single.id)} />
           )}
+          {single?.type === 'image' && !single.locked && single.assetId && (
+            <MobileAction label="Crop" icon={<Crop />} onClick={() => enterCrop(single.id)} />
+          )}
+          {single?.type === 'image' && !single.locked && (
+            <MobileAction
+              label={single.assetId ? 'Replace' : 'Add photo'}
+              icon={<ImageUp />}
+              onClick={() => openPhotoPicker({ targetId: single.id, single: true })}
+            />
+          )}
           <MobileAction label="Duplicate" icon={<Copy />} onClick={actions.duplicateSelection} />
           <MobileAction label="Forward" icon={<ArrowUp />} onClick={() => actions.reorder('forward')} />
           <MobileAction label="Back" icon={<ArrowDown />} onClick={() => actions.reorder('backward')} />
@@ -266,7 +287,33 @@ function Editor() {
   const meta = useEditor((s) => s.meta);
   const saveState = useEditor((s) => s.saveState);
   const tool = useEditor((s) => s.tool);
+  const cropping = useEditor((s) => s.croppingId !== null);
+  const loadAssets = useAssets((s) => s.load);
   useEditorShortcuts();
+
+  useEffect(() => {
+    void loadAssets();
+  }, [loadAssets]);
+
+  // Files dropped anywhere in the editor (outside the canvas) go onto the active slide
+  // instead of making the browser navigate away to the file.
+  useEffect(() => {
+    const hasFiles = (e: DragEvent) => e.dataTransfer?.types.includes('Files');
+    const onOver = (e: DragEvent) => {
+      if (hasFiles(e)) e.preventDefault();
+    };
+    const onDrop = (e: DragEvent) => {
+      if (!hasFiles(e) || e.defaultPrevented) return;
+      e.preventDefault();
+      void importAndPlace([...(e.dataTransfer?.files ?? [])]);
+    };
+    window.addEventListener('dragover', onOver);
+    window.addEventListener('drop', onDrop);
+    return () => {
+      window.removeEventListener('dragover', onOver);
+      window.removeEventListener('drop', onDrop);
+    };
+  }, []);
 
   // Flush pending edits when the tab is hidden, and warn before closing mid-save.
   useEffect(() => {
@@ -300,18 +347,26 @@ function Editor() {
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="relative min-h-0 flex-1">
             <EditorCanvas />
+            <CropBar layout="floating" />
             {tool === 'text' && (
               <div className="pointer-events-none absolute top-3 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink/80 px-3 py-1.5 text-xs font-semibold text-white">
                 <Type className="mr-1 inline size-3.5" /> Click anywhere to add text · Esc to cancel
               </div>
             )}
           </div>
-          {multi && <SlideStrip />}
-          <MobileSheet />
-          <MobileToolbar />
+          {multi && !cropping && <SlideStrip />}
+          {cropping ? (
+            <CropBar layout="docked" />
+          ) : (
+            <>
+              <MobileSheet />
+              <MobileToolbar />
+            </>
+          )}
         </div>
         <Inspector />
       </div>
+      <PhotoPicker />
     </div>
   );
 }

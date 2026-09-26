@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import type { DesignDocument } from '@/types/document';
 import { ensureDocumentFonts } from './fonts';
 import { cn } from '@/utils/cn';
 import { renderDocument, slideRegion, stripRegion } from './render';
+import { assetsVersion, subscribeAssets } from '@/assets/cache';
+import { resolveImage } from '@/images/resolver';
+
+const serverVersion = () => 0;
 
 interface ScenePreviewProps {
   doc: DesignDocument;
@@ -44,6 +48,7 @@ export function ScenePreview({
   const [visible, setVisible] = useState(() => eager || typeof IntersectionObserver === 'undefined');
   const [box, setBox] = useState<{ w: number; h: number } | null>(null);
   const [fontTick, setFontTick] = useState(0);
+  const assetTick = useSyncExternalStore(subscribeAssets, assetsVersion, serverVersion);
 
   const region = slide === 'strip' ? stripRegion(doc) : slideRegion(doc, Math.min(slide, doc.slides.length - 1));
   const aspect = region.width / region.height;
@@ -108,10 +113,10 @@ export function ScenePreview({
     if (!ctx) return;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, pxW, pxH);
-    renderDocument(ctx, doc, { region, scale: pxW / region.width });
+    renderDocument(ctx, doc, { region, scale: pxW / region.width, images: resolveImage });
     // `region` is derived from doc + slide, both of which are dependencies.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [doc, slide, box, visible, fontTick, aspect, fit, maxDpr]);
+  }, [doc, slide, box, visible, fontTick, assetTick, aspect, fit, maxDpr]);
 
   return (
     <div

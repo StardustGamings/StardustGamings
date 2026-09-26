@@ -39,6 +39,8 @@ import { selectDoc, useEditor } from '../store';
 import { ActionButton, FillField, IconToggle, NumberField, Row, Section } from './fields';
 import { FontPicker } from './FontPicker';
 import { ElementIcon } from './ElementIcon';
+import { ImageSections } from './ImagePanels';
+import { CutoutSection } from './CutoutSection';
 import { updateSelection, useSelectedElements } from './useSelection';
 
 const refit = (el: DesignElement): DesignElement => (el.type === 'text' ? fitTextHeight(el) : el);
@@ -673,6 +675,7 @@ export function PropertiesPanel() {
           {!single && allText && <TextSection el={els[0] as TextElement} />}
           {single?.type === 'shape' && <ShapeSection el={single} />}
           {single?.type === 'sticker' && <StickerSection el={single} />}
+          {single?.type === 'image' && <ImageSections el={single} cutout={<CutoutSection el={single} />} />}
           {single && <ShadowSection el={single} />}
         </>
       )}

@@ -25,13 +25,16 @@ const TYPES = {
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.wasm': 'application/wasm',
+  '.onnx': 'application/octet-stream',
 };
 
 // Mirrors public/_headers so tests run under the same Content-Security-Policy as production.
-// Next.js' static export relies on inline bootstrap scripts, hence 'unsafe-inline' for scripts.
+// Next.js' static export relies on inline bootstrap scripts, hence 'unsafe-inline' for scripts;
+// 'wasm-unsafe-eval' lets the on-device background-removal model compile WebAssembly (no JS eval).
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",

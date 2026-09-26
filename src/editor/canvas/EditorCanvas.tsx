@@ -5,7 +5,9 @@ import {
   ArrowUpToLine,
   ClipboardPaste,
   Copy,
+  Crop,
   EyeOff,
+  ImageUp,
   Group,
   Lock,
   MousePointerSquareDashed,
@@ -37,6 +39,13 @@ import { TextEditor } from './TextEditor';
 import { useCanvasInteractions } from './useCanvasInteractions';
 import { useSceneRenderer } from './useSceneRenderer';
 import { DND_TYPE, type DragItem } from '../dnd';
+import { FRAME_PRESETS } from '../core/factory';
+import { addFrame, enterCrop, fillFrame, importAndPlace, placePhotos } from '../photo-actions';
+import { openPhotoPicker } from '../file-picker';
+import { useAssets } from '@/assets/store';
+import { useInteraction } from './interaction-store';
+import type { Point } from '../core/geometry';
+import { pointInBox } from '../core/geometry';
 
 export function EditorCanvas() {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -72,14 +81,64 @@ export function EditorCanvas() {
     if (d) useCamera.getState().setContent(stripRegion(d));
   }, [slideCount, slideWidth]);
 
-  const onDrop = (e: React.DragEvent) => {
-    const raw = e.dataTransfer.getData(DND_TYPE);
-    if (!raw || !viewportRef.current) return;
+  const docPointOf = (e: React.DragEvent): Point => {
+    const rect = viewportRef.current!.getBoundingClientRect();
+    return screenToDoc({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  /** Topmost unlocked image element under a point — photos dropped there fill it. */
+  const frameAt = (p: Point) => {
+    const d = selectDoc(useEditor.getState());
+    if (!d) return null;
+    for (let i = d.elements.length - 1; i >= 0; i--) {
+      const el = d.elements[i]!;
+      if (el.hidden) continue;
+      if (pointInBox(p, el)) return el.type === 'image' && !el.locked ? el : null;
+    }
+    return null;
+  };
+
+  const carriesPhoto = (e: React.DragEvent) => e.dataTransfer.types.includes('Files') || e.dataTransfer.types.includes(DND_TYPE);
+
+  const onDragOver = (e: React.DragEvent) => {
+    if (!carriesPhoto(e)) return;
     e.preventDefault();
-    const rect = viewportRef.current.getBoundingClientRect();
-    const at = screenToDoc({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    e.dataTransfer.dropEffect = 'copy';
+    // Only files and library photos can fill a frame (the payload isn't readable during dragover,
+    // so a panel drag is treated as a photo candidate; non-photo drops simply ignore the target).
+    const target = frameAt(docPointOf(e));
+    const id = target?.id ?? null;
+    if (useInteraction.getState().dropTargetId !== id) useInteraction.getState().set({ dropTargetId: id });
+  };
+
+  const clearDropTarget = () => useInteraction.getState().set({ dropTargetId: null });
+
+  const onDrop = (e: React.DragEvent) => {
+    if (!viewportRef.current) return;
+    const at = docPointOf(e);
+    const target = frameAt(at);
+    clearDropTarget();
+    const files = [...e.dataTransfer.files];
+    if (files.length) {
+      e.preventDefault();
+      void importAndPlace(files, { at, targetId: target?.id ?? null });
+      return;
+    }
+    const raw = e.dataTransfer.getData(DND_TYPE);
+    if (!raw) return;
+    e.preventDefault();
     try {
       const item = JSON.parse(raw) as DragItem;
+      if (item.kind === 'photo') {
+        const meta = useAssets.getState().assets.find((a) => a.id === item.assetId);
+        if (!meta) return;
+        if (target && meta.kind === 'photo') fillFrame(target.id, meta);
+        else placePhotos([meta], at);
+      }
+      if (item.kind === 'frame') {
+        const preset = FRAME_PRESETS.find((p) => p.id === item.presetId);
+        if (preset) addFrame(preset, at);
+      }
       if (item.kind === 'text')
         actions.addText(
           TEXT_PRESETS.find((p) => p.id === item.presetId),
@@ -99,6 +158,7 @@ export function EditorCanvas() {
   const hasSelection = selection.length > 0;
   const allLocked = hasSelection && selectedEls.every((el) => el.locked);
   const grouped = selectedEls.some((el) => el.groupId);
+  const image = selectedEls.length === 1 && selectedEls[0]!.type === 'image' && !selectedEls[0]!.locked ? selectedEls[0]! : null;
 
   return (
     <ContextMenu>
@@ -117,11 +177,9 @@ export function EditorCanvas() {
           onPointerUp={handlers.onPointerUp}
           onPointerCancel={handlers.onPointerCancel}
           onContextMenu={handlers.onContextMenu}
-          onDragOver={(e) => {
-            if (e.dataTransfer.types.includes(DND_TYPE)) {
-              e.preventDefault();
-              e.dataTransfer.dropEffect = 'copy';
-            }
+          onDragOver={onDragOver}
+          onDragLeave={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) clearDropTarget();
           }}
           onDrop={onDrop}
         >
@@ -147,6 +205,19 @@ export function EditorCanvas() {
             <ContextMenuItem icon={<Copy />} shortcut={`${mod} D`} onSelect={actions.duplicateSelection}>
               Duplicate
             </ContextMenuItem>
+            {image && (
+              <>
+                <ContextMenuSeparator />
+                {image.type === 'image' && image.assetId && (
+                  <ContextMenuItem icon={<Crop />} shortcut="↵" onSelect={() => enterCrop(image.id)}>
+                    Crop photo
+                  </ContextMenuItem>
+                )}
+                <ContextMenuItem icon={<ImageUp />} onSelect={() => openPhotoPicker({ targetId: image.id, single: true })}>
+                  {image.type === 'image' && image.assetId ? 'Replace photo' : 'Add photo'}
+                </ContextMenuItem>
+              </>
+            )}
             <ContextMenuSeparator />
             <ContextMenuItem icon={<ArrowUpToLine />} shortcut={`${mod} ]`} onSelect={() => actions.reorder('forward')}>
               Bring forward

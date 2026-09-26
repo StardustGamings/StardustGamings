@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import type { DesignDocument, DesignElement, TextElement } from '@/types/document';
+import type { DesignDocument, DesignElement, ImageElement, TextElement } from '@/types/document';
 import type { Rect } from '@/canvas/render/types';
 import { elementBounds, stripRegion } from '@/canvas/render/renderer';
 import { slideIndexOf } from '@/projects/document';
@@ -39,6 +39,17 @@ import {
 } from '../core/ops';
 import { collectSnapTargets, gridSizeFor, snapRect, snapValue, type SnapTargets } from '../core/snapping';
 import { addText } from '../actions';
+import { assetMetaSync, commitCrop, enterCrop } from '../photo-actions';
+import { openPhotoPicker } from '../file-picker';
+import {
+  panContent,
+  photoCornersInFrame,
+  photoQuad,
+  pointInQuad,
+  resizeFrameKeepingPhoto,
+  worldToFrame,
+  zoomContent,
+} from '@/images/content';
 import { useCamera, screenToDoc } from '../camera';
 import { selectDoc, useEditor } from '../store';
 import { useInteraction } from './interaction-store';
@@ -128,6 +139,9 @@ type Gesture =
     }
   | { kind: 'rotate'; center: Point; startAngle: number; frame: TransformFrame; start: DesignElement[] }
   | { kind: 'marquee'; startDoc: Point; base: string[]; active: boolean; start: Point }
+  | { kind: 'crop-pan'; startDoc: Point; start: ImageElement; w: number; h: number }
+  | { kind: 'crop-frame'; handle: Handle; start: ImageElement; grab: Point; w: number; h: number }
+  | { kind: 'crop-scale'; start: ImageElement; anchor: Point; startDist: number; w: number; h: number }
   | { kind: 'guide'; id: string; axis: 'x' | 'y'; creating: boolean; targets?: SnapTargets };
 
 const doc = () => selectDoc(useEditor.getState());
@@ -148,6 +162,22 @@ function handleAt(frame: TransformFrame, screen: Point, radius: number): Handle 
   const near = (p: Point) => Math.hypot(p.x - screen.x, p.y - screen.y) <= radius;
   if (near(toScreen(rotateHandlePoint(frame.box, cam.zoom)))) return 'rotate';
   for (const h of frame.handles) if (near(toScreen(handlePoint(frame.box, h)))) return h;
+  return null;
+}
+
+/** Crop-mode target under a screen point: frame handle, photo corner, or the photo itself. */
+function cropHitTest(el: ImageElement, w: number, h: number, screen: Point, docPoint: Point, radius: number) {
+  const cam = useCamera.getState();
+  const toScreen = (p: Point) => ({ x: (p.x - cam.x) * cam.zoom, y: (p.y - cam.y) * cam.zoom });
+  const near = (p: Point) => Math.hypot(p.x - screen.x, p.y - screen.y) <= radius;
+  const box = { x: el.x, y: el.y, width: el.width, height: el.height, rotation: el.rotation };
+  for (const handle of ALL_HANDLES) if (near(toScreen(handlePoint(box, handle)))) return { kind: 'frame' as const, handle };
+  const corners = photoCornersInFrame(el, w, h);
+  const quad = photoQuad(el, w, h);
+  for (let i = 0; i < 4; i++) {
+    if (near(toScreen(quad[i]!))) return { kind: 'corner' as const, anchor: corners[(i + 2) % 4]! };
+  }
+  if (pointInBox(docPoint, box) || pointInQuad(docPoint, quad)) return { kind: 'photo' as const };
   return null;
 }
 
@@ -245,6 +275,38 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
         useInteraction.getState().set({ gesture: 'pan' });
         setCursor('grabbing');
         return;
+      }
+
+      // Crop mode: move/scale the photo or resize the crop window; anything else ends it.
+      if (editor.croppingId) {
+        const el = getElements(d, [editor.croppingId])[0];
+        const meta = el?.type === 'image' ? assetMetaSync(el.assetId) : null;
+        const hit =
+          el?.type === 'image' && meta ? cropHitTest(el, meta.width, meta.height, p, docPoint, HANDLE_RADIUS[kind]) : null;
+        if (el?.type === 'image' && meta && hit) {
+          const dims = { w: meta.width, h: meta.height };
+          if (hit.kind === 'frame') {
+            const box = { x: el.x, y: el.y, width: el.width, height: el.height, rotation: el.rotation };
+            const hp = handlePoint(box, hit.handle);
+            gesture.current = {
+              kind: 'crop-frame',
+              handle: hit.handle,
+              start: el,
+              grab: { x: docPoint.x - hp.x, y: docPoint.y - hp.y },
+              ...dims,
+            };
+          } else if (hit.kind === 'corner') {
+            const local = worldToFrame(el, docPoint);
+            const startDist = Math.max(1, Math.hypot(local.x - hit.anchor.x, local.y - hit.anchor.y));
+            gesture.current = { kind: 'crop-scale', start: el, anchor: hit.anchor, startDist, ...dims };
+          } else {
+            gesture.current = { kind: 'crop-pan', startDoc: docPoint, start: el, ...dims };
+            setCursor('grabbing');
+          }
+          useInteraction.getState().set({ gesture: 'crop' });
+          return;
+        }
+        commitCrop();
       }
 
       // Rulers: drag out a new guide.
@@ -384,6 +446,17 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
           if (e.pointerType !== 'mouse' || e.buttons) return;
           if (ui.spaceHeld || editor.tool === 'hand') return setCursor('grab');
           if (editor.tool === 'text') return setCursor('text');
+          if (editor.croppingId) {
+            const el = getElements(d, [editor.croppingId])[0];
+            const meta = el?.type === 'image' ? assetMetaSync(el.assetId) : null;
+            if (el?.type === 'image' && meta) {
+              const hit = cropHitTest(el, meta.width, meta.height, p, docPoint, HANDLE_RADIUS.mouse);
+              if (hit?.kind === 'frame') return setCursor(CURSORS[hit.handle]);
+              if (hit?.kind === 'corner') return setCursor('nwse-resize');
+              if (hit) return setCursor('grab');
+            }
+            return setCursor('default');
+          }
           if (editor.showRulers && (p.x < RULER_SIZE || p.y < RULER_SIZE))
             return setCursor(p.y < RULER_SIZE ? 'row-resize' : 'col-resize');
           const frame = transformFrame(d, editor.selection);
@@ -544,6 +617,31 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
           ui.set({ marquee: rect, gesture: 'marquee' });
           return;
         }
+        case 'crop-pan': {
+          const a = worldToFrame(g.start, g.startDoc);
+          const b = worldToFrame(g.start, docPoint);
+          const next = panContent(g.start, g.w, g.h, b.x - a.x, b.y - a.y);
+          editor.preview((base) => updateElements(base, [g.start.id], () => next));
+          return;
+        }
+        case 'crop-frame': {
+          const box0 = { x: g.start.x, y: g.start.y, width: g.start.width, height: g.start.height, rotation: g.start.rotation };
+          const target = { x: docPoint.x - g.grab.x, y: docPoint.y - g.grab.y };
+          const box = resizeBox(box0, g.handle, target, { keepRatio: e.shiftKey, fromCenter: e.altKey, minSize: 16 });
+          const next = resizeFrameKeepingPhoto(g.start, box, g.w, g.h);
+          editor.preview((base) => updateElements(base, [g.start.id], () => next));
+          ui.set({ readout: { text: `${Math.round(box.width)} × ${Math.round(box.height)}`, x: p.x, y: p.y } });
+          return;
+        }
+        case 'crop-scale': {
+          const local = worldToFrame(g.start, docPoint);
+          const dist = Math.hypot(local.x - g.anchor.x, local.y - g.anchor.y);
+          const zoom = Math.max(1, g.start.zoom ?? 1) * (dist / g.startDist);
+          const next = zoomContent(g.start, g.w, g.h, zoom, g.anchor);
+          editor.preview((base) => updateElements(base, [g.start.id], () => next));
+          ui.set({ readout: { text: `${Math.round((next.zoom ?? 1) * 100)}%`, x: p.x, y: p.y } });
+          return;
+        }
         case 'guide': {
           const position = g.axis === 'x' ? docPoint.x : docPoint.y;
           g.targets ??= targetsFor(d, []);
@@ -598,13 +696,28 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
             const hit = getElements(d, [g.hitId])[0];
             if (isDouble && hit) {
               if (hit.type === 'text' && !hit.locked) editor.setEditingText(hit.id);
-              else editor.select([hit.id]);
+              else if (hit.type === 'image' && !hit.locked && hit.assetId) {
+                if (!enterCrop(hit.id)) editor.select([hit.id]);
+              } else if (hit.type === 'image' && !hit.locked) {
+                editor.select([hit.id]);
+                openPhotoPicker({ targetId: hit.id });
+              } else editor.select([hit.id]);
               lastTap.current = null;
             } else if (g.wasSelected && !e.shiftKey && editor.selection.length > 1 && hit && !hit.groupId) {
               // Clicking one item of a multi-selection (without dragging) narrows to it.
               editor.select([hit.id]);
             }
           }
+          break;
+        case 'crop-pan':
+        case 'crop-frame':
+        case 'crop-scale':
+          editor.commit();
+          if (isDouble && g.kind === 'crop-pan') {
+            commitCrop();
+            lastTap.current = null;
+          }
+          setCursor('default');
           break;
         case 'move':
         case 'resize':
@@ -636,7 +749,8 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
     (e: React.PointerEvent<HTMLDivElement>) => {
       pointers.current.delete(e.pointerId);
       const g = gesture.current;
-      if (g.kind === 'move' || g.kind === 'resize' || g.kind === 'rotate' || g.kind === 'guide') useEditor.getState().cancel();
+      if (g.kind !== 'none' && g.kind !== 'pan' && g.kind !== 'pinch' && g.kind !== 'pending' && g.kind !== 'marquee')
+        useEditor.getState().cancel();
       endGesture();
     },
     [endGesture],

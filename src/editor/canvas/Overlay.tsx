@@ -3,7 +3,9 @@
 import { Lock } from 'lucide-react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { getElements } from '../core/ops';
-import { boxBounds, boxCorners, handlePoint, type Box, type Point } from '../core/geometry';
+import { ALL_HANDLES, boxBounds, boxCorners, handlePoint, type Box, type Point } from '../core/geometry';
+import { photoQuad } from '@/images/content';
+import { assetMetaSync } from '../photo-actions';
 import { GRID_COLUMNS } from '../core/snapping';
 import { safeZones } from '../safe-areas';
 import { useCamera } from '../camera';
@@ -34,6 +36,8 @@ export function Overlay() {
   const selection = useEditor((s) => s.selection);
   const activeSlide = useEditor((s) => s.activeSlide);
   const editingTextId = useEditor((s) => s.editingTextId);
+  const croppingId = useEditor((s) => s.croppingId);
+  const dropTargetId = useInteraction((s) => s.dropTargetId);
   const showGrid = useEditor((s) => s.showGrid);
   const showSafeArea = useEditor((s) => s.showSafeArea);
   const showRulers = useEditor((s) => s.showRulers);
@@ -52,12 +56,15 @@ export function Overlay() {
   const multi = doc.slides.length > 1;
   const zones = showSafeArea ? safeZones(meta.sizeId, doc.slideWidth, doc.slideHeight) : [];
   const frame = transformFrame(doc, selection);
-  const transforming = gesture === 'move' || gesture === 'resize' || gesture === 'rotate';
+  const transforming = gesture === 'move' || gesture === 'resize' || gesture === 'rotate' || gesture === 'crop';
   const handleSize = coarse ? 14 : 9;
   const selected = getElements(doc, selection);
   const hovered = hoverId && !selection.includes(hoverId) ? getElements(doc, [hoverId])[0] : undefined;
 
   const cornersOf = (b: Box) => boxCorners(b).map(toScreen);
+  const cropEl = croppingId ? getElements(doc, [croppingId])[0] : undefined;
+  const cropMeta = cropEl?.type === 'image' ? assetMetaSync(cropEl.assetId) : null;
+  const dropTarget = dropTargetId ? getElements(doc, [dropTargetId])[0] : undefined;
 
   return (
     <svg className="pointer-events-none absolute inset-0 size-full overflow-visible" aria-hidden data-testid="canvas-overlay">
@@ -173,7 +180,84 @@ export function Overlay() {
           <polygon key={el.id} points={polygon(cornersOf(el))} fill="none" stroke={ACCENT} strokeWidth="1" opacity="0.7" />
         ))}
 
-      {frame && editingTextId === null && (
+      {dropTarget && (
+        <polygon
+          data-testid="drop-target"
+          points={polygon(cornersOf(dropTarget))}
+          fill="rgb(123 97 255 / 0.18)"
+          stroke={ACCENT}
+          strokeWidth="3"
+        />
+      )}
+
+      {cropEl?.type === 'image' && cropMeta && (
+        <g data-testid="crop-chrome">
+          <polygon
+            points={polygon(photoQuad(cropEl, cropMeta.width, cropMeta.height).map(toScreen))}
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth="1.25"
+            strokeDasharray="5 4"
+            style={{ mixBlendMode: 'difference' }}
+          />
+          {photoQuad(cropEl, cropMeta.width, cropMeta.height).map((q, i) => {
+            const pt = toScreen(q);
+            return (
+              <circle
+                key={i}
+                data-photo-corner={i}
+                cx={pt.x}
+                cy={pt.y}
+                r={handleSize / 2 + 1}
+                fill={ACCENT}
+                stroke="#FFFFFF"
+                strokeWidth="2"
+              />
+            );
+          })}
+          <polygon points={polygon(cornersOf(cropEl))} fill="none" stroke={ACCENT} strokeWidth="2" />
+          {(() => {
+            // Rule-of-thirds grid inside the crop window.
+            const c = boxCorners(cropEl).map(toScreen);
+            const lerp = (a: Point, b: Point, t: number) => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+            return [1 / 3, 2 / 3].flatMap((t) => {
+              const a = lerp(c[0]!, c[1]!, t);
+              const b = lerp(c[3]!, c[2]!, t);
+              const d = lerp(c[0]!, c[3]!, t);
+              const e = lerp(c[1]!, c[2]!, t);
+              return [
+                <line key={`v${t}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#FFFFFF" strokeOpacity="0.55" strokeWidth="1" />,
+                <line key={`h${t}`} x1={d.x} y1={d.y} x2={e.x} y2={e.y} stroke="#FFFFFF" strokeOpacity="0.55" strokeWidth="1" />,
+              ];
+            });
+          })()}
+          {ALL_HANDLES.map((h) => {
+            const pt = toScreen(handlePoint(cropEl, h));
+            const side = h.length === 1;
+            const long = handleSize * 1.9;
+            const short = handleSize * 0.6;
+            const w = side ? (h === 'e' || h === 'w' ? short : long) : handleSize * 1.2;
+            const hh = side ? (h === 'n' || h === 's' ? short : long) : handleSize * 1.2;
+            return (
+              <rect
+                key={h}
+                data-crop-handle={h}
+                x={pt.x - w / 2}
+                y={pt.y - hh / 2}
+                width={w}
+                height={hh}
+                rx={2}
+                fill="#FFFFFF"
+                stroke={ACCENT}
+                strokeWidth="1.75"
+                transform={`rotate(${cropEl.rotation} ${pt.x} ${pt.y})`}
+              />
+            );
+          })}
+        </g>
+      )}
+
+      {frame && editingTextId === null && !cropEl && (
         <g>
           <polygon
             data-testid="selection-frame"

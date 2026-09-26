@@ -81,13 +81,67 @@ const shapeElement = z.object({
   dash: z.array(size.max(1000)).max(8).optional(),
 });
 
+const assetId = z
+  .string()
+  .max(64)
+  .regex(/^[\w-]+$/u, 'Invalid asset id');
+const bipolar = finite.min(-100).max(100).optional();
+const unipolar = finite.min(0).max(100).optional();
+
+export const adjustmentsSchema = z.object({
+  exposure: bipolar,
+  brightness: bipolar,
+  contrast: bipolar,
+  highlights: bipolar,
+  shadows: bipolar,
+  temperature: bipolar,
+  tint: bipolar,
+  saturation: bipolar,
+  vibrance: bipolar,
+  fade: unipolar,
+  vignette: bipolar,
+  grain: unipolar,
+  sharpness: unipolar,
+  blur: unipolar,
+});
+
+const curve = z
+  .array(z.object({ x: finite.min(0).max(1), y: finite.min(0).max(1) }))
+  .min(2)
+  .max(16)
+  .optional();
+
+const backdropSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('none') }),
+  z.object({ type: z.literal('fill'), fill: fillSchema }),
+  z.object({ type: z.literal('blur'), amount: finite.min(0).max(100) }),
+  z.object({ type: z.literal('image'), assetId }),
+]);
+
 const imageElement = z.object({
   ...base,
   type: z.literal('image'),
-  assetId: z.string().max(64).nullable(),
+  assetId: assetId.nullable(),
   fit: z.enum(['cover', 'contain']),
   focusX: finite.min(0).max(1).optional(),
   focusY: finite.min(0).max(1).optional(),
+  zoom: finite.min(1).max(20).optional(),
+  straighten: finite.min(-45).max(45).optional(),
+  flipX: z.boolean().optional(),
+  flipY: z.boolean().optional(),
+  turns: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]).optional(),
+  adjust: adjustmentsSchema.optional(),
+  curves: z.object({ rgb: curve, r: curve, g: curve, b: curve }).optional(),
+  perspective: z.object({ vertical: finite.min(-100).max(100), horizontal: finite.min(-100).max(100) }).optional(),
+  cutout: z
+    .object({
+      maskAssetId: assetId,
+      feather: finite.min(0).max(100),
+      backdrop: backdropSchema,
+      method: z.string().max(32).optional(),
+    })
+    .optional(),
+  clip: z.enum(['rect', 'ellipse', 'arch', 'heart', 'star', 'hexagon']).optional(),
   cornerRadius: size.optional(),
   stroke: stroke.optional(),
   placeholder: z.object({ label: z.string().max(80).optional(), fill: fillSchema }).optional(),

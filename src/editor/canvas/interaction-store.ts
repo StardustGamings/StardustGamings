@@ -12,7 +12,9 @@ interface InteractionState {
   /** A live read-out shown near the pointer while transforming ("1080 × 540", "45°"). */
   readout: { text: string; x: number; y: number } | null;
   spaceHeld: boolean;
-  gesture: 'none' | 'pan' | 'move' | 'resize' | 'rotate' | 'marquee' | 'guide' | 'pinch';
+  /** Image frame highlighted while something is dragged over it. */
+  dropTargetId: string | null;
+  gesture: 'none' | 'pan' | 'move' | 'resize' | 'rotate' | 'marquee' | 'guide' | 'pinch' | 'crop';
   set: (patch: Partial<Omit<InteractionState, 'set'>>) => void;
 }
 
@@ -22,6 +24,7 @@ export const useInteraction = create<InteractionState>()((set) => ({
   hoverId: null,
   readout: null,
   spaceHeld: false,
+  dropTargetId: null,
   gesture: 'none',
   set: (patch) => set(patch),
 }));

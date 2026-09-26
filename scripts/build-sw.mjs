@@ -16,7 +16,9 @@ async function walk(dir) {
   return files.flat();
 }
 
-const EXCLUDE = [/\/sw\.js$/, /\/_headers$/, /\.map$/, /\/LICENSE\.txt$/, /\/_not-found\//];
+// On-device AI files (~19 MB) are cached the first time someone uses background
+// removal instead of being forced on every install.
+const EXCLUDE = [/\/sw\.js$/, /\/_headers$/, /\.map$/, /\/LICENSE\.txt$/, /\/_not-found\//, /^\/ml\//];
 
 const files = (await walk(outDir))
   .map((f) => '/' + path.relative(outDir, f).split(path.sep).join('/'))

@@ -35,6 +35,7 @@ import {
   type ReorderMode,
 } from './core/ops';
 import { nextZoom } from './zoom';
+import { importAndPlace, selectedImage } from './photo-actions';
 import { useEditor } from './store';
 
 const ed = () => useEditor.getState();
@@ -294,6 +295,11 @@ export function pasteElements(elements: DesignElement[], at?: Point) {
 export async function paste(at?: Point) {
   const content = await readClipboard();
   if (!content) return;
+  if (content.kind === 'images') {
+    const frame = selectedImage();
+    await importAndPlace(content.files, { at, targetId: frame && !frame.assetId ? frame.id : null });
+    return;
+  }
   if (content.kind === 'text')
     addText(
       TEXT_PRESETS.find((p) => p.id === 'body'),

@@ -1,0 +1,16 @@
+Stardeck on-device background removal
+=====================================
+
+u2netp.onnx
+  U²-Net (small variant, "U²-Netp") salient object detection model.
+  Authors: Xuebin Qin, Zichen Zhang, Chenyang Huang, Masood Dehghan,
+  Osmar R. Zaiane and Martin Jagersand — https://github.com/xuebinqin/U-2-Net
+  Licensed under the Apache License, Version 2.0.
+  ONNX export as distributed by the rembg project (MIT licence):
+  https://github.com/danielgatis/rembg
+
+ort/ort-wasm-simd-threaded.wasm (copied at build time from node_modules)
+  ONNX Runtime Web — Copyright (c) Microsoft Corporation. MIT licence.
+  https://github.com/microsoft/onnxruntime
+
+Both run entirely in your browser. Photos are never uploaded.

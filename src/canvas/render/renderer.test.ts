@@ -205,3 +205,72 @@ describe('renderDocument', () => {
     expect(Math.round(b.height)).toBe(40);
   });
 });
+
+describe('image elements', () => {
+  const photo = {
+    id: 'ph',
+    type: 'image' as const,
+    x: 0,
+    y: 0,
+    width: 100,
+    height: 50,
+    rotation: 0,
+    opacity: 1,
+    assetId: 'as_1',
+    fit: 'cover' as const,
+  };
+  const docWith = (el: object): DesignDocument => ({
+    ...createDocument({ width: 200, height: 200 }),
+    elements: [el as DesignDocument['elements'][number]],
+  });
+  const source = { width: 400, height: 400 } as unknown as CanvasImageSource & { width: number; height: number };
+
+  it('asks the resolver for pixels and draws the photo covering the frame', () => {
+    const { ctx, calls } = recordingContext();
+    const seen: number[] = [];
+    renderDocument(ctx, docWith(photo), {
+      scale: 1,
+      images: (el, pixelScale) => {
+        seen.push(pixelScale);
+        expect(el.id).toBe('ph');
+        return { source, width: 400, height: 400, alpha: false };
+      },
+    });
+    expect(seen).toEqual([2]); // the recording context reports a 2× device transform
+    const draw = calls.find((c) => c.name === 'drawImage')!;
+    // 400×400 into 100×50 with cover: 100×100, centred on the frame's centre.
+    expect(draw.args.slice(1)).toEqual([-50, -50, 100, 100]);
+    expect(calls.some((c) => c.name === 'clip')).toBe(true);
+  });
+
+  it('draws a drop zone for empty frames and a neutral fill while loading', () => {
+    const empty = recordingContext();
+    renderDocument(empty.ctx, docWith({ ...photo, assetId: null }), { scale: 1, images: () => undefined });
+    expect(empty.calls.some((c) => c.name === 'drawImage')).toBe(false);
+    expect(empty.calls.filter((c) => c.name === 'set:fillStyle').map((c) => c.args[0])).toContain('#D9D6E8');
+
+    const loading = recordingContext();
+    renderDocument(loading.ctx, docWith(photo), { scale: 1, images: () => undefined });
+    expect(loading.calls.filter((c) => c.name === 'set:fillStyle').map((c) => c.args[0])).toContain('rgba(140, 136, 160, 0.28)');
+  });
+
+  it('clips to the frame shape and applies flips', () => {
+    const { ctx, calls } = recordingContext();
+    renderDocument(ctx, docWith({ ...photo, clip: 'ellipse', flipX: true }), {
+      scale: 1,
+      images: () => ({ source, width: 400, height: 400, alpha: false }),
+    });
+    expect(calls.some((c) => c.name === 'ellipse')).toBe(true);
+    expect(calls.some((c) => c.name === 'scale' && c.args[0] === -1 && c.args[1] === 1)).toBe(true);
+  });
+
+  it('draws the vignette over the frame, not the whole photo', () => {
+    const { ctx, calls } = recordingContext();
+    renderDocument(ctx, docWith({ ...photo, adjust: { vignette: 50 } }), {
+      scale: 1,
+      images: () => ({ source, width: 400, height: 400, alpha: false }),
+    });
+    expect(calls.some((c) => c.name === 'createRadialGradient')).toBe(true);
+    expect(calls.some((c) => c.name === 'fillRect' && c.args.join() === '-1,-1,2,2')).toBe(true);
+  });
+});

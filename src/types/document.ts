@@ -87,14 +87,95 @@ export interface ShapeElement extends ElementBase {
   dash?: number[];
 }
 
+/**
+ * Non-destructive photo adjustments. Every value is optional and 0 means
+ * "untouched"; bipolar sliders run -100..100, one-sided ones 0..100.
+ */
+export interface ImageAdjustments {
+  exposure?: number;
+  brightness?: number;
+  contrast?: number;
+  highlights?: number;
+  shadows?: number;
+  temperature?: number;
+  tint?: number;
+  saturation?: number;
+  vibrance?: number;
+  /** 0..100 — lifts the blacks for a matte, faded-film look. */
+  fade?: number;
+  /** -100..100 — negative values brighten the edges instead. */
+  vignette?: number;
+  grain?: number;
+  sharpness?: number;
+  blur?: number;
+}
+
+export interface CurvePoint {
+  /** Input level 0..1. */
+  x: number;
+  /** Output level 0..1. */
+  y: number;
+}
+
+/** Tone curves: `rgb` applies to all channels, then the per-channel curves. */
+export interface ImageCurves {
+  rgb?: CurvePoint[];
+  r?: CurvePoint[];
+  g?: CurvePoint[];
+  b?: CurvePoint[];
+}
+
+/** Keystone correction, -100..100 per axis. */
+export interface ImagePerspective {
+  vertical: number;
+  horizontal: number;
+}
+
+/** What shows behind a cut-out subject. */
+export type CutoutBackdrop =
+  | { type: 'none' }
+  | { type: 'fill'; fill: Fill }
+  /** The original photo, blurred — a "portrait mode" look. `amount` 0..100. */
+  | { type: 'blur'; amount: number }
+  | { type: 'image'; assetId: Id };
+
+/** Background removal result: a grayscale mask asset plus how to composite it. */
+export interface Cutout {
+  maskAssetId: Id;
+  /** Edge softness 0..100. */
+  feather: number;
+  backdrop: CutoutBackdrop;
+  /** Provider that produced the mask (informational). */
+  method?: string;
+}
+
+export type ImageClip = 'rect' | 'ellipse' | 'arch' | 'heart' | 'star' | 'hexagon';
+
 export interface ImageElement extends ElementBase {
   type: 'image';
   /** Reference into the local asset store. `null` renders a drop-zone frame. */
   assetId: Id | null;
   fit: 'cover' | 'contain';
-  /** Focal point used by `cover` cropping, 0..1. */
+  /**
+   * Which point of the photo lines up with the same point of the frame, 0..1
+   * (like CSS `object-position`). Panning in crop mode moves this.
+   */
   focusX?: number;
   focusY?: number;
+  /** Extra scale on top of the fit, ≥ 1. */
+  zoom?: number;
+  /** Fine rotation of the photo inside its frame, -45..45°; it scales up to keep the frame covered. */
+  straighten?: number;
+  flipX?: boolean;
+  flipY?: boolean;
+  /** Quarter turns (clockwise) applied to the source photo. */
+  turns?: 0 | 1 | 2 | 3;
+  adjust?: ImageAdjustments;
+  curves?: ImageCurves;
+  perspective?: ImagePerspective;
+  cutout?: Cutout;
+  /** Frame shape the photo is clipped to. */
+  clip?: ImageClip;
   cornerRadius?: number;
   stroke?: Stroke;
   placeholder?: { label?: string; fill: Fill };

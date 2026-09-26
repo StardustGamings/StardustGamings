@@ -5,10 +5,11 @@ thumbnails, collages, posters and moodboards.
 
 - **Free forever.** No subscription, no "Pro" locks on the basics, no watermarks.
 - **No account.** Open it and start designing.
-- **Local-first.** Projects, photos and settings stay in your browser (IndexedDB). Nothing is uploaded.
+- **Local-first.** Projects, photos and settings stay in your browser (IndexedDB). Nothing is uploaded — even background
+  removal runs on your device.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 
-> **Status: Phase 2 of 13 complete** — app shell, design system and the canvas editor. See
+> **Status: Phase 3 of 13 complete** — app shell, design system, canvas editor and photo editing. See
 > [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands next. Features that aren't built yet
 > are marked **Soon** in the UI; there are no fake buttons.
 
@@ -16,19 +17,21 @@ thumbnails, collages, posters and moodboards.
 
 ## What works today
 
-| Area                | What you can do                                                                                                                                                                                                                                                                                                                                                                                               |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Home**            | Animated dashboard: Quick Create for 8 formats, recent projects (thumbnail, name, last edited, duplicate / rename / favourite / delete), trending templates · typography · layouts · effects · palettes · stickers, and a remix inspiration feed.                                                                                                                                                             |
-| **New design**      | Format, size preset (4:5, 1:1, 1.91:1, 9:16, 16:9, Pin, A-series, 4:3) or a custom size up to 8000px, slide count (1–30), background, or start from a template.                                                                                                                                                                                                                                               |
-| **Canvas editor**   | Infinite canvas with pan/zoom (wheel, trackpad pinch, Space-drag, two-finger touch), text with in-place editing and 15 typography styles, shapes, 44 stickers, select/marquee/multi-select, move/resize/rotate with snapping & smart guides, rulers & draggable guides, grid, groups, lock/hide, layers panel, align/distribute, copy/paste/duplicate, context menu, keyboard shortcuts, undo/redo, autosave. |
-| **Templates**       | 15 original templates stored as validated JSON, rendered by the same engine used for export.                                                                                                                                                                                                                                                                                                                  |
-| **Trend engine**    | Trend packs are plain JSON in `public/trends/` — publish a new drop without rebuilding the app.                                                                                                                                                                                                                                                                                                               |
-| **Projects**        | Search, format filters, sort, favourites, trash with undo and 30-day auto-clean, restore, delete forever.                                                                                                                                                                                                                                                                                                     |
-| **Settings**        | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Storage, Shortcuts, Accessibility, About.                                                                                                                                                                                                         |
-| **Command palette** | <kbd>Ctrl/⌘</kbd> + <kbd>K</kbd> — create, navigate, search templates, open recent projects, switch theme/motion, editor actions.                                                                                                                                                                                                                                                                             |
-| **Onboarding**      | Five animated intro screens; skippable; never asks for an account.                                                                                                                                                                                                                                                                                                                                            |
-| **PWA / offline**   | Manifest, maskable icons, install prompt, service worker precaching the whole app, "Offline Mode" indicator.                                                                                                                                                                                                                                                                                                  |
-| **Accessibility**   | Keyboard navigation, focus rings, skip link, screen-reader labels, UI scale (87.5–125%), high contrast, reduced-motion support.                                                                                                                                                                                                                                                                               |
+| Area                | What you can do                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Home**            | Animated dashboard: Quick Create for 8 formats, recent projects (thumbnail, name, last edited, duplicate / rename / favourite / delete), trending templates · typography · layouts · effects · palettes · stickers, and a remix inspiration feed.                                                                                                                                                                                           |
+| **New design**      | Format, size preset (4:5, 1:1, 1.91:1, 9:16, 16:9, Pin, A-series, 4:3) or a custom size up to 8000px, slide count (1–30), background, or start from a template.                                                                                                                                                                                                                                                                             |
+| **Canvas editor**   | Infinite canvas with pan/zoom (wheel, trackpad pinch, Space-drag, two-finger touch), text with in-place editing and 15 typography styles, shapes, 44 stickers plus your own PNG/SVG uploads, select/marquee/multi-select, move/resize/rotate with snapping & smart guides, rulers & draggable guides, grid, groups, lock/hide, layers panel, align/distribute, copy/paste/duplicate, context menu, keyboard shortcuts, undo/redo, autosave. |
+| **Photos**          | Add from the device (picker, drag-and-drop anywhere, paste), local photo library, 10 frame shapes to drop photos into, crop mode (pan, zoom, straighten, aspect presets, rotate 90°, flip), fill/fit, 14 adjustments (exposure → blur), tone curves, perspective, auto-enhance, hold-to-compare — all non-destructive, on the GPU with a CPU fallback.                                                                                      |
+| **Cut-outs**        | Background removal on your device: on-device AI (U²-Netp) or instant colour key; edge softness; transparent, colour/gradient, blurred ("portrait") or photo backdrops. An optional self-hosted server provider can be enabled at build time.                                                                                                                                                                                                |
+| **Templates**       | 15 original templates stored as validated JSON, rendered by the same engine used for export.                                                                                                                                                                                                                                                                                                                                                |
+| **Trend engine**    | Trend packs are plain JSON in `public/trends/` — publish a new drop without rebuilding the app.                                                                                                                                                                                                                                                                                                                                             |
+| **Projects**        | Search, format filters, sort, favourites, trash with undo and 30-day auto-clean, restore, delete forever.                                                                                                                                                                                                                                                                                                                                   |
+| **Settings**        | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Storage, Shortcuts, Accessibility, About.                                                                                                                                                                                                                                       |
+| **Command palette** | <kbd>Ctrl/⌘</kbd> + <kbd>K</kbd> — create, navigate, search templates, open recent projects, switch theme/motion, editor actions.                                                                                                                                                                                                                                                                                                           |
+| **Onboarding**      | Five animated intro screens; skippable; never asks for an account.                                                                                                                                                                                                                                                                                                                                                                          |
+| **PWA / offline**   | Manifest, maskable icons, install prompt, service worker precaching the whole app, "Offline Mode" indicator.                                                                                                                                                                                                                                                                                                                                |
+| **Accessibility**   | Keyboard navigation, focus rings, skip link, screen-reader labels, UI scale (87.5–125%), high contrast, reduced-motion support.                                                                                                                                                                                                                                                                                                             |
 
 ## Quick start
 
@@ -38,6 +41,9 @@ Requires Node.js ≥ 20.9.
 npm install
 npm run dev          # http://localhost:3000
 ```
+
+`npm run dev` and `npm run build` first bundle the Web Workers (`public/workers/`) and copy the ONNX Runtime binary
+(`public/ml/ort/`) with `npm run workers`.
 
 Production build (static export to `out/`, plus the generated service worker):
 
@@ -56,6 +62,7 @@ npm start            # serves out/ at http://127.0.0.1:3000 with production secu
 | `npm run check`                 | Lint + typecheck + unit tests                                            |
 | `npm test` / `npm run test:e2e` | Vitest unit & component tests / Playwright end-to-end (desktop + mobile) |
 | `npm run format`                | Prettier (with Tailwind class sorting)                                   |
+| `npm run workers`               | Bundle the photo/cut-out Web Workers with esbuild                        |
 | `npm run fonts`                 | Re-sync bundled fonts from `src/typography/font-catalog.json`            |
 | `npm run icons`                 | Re-render PWA icons from the logo                                        |
 
@@ -70,7 +77,10 @@ primitives · cmdk · IndexedDB (`idb`) · Zod · Vitest · Playwright.
 src/
   app/            Routes: / · /projects · /discover · /settings · /editor?id=…
   canvas/         Canvas2D scene renderer (fills, text layout, shapes, stickers), previews, thumbnails
-  editor/         Editor store (history, transactions, autosave), camera, actions, shortcuts
+  assets/         Local photo library: IndexedDB blobs, file sniffing, worker decode/downscale, decode cache
+  images/         Photo pipeline: layout maths, adjustments & curves, WebGL develop (+ CPU worker fallback),
+    cutout/       Background removal providers (on-device AI, colour key, optional server), guided filter
+  editor/         Editor store (history, transactions, autosave), camera, actions, photo actions, shortcuts
     core/         Pure logic: geometry & transforms, snapping, element ops, factories, clipboard
     canvas/       Viewport renderer, pointer/touch interactions, overlay (handles, guides), text editor, rulers
     panels/       Properties, layers, text/shapes/stickers, background, font picker
@@ -89,6 +99,8 @@ src/
 public/
   trends/         Runtime-loadable trend packs (index.json → packs)
   fonts/          18 OFL font families (latin + latin-ext), bundled for offline use
+  ml/             On-device background-removal model (U²-Netp, Apache-2.0); runtime copied here at build time
+  workers/        Generated worker bundles (git-ignored)
 ```
 
 Key decisions:
@@ -102,6 +114,12 @@ Key decisions:
 - **One renderer everywhere.** Thumbnails, template previews, the editor canvas and (Phase 7) exports all use the same
   pure `renderDocument()` Canvas2D function — what you see is exactly what you export, and it can run in a worker via
   `OffscreenCanvas`.
+- **Non-destructive photos.** Photos are stored once (original, 2048px preview, thumbnail) and referenced by id. Crop,
+  zoom, straighten and flips are layout maths in the renderer; adjustments, curves, perspective and cut-outs run through
+  a cached WebGL "develop" pipeline (a Web Worker does the same maths where WebGL is missing). The vignette is drawn per
+  frame so it follows the crop.
+- **Workers outside the bundler.** `scripts/build-workers.mjs` bundles the Web Workers with esbuild into plain files the
+  static site serves from its own origin — deterministic in dev and production, and CSP-friendly.
 - **Local-first storage.** Project metadata, documents and thumbnails live in separate IndexedDB stores so listings stay
   fast as documents grow. If IndexedDB is blocked, an in-memory backend keeps the app usable and the UI says so.
 - **Everything that crosses a trust boundary is validated.** Templates, trend packs and persisted settings go through
@@ -144,6 +162,9 @@ Free hosting straight from this repository, no server needed:
 Pick the branch you want to publish as the production branch. The Node version comes from `.nvmrc` (Vercel reads
 `engines` in `package.json`). Every push to that branch redeploys automatically.
 
+Optional: set `NEXT_PUBLIC_CUTOUT_ENDPOINT` at build time to offer a self-hosted background-removal server as a third
+method (and add its origin to `connect-src` in `public/_headers`). See [`docs/BACKGROUND-REMOVAL.md`](docs/BACKGROUND-REMOVAL.md).
+
 ## Installing the app
 
 Stardeck is a Progressive Web App: once it is hosted over HTTPS (or running at `http://localhost`), browsers can install
@@ -165,9 +186,13 @@ any current feature.
 ## Privacy & security
 
 - No analytics, trackers or accounts. The app only requests its own files and trend packs.
-- Photos (from Phase 3) will be stored in IndexedDB on your device. Any future cloud/AI feature will be opt-in and will
-  say clearly, before upload, what leaves the device.
-- CSP forbids third-party scripts, frames and connections; user text is never injected as HTML; persisted data is
+- Photos are stored in IndexedDB on your device. Imports are checked by their bytes (not the file name), decoded in a
+  worker, and SVGs are rasterised through an `<img>` so scripts never run.
+- Background removal runs in your browser. The model and runtime (~19 MB) are downloaded once from this site and cached
+  for offline use; photos never leave the device. See [`docs/BACKGROUND-REMOVAL.md`](docs/BACKGROUND-REMOVAL.md) for the
+  optional, opt-in server provider — it asks before uploading anything.
+- CSP forbids third-party scripts, frames and connections; `'wasm-unsafe-eval'` allows WebAssembly compilation (for the
+  on-device model) without allowing JavaScript `eval`. User text is never injected as HTML; persisted data is
   re-validated on load.
 - Next.js collects anonymous _build-time_ telemetry by default; run `npx next telemetry disable` if you prefer (the app
   itself sends nothing).
@@ -175,7 +200,9 @@ any current feature.
 ## Credits
 
 Fonts are bundled from [Fontsource](https://fontsource.org/) under the SIL Open Font License (licence files ship
-alongside each family in `public/fonts/`). Interface icons are from [Lucide](https://lucide.dev/) (ISC). Templates,
-stickers, the logo and illustrations are original to this project.
+alongside each family in `public/fonts/`). Interface icons are from [Lucide](https://lucide.dev/) (ISC). Background
+removal uses [U²-Net](https://github.com/xuebinqin/U-2-Net) (U²-Netp, Apache-2.0, ONNX export from
+[rembg](https://github.com/danielgatis/rembg)) on [ONNX Runtime Web](https://onnxruntime.ai/) (MIT) — see
+`public/ml/NOTICE.txt`. Templates, stickers, the logo and illustrations are original to this project.
 
 The `Afk-Bot.zip` archive at the repository root predates Stardeck and is unrelated; it has been left untouched.

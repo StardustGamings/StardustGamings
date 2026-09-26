@@ -1,4 +1,14 @@
-import type { DesignDocument, Fill, ShapeElement, ShapeKind, StickerElement, TextElement } from '@/types/document';
+import type {
+  DesignDocument,
+  Fill,
+  ImageClip,
+  ImageElement,
+  ShapeElement,
+  ShapeKind,
+  StickerElement,
+  TextElement,
+} from '@/types/document';
+import type { AssetMeta } from '@/assets/types';
 import { fillPrimaryColor } from '@/canvas/render/fill';
 import { measureTextWidth } from '@/canvas/render/text';
 import { clamp } from '@/utils/math';
@@ -318,3 +328,77 @@ export const slideCenter = (doc: DesignDocument, index: number): Point => ({
   x: index * doc.slideWidth + doc.slideWidth / 2,
   y: doc.slideHeight / 2,
 });
+
+/* ───────────── Photos & frames ───────────── */
+
+export interface FramePreset {
+  id: string;
+  name: string;
+  /** Width ÷ height. */
+  ratio: number;
+  clip: ImageClip;
+  /** Corner radius as a fraction of the short side (rect frames). */
+  radius?: number;
+}
+
+export const FRAME_PRESETS: FramePreset[] = [
+  { id: 'square', name: 'Square', ratio: 1, clip: 'rect' },
+  { id: 'portrait', name: 'Portrait', ratio: 4 / 5, clip: 'rect' },
+  { id: 'landscape', name: 'Landscape', ratio: 3 / 2, clip: 'rect' },
+  { id: 'tall', name: 'Tall', ratio: 9 / 16, clip: 'rect' },
+  { id: 'rounded', name: 'Rounded', ratio: 4 / 5, clip: 'rect', radius: 0.12 },
+  { id: 'circle', name: 'Circle', ratio: 1, clip: 'ellipse' },
+  { id: 'arch', name: 'Arch', ratio: 3 / 4, clip: 'arch' },
+  { id: 'heart', name: 'Heart', ratio: 1.08, clip: 'heart' },
+  { id: 'star', name: 'Star', ratio: 1, clip: 'star' },
+  { id: 'hexagon', name: 'Hexagon', ratio: 1.12, clip: 'hexagon' },
+];
+
+/** Empty frame (drop zone) that photos can be dropped into. */
+export function createFrame(doc: DesignDocument, center: Point, preset: FramePreset = FRAME_PRESETS[0]!): ImageElement {
+  const size = doc.slideWidth * 0.46;
+  const width = preset.ratio >= 1 ? size : size * preset.ratio;
+  const height = preset.ratio >= 1 ? size / preset.ratio : size;
+  const bg = backgroundColorAt(doc, center);
+  const placeholder = readableOn(bg, '#E4E0F0', '#3A3550');
+  return {
+    id: createId('el'),
+    type: 'image',
+    x: Math.round(center.x - width / 2),
+    y: Math.round(center.y - height / 2),
+    width: Math.round(width),
+    height: Math.round(height),
+    rotation: 0,
+    opacity: 1,
+    assetId: null,
+    fit: 'cover',
+    clip: preset.clip,
+    ...(preset.radius ? { cornerRadius: Math.round(Math.min(width, height) * preset.radius) } : {}),
+    placeholder: { fill: solid(placeholder) },
+  };
+}
+
+const layerName = (name: string) => name.replace(/\.[a-z0-9]{2,5}$/i, '').slice(0, 40) || 'Photo';
+
+/** A photo (or user sticker) sized to sit comfortably on a slide, keeping its aspect ratio. */
+export function createImage(doc: DesignDocument, center: Point, asset: AssetMeta): ImageElement {
+  const sticker = asset.kind === 'sticker';
+  const maxW = doc.slideWidth * (sticker ? 0.34 : 0.72);
+  const maxH = doc.slideHeight * (sticker ? 0.34 : 0.72);
+  const scale = Math.min(maxW / asset.width, maxH / asset.height);
+  const width = Math.max(8, asset.width * scale);
+  const height = Math.max(8, asset.height * scale);
+  return {
+    id: createId('el'),
+    type: 'image',
+    name: sticker ? 'Sticker' : layerName(asset.name),
+    x: Math.round(center.x - width / 2),
+    y: Math.round(center.y - height / 2),
+    width: Math.round(width),
+    height: Math.round(height),
+    rotation: 0,
+    opacity: 1,
+    assetId: asset.id,
+    fit: sticker ? 'contain' : 'cover',
+  };
+}

@@ -6,12 +6,13 @@ import type { ProjectMeta } from '@/types/project';
 import * as repo from '@/projects/repository';
 import { useProjects } from '@/projects/store';
 import { renderThumbnail } from '@/canvas/thumbnail';
+import { clearDevelopCache } from '@/images/develop';
 import { clamp } from '@/utils/math';
 import { createHistory, HISTORY_LIMIT, pushHistory, redoHistory, undoHistory, type History } from './history';
 
 export type SaveState = 'saved' | 'dirty' | 'saving' | 'error';
 export type Tool = 'select' | 'text' | 'hand';
-export type PanelId = 'design' | 'text' | 'shapes' | 'stickers' | 'layers' | 'properties';
+export type PanelId = 'design' | 'text' | 'shapes' | 'stickers' | 'photos' | 'layers' | 'properties';
 
 interface ApplyOptions {
   /** Consecutive edits with the same key (e.g. dragging a colour picker) merge into one undo step. */
@@ -28,6 +29,8 @@ interface EditorState {
 
   selection: string[];
   editingTextId: string | null;
+  /** Image element whose photo is being cropped/positioned on the canvas. */
+  croppingId: string | null;
   tool: Tool;
   panel: PanelId | null;
   showGrid: boolean;
@@ -55,6 +58,7 @@ interface EditorState {
   select: (ids: string[]) => void;
   clearSelection: () => void;
   setEditingText: (id: string | null) => void;
+  setCropping: (id: string | null) => void;
   setTool: (tool: Tool) => void;
   setPanel: (panel: PanelId | null) => void;
   toggleGrid: () => void;
@@ -90,11 +94,12 @@ export const useEditor = create<EditorState>()((set, get) => {
   /** Keeps selection/editing consistent with the elements that still exist. */
   const reconcile = (doc: DesignDocument) => {
     const ids = new Set(doc.elements.map((e) => e.id));
-    const { selection, editingTextId, activeSlide } = get();
+    const { selection, editingTextId, croppingId, activeSlide } = get();
     const nextSelection = selection.filter((id) => ids.has(id));
     return {
       selection: nextSelection.length === selection.length ? selection : nextSelection,
       editingTextId: editingTextId && ids.has(editingTextId) ? editingTextId : null,
+      croppingId: croppingId && ids.has(croppingId) ? croppingId : null,
       activeSlide: clamp(activeSlide, 0, doc.slides.length - 1),
     };
   };
@@ -113,6 +118,7 @@ export const useEditor = create<EditorState>()((set, get) => {
     activeSlide: 0,
     selection: [],
     editingTextId: null,
+    croppingId: null,
     tool: 'select',
     panel: null,
     showGrid: false,
@@ -130,6 +136,7 @@ export const useEditor = create<EditorState>()((set, get) => {
         activeSlide: 0,
         selection: [],
         editingTextId: null,
+        croppingId: null,
         tool: 'select',
         panel: null,
         ...prefs,
@@ -157,7 +164,17 @@ export const useEditor = create<EditorState>()((set, get) => {
       // Flush edits made inside the autosave window before tearing down.
       if (get().saveState === 'dirty') void get().save();
       clearTimeout(saveTimer);
-      set({ status: 'idle', meta: null, history: null, saveState: 'saved', selection: [], editingTextId: null });
+      // Developed photos are per-design; free them (thumbnails are rendered after this).
+      setTimeout(clearDevelopCache, THUMB_DELAY + 2000);
+      set({
+        status: 'idle',
+        meta: null,
+        history: null,
+        saveState: 'saved',
+        selection: [],
+        editingTextId: null,
+        croppingId: null,
+      });
     },
 
     apply: (recipe, options) => {
@@ -255,14 +272,21 @@ export const useEditor = create<EditorState>()((set, get) => {
     },
 
     select: (ids) => {
-      const { selection, editingTextId } = get();
+      const { selection, editingTextId, croppingId } = get();
       const same = ids.length === selection.length && ids.every((id, i) => id === selection[i]);
-      if (!same) set({ selection: ids, editingTextId: editingTextId && ids.includes(editingTextId) ? editingTextId : null });
+      if (!same)
+        set({
+          selection: ids,
+          editingTextId: editingTextId && ids.includes(editingTextId) ? editingTextId : null,
+          croppingId: croppingId && ids.length === 1 && ids[0] === croppingId ? croppingId : null,
+        });
     },
     clearSelection: () => {
-      if (get().selection.length || get().editingTextId) set({ selection: [], editingTextId: null });
+      if (get().selection.length || get().editingTextId || get().croppingId)
+        set({ selection: [], editingTextId: null, croppingId: null });
     },
-    setEditingText: (id) => set(id ? { editingTextId: id, selection: [id] } : { editingTextId: null }),
+    setEditingText: (id) => set(id ? { editingTextId: id, selection: [id], croppingId: null } : { editingTextId: null }),
+    setCropping: (id) => set(id ? { croppingId: id, selection: [id], editingTextId: null } : { croppingId: null }),
     setTool: (tool) => set({ tool }),
     setPanel: (panel) => set({ panel }),
     toggleGrid: () => set((s) => ({ showGrid: !s.showGrid })),

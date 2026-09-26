@@ -11,6 +11,8 @@ export default defineConfig([
     'node_modules/**',
     'next-env.d.ts',
     'public/sw.js',
+    'public/workers/**',
+    'public/ml/**',
     'test-results/**',
     'playwright-report/**',
   ]),

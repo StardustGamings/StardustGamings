@@ -32,7 +32,14 @@ export async function writeClipboard(elements: DesignElement[]): Promise<void> {
   }
 }
 
-export type ClipboardContent = { kind: 'elements'; elements: DesignElement[] } | { kind: 'text'; text: string } | null;
+export type ClipboardContent =
+  { kind: 'elements'; elements: DesignElement[] } | { kind: 'text'; text: string } | { kind: 'images'; files: File[] } | null;
+
+/** Image files from a paste event (screenshots, copied photos). */
+export function imageFilesFrom(data: DataTransfer | null): File[] {
+  if (!data) return [];
+  return [...data.files].filter((f) => f.type.startsWith('image/'));
+}
 
 /**
  * The system clipboard wins when readable (it reflects what the user copied most
@@ -40,11 +47,26 @@ export type ClipboardContent = { kind: 'elements'; elements: DesignElement[] } |
  */
 export async function readClipboard(): Promise<ClipboardContent> {
   let text: string | null = null;
+  const images: File[] = [];
   try {
-    text = (await navigator.clipboard?.readText()) ?? null;
+    // Rich read first (images); browsers without it, or without permission, fall back to text.
+    for (const item of (await navigator.clipboard?.read?.()) ?? []) {
+      const imageType = item.types.find((t) => t.startsWith('image/'));
+      if (imageType) images.push(new File([await item.getType(imageType)], 'Pasted image', { type: imageType }));
+      else if (item.types.includes('text/plain') && text === null) text = await (await item.getType('text/plain')).text();
+    }
   } catch {
-    text = null;
+    /* fall through to readText */
   }
+  if (text === null && images.length === 0) {
+    try {
+      text = (await navigator.clipboard?.readText()) ?? null;
+    } catch {
+      text = null;
+    }
+  }
+  if (text && parseElements(text)) return { kind: 'elements', elements: parseElements(text)! };
+  if (images.length) return { kind: 'images', files: images };
   if (text) {
     const elements = parseElements(text);
     if (elements) return { kind: 'elements', elements };

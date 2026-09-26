@@ -42,6 +42,8 @@ import { clamp } from '@/utils/math';
 import { formatBytes } from '@/utils/time';
 import { cn } from '@/utils/cn';
 import { SettingRow, SettingsSection } from './SettingRow';
+import { useAssets } from '@/assets/store';
+import { assetUsage, cleanupUnusedAssets } from '@/assets/repository';
 import { ThemePicker } from './ThemePicker';
 
 const SECTIONS = [
@@ -368,7 +370,8 @@ function PrivacySection() {
           <p className="text-sm font-bold text-success">Stays on this device</p>
           <ul className="mt-2 list-inside list-disc space-y-1 text-[13px] text-fg-muted">
             <li>Every project, slide and thumbnail</li>
-            <li>Photos you add to designs</li>
+            <li>Photos and stickers you add — and all photo editing</li>
+            <li>Background removal (the AI runs in your browser)</li>
             <li>Your settings and display name</li>
           </ul>
         </div>
@@ -376,17 +379,71 @@ function PrivacySection() {
           <p className="text-sm font-bold">Leaves this device</p>
           <ul className="mt-2 list-inside list-disc space-y-1 text-[13px] text-fg-muted">
             <li>Nothing you create.</li>
-            <li>The app only downloads its own files and trend packs.</li>
+            <li>The app only downloads its own files, trend packs and (once, if you use it) its background-removal model.</li>
             <li>No analytics, no ad trackers, no account.</li>
           </ul>
         </div>
       </div>
       <SettingRow
         title="Optional AI & cloud tools"
-        description="None are active. When they arrive they’ll be off by default, clearly labelled, and ask before anything is uploaded."
+        description="Background removal runs on your device. Any cloud tool is off by default, clearly labelled, and asks before anything is uploaded."
         control={() => <Badge tone="success">Nothing uploaded</Badge>}
       />
     </SettingsSection>
+  );
+}
+
+/** Local photo library size, with a one-tap cleanup of photos no design uses. */
+function PhotoStorageRow() {
+  const assets = useAssets((s) => s.assets);
+  const load = useAssets((s) => s.load);
+  const [unused, setUnused] = useState<{ count: number; bytes: number } | null>(null);
+  const [confirm, setConfirm] = useState(false);
+  useEffect(() => {
+    void load();
+  }, [load]);
+  useEffect(() => {
+    let alive = true;
+    void assetUsage().then((usage) => {
+      if (!alive) return;
+      const list = assets.filter((a) => a.kind !== 'sticker' && !usage.has(a.id));
+      setUnused({ count: list.length, bytes: list.reduce((n, a) => n + a.bytes, 0) });
+    });
+    return () => {
+      alive = false;
+    };
+  }, [assets]);
+  const photos = assets.filter((a) => a.kind === 'photo').length;
+  const stickers = assets.filter((a) => a.kind === 'sticker').length;
+  const total = assets.reduce((n, a) => n + a.bytes, 0);
+  return (
+    <>
+      <SettingRow
+        title="Photos & stickers"
+        description={`${photos} photo${photos === 1 ? '' : 's'} · ${stickers} sticker${stickers === 1 ? '' : 's'} · ${formatBytes(total)}${
+          unused && unused.count ? ` · ${unused.count} not used in any design (${formatBytes(unused.bytes)})` : ''
+        }`}
+        control={() => (
+          <Button size="sm" disabled={!unused?.count} onClick={() => setConfirm(true)}>
+            Clean up
+          </Button>
+        )}
+      />
+      <ConfirmDialog
+        open={confirm}
+        onOpenChange={setConfirm}
+        title="Delete photos no design uses?"
+        description={`Frees ${formatBytes(unused?.bytes ?? 0)}. Photos in any design (including ones in the trash) and your sticker library are kept.`}
+        confirmLabel="Clean up"
+        destructive
+        onConfirm={async () => {
+          const result = await cleanupUnusedAssets();
+          useAssets.setState({ status: 'idle', assets: [] });
+          await useAssets.getState().load();
+          toast({ title: `Freed ${formatBytes(result.bytes)}`, tone: 'success' });
+        }}
+      />
+    </>
   );
 }
 
@@ -439,6 +496,7 @@ function StorageSection() {
           {kind === 'memory' ? 'temporary (private mode)' : 'IndexedDB'}
         </p>
       </div>
+      <PhotoStorageRow />
       <SettingRow
         title="Protect my projects"
         description="Asks the browser not to clear Stardeck’s data when space runs low."
@@ -469,7 +527,7 @@ function StorageSection() {
       />
       <SettingRow
         title="Erase everything"
-        description="Deletes all projects and settings from this device. There’s no undo."
+        description="Deletes all projects, photos and settings from this device. There’s no undo."
         control={() => (
           <Button variant="danger" size="sm" onClick={() => setConfirm(true)}>
             Erase…
@@ -485,6 +543,7 @@ function StorageSection() {
         destructive
         onConfirm={async () => {
           await clearAll();
+          useAssets.setState({ status: 'idle', assets: [] });
           try {
             localStorage.removeItem(SETTINGS_STORAGE_KEY);
           } catch {
@@ -508,7 +567,7 @@ function ShortcutsSection() {
     { keys: [mod, '⇧', 'Z'], action: 'Redo' },
     { keys: [mod, 'C'], action: 'Copy' },
     { keys: [mod, 'X'], action: 'Cut' },
-    { keys: [mod, 'V'], action: 'Paste (elements or plain text)' },
+    { keys: [mod, 'V'], action: 'Paste (elements, photos or plain text)' },
     { keys: [mod, 'D'], action: 'Duplicate selection (or slide)' },
     { keys: ['Delete'], action: 'Delete selection' },
     { keys: [mod, 'A'], action: 'Select all on slide (again: all)' },
@@ -519,10 +578,11 @@ function ShortcutsSection() {
     { keys: [mod, '⇧', 'L'], action: 'Lock / unlock' },
     { keys: [mod, '⇧', 'H'], action: 'Hide' },
     { keys: ['←', '↑', '→', '↓'], action: 'Nudge 1px (⇧: 10px) · slides when nothing selected' },
-    { keys: ['Enter'], action: 'Edit selected text' },
-    { keys: ['Esc'], action: 'Deselect · close dialogs' },
+    { keys: ['Enter'], action: 'Edit selected text · crop selected photo · finish cropping' },
+    { keys: ['Esc'], action: 'Deselect · cancel cropping · close dialogs' },
     { keys: ['V'], action: 'Select tool' },
     { keys: ['T'], action: 'Text tool (click to place)' },
+    { keys: ['P'], action: 'Photos panel' },
     { keys: ['H'], action: 'Pan tool' },
     { keys: ['Space'], action: 'Hold and drag to pan' },
     { keys: [mod, 'Scroll'], action: 'Zoom at the pointer' },
@@ -542,7 +602,7 @@ function ShortcutsSection() {
       id="shortcuts"
       title="Keyboard shortcuts"
       icon={<Keyboard />}
-      description="Editor shortcuts apply on the canvas. Touch: one finger drags, two fingers pan and pinch-zoom, double-tap edits text."
+      description="Editor shortcuts apply on the canvas. Touch: one finger drags, two fingers pan and pinch-zoom, double-tap edits text or crops a photo."
     >
       <ul className="grid gap-x-8 sm:grid-cols-2">
         {rows.map((r) => (
@@ -623,7 +683,7 @@ function AboutSection() {
   const { state, install } = useInstallPrompt();
   const setOnboardingReplay = useUi((s) => s.setOnboardingReplay);
   return (
-    <SettingsSection id="about" title="About Stardeck" icon={<Info />} badge={<Badge>v0.2 · Phase 2</Badge>}>
+    <SettingsSection id="about" title="About Stardeck" icon={<Info />} badge={<Badge>v0.3 · Phase 3</Badge>}>
       <div className="pb-4 text-sm leading-relaxed text-fg-muted">
         <p>
           <strong className="text-fg">Free forever.</strong> No watermarks, no “Pro” locks on the basics, no forced subscription.

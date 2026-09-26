@@ -58,7 +58,7 @@ export function EffectCard({ effect }: { effect: TrendEffect }) {
       <div className="px-1.5 pt-2.5 pb-0.5">
         <div className="flex items-center gap-2">
           <p className="flex-1 truncate text-sm font-bold">{effect.name}</p>
-          <SoonBadge>Editor soon</SoonBadge>
+          <SoonBadge>One-tap soon</SoonBadge>
         </div>
         <p className="mt-0.5 line-clamp-2 text-xs text-fg-subtle">{effect.description}</p>
       </div>

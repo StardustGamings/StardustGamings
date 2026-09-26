@@ -1,4 +1,5 @@
 import type { DesignDocument } from '@/types/document';
+import { ensureDocumentAssets, resolveImage } from '@/images/resolver';
 import { ensureDocumentFonts } from './fonts';
 import { renderDocument, slideRegion } from './render';
 
@@ -8,7 +9,7 @@ import { renderDocument, slideRegion } from './render';
  */
 export async function renderThumbnail(doc: DesignDocument, maxSize = 480): Promise<Blob | null> {
   if (typeof document === 'undefined') return null;
-  await ensureDocumentFonts(doc);
+  await Promise.all([ensureDocumentFonts(doc), ensureDocumentAssets(doc)]);
   const region = slideRegion(doc, 0);
   const scale = Math.min(maxSize / region.width, maxSize / region.height);
   const w = Math.max(1, Math.round(region.width * scale));
@@ -18,7 +19,7 @@ export async function renderThumbnail(doc: DesignDocument, maxSize = 480): Promi
   canvas.height = h;
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
-  renderDocument(ctx, doc, { region, scale });
+  renderDocument(ctx, doc, { region, scale, images: resolveImage, placeholders: true });
   return new Promise((resolve) => {
     try {
       canvas.toBlob((blob) => resolve(blob), 'image/webp', 0.86);

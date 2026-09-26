@@ -38,11 +38,11 @@ export const MODE_TOOLS: ToolDef[] = [
 
 export const PANEL_TOOLS: ToolDef[] = [
   { id: 'text', label: 'Text', icon: <Type />, panel: 'text', shortcut: 'T' },
+  { id: 'photos', label: 'Photos', icon: <ImageIcon />, panel: 'photos', shortcut: 'P' },
   { id: 'shapes', label: 'Shapes', icon: <Shapes />, panel: 'shapes' },
   { id: 'stickers', label: 'Stickers', icon: <Smile />, panel: 'stickers' },
   { id: 'design', label: 'Background', icon: <PaintBucket />, panel: 'design' },
   { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
-  { id: 'photos', label: 'Photos', icon: <ImageIcon />, soon: true },
   { id: 'layouts', label: 'Layouts', icon: <LayoutTemplate />, soon: true },
   { id: 'filters', label: 'Filters', icon: <Wand2 />, soon: true },
   { id: 'animate', label: 'Animate', icon: <Sparkles />, soon: true },

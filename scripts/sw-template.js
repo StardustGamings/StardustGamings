@@ -110,7 +110,14 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(networkFirstPage(request));
     return;
   }
-  if (url.pathname.startsWith('/_next/static/') || url.pathname.startsWith('/fonts/') || url.pathname.startsWith('/icons/')) {
+  if (
+    url.pathname.startsWith('/_next/static/') ||
+    url.pathname.startsWith('/fonts/') ||
+    url.pathname.startsWith('/icons/') ||
+    url.pathname.startsWith('/workers/') ||
+    // On-device AI model + runtime: downloaded on first use, then served offline.
+    url.pathname.startsWith('/ml/')
+  ) {
     event.respondWith(cacheFirst(request));
     return;
   }
