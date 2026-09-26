@@ -7,6 +7,7 @@ import { insertTemplate, instantiateTemplate, replaceWithTemplate, type Instanti
 import { toast } from '@/components/ui/toast-store';
 import { goToSlide } from './actions';
 import { useEditor } from './store';
+import { keepBeforeChange } from './versioning';
 
 const ed = () => useEditor.getState();
 const doc = (): DesignDocument | null => ed().history?.present ?? null;
@@ -44,6 +45,7 @@ export function replaceDesign(template: Template, options: InstantiateOptions = 
   const d = doc();
   if (!d) return false;
   const next = replaceWithTemplate(d, instantiateTemplate(template, options));
+  if (!isBlank(d)) keepBeforeChange(`Before using the “${template.name}” template`);
   ed().apply(() => next);
   ed().clearSelection();
   goToSlide(0);

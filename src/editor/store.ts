@@ -9,8 +9,15 @@ import { renderThumbnail } from '@/canvas/thumbnail';
 import { clearDevelopCache } from '@/images/develop';
 import { clamp } from '@/utils/math';
 import { createHistory, HISTORY_LIMIT, pushHistory, redoHistory, undoHistory, type History } from './history';
+import { afterSave, endVersionSession, startVersionSession } from './versioning';
+import { sameDocument } from '@/projects/versions';
+import { toast } from '@/components/ui/toast-store';
 
 export type SaveState = 'saved' | 'dirty' | 'saving' | 'error';
+/** Why the last save failed: the device is full, or something else (retried automatically). */
+export type SaveError = 'quota' | 'failed';
+/** The open design was changed or trashed in another tab while this one had unsaved edits. */
+export type Conflict = 'changed' | 'trashed';
 export type Tool = 'select' | 'text' | 'hand';
 export type PanelId =
   'templates' | 'design' | 'text' | 'shapes' | 'stickers' | 'photos' | 'filters' | 'layouts' | 'layers' | 'properties';
@@ -25,6 +32,8 @@ interface EditorState {
   meta: ProjectMeta | null;
   history: History<DesignDocument> | null;
   saveState: SaveState;
+  saveError: SaveError | null;
+  conflict: Conflict | null;
   lastSavedAt: number | null;
   activeSlide: number;
 
@@ -53,6 +62,10 @@ interface EditorState {
   undo: () => void;
   redo: () => void;
   save: () => Promise<void>;
+  /** Another tab changed this project: pick up its changes, or flag a conflict when there are local edits. */
+  externalChange: (id: string) => Promise<void>;
+  /** Resolve a conflict: `theirs` loads the stored design, `mine` keeps editing (and saves over it). */
+  resolveConflict: (keep: 'theirs' | 'mine') => Promise<void>;
   rename: (name: string) => Promise<void>;
   setActiveSlide: (index: number) => void;
 
@@ -69,6 +82,10 @@ interface EditorState {
 }
 
 let saveTimer: ReturnType<typeof setTimeout> | undefined;
+let retryTimer: ReturnType<typeof setTimeout> | undefined;
+let retries = 0;
+const RETRY_DELAYS = [2000, 5000, 15000, 30000];
+let lastSyncToast = 0;
 let thumbTimer: ReturnType<typeof setTimeout> | undefined;
 const AUTOSAVE_DELAY = 700;
 const THUMB_DELAY = 1500;
@@ -115,6 +132,8 @@ export const useEditor = create<EditorState>()((set, get) => {
     meta: null,
     history: null,
     saveState: 'saved',
+    saveError: null,
+    conflict: null,
     lastSavedAt: null,
     activeSlide: 0,
     selection: [],
@@ -129,9 +148,13 @@ export const useEditor = create<EditorState>()((set, get) => {
 
     load: async (id, prefs) => {
       clearTimeout(saveTimer);
+      clearTimeout(retryTimer);
+      retries = 0;
       txBase = null;
       set({
         status: 'loading',
+        saveError: null,
+        conflict: null,
         meta: null,
         history: null,
         activeSlide: 0,
@@ -155,6 +178,7 @@ export const useEditor = create<EditorState>()((set, get) => {
           saveState: 'saved',
           lastSavedAt: project.meta.updatedAt,
         });
+        startVersionSession(project.meta.id, project.doc);
       } catch {
         set({ status: 'missing' });
       }
@@ -163,8 +187,10 @@ export const useEditor = create<EditorState>()((set, get) => {
     reset: () => {
       get().commit();
       // Flush edits made inside the autosave window before tearing down.
-      if (get().saveState === 'dirty') void get().save();
+      if (get().saveState === 'dirty' && !get().conflict) void get().save();
       clearTimeout(saveTimer);
+      clearTimeout(retryTimer);
+      endVersionSession();
       // Developed photos are per-design; free them (thumbnails are rendered after this).
       setTimeout(clearDevelopCache, THUMB_DELAY + 2000);
       set({
@@ -239,24 +265,105 @@ export const useEditor = create<EditorState>()((set, get) => {
 
     save: async () => {
       clearTimeout(saveTimer);
-      const { meta, history, saveState } = get();
-      if (!meta || !history || saveState === 'saving') return;
+      clearTimeout(retryTimer);
+      const { meta, history, saveState, conflict } = get();
+      // Never write over another tab's changes until the person decides.
+      if (!meta || !history || saveState === 'saving' || conflict) return;
       // Never persist a half-finished gesture.
       const doc = txBase ?? history.present;
       set({ saveState: 'saving' });
       try {
-        const saved = await repo.saveDocument(meta.id, doc);
+        const saved = await repo.saveDocument(meta.id, doc, { expectedUpdatedAt: get().lastSavedAt ?? undefined });
         useProjects.getState().upsert(saved);
         scheduleThumbnail(meta.id, doc);
+        void afterSave(meta.id, doc);
         // The editor may have closed (or opened another project) while writing.
         if (get().meta?.id !== meta.id) return;
         // Only mark clean if nothing changed while we were writing.
         const stillCurrent = get().history?.present === doc && txBase === null;
-        set({ meta: saved, saveState: stillCurrent ? 'saved' : 'dirty', lastSavedAt: saved.updatedAt });
+        retries = 0;
+        set({ meta: saved, saveState: stillCurrent ? 'saved' : 'dirty', saveError: null, lastSavedAt: saved.updatedAt });
         if (!stillCurrent) scheduleSave();
-      } catch {
-        if (get().meta?.id === meta.id) set({ saveState: 'error' });
+      } catch (e) {
+        if (get().meta?.id !== meta.id) return;
+        const quota = e instanceof DOMException && (e.name === 'QuotaExceededError' || e.code === 22);
+        if (e instanceof repo.ProjectNotFoundError) {
+          set({ saveState: 'dirty', conflict: 'trashed' });
+          return;
+        }
+        if (e instanceof repo.SaveConflictError) {
+          set({ saveState: 'dirty', conflict: 'changed' });
+          return;
+        }
+        set({ saveState: 'error', saveError: quota ? 'quota' : 'failed' });
+        // Transient failures retry on their own; a full device waits for the person to free space.
+        if (!quota && retries < RETRY_DELAYS.length) retryTimer = setTimeout(() => void get().save(), RETRY_DELAYS[retries++]);
       }
+    },
+
+    externalChange: async (id) => {
+      const { meta } = get();
+      if (!meta || meta.id !== id || get().status !== 'ready') return;
+      const fresh = await repo.getProject(id).catch(() => null);
+      if (get().meta?.id !== id) return;
+      if (!fresh || fresh.meta.deletedAt !== null) {
+        set({ conflict: 'trashed' });
+        return;
+      }
+      const present = get().history?.present;
+      if (!present || sameDocument(fresh.doc, present)) {
+        // Only the name, favourite or thumbnail changed — we're in step with the stored copy.
+        set({ meta: fresh.meta, lastSavedAt: fresh.meta.updatedAt });
+        return;
+      }
+      const busy = get().saveState !== 'saved' || txBase !== null || get().editingTextId !== null || get().croppingId !== null;
+      if (busy) {
+        set({ conflict: 'changed' });
+        return;
+      }
+      set({
+        meta: fresh.meta,
+        history: createHistory(fresh.doc),
+        lastSavedAt: fresh.meta.updatedAt,
+        conflict: null,
+        ...reconcile(fresh.doc),
+      });
+      // Once is enough while the other tab keeps autosaving.
+      if (Date.now() - lastSyncToast > 60_000) toast({ title: 'Updated with changes from another tab', duration: 2500 });
+      lastSyncToast = Date.now();
+    },
+
+    resolveConflict: async (keep) => {
+      const { meta, conflict } = get();
+      if (!meta || !conflict) return;
+      if (keep === 'mine') {
+        // Save over whatever is stored now.
+        const stored = await repo.getProjectMeta(meta.id);
+        if (stored) set({ lastSavedAt: stored.updatedAt });
+        if (conflict === 'trashed') {
+          const restored = await repo.restoreProject(meta.id).catch(() => null);
+          if (!restored) {
+            // Deleted for good elsewhere: put it back as it is here.
+            const doc = get().history?.present;
+            if (doc) await repo.insertProject({ ...meta, folderId: meta.folderId }, doc);
+          }
+        }
+        set({ conflict: null, saveState: 'dirty' });
+        await get().save();
+        return;
+      }
+      const fresh = await repo.getProject(meta.id);
+      if (!fresh) return;
+      txBase = null;
+      set({
+        meta: fresh.meta,
+        history: createHistory(fresh.doc),
+        saveState: 'saved',
+        saveError: null,
+        conflict: null,
+        lastSavedAt: fresh.meta.updatedAt,
+        ...reconcile(fresh.doc),
+      });
     },
 
     rename: async (name) => {

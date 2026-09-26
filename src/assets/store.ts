@@ -12,6 +12,8 @@ interface AssetsState {
   /** Number of files currently being imported (drives progress UI). */
   importing: number;
   load: () => Promise<void>;
+  /** Re-reads the library (after an import or another tab's changes). Deleted photos are dropped from the cache. */
+  reload: () => Promise<void>;
   /**
    * Imports files into the library, with friendly toasts for anything that
    * can't be used. Resolves with the assets that made it, in the given order.
@@ -36,6 +38,16 @@ export const useAssets = create<AssetsState>()((set, get) => ({
     } catch {
       set({ status: 'ready' });
     }
+  },
+
+  reload: async () => {
+    if (get().status === 'idle') return;
+    const assets = await repo.listAssets();
+    const ids = new Set(assets.map((a) => a.id));
+    get()
+      .assets.filter((a) => !ids.has(a.id))
+      .forEach((a) => invalidateAsset(a.id));
+    set({ assets, status: 'ready' });
   },
 
   importFiles: async (input, kind = 'photo') => {

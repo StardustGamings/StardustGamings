@@ -29,6 +29,15 @@ test('works offline after the first visit (PWA)', async ({ app: page, context, i
   const [download] = await Promise.all([page.waitForEvent('download'), dialog.getByTestId('export-start').click()]);
   expect(download.suggestedFilename()).toMatch(/\.(png|zip)$/);
   await expect(page.getByTestId('export-done')).toBeVisible();
+  await page.keyboard.press('Escape');
+
+  // …and save it as a project file to carry it to another device.
+  await page.getByTestId('editor-more').click();
+  const [projectFile] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('menuitem', { name: 'Download project file' }).click(),
+  ]);
+  expect(projectFile.suggestedFilename()).toMatch(/\.stardeck$/);
   await context.setOffline(false);
 });
 

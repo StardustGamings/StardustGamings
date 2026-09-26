@@ -9,6 +9,7 @@ import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { Dialog } from '@/components/ui/Dialog';
 import { TextField } from '@/components/ui/TextField';
 import { toast } from '@/components/ui/toast-store';
+import { FolderDialogs } from './FolderDialogs';
 
 function RenameDialog() {
   const id = useUi((s) => s.renameId);
@@ -96,6 +97,7 @@ export function ProjectDialogs() {
     <>
       <RenameDialog />
       <PurgeDialog />
+      <FolderDialogs />
     </>
   );
 }

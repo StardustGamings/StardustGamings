@@ -1,8 +1,9 @@
 'use client';
 
 import { create } from 'zustand';
-import type { ProjectMeta } from '@/types/project';
+import type { Folder, ProjectMeta } from '@/types/project';
 import { renderThumbnail } from '@/canvas/thumbnail';
+import * as folderRepo from './folders';
 import * as repo from './repository';
 
 type Status = 'idle' | 'loading' | 'ready' | 'error';
@@ -10,6 +11,7 @@ type Status = 'idle' | 'loading' | 'ready' | 'error';
 interface ProjectsState {
   status: Status;
   projects: ProjectMeta[];
+  folders: Folder[];
   /** Object URLs for stored thumbnails, keyed by project id. */
   thumbnails: Record<string, string>;
   storageKind: 'indexeddb' | 'memory' | null;
@@ -26,6 +28,15 @@ interface ProjectsState {
   upsert: (meta: ProjectMeta) => void;
   setThumbnail: (id: string, blob: Blob) => Promise<void>;
   clearAll: () => Promise<void>;
+  createFolder: (name: string, color?: string) => Promise<Folder>;
+  updateFolder: (id: string, patch: { name?: string; color?: string }) => Promise<void>;
+  /** Deletes a folder; its projects stay. Returns how many moved out. */
+  deleteFolder: (id: string) => Promise<number>;
+  moveToFolder: (ids: string[], folderId: string | null) => Promise<void>;
+  /** Re-reads one project (and its thumbnail) after another tab changed it. */
+  refresh: (id: string) => Promise<void>;
+  /** Re-reads everything after a bulk change (import, another tab's cleanup…). */
+  reload: () => Promise<void>;
 }
 
 const sortByUpdated = (list: ProjectMeta[]) => [...list].sort((a, b) => b.updatedAt - a.updatedAt);
@@ -50,9 +61,19 @@ export const useProjects = create<ProjectsState>()((set, get) => {
       return { thumbnails: rest };
     });
 
+  const loadThumb = async (id: string) => {
+    const url = toUrl(await repo.getThumbnail(id));
+    if (!url) return;
+    set((s) => {
+      revoke(s.thumbnails[id]);
+      return { thumbnails: { ...s.thumbnails, [id]: url } };
+    });
+  };
+
   return {
     status: 'idle',
     projects: [],
+    folders: [],
     thumbnails: {},
     storageKind: null,
 
@@ -61,8 +82,8 @@ export const useProjects = create<ProjectsState>()((set, get) => {
       set({ status: 'loading' });
       try {
         await repo.purgeExpiredTrash();
-        const [projects, kind] = await Promise.all([repo.listProjects(), repo.storageKind()]);
-        set({ projects, status: 'ready', storageKind: kind });
+        const [projects, folders, kind] = await Promise.all([repo.listProjects(), folderRepo.listFolders(), repo.storageKind()]);
+        set({ projects, folders, status: 'ready', storageKind: kind });
         // Thumbnails stream in after the list so the dashboard paints immediately.
         for (const p of projects) {
           if (get().thumbnails[p.id]) continue;
@@ -137,7 +158,54 @@ export const useProjects = create<ProjectsState>()((set, get) => {
     clearAll: async () => {
       await repo.clearAllProjects();
       Object.values(get().thumbnails).forEach(revoke);
-      set({ projects: [], thumbnails: {} });
+      set({ projects: [], folders: [], thumbnails: {} });
+    },
+
+    createFolder: async (name, color) => {
+      const folder = await folderRepo.createFolder(name, color);
+      set({ folders: await folderRepo.listFolders() });
+      return folder;
+    },
+
+    updateFolder: async (id, patch) => {
+      await folderRepo.updateFolder(id, patch);
+      set({ folders: await folderRepo.listFolders() });
+    },
+
+    deleteFolder: async (id) => {
+      const moved = await folderRepo.deleteFolder(id);
+      const [projects, folders] = await Promise.all([repo.listProjects(), folderRepo.listFolders()]);
+      set({ projects, folders });
+      return moved;
+    },
+
+    moveToFolder: async (ids, folderId) => {
+      const moved = await repo.moveProjects(ids, folderId);
+      const byId = new Map(moved.map((m) => [m.id, m]));
+      set((s) => ({ projects: s.projects.map((p) => byId.get(p.id) ?? p) }));
+    },
+
+    refresh: async (id) => {
+      if (get().status !== 'ready') return;
+      const meta = await repo.getProjectMeta(id);
+      if (!meta) {
+        set((s) => ({ projects: s.projects.filter((p) => p.id !== id) }));
+        dropThumb(id);
+        return;
+      }
+      replace(meta);
+      await loadThumb(id);
+    },
+
+    reload: async () => {
+      if (get().status !== 'ready') return;
+      const [projects, folders] = await Promise.all([repo.listProjects(), folderRepo.listFolders()]);
+      const ids = new Set(projects.map((p) => p.id));
+      Object.keys(get().thumbnails)
+        .filter((id) => !ids.has(id))
+        .forEach(dropThumb);
+      set({ projects, folders });
+      for (const p of projects) if (!get().thumbnails[p.id]) await loadThumb(p.id);
     },
   };
 });

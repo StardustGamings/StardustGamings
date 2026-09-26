@@ -60,7 +60,20 @@ interface UiState {
   saveTemplate: SaveTemplateRequest | null;
   openSaveTemplate: (request: SaveTemplateRequest) => void;
   closeSaveTemplate: () => void;
+  /** Version history of the design open in the editor. */
+  historyOpen: boolean;
+  setHistoryOpen: (open: boolean) => void;
+  /** Projects being moved to a folder. */
+  moveIds: string[] | null;
+  openMove: (ids: string[]) => void;
+  closeMove: () => void;
+  /** Create a folder (optionally moving projects into it), or edit one. */
+  folderDialog: FolderDialogRequest | null;
+  openFolderDialog: (request: FolderDialogRequest) => void;
+  closeFolderDialog: () => void;
 }
+
+export type FolderDialogRequest = { mode: 'create'; moveIds?: string[] } | { mode: 'edit'; id: string };
 
 export const useUi = create<UiState>()((set) => ({
   paletteOpen: false,
@@ -88,4 +101,12 @@ export const useUi = create<UiState>()((set) => ({
   saveTemplate: null,
   openSaveTemplate: (saveTemplate) => set({ saveTemplate, paletteOpen: false }),
   closeSaveTemplate: () => set({ saveTemplate: null }),
+  historyOpen: false,
+  setHistoryOpen: (historyOpen) => set({ historyOpen, paletteOpen: false }),
+  moveIds: null,
+  openMove: (moveIds) => set({ moveIds, paletteOpen: false }),
+  closeMove: () => set({ moveIds: null }),
+  folderDialog: null,
+  openFolderDialog: (folderDialog) => set({ folderDialog, paletteOpen: false }),
+  closeFolderDialog: () => set({ folderDialog: null }),
 }));

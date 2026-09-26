@@ -1,12 +1,21 @@
 import type { DesignDocument, Fill } from '@/types/document';
 import type { FormatId, Project, ProjectMeta, SizePresetId } from '@/types/project';
 import { getStorage } from '@/storage/db';
+import { notify } from '@/storage/sync';
 import { createId } from '@/utils/id';
 import { cloneDocument, createDocument } from './document';
 import { FORMATS, resolveSize } from './formats';
 
 export const MAX_NAME_LENGTH = 80;
 export const TRASH_RETENTION_DAYS = 30;
+
+/** Another tab (or window) saved this project since this copy was loaded or last saved. */
+export class SaveConflictError extends Error {
+  constructor(id: string) {
+    super(`Project ${id} changed since it was loaded`);
+    this.name = 'SaveConflictError';
+  }
+}
 
 export class ProjectNotFoundError extends Error {
   constructor(id: string) {
@@ -54,6 +63,10 @@ export async function getProject(id: string): Promise<Project | null> {
   return meta && doc ? { meta, doc } : null;
 }
 
+export async function getProjectMeta(id: string): Promise<ProjectMeta | null> {
+  return (await (await getStorage()).getMeta(id)) ?? null;
+}
+
 export async function createProject(input: CreateProjectInput): Promise<Project> {
   const format = FORMATS[input.format];
   const sizeId = input.sizeId ?? format.sizeId;
@@ -82,7 +95,41 @@ export async function createProject(input: CreateProjectInput): Promise<Project>
   };
   const storage = await getStorage();
   await storage.putProject(meta, doc);
+  notify({ type: 'project', id: meta.id });
   return { meta, doc };
+}
+
+/**
+ * Stores a project that came from a project file or backup. Its document has
+ * already been validated. The original id is kept when it's free (so a restored
+ * backup keeps its links); otherwise the project gets a new one.
+ */
+export async function insertProject(
+  meta: Pick<ProjectMeta, 'name' | 'format' | 'sizeId' | 'createdAt' | 'updatedAt' | 'favorite' | 'folderId'> & {
+    id?: string;
+    templateId?: string;
+  },
+  doc: DesignDocument,
+): Promise<Project> {
+  const storage = await getStorage();
+  const id = meta.id && !(await storage.getMeta(meta.id)) ? meta.id : createId('prj');
+  const next: ProjectMeta = {
+    id,
+    name: sanitizeName(meta.name),
+    format: meta.format,
+    sizeId: meta.sizeId,
+    slideWidth: doc.slideWidth,
+    slideHeight: doc.slideHeight,
+    slideCount: doc.slides.length,
+    createdAt: meta.createdAt,
+    updatedAt: meta.updatedAt,
+    favorite: meta.favorite,
+    folderId: meta.folderId,
+    deletedAt: null,
+    templateId: meta.templateId,
+  };
+  await storage.putProject(next, doc);
+  return { meta: next, doc };
 }
 
 async function requireMeta(id: string): Promise<ProjectMeta> {
@@ -95,11 +142,21 @@ async function patchMeta(id: string, patch: Partial<ProjectMeta>, touch = false)
   const meta = await requireMeta(id);
   const next = { ...meta, ...patch, ...(touch ? { updatedAt: Date.now() } : {}) };
   await (await getStorage()).putMeta(next);
+  notify({ type: 'project', id });
   return next;
 }
 
-export async function saveDocument(id: string, doc: DesignDocument): Promise<ProjectMeta> {
+/**
+ * Saves a project's document. With `expectedUpdatedAt`, refuses (SaveConflictError)
+ * when the stored copy is newer — so a stale tab never silently overwrites another's work.
+ */
+export async function saveDocument(
+  id: string,
+  doc: DesignDocument,
+  options: { expectedUpdatedAt?: number } = {},
+): Promise<ProjectMeta> {
   const meta = await requireMeta(id);
+  if (options.expectedUpdatedAt !== undefined && meta.updatedAt > options.expectedUpdatedAt) throw new SaveConflictError(id);
   const next: ProjectMeta = {
     ...meta,
     slideWidth: doc.slideWidth,
@@ -108,6 +165,7 @@ export async function saveDocument(id: string, doc: DesignDocument): Promise<Pro
     updatedAt: Date.now(),
   };
   await (await getStorage()).putProject(next, doc);
+  notify({ type: 'project', id });
   return next;
 }
 
@@ -119,8 +177,17 @@ export const trashProject = (id: string) => patchMeta(id, { deletedAt: Date.now(
 
 export const restoreProject = (id: string) => patchMeta(id, { deletedAt: null });
 
+/** Moves projects into a folder (or out of every folder with `null`). Doesn't count as an edit. */
+export async function moveProjects(ids: string[], folderId: string | null): Promise<ProjectMeta[]> {
+  const moved: ProjectMeta[] = [];
+  for (const id of ids) moved.push(await patchMeta(id, { folderId }));
+  return moved;
+}
+
+/** Deletes a project with its thumbnail and version history. */
 export async function deleteProjectForever(id: string): Promise<void> {
   await (await getStorage()).deleteProject(id);
+  notify({ type: 'project', id });
 }
 
 export async function duplicateProject(id: string): Promise<Project> {
@@ -155,6 +222,7 @@ export async function purgeExpiredTrash(now = Date.now()): Promise<number> {
 
 export async function saveThumbnail(id: string, blob: Blob): Promise<void> {
   await (await getStorage()).putThumbnail({ id, blob, updatedAt: Date.now() });
+  notify({ type: 'project', id });
 }
 
 export async function getThumbnail(id: string): Promise<Blob | null> {
@@ -163,6 +231,7 @@ export async function getThumbnail(id: string): Promise<Blob | null> {
 
 export async function clearAllProjects(): Promise<void> {
   await (await getStorage()).clearAll();
+  notify({ type: 'library' });
 }
 
 export async function storageKind(): Promise<'indexeddb' | 'memory'> {

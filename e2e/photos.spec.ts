@@ -215,10 +215,12 @@ test.describe('photos (desktop)', () => {
     await newPost(page);
     await addPhoto(page);
     await page.keyboard.press('Delete');
+    // Let autosave store the deletion before leaving.
+    await expect(page.getByTestId('save-indicator')).toHaveAttribute('data-state', 'saved');
     await open(page, '/settings/');
     const row = page.getByText(/1 photo · 0 stickers/);
     await expect(row).toBeVisible();
-    await expect(page.getByText(/1 not used in any design/)).toBeVisible();
+    await expect(page.getByText(/1 not used anywhere/)).toBeVisible();
     await page.getByRole('button', { name: 'Clean up', exact: true }).click();
     await page.getByRole('dialog').getByRole('button', { name: 'Clean up' }).click();
     await expect(page.getByText(/0 photos · 0 stickers/)).toBeVisible();

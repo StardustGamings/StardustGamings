@@ -8,6 +8,10 @@ import {
   ChevronLeft,
   Command,
   Download,
+  History,
+  Bookmark,
+  MoreHorizontal,
+  FileDown,
   Play,
   Maximize,
   Minus,
@@ -29,8 +33,11 @@ import { Tooltip } from '@/components/ui/Tooltip';
 import { LogoMark } from '@/components/ui/Logo';
 import { FormatIcon } from '@/components/home/FormatIcon';
 import { SaveIndicator } from './SaveIndicator';
-import { useEditor } from './store';
+import { selectDoc, useEditor } from './store';
 import * as actions from './actions';
+import { saveVersion } from './versioning';
+import { downloadProjectFile } from '@/components/projects/project-files';
+import { toast } from '@/components/ui/toast-store';
 import { useCamera } from './camera';
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/components/ui/Menu';
 
@@ -79,6 +86,58 @@ function NameInput() {
         className="h-9 max-w-[40vw] min-w-0 truncate rounded-[10px] bg-transparent px-2 font-display text-[15px] font-bold transition-colors outline-none hover:bg-surface-hover focus:bg-surface-hover sm:max-w-[320px]"
       />
     </div>
+  );
+}
+
+/** Everything that doesn't fit in the bar (all of it on phones). */
+function MoreMenu() {
+  const mod = useClientValue(modKey, 'Ctrl');
+  return (
+    <Menu>
+      <MenuTrigger asChild>
+        <IconButton label="More" icon={<MoreHorizontal />} tooltip={false} data-testid="editor-more" />
+      </MenuTrigger>
+      <MenuContent align="end">
+        <MenuItem icon={<History />} onSelect={() => useUi.getState().setHistoryOpen(true)}>
+          Version history
+        </MenuItem>
+        <MenuItem
+          icon={<Bookmark />}
+          shortcut={`${mod === 'Ctrl' ? 'Ctrl' : '⌘'} S`}
+          onSelect={async () => {
+            await useEditor.getState().save();
+            const version = await saveVersion().catch(() => null);
+            toast({
+              title: version ? 'Version saved' : 'Already saved',
+              description: version ? 'Find it in Version history.' : 'Nothing changed since the last version.',
+              tone: version ? 'success' : 'default',
+              duration: 2200,
+            });
+          }}
+        >
+          Save a version
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem icon={<Play />} onSelect={() => useUi.getState().setCarouselPreview(true)}>
+          Swipe preview
+        </MenuItem>
+        <MenuItem icon={<BookmarkPlus />} onSelect={() => useUi.getState().openSaveTemplate({ source: 'editor' })}>
+          Save as template
+        </MenuItem>
+        <MenuItem
+          icon={<FileDown />}
+          onSelect={() => {
+            const ed = useEditor.getState();
+            if (ed.meta) void downloadProjectFile(ed.meta.id, selectDoc(ed) ?? undefined);
+          }}
+        >
+          Download project file
+        </MenuItem>
+        <MenuItem icon={<Command />} shortcut={`${mod} K`} onSelect={() => useUi.getState().setPaletteOpen(true)}>
+          Command palette
+        </MenuItem>
+      </MenuContent>
+    </Menu>
   );
 }
 
@@ -209,11 +268,19 @@ export function EditorTopBar() {
           tooltipSide="bottom"
         />
         <IconButton
+          label="Version history"
+          icon={<History />}
+          onClick={() => useUi.getState().setHistoryOpen(true)}
+          tooltipSide="bottom"
+          className="max-sm:hidden"
+          data-testid="open-history"
+        />
+        <IconButton
           label="Save as template"
           icon={<BookmarkPlus />}
           onClick={() => useUi.getState().openSaveTemplate({ source: 'editor' })}
           tooltipSide="bottom"
-          className="hidden sm:inline-flex"
+          className="max-sm:hidden"
         />
         <IconButton
           label="Command palette"
@@ -221,8 +288,9 @@ export function EditorTopBar() {
           icon={<Command />}
           onClick={() => setPaletteOpen(true)}
           tooltipSide="bottom"
-          className="hidden sm:inline-flex"
+          className="max-sm:hidden"
         />
+        <MoreMenu />
         <Tooltip content={`Export — PNG, JPG, WebP or PDF (${mod} ⇧ E). No watermark, ever.`} side="bottom">
           <Button
             variant="primary"

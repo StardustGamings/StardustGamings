@@ -41,6 +41,11 @@ import { LayoutsPanel } from './panels/LayoutsPanel';
 import { TemplatesPanel } from './panels/TemplatesPanel';
 import { FiltersPanel } from './panels/FiltersPanel';
 import { PreviewDialog } from './PreviewDialog';
+import { useUi } from '@/settings/ui-store';
+import { VersionHistoryDialog } from './VersionHistoryDialog';
+import { EditorAlerts } from './EditorAlerts';
+import { useVersions } from './versioning';
+import { subscribe } from '@/storage/sync';
 import { shuffleLayout } from './layout-actions';
 import { CropBar } from './CropBar';
 import { PhotoPicker } from './PhotoPicker';
@@ -343,6 +348,21 @@ function Editor() {
     };
   }, []);
 
+  // Changes made in other tabs: pick them up (or flag a conflict), and keep History current.
+  useEffect(
+    () =>
+      subscribe((message) => {
+        const open = useEditor.getState().meta?.id;
+        if (!open) return;
+        if ((message.type === 'project' && message.id === open) || message.type === 'library') {
+          void useEditor.getState().externalChange(open);
+        } else if (message.type === 'versions' && message.projectId === open && useVersions.getState().projectId === open) {
+          void useVersions.getState().load(open);
+        }
+      }),
+    [],
+  );
+
   // Flush pending edits when the tab is hidden, and warn before closing mid-save.
   useEffect(() => {
     const onHide = () => {
@@ -375,6 +395,7 @@ function Editor() {
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="relative min-h-0 flex-1">
             <EditorCanvas />
+            <EditorAlerts />
             <CropBar layout="floating" />
             {tool === 'text' && (
               <div className="pointer-events-none absolute top-3 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink/80 px-3 py-1.5 text-xs font-semibold text-white">
@@ -396,6 +417,7 @@ function Editor() {
       </div>
       <PhotoPicker />
       <PreviewDialog />
+      <VersionHistoryDialog />
     </div>
   );
 }
@@ -414,7 +436,10 @@ export function EditorScreen() {
     if (!id || !hydrated) return;
     useCamera.getState().reset();
     void load(id, { showGrid, showSafeArea });
-    return () => reset();
+    return () => {
+      reset();
+      useUi.getState().setHistoryOpen(false);
+    };
     // Grid/safe-area defaults are read once per project open.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, hydrated, load, reset]);

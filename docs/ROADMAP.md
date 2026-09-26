@@ -12,8 +12,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 5   | Template engine            | ✅ Done |
 | 6   | Filters & effects          | ✅ Done |
 | 7   | Export                     | ✅ Done |
-| 8   | Offline storage & projects | ⏭️ Next |
-| 9   | Animations & video         | Planned |
+| 8   | Offline storage & projects | ✅ Done |
+| 9   | Animations & video         | ⏭️ Next |
 | 10  | Trend system               | Planned |
 | 11  | Optional AI integrations   | Planned |
 | 12  | Performance                | Planned |
@@ -212,9 +212,55 @@ Known limits: video (MP4/GIF) export arrives with animations in Phase 9. Exports
 A PDF page is one image per slide, so its text isn't selectable. Very wide full-carousel images are scaled down to fit
 browser canvas limits (16 million pixels).
 
+## Phase 8 — Offline storage & projects ✅
+
+- **Version history:** each design keeps saved states on the device.
+  - A version is taken as it was when opened, every 10 minutes while editing, on <kbd>Ctrl/⌘</kbd> + <kbd>S</kbd>, as a
+    named version, and before big changes (restoring a version, replacing with a template).
+  - Retention: everything from the last hour, hourly for a day, daily for 30 days. Named versions stay until deleted.
+  - The History dialog previews every slide. From it you can restore (one undo step, current design kept first), save a
+    version as a new design, rename or delete. Photos a version uses are never cleaned up.
+- **Folders:** create, rename, recolour and delete them (their designs stay).
+  - Designs move by **drag and drop** or **Move to folder…**, with undo.
+  - The folder filter lives in the URL, and cards show their folder.
+- **Project files (`.stardeck`):** a design with its photos, to move it to another device or share it. **Back up
+  everything** covers every design with its history, plus folders, templates and the photo library.
+  - Import from the projects screen (button or drop) or Settings.
+  - Import never trusts the file (schemas, byte-sniffed images, computed hashes), never overwrites anything, keeps ids
+    when free, skips designs already here, and labels changed ones _(imported)_.
+  - Our own streaming ZIP reader and writer handle stored and deflated entries and check CRCs.
+- **Storage settings:** a breakdown by kind (designs, photos, stickers, versions, templates) with the browser's free
+  space.
+  - Low-space warnings (in Settings and on the projects screen).
+  - Actions: empty trash, clean up photos, clear history (named versions kept), back up, restore, protect, erase.
+- **Autosave that doesn't lose work:**
+  - Writes are atomic, and transient failures retry automatically.
+  - A full device gets a banner with **Download a copy** and **Try again**.
+- **Several tabs:** lists, folders and photos stay in step across tabs and windows (BroadcastChannel, never leaves the
+  browser).
+  - A design open twice picks up the other tab's changes.
+  - A real clash asks before overwriting (**Load latest** / **Keep mine**): stale saves are refused, not written.
+- **Fixed along the way:** the editor top bar's desktop-only buttons showed on phones and squeezed out the design name.
+  They now live in a **⋯** menu there, next to **Version history**, **Save a version** and **Download project file**.
+- **Quality:**
+  - 247 unit/component tests: retention, versions, folders, the ZIP reader, backup round trips, hostile files, schema
+    completeness and the stale-save guard.
+  - 108 Playwright runs across desktop, phone and no-WebGL: history, folders, project files and backups carried to a
+    clean browser profile, two tabs in sync with a real conflict, Storage settings, a simulated full disk, and offline
+    project files.
+
+See [STORAGE.md](STORAGE.md).
+
+Known limits:
+
+- Storage is per browser. Moving work between devices uses project files or backups. Optional, opt-in cloud sync is
+  still planned (the **Soon** row in Settings → Account).
+- Browsers may still clear data under heavy storage pressure unless **Protect my projects** is granted (installing the
+  app usually allows it), so backups are the safety net.
+- A single backup file tops out at 4 GB.
+
 ## Later phases (summary)
 
-- **8 · Storage:** version history, folders, import/export project files, storage management.
 - **9 · Animation & video:** element animations, timeline, MP4/GIF export where supported.
 - **10 · Trends:** remote pack updates, meme & social formats, trend-driven suggestions.
 - **11 · AI (optional, opt-in):** palette extraction, font pairing, AI resize and layout run locally; any cloud model is

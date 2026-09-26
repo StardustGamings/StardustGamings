@@ -8,6 +8,9 @@ import {
   Copy,
   Download,
   ExternalLink,
+  FileDown,
+  Folder as FolderIcon,
+  FolderInput,
   MoreHorizontal,
   PenLine,
   RotateCcw,
@@ -26,6 +29,7 @@ import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/compo
 import { FormatIcon } from '@/components/home/FormatIcon';
 import { editorHref } from './useCreateProject';
 import { useProjectActions } from './useProjectActions';
+import { downloadProjectFile } from './project-files';
 
 function Thumb({ project }: { project: ProjectMeta }) {
   const url = useProjects((s) => s.thumbnails[project.id]);
@@ -68,11 +72,26 @@ function Thumb({ project }: { project: ProjectMeta }) {
   );
 }
 
-export function ProjectCard({ project, trashed = false }: { project: ProjectMeta; trashed?: boolean }) {
+/** Drag-and-drop payload type for moving a card onto a folder. */
+export const PROJECT_DRAG_TYPE = 'application/x-stardeck-project';
+
+export function ProjectCard({
+  project,
+  trashed = false,
+  showFolder = false,
+}: {
+  project: ProjectMeta;
+  trashed?: boolean;
+  /** Show which folder the project is in (when the list isn't already filtered to one). */
+  showFolder?: boolean;
+}) {
   const actions = useProjectActions();
   const router = useRouter();
   const now = useNow();
   const format = FORMATS[project.format];
+  const folder = useProjects((s) =>
+    showFolder && project.folderId ? s.folders.find((f) => f.id === project.folderId) : undefined,
+  );
 
   return (
     <motion.article
@@ -84,7 +103,14 @@ export function ProjectCard({ project, trashed = false }: { project: ProjectMeta
       className="group relative"
       data-testid="project-card"
     >
-      <div className="rounded-[24px] border border-line bg-surface p-2 transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] group-hover:-translate-y-1 group-hover:border-line-strong group-hover:shadow-[var(--shadow-lift)]">
+      <div
+        className="rounded-[24px] border border-line bg-surface p-2 transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] group-hover:-translate-y-1 group-hover:border-line-strong group-hover:shadow-[var(--shadow-lift)]"
+        onDragStart={(e) => {
+          if (trashed) return;
+          e.dataTransfer.setData(PROJECT_DRAG_TYPE, project.id);
+          e.dataTransfer.effectAllowed = 'copyMove';
+        }}
+      >
         <Thumb project={project} />
         <div className="flex items-start gap-2 px-2 pt-3 pb-1.5">
           <div className="min-w-0 flex-1">
@@ -113,6 +139,12 @@ export function ProjectCard({ project, trashed = false }: { project: ProjectMeta
                     : formatRelativeTime(project.updatedAt, now)}
               </time>
             </p>
+            {folder && (
+              <p className="mt-1 flex items-center gap-1 truncate text-[11px] font-semibold text-fg-muted">
+                <FolderIcon className="size-3 shrink-0" style={{ color: folder.color }} fill={folder.color} fillOpacity={0.3} />
+                <span className="truncate">{folder.name}</span>
+              </p>
+            )}
           </div>
           <Menu>
             <MenuTrigger asChild>
@@ -146,11 +178,17 @@ export function ProjectCard({ project, trashed = false }: { project: ProjectMeta
                   <MenuItem icon={<Copy />} onSelect={() => void actions.duplicate(project.id)}>
                     Duplicate
                   </MenuItem>
+                  <MenuItem icon={<FolderInput />} onSelect={() => useUi.getState().openMove([project.id])}>
+                    Move to folder…
+                  </MenuItem>
                   <MenuItem
                     icon={<Download />}
                     onSelect={() => useUi.getState().openExport({ source: 'project', projectId: project.id })}
                   >
                     Export…
+                  </MenuItem>
+                  <MenuItem icon={<FileDown />} onSelect={() => void downloadProjectFile(project.id)}>
+                    Download project file
                   </MenuItem>
                   <MenuItem
                     icon={<BookmarkPlus />}

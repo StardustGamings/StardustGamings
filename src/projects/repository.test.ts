@@ -110,4 +110,15 @@ describe('memory fallback storage', () => {
     expect((await repo.getProject(meta.id))?.doc.slides).toHaveLength(1);
     expect(await repo.storageKind()).toBe('memory');
   });
+
+  it('refuses to save over a newer copy (another tab saved since)', async () => {
+    const { meta, doc } = await repo.createProject({ format: 'post' });
+    const first = await repo.saveDocument(meta.id, doc, { expectedUpdatedAt: meta.updatedAt });
+    await new Promise((r) => setTimeout(r, 5));
+    // Another tab saves…
+    await repo.saveDocument(meta.id, insertSlide(doc, 1));
+    // …so a save based on the older copy is refused instead of overwriting it.
+    await expect(repo.saveDocument(meta.id, doc, { expectedUpdatedAt: first.updatedAt })).rejects.toThrow(repo.SaveConflictError);
+    expect((await repo.getProject(meta.id))!.doc.slides).toHaveLength(2);
+  });
 });

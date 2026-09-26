@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { ImageClip } from '@/types/document';
 import type { AssetKind, AssetMeta } from '@/assets/types';
 import { useAssets } from '@/assets/store';
-import { assetUsage, documentAssetIds, TEMPLATE_USAGE_PREFIX } from '@/assets/repository';
+import { assetUsage, documentAssetIds, TEMPLATE_USAGE_PREFIX, VERSION_USAGE_PREFIX } from '@/assets/repository';
 import { useAssetUrl } from '@/assets/useAssetUrl';
 import { Button } from '@/components/ui/Button';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
@@ -124,15 +124,28 @@ function AssetTile({
 
 /** Library grid shared by the Photos and Stickers panels. */
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
-const usageText = (projects: number, templates: number) =>
-  [projects && plural(projects, 'design'), templates && plural(templates, 'saved template')].filter(Boolean).join(' and ');
+interface Usage {
+  projects: number;
+  templates: number;
+  versions: number;
+}
+
+const usageText = ({ projects, templates, versions }: Usage) =>
+  [
+    projects && plural(projects, 'design'),
+    templates && plural(templates, 'saved template'),
+    versions && plural(versions, 'saved version'),
+  ]
+    .filter(Boolean)
+    .join(', ')
+    .replace(/, ([^,]*)$/, ' and $1');
 
 export function AssetLibrary({ kind, emptyText }: { kind: Exclude<AssetKind, 'mask'>; emptyText: string }) {
   const load = useAssets((s) => s.load);
   const all = useAssets((s) => s.assets);
   const remove = useAssets((s) => s.remove);
   const doc = useEditor(selectDoc);
-  const [pending, setPending] = useState<{ asset: AssetMeta; projects: number; templates: number } | null>(null);
+  const [pending, setPending] = useState<({ asset: AssetMeta } & Usage) | null>(null);
   useEffect(() => {
     void load();
   }, [load]);
@@ -149,7 +162,8 @@ export function AssetLibrary({ kind, emptyText }: { kind: Exclude<AssetKind, 'ma
   const askDelete = async (asset: AssetMeta) => {
     const users = (await assetUsage()).get(asset.id) ?? [];
     const templates = users.filter((id) => id.startsWith(TEMPLATE_USAGE_PREFIX)).length;
-    setPending({ asset, projects: users.length - templates, templates });
+    const versions = users.filter((id) => id.startsWith(VERSION_USAGE_PREFIX)).length;
+    setPending({ asset, projects: users.length - templates - versions, templates, versions });
   };
 
   if (assets.length === 0) {
@@ -167,8 +181,8 @@ export function AssetLibrary({ kind, emptyText }: { kind: Exclude<AssetKind, 'ma
         onOpenChange={(open) => !open && setPending(null)}
         title={`Delete this ${kind === 'sticker' ? 'sticker' : 'photo'} from your device?`}
         description={
-          pending && pending.projects + pending.templates > 0
-            ? `It’s used in ${usageText(pending.projects, pending.templates)} — those frames will become empty.`
+          pending && pending.projects + pending.templates + pending.versions > 0
+            ? `It’s used in ${usageText(pending)} — those frames will become empty.`
             : 'It isn’t used in any design. This can’t be undone.'
         }
         confirmLabel="Delete"

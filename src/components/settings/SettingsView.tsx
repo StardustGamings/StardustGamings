@@ -15,14 +15,10 @@ import {
   Share2,
   UserRound,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useClientValue } from '@/hooks/useClientValue';
-import { DEFAULT_SETTINGS } from '@/settings/defaults';
 import type { FormatId } from '@/types/project';
 import { FORMAT_ORDER, FORMATS, MAX_SLIDES } from '@/projects/formats';
-import { useProjects } from '@/projects/store';
-import { SETTINGS_STORAGE_KEY, UI_SCALE_RANGE } from '@/settings/defaults';
+import { UI_SCALE_RANGE } from '@/settings/defaults';
 import { useSettings } from '@/settings/store';
 import { useUi } from '@/settings/ui-store';
 import { BUNDLED_FONTS } from '@/typography/fonts';
@@ -30,7 +26,6 @@ import { useInstallPrompt } from '@/hooks/useInstallPrompt';
 import { modKey } from '@/hooks/useHotkeys';
 import { Badge, SoonBadge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { IconButton } from '@/components/ui/IconButton';
 import { Kbd } from '@/components/ui/Kbd';
 import { Segmented } from '@/components/ui/Segmented';
@@ -39,12 +34,9 @@ import { Switch } from '@/components/ui/Switch';
 import { TextField } from '@/components/ui/TextField';
 import { toast } from '@/components/ui/toast-store';
 import { clamp } from '@/utils/math';
-import { formatBytes } from '@/utils/time';
 import { cn } from '@/utils/cn';
 import { SettingRow, SettingsSection } from './SettingRow';
-import { useAssets } from '@/assets/store';
-import { assetUsage, cleanupUnusedAssets } from '@/assets/repository';
-import { useTemplateLibrary } from '@/templates/store';
+import { StorageSection } from './StorageSection';
 import { ThemePicker } from './ThemePicker';
 
 const SECTIONS = [
@@ -394,177 +386,11 @@ function PrivacySection() {
   );
 }
 
-/** Local photo library size, with a one-tap cleanup of photos no design uses. */
-function PhotoStorageRow() {
-  const assets = useAssets((s) => s.assets);
-  const load = useAssets((s) => s.load);
-  const [unused, setUnused] = useState<{ count: number; bytes: number } | null>(null);
-  const [confirm, setConfirm] = useState(false);
-  useEffect(() => {
-    void load();
-  }, [load]);
-  useEffect(() => {
-    let alive = true;
-    void assetUsage().then((usage) => {
-      if (!alive) return;
-      const list = assets.filter((a) => a.kind !== 'sticker' && !usage.has(a.id));
-      setUnused({ count: list.length, bytes: list.reduce((n, a) => n + a.bytes, 0) });
-    });
-    return () => {
-      alive = false;
-    };
-  }, [assets]);
-  const photos = assets.filter((a) => a.kind === 'photo').length;
-  const stickers = assets.filter((a) => a.kind === 'sticker').length;
-  const total = assets.reduce((n, a) => n + a.bytes, 0);
-  return (
-    <>
-      <SettingRow
-        title="Photos & stickers"
-        description={`${photos} photo${photos === 1 ? '' : 's'} · ${stickers} sticker${stickers === 1 ? '' : 's'} · ${formatBytes(total)}${
-          unused && unused.count ? ` · ${unused.count} not used in any design (${formatBytes(unused.bytes)})` : ''
-        }`}
-        control={() => (
-          <Button size="sm" disabled={!unused?.count} onClick={() => setConfirm(true)}>
-            Clean up
-          </Button>
-        )}
-      />
-      <ConfirmDialog
-        open={confirm}
-        onOpenChange={setConfirm}
-        title="Delete photos no design uses?"
-        description={`Frees ${formatBytes(unused?.bytes ?? 0)}. Photos in any design (including ones in the trash), in your saved templates and your sticker library are kept.`}
-        confirmLabel="Clean up"
-        destructive
-        onConfirm={async () => {
-          const result = await cleanupUnusedAssets();
-          useAssets.setState({ status: 'idle', assets: [] });
-          await useAssets.getState().load();
-          toast({ title: `Freed ${formatBytes(result.bytes)}`, tone: 'success' });
-        }}
-      />
-    </>
-  );
-}
-
-function StorageSection() {
-  const projects = useProjects((s) => s.projects);
-  const kind = useProjects((s) => s.storageKind);
-  const clearAll = useProjects((s) => s.clearAll);
-  const router = useRouter();
-  const [estimate, setEstimate] = useState<{ usage: number; quota: number } | null>(null);
-  const [persisted, setPersisted] = useState<boolean | null>(null);
-  const [confirm, setConfirm] = useState(false);
-
-  useEffect(() => {
-    void navigator.storage?.estimate?.().then((e) => setEstimate({ usage: e.usage ?? 0, quota: e.quota ?? 0 }));
-    void navigator.storage?.persisted?.().then(setPersisted);
-  }, [projects.length]);
-
-  const active = projects.filter((p) => p.deletedAt === null).length;
-  const trashed = projects.length - active;
-  const pct = estimate && estimate.quota > 0 ? Math.min(100, (estimate.usage / estimate.quota) * 100) : 0;
-
-  return (
-    <SettingsSection
-      id="storage"
-      title="Storage"
-      icon={<HardDrive />}
-      description="Projects are stored in your browser’s private database."
-    >
-      <div className="pb-4">
-        <div className="flex items-baseline justify-between text-sm">
-          <span className="font-semibold">
-            {estimate ? formatBytes(estimate.usage) : '—'} <span className="font-normal text-fg-muted">used</span>
-          </span>
-          <span className="text-fg-subtle">
-            {estimate ? `${formatBytes(estimate.quota)} available to Stardeck` : 'Estimating…'}
-          </span>
-        </div>
-        <div
-          className="mt-2 h-2 overflow-hidden rounded-full bg-surface-active"
-          role="progressbar"
-          aria-valuenow={Math.round(pct)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label="Storage used"
-        >
-          <div className="h-full rounded-full bg-nova" style={{ width: `${Math.max(pct, 1.5)}%` }} />
-        </div>
-        <p className="mt-2 text-xs text-fg-subtle">
-          {active} project{active === 1 ? '' : 's'} · {trashed} in trash ·{' '}
-          {kind === 'memory' ? 'temporary (private mode)' : 'IndexedDB'}
-        </p>
-      </div>
-      <PhotoStorageRow />
-      <SettingRow
-        title="Protect my projects"
-        description="Asks the browser not to clear Stardeck’s data when space runs low."
-        control={() =>
-          persisted ? (
-            <Badge tone="success">Protected</Badge>
-          ) : (
-            <Button
-              size="sm"
-              onClick={async () => {
-                const ok = (await navigator.storage?.persist?.()) ?? false;
-                setPersisted(ok);
-                toast(
-                  ok
-                    ? { title: 'Storage protected', tone: 'success' }
-                    : {
-                        title: 'Your browser said not yet',
-                        description: 'Installing Stardeck as an app usually unlocks this.',
-                        tone: 'info',
-                      },
-                );
-              }}
-            >
-              Protect
-            </Button>
-          )
-        }
-      />
-      <SettingRow
-        title="Erase everything"
-        description="Deletes all projects, photos and settings from this device. There’s no undo."
-        control={() => (
-          <Button variant="danger" size="sm" onClick={() => setConfirm(true)}>
-            Erase…
-          </Button>
-        )}
-      />
-      <ConfirmDialog
-        open={confirm}
-        onOpenChange={setConfirm}
-        title="Erase all local data?"
-        description={`This permanently deletes ${projects.length} project${projects.length === 1 ? '' : 's'}, your photos and saved templates, and resets every setting.`}
-        confirmLabel="Erase everything"
-        destructive
-        onConfirm={async () => {
-          await clearAll();
-          useAssets.setState({ status: 'idle', assets: [] });
-          useTemplateLibrary.getState().resetUser();
-          try {
-            localStorage.removeItem(SETTINGS_STORAGE_KEY);
-          } catch {
-            /* ignore */
-          }
-          // Back to factory defaults — the intro shows again like a fresh install.
-          useSettings.setState({ ...DEFAULT_SETTINGS });
-          router.push('/');
-        }}
-      />
-    </SettingsSection>
-  );
-}
-
 function ShortcutsSection() {
   const mod = useClientValue(modKey, 'Ctrl');
   const rows: { keys: string[]; action: string; soon?: boolean }[] = [
     { keys: [mod, 'K'], action: 'Command palette' },
-    { keys: [mod, 'S'], action: 'Save now' },
+    { keys: [mod, 'S'], action: 'Save now and keep a version' },
     { keys: [mod, '⇧', 'E'], action: 'Export (PNG, JPG, WebP, PDF, ZIP)' },
     { keys: [mod, 'Z'], action: 'Undo' },
     { keys: [mod, '⇧', 'Z'], action: 'Redo' },

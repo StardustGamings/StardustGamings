@@ -5,6 +5,7 @@ import { useEffect, type ReactNode } from 'react';
 import { useSettings } from '@/settings/store';
 import { useProjects } from '@/projects/store';
 import { useTrends } from '@/trends/store';
+import { useStorageSync } from '@/storage/useStorageSync';
 import { useResolvedMotion } from '@/hooks/usePreferences';
 import { Toaster } from '@/components/ui/Toaster';
 import { TooltipProvider } from '@/components/ui/Tooltip';
@@ -14,6 +15,7 @@ import { Onboarding } from '@/components/onboarding/Onboarding';
 import { PhotoFlowDialog } from '@/components/magic/PhotoFlowDialog';
 import { SaveTemplateDialog } from '@/components/templates/SaveTemplateDialog';
 import { ExportDialog } from '@/components/export/ExportDialog';
+import { TransferStatus } from '@/components/projects/TransferStatus';
 import { TemplatePreviewDialog } from '@/components/templates/TemplatePreviewDialog';
 import { Backdrop } from './Backdrop';
 import { CommandPalette } from './CommandPalette';
@@ -24,6 +26,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
   const motion = useResolvedMotion();
   const loadProjects = useProjects((s) => s.load);
   const refreshTrends = useTrends((s) => s.refresh);
+  useStorageSync();
 
   useEffect(() => {
     void useSettings.persist.rehydrate();
@@ -47,6 +50,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         <ExportDialog />
         <CommandPalette />
         <Onboarding />
+        <TransferStatus />
         <Toaster />
         <ServiceWorker />
       </TooltipProvider>

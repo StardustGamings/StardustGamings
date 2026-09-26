@@ -3,6 +3,9 @@
 import {
   ArrowDownToLine,
   Download,
+  History,
+  Bookmark,
+  FileDown,
   Wand2,
   BookmarkPlus,
   LayoutTemplate,
@@ -51,6 +54,8 @@ import { autoEnhance, cancelCrop, commitCrop, enterCrop, flipPhoto, importAndPla
 import { getElements } from './core/ops';
 import { TEXT_PRESETS } from './core/factory';
 import { selectDoc, useEditor } from './store';
+import { saveVersion } from './versioning';
+import { downloadProjectFile } from '@/components/projects/project-files';
 
 const ed = () => useEditor.getState();
 const hasSelection = () => ed().selection.length > 0;
@@ -126,7 +131,15 @@ export function useEditorShortcuts() {
       'mod+shift+e': () => useUi.getState().openExport({ source: 'editor' }),
       'mod+s': async () => {
         await ed().save();
-        if (ed().saveState === 'saved') toast({ title: 'Saved on this device', tone: 'success', duration: 1800 });
+        if (ed().saveState !== 'saved') return;
+        // Ctrl/⌘ S also keeps a version (when something changed since the last one).
+        const version = await saveVersion().catch(() => null);
+        toast({
+          title: 'Saved on this device',
+          description: version ? 'This version is kept in History.' : undefined,
+          tone: 'success',
+          duration: 2200,
+        });
       },
     },
     { allowInInputs: true },
@@ -274,6 +287,43 @@ export function useEditorShortcuts() {
         shortcut: '⌘ ⇧ E',
         keywords: ['export', 'download', 'save as', 'png', 'jpg', 'jpeg', 'webp', 'pdf', 'zip', 'share'],
         run: () => useUi.getState().openExport({ source: 'editor' }),
+      },
+      {
+        id: 'ed-history',
+        label: 'Version history',
+        group: 'Editor',
+        icon: <History />,
+        keywords: ['versions', 'restore', 'undo', 'earlier', 'backup', 'revert', 'recover'],
+        run: () => useUi.getState().setHistoryOpen(true),
+      },
+      {
+        id: 'ed-save-version',
+        label: 'Save a version',
+        group: 'Editor',
+        icon: <Bookmark />,
+        shortcut: '⌘ S',
+        keywords: ['checkpoint', 'snapshot', 'save', 'history'],
+        run: async () => {
+          await ed().save();
+          const version = await saveVersion().catch(() => null);
+          toast({
+            title: version ? 'Version saved' : 'Already saved',
+            description: version ? 'Find it in Version history.' : 'Nothing changed since the last version.',
+            tone: version ? 'success' : 'default',
+            duration: 2200,
+          });
+        },
+      },
+      {
+        id: 'ed-project-file',
+        label: 'Download project file',
+        group: 'Editor',
+        icon: <FileDown />,
+        keywords: ['stardeck', 'backup', 'move', 'another device', 'share project', 'save file'],
+        run: () => {
+          const s = ed();
+          if (s.meta) void downloadProjectFile(s.meta.id, selectDoc(s) ?? undefined);
+        },
       },
       {
         id: 'ed-filters',

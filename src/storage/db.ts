@@ -1,12 +1,12 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type { DesignDocument } from '@/types/document';
-import type { ProjectMeta } from '@/types/project';
+import type { Folder, ProjectMeta, VersionRecord } from '@/types/project';
 import type { AssetBlobs, AssetMeta, AssetVariant } from '@/assets/types';
 import type { UserTemplate } from '@/templates/user';
 
 export const DB_NAME = 'stardeck';
-/** v1: projects, documents, thumbnails · v2: assets + asset blobs · v3: user templates. */
-export const DB_VERSION = 3;
+/** v1: projects, documents, thumbnails · v2: assets + asset blobs · v3: user templates · v4: versions + folders. */
+export const DB_VERSION = 4;
 
 const VARIANTS: AssetVariant[] = ['original', 'preview', 'thumb'];
 const blobKey = (id: string, variant: AssetVariant) => `${id}/${variant}`;
@@ -34,6 +34,8 @@ interface StardeckSchema extends DBSchema {
   assets: { key: string; value: AssetMeta; indexes: { 'by-hash': string } };
   assetBlobs: { key: string; value: AssetBlobRecord };
   templates: { key: string; value: UserTemplate };
+  versions: { key: string; value: VersionRecord; indexes: { 'by-project': string } };
+  folders: { key: string; value: Folder };
 }
 
 /**
@@ -49,10 +51,11 @@ export interface ProjectStorage {
   getDocument(id: string): Promise<DesignDocument | undefined>;
   /** Writes meta + document atomically. */
   putProject(meta: ProjectMeta, doc: DesignDocument): Promise<void>;
-  /** Removes meta, document and thumbnail atomically. */
+  /** Removes meta, document, thumbnail and version history atomically. */
   deleteProject(id: string): Promise<void>;
   getThumbnail(id: string): Promise<ThumbnailRecord | undefined>;
   putThumbnail(record: ThumbnailRecord): Promise<void>;
+  getAllThumbnails(): Promise<ThumbnailRecord[]>;
   /** Every stored document — used to find which assets are still referenced. */
   getAllDocuments(): Promise<DocumentRecord[]>;
   getAllAssetMeta(): Promise<AssetMeta[]>;
@@ -65,7 +68,15 @@ export interface ProjectStorage {
   getAllTemplates(): Promise<UserTemplate[]>;
   putTemplate(template: UserTemplate): Promise<void>;
   deleteTemplate(id: string): Promise<void>;
-  /** Removes projects, templates and assets. */
+  getVersions(projectId: string): Promise<VersionRecord[]>;
+  getVersion(id: string): Promise<VersionRecord | undefined>;
+  getAllVersions(): Promise<VersionRecord[]>;
+  putVersion(version: VersionRecord): Promise<void>;
+  deleteVersions(ids: string[]): Promise<void>;
+  getAllFolders(): Promise<Folder[]>;
+  putFolder(folder: Folder): Promise<void>;
+  deleteFolder(id: string): Promise<void>;
+  /** Removes projects, templates, assets, versions and folders. */
   clearAll(): Promise<void>;
 }
 
@@ -87,14 +98,31 @@ class IndexedDbStorage implements ProjectStorage {
   }
   async putProject(meta: ProjectMeta, doc: DesignDocument) {
     const tx = this.db.transaction(['projects', 'documents'], 'readwrite');
-    await Promise.all([tx.objectStore('projects').put(meta), tx.objectStore('documents').put({ id: meta.id, doc }), tx.done]);
+    const requests: Promise<unknown>[] = [];
+    try {
+      requests.push(tx.objectStore('projects').put(meta));
+      requests.push(tx.objectStore('documents').put({ id: meta.id, doc }));
+      await Promise.all([...requests, tx.done]);
+    } catch (e) {
+      // All or nothing: never leave the meta and the document out of step (e.g. when the disk is full).
+      for (const r of [...requests, tx.done]) r.catch(() => undefined);
+      try {
+        tx.abort();
+      } catch {
+        /* already finished */
+      }
+      throw e;
+    }
   }
   async deleteProject(id: string) {
-    const tx = this.db.transaction(['projects', 'documents', 'thumbnails'], 'readwrite');
+    const tx = this.db.transaction(['projects', 'documents', 'thumbnails', 'versions'], 'readwrite');
+    const versions = tx.objectStore('versions');
+    const versionIds = await versions.index('by-project').getAllKeys(id);
     await Promise.all([
       tx.objectStore('projects').delete(id),
       tx.objectStore('documents').delete(id),
       tx.objectStore('thumbnails').delete(id),
+      ...versionIds.map((key) => versions.delete(key)),
       tx.done,
     ]);
   }
@@ -103,6 +131,9 @@ class IndexedDbStorage implements ProjectStorage {
   }
   async putThumbnail(record: ThumbnailRecord) {
     await this.db.put('thumbnails', record);
+  }
+  getAllThumbnails() {
+    return this.db.getAll('thumbnails');
   }
   getAllDocuments() {
     return this.db.getAll('documents');
@@ -147,8 +178,34 @@ class IndexedDbStorage implements ProjectStorage {
   async deleteTemplate(id: string) {
     await this.db.delete('templates', id);
   }
+  getVersions(projectId: string) {
+    return this.db.getAllFromIndex('versions', 'by-project', projectId);
+  }
+  getVersion(id: string) {
+    return this.db.get('versions', id);
+  }
+  getAllVersions() {
+    return this.db.getAll('versions');
+  }
+  async putVersion(version: VersionRecord) {
+    await this.db.put('versions', version);
+  }
+  async deleteVersions(ids: string[]) {
+    if (ids.length === 0) return;
+    const tx = this.db.transaction('versions', 'readwrite');
+    await Promise.all([...ids.map((id) => tx.store.delete(id)), tx.done]);
+  }
+  getAllFolders() {
+    return this.db.getAll('folders');
+  }
+  async putFolder(folder: Folder) {
+    await this.db.put('folders', folder);
+  }
+  async deleteFolder(id: string) {
+    await this.db.delete('folders', id);
+  }
   async clearAll() {
-    const stores = ['projects', 'documents', 'thumbnails', 'assets', 'assetBlobs', 'templates'] as const;
+    const stores = ['projects', 'documents', 'thumbnails', 'assets', 'assetBlobs', 'templates', 'versions', 'folders'] as const;
     const tx = this.db.transaction([...stores], 'readwrite');
     await Promise.all([...stores.map((name) => tx.objectStore(name).clear()), tx.done]);
   }
@@ -162,6 +219,8 @@ export class MemoryStorage implements ProjectStorage {
   private assets = new Map<string, AssetMeta>();
   private assetBlobs = new Map<string, Blob>();
   private templates = new Map<string, UserTemplate>();
+  private versions = new Map<string, VersionRecord>();
+  private folders = new Map<string, Folder>();
 
   async getAllMeta() {
     return [...this.metas.values()].map((m) => ({ ...m }));
@@ -185,12 +244,16 @@ export class MemoryStorage implements ProjectStorage {
     this.metas.delete(id);
     this.docs.delete(id);
     this.thumbs.delete(id);
+    for (const v of [...this.versions.values()]) if (v.projectId === id) this.versions.delete(v.id);
   }
   async getThumbnail(id: string) {
     return this.thumbs.get(id);
   }
   async putThumbnail(record: ThumbnailRecord) {
     this.thumbs.set(record.id, record);
+  }
+  async getAllThumbnails() {
+    return [...this.thumbs.values()];
   }
   async getAllDocuments() {
     return [...this.docs.entries()].map(([id, doc]) => ({ id, doc: structuredClone(doc) }));
@@ -227,7 +290,34 @@ export class MemoryStorage implements ProjectStorage {
   async deleteTemplate(id: string) {
     this.templates.delete(id);
   }
+  async getVersions(projectId: string) {
+    return [...this.versions.values()].filter((v) => v.projectId === projectId).map((v) => structuredClone(v));
+  }
+  async getVersion(id: string) {
+    const v = this.versions.get(id);
+    return v ? structuredClone(v) : undefined;
+  }
+  async getAllVersions() {
+    return [...this.versions.values()].map((v) => structuredClone(v));
+  }
+  async putVersion(version: VersionRecord) {
+    this.versions.set(version.id, structuredClone(version));
+  }
+  async deleteVersions(ids: string[]) {
+    for (const id of ids) this.versions.delete(id);
+  }
+  async getAllFolders() {
+    return [...this.folders.values()].map((f) => ({ ...f }));
+  }
+  async putFolder(folder: Folder) {
+    this.folders.set(folder.id, { ...folder });
+  }
+  async deleteFolder(id: string) {
+    this.folders.delete(id);
+  }
   async clearAll() {
+    this.versions.clear();
+    this.folders.clear();
     this.templates.clear();
     this.metas.clear();
     this.docs.clear();
@@ -256,6 +346,11 @@ async function open(): Promise<ProjectStorage> {
           database.createObjectStore('assetBlobs', { keyPath: 'key' });
         }
         if (oldVersion < 3) database.createObjectStore('templates', { keyPath: 'id' });
+        if (oldVersion < 4) {
+          const versions = database.createObjectStore('versions', { keyPath: 'id' });
+          versions.createIndex('by-project', 'projectId');
+          database.createObjectStore('folders', { keyPath: 'id' });
+        }
       },
       blocking() {
         // Another tab wants to upgrade the schema — step aside so it can.
