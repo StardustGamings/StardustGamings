@@ -22,8 +22,9 @@ const full: DesignDocument = {
   },
   slides: [
     { id: 's1', fill: null },
-    { id: 's2', fill: { type: 'solid', color: '#101010' } },
+    { id: 's2', fill: { type: 'solid', color: '#101010' }, duration: 4500 },
   ],
+  motion: { transition: 'zoom', transitionDuration: 400 },
   guides: [{ id: 'g1', axis: 'x', position: 540 }],
   layouts: [
     {
@@ -66,6 +67,11 @@ const full: DesignDocument = {
       textTransform: 'uppercase',
       stroke: { color: '#000000', width: 2 },
       highlight: { fill: { type: 'solid', color: '#C6FF3D' }, padding: 8, radius: 6 },
+      animation: {
+        enter: { preset: 'typewriter', delay: 200, duration: 1200 },
+        exit: { preset: 'slide', duration: 400, direction: 'left' },
+        loop: { preset: 'float', intensity: 40 },
+      },
     },
     {
       id: 'sh1',
@@ -124,6 +130,8 @@ const full: DesignDocument = {
       stroke: { color: '#FFFFFF', width: 8 },
       placeholder: { label: 'Your photo', fill: { type: 'solid', color: '#D9D4E4' } },
       layout: { id: 'l1', role: 'photo', locked: true, index: 2 },
+      video: { trimStart: 1.5, trimEnd: 6, speed: 1.5, muted: true, loop: false },
+      animation: { enter: { preset: 'bounce', delay: 0, duration: 900, direction: 'down' } },
     },
     {
       id: 'st1',

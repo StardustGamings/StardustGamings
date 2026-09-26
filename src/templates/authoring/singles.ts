@@ -8,6 +8,7 @@ export const singles = [
   defineTemplate(
     {
       id: 'quote-card',
+      animate: 'smooth',
       name: 'Quote Card',
       format: 'post',
       sizeId: 'ig-portrait',
@@ -47,6 +48,7 @@ export const singles = [
   defineTemplate(
     {
       id: 'new-drop',
+      animate: 'playful',
       name: 'New Drop',
       format: 'post',
       sizeId: 'ig-portrait',
@@ -132,6 +134,7 @@ export const singles = [
   defineTemplate(
     {
       id: 'breaking-news',
+      animate: 'glitchy',
       name: 'Breaking News',
       format: 'post',
       sizeId: 'ig-portrait',
@@ -371,6 +374,7 @@ export const singles = [
   defineTemplate(
     {
       id: 'countdown',
+      animate: 'playful',
       name: 'Countdown',
       format: 'story',
       sizeId: 'story',
@@ -511,6 +515,7 @@ export const singles = [
   defineTemplate(
     {
       id: 'episode-cover',
+      animate: 'smooth',
       name: 'Episode Cover',
       format: 'reel-cover',
       sizeId: 'tiktok',
@@ -593,6 +598,7 @@ export const singles = [
   defineTemplate(
     {
       id: 'grwm-cover',
+      animate: 'playful',
       name: 'GRWM',
       format: 'reel-cover',
       sizeId: 'tiktok',

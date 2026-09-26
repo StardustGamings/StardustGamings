@@ -27,6 +27,8 @@ export interface TemplateSummary {
   height: number;
   slides: number;
   photoSlots: number;
+  /** Ships with entrance animations (plays in MP4 / GIF exports). */
+  animated: boolean;
 }
 
 export const TEMPLATE_CATALOG = catalog as TemplateSummary[];

@@ -47,7 +47,7 @@ export const PANEL_TOOLS: ToolDef[] = [
   { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
   { id: 'layouts', label: 'Layouts', icon: <LayoutGrid />, panel: 'layouts', shortcut: 'L' },
   { id: 'filters', label: 'Filters', icon: <Wand2 />, panel: 'filters', shortcut: 'F' },
-  { id: 'animate', label: 'Animate', icon: <Sparkles />, soon: true },
+  { id: 'animate', label: 'Animate', icon: <Sparkles />, panel: 'animate', shortcut: 'A' },
 ];
 
 export function ToolButton({

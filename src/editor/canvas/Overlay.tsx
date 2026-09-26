@@ -10,6 +10,7 @@ import { GRID_COLUMNS } from '../core/snapping';
 import { safeZones } from '../safe-areas';
 import { useCamera } from '../camera';
 import { selectDoc, useEditor } from '../store';
+import { usePlayback } from '../playback';
 import { useInteraction } from './interaction-store';
 import { RULER_SIZE, rotateHandlePoint, transformFrame } from './useCanvasInteractions';
 
@@ -46,6 +47,8 @@ export function Overlay() {
   const hoverId = useInteraction((s) => s.hoverId);
   const gesture = useInteraction((s) => s.gesture);
   const coarse = useMediaQuery('(pointer: coarse)');
+  // While motion is previewed, handles would sit where elements rest, not where they are.
+  const previewing = usePlayback((s) => s.slide !== null);
   const view = useView();
   if (!doc || !meta || !view.vw) return null;
 
@@ -55,7 +58,7 @@ export function Overlay() {
   const origin = toScreen({ x: 0, y: 0 });
   const multi = doc.slides.length > 1;
   const zones = showSafeArea ? safeZones(meta.sizeId, doc.slideWidth, doc.slideHeight) : [];
-  const frame = transformFrame(doc, selection);
+  const frame = previewing ? null : transformFrame(doc, selection);
   const transforming = gesture === 'move' || gesture === 'resize' || gesture === 'rotate' || gesture === 'crop';
   const handleSize = coarse ? 14 : 9;
   const selected = getElements(doc, selection);

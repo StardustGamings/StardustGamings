@@ -10,7 +10,8 @@
     "cut out letters",
     "meme",
     "retro",
-    "announcement"
+    "announcement",
+    "animated"
   ],
   "palette": [
     "#F4F0E6",
@@ -30,7 +31,8 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 5250
       }
     ],
     "elements": [
@@ -42,6 +44,13 @@
         "height": 760,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 2290,
+            "duration": 700
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -66,6 +75,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 80,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -81,6 +97,13 @@
         "height": 150,
         "rotation": -6,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 210,
+            "duration": 700
+          }
+        },
         "type": "text",
         "text": "B",
         "fontFamily": "Anton",
@@ -110,6 +133,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 1120,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -125,6 +155,13 @@
         "height": 150,
         "rotation": 4,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 1250,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "R",
         "fontFamily": "Playfair Display",
@@ -154,6 +191,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 340,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -169,6 +213,13 @@
         "height": 150,
         "rotation": -3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 470,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "E",
         "fontFamily": "Archivo",
@@ -198,6 +249,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 1380,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -213,6 +271,13 @@
         "height": 150,
         "rotation": 7,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 1510,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "A",
         "fontFamily": "DM Serif Display",
@@ -242,6 +307,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 600,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -257,6 +329,13 @@
         "height": 150,
         "rotation": -5,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 730,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "K",
         "fontFamily": "Rubik Mono One",
@@ -286,6 +365,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 1640,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -301,6 +387,13 @@
         "height": 150,
         "rotation": 3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 1770,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "I",
         "fontFamily": "Fraunces",
@@ -330,6 +423,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 860,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -345,6 +445,13 @@
         "height": 150,
         "rotation": -7,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 990,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "N",
         "fontFamily": "Anton",
@@ -374,6 +481,13 @@
           "x": 2,
           "y": 4
         },
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 1900,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -389,6 +503,13 @@
         "height": 150,
         "rotation": 5,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 2030,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "G",
         "fontFamily": "Unbounded",
@@ -412,6 +533,13 @@
         "height": 64,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 2160,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "news: i’m officially on holiday",
         "fontFamily": "DM Serif Display",
@@ -435,6 +563,13 @@
         "height": 32,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 2420,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "More at 11 · or never",
         "fontFamily": "Manrope",
@@ -451,6 +586,10 @@
         "letterSpacing": 0.2,
         "textTransform": "uppercase"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "cut",
+      "transitionDuration": 0
+    }
   }
 }

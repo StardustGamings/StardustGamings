@@ -4,6 +4,8 @@ import { ArrowLeft, Check, Copy, Download, ImagePlus, PenLine, Replace, ShieldCh
 import { useMemo, useState, type ReactNode } from 'react';
 import { ScenePreview } from '@/canvas/ScenePreview';
 import { CarouselPreview } from '@/components/carousel/CarouselPreview';
+import { MotionPreview } from '@/components/carousel/MotionPreview';
+import { Segmented } from '@/components/ui/Segmented';
 import { PhotoChooser } from '@/components/magic/PhotoChooser';
 import { useCreateProject } from '@/components/projects/useCreateProject';
 import { Badge } from '@/components/ui/Badge';
@@ -70,6 +72,8 @@ function Body({ request, template, onClose }: { request: TemplatePreviewRequest;
   const [renaming, setRenaming] = useState(false);
   const [name, setName] = useState(template.name);
   const [busy, setBusy] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const animated = template.doc.elements.some((el) => el.animation);
 
   const facts = useMemo(() => describeTemplate(template.doc), [template]);
   const colourways = pack.palettes.slice(0, 8);
@@ -194,8 +198,21 @@ function Body({ request, template, onClose }: { request: TemplatePreviewRequest;
         <PhotoChooser selected={photos} onChange={setPhotos} max={facts.photoSlots} />
       ) : (
         <div className="grid gap-6 md:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
-          <div className="mx-auto w-full max-w-[360px]">
-            <TemplatePreview doc={preview} />
+          <div className="mx-auto flex w-full max-w-[360px] flex-col gap-3">
+            {animated && (
+              <Segmented
+                aria-label="Preview"
+                block
+                size="sm"
+                value={playing ? 'play' : 'still'}
+                onChange={(v) => setPlaying(v === 'play')}
+                options={[
+                  { value: 'still', label: 'Still' },
+                  { value: 'play', label: 'Play animation' },
+                ]}
+              />
+            )}
+            {playing && animated ? <MotionPreview doc={preview} /> : <TemplatePreview doc={preview} />}
           </div>
           <div className="flex min-w-0 flex-col gap-5">
             <div className="flex flex-wrap gap-1.5">
@@ -210,6 +227,7 @@ function Body({ request, template, onClose }: { request: TemplatePreviewRequest;
                 </Badge>
               )}
               <Badge tone="accent">{STYLE_LABELS[template.style]}</Badge>
+              {animated && <Badge tone="violet">Animated</Badge>}
               {mine && <Badge tone="accent">Yours</Badge>}
             </div>
 

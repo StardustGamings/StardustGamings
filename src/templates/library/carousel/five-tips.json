@@ -10,7 +10,8 @@
     "educational",
     "list",
     "creator",
-    "business"
+    "business",
+    "animated"
   ],
   "palette": [
     "#F6F3EE",
@@ -29,23 +30,28 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       },
       {
         "id": "s1",
-        "fill": null
+        "fill": null,
+        "duration": 3500
       },
       {
         "id": "s2",
-        "fill": null
+        "fill": null,
+        "duration": 3500
       },
       {
         "id": "s3",
-        "fill": null
+        "fill": null,
+        "duration": 3500
       },
       {
         "id": "s4",
-        "fill": null
+        "fill": null,
+        "duration": 3250
       }
     ],
     "elements": [
@@ -57,6 +63,13 @@
         "height": 672,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "5",
         "fontFamily": "Anton",
@@ -80,6 +93,14 @@
         "height": 294,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "things I wish\nI knew before\nposting",
         "fontFamily": "Bricolage Grotesque",
@@ -103,6 +124,14 @@
         "height": 32,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "@yourhandle",
         "fontFamily": "Manrope",
@@ -126,6 +155,14 @@
         "height": 32,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Swipe →",
         "fontFamily": "Manrope",
@@ -171,6 +208,13 @@
         "height": 130,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "ellipse",
         "fill": {
@@ -186,6 +230,14 @@
         "height": 130,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "01",
         "fontFamily": "Bricolage Grotesque",
@@ -209,6 +261,13 @@
         "height": 480,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "1",
         "fontFamily": "Anton",
@@ -232,6 +291,14 @@
         "height": 192,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Hook them on\nslide one",
         "fontFamily": "Bricolage Grotesque",
@@ -255,6 +322,14 @@
         "height": 182,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Lead with the payoff. A bold claim or a big number stops the scroll better than a pretty intro.",
         "fontFamily": "Manrope",
@@ -278,6 +353,14 @@
         "height": 30,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 870,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "02 / 05",
         "fontFamily": "Manrope",
@@ -323,6 +406,13 @@
         "height": 130,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "ellipse",
         "fill": {
@@ -338,6 +428,14 @@
         "height": 130,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "02",
         "fontFamily": "Bricolage Grotesque",
@@ -361,6 +459,13 @@
         "height": 480,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "2",
         "fontFamily": "Anton",
@@ -384,6 +489,14 @@
         "height": 192,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "One idea\nper slide",
         "fontFamily": "Bricolage Grotesque",
@@ -407,6 +520,14 @@
         "height": 182,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Give every slide one job. If you need a second sentence, you probably need a second slide.",
         "fontFamily": "Manrope",
@@ -430,6 +551,14 @@
         "height": 30,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 870,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "03 / 05",
         "fontFamily": "Manrope",
@@ -475,6 +604,13 @@
         "height": 130,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "ellipse",
         "fill": {
@@ -490,6 +626,14 @@
         "height": 130,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "03",
         "fontFamily": "Bricolage Grotesque",
@@ -513,6 +657,13 @@
         "height": 480,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "3",
         "fontFamily": "Anton",
@@ -536,6 +687,14 @@
         "height": 192,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "End with a\nreason to save",
         "fontFamily": "Bricolage Grotesque",
@@ -559,6 +718,14 @@
         "height": 241,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Close with a checklist, a recap or a question. Saves and shares tell the feed your post is worth showing.",
         "fontFamily": "Manrope",
@@ -582,6 +749,14 @@
         "height": 30,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 870,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "04 / 05",
         "fontFamily": "Manrope",
@@ -605,6 +780,13 @@
         "height": 300,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 120,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -624,6 +806,13 @@
         "height": 243,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "Save this\nfor later",
         "fontFamily": "Bricolage Grotesque",
@@ -647,6 +836,14 @@
         "height": 140,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:bookmark",
         "tint": "#FF5A36"
@@ -659,6 +856,14 @@
         "height": 42,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Follow for more small wins",
         "fontFamily": "Manrope",
@@ -682,6 +887,14 @@
         "height": 37,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 720,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "@yourhandle",
         "fontFamily": "Manrope",
@@ -697,6 +910,10 @@
         "lineHeight": 1.1,
         "letterSpacing": 0
       }
-    ]
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
   }
 }

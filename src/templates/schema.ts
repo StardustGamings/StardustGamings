@@ -45,8 +45,8 @@ export const templateIdSchema = z
  * A template is plain JSON: metadata plus a complete design document. The
  * document carries the canvas size (`slideWidth`/`slideHeight`), slides,
  * backgrounds and every element with its position, fonts, colours and photo
- * slots (image elements without a photo). Animation data joins the format in
- * Phase 9 behind a document version bump.
+ * slots (image elements without a photo), plus optional motion (element
+ * animations, slide lengths, the transition between slides).
  */
 export const templateSchema = z.object({
   id: templateIdSchema,

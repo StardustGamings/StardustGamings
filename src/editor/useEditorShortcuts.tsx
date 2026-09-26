@@ -6,6 +6,8 @@ import {
   History,
   Bookmark,
   FileDown,
+  Clapperboard,
+  PlayCircle,
   Wand2,
   BookmarkPlus,
   LayoutTemplate,
@@ -55,6 +57,8 @@ import { getElements } from './core/ops';
 import { TEXT_PRESETS } from './core/factory';
 import { selectDoc, useEditor } from './store';
 import { saveVersion } from './versioning';
+import { usePlayback } from './playback';
+import { autoAnimateSlides } from './animation-actions';
 import { downloadProjectFile } from '@/components/projects/project-files';
 
 const ed = () => useEditor.getState();
@@ -112,6 +116,7 @@ export function useEditorShortcuts() {
     p: () => ed().setPanel(ed().panel === 'photos' ? null : 'photos'),
     l: () => ed().setPanel(ed().panel === 'layouts' ? null : 'layouts'),
     f: () => ed().setPanel(ed().panel === 'filters' ? null : 'filters'),
+    a: () => ed().setPanel(ed().panel === 'animate' ? null : 'animate'),
     h: () => ed().setTool('hand'),
     'mod+=': () => actions.zoomStep(1),
     'mod++': () => actions.zoomStep(1),
@@ -287,6 +292,51 @@ export function useEditorShortcuts() {
         shortcut: '⌘ ⇧ E',
         keywords: ['export', 'download', 'save as', 'png', 'jpg', 'jpeg', 'webp', 'pdf', 'zip', 'share'],
         run: () => useUi.getState().openExport({ source: 'editor' }),
+      },
+      {
+        id: 'ed-animate',
+        label: 'Animate…',
+        group: 'Editor',
+        icon: <Sparkles />,
+        shortcut: 'A',
+        keywords: [
+          'animation',
+          'motion',
+          'entrance',
+          'fade',
+          'slide',
+          'zoom',
+          'bounce',
+          'pop',
+          'typewriter',
+          'glitch',
+          'timeline',
+        ],
+        run: () => ed().setPanel('animate'),
+      },
+      {
+        id: 'ed-auto-animate',
+        label: 'Auto-animate the design',
+        group: 'Editor',
+        icon: <Wand2 />,
+        keywords: ['animation', 'motion', 'magic', 'reel', 'video'],
+        run: () => autoAnimateSlides('all', 'smooth'),
+      },
+      {
+        id: 'ed-play-slide',
+        label: 'Play this slide’s animations',
+        group: 'Editor',
+        icon: <PlayCircle />,
+        keywords: ['preview', 'animation', 'motion'],
+        run: () => usePlayback.getState().play(ed().activeSlide, true),
+      },
+      {
+        id: 'ed-play-video',
+        label: 'Play as video',
+        group: 'Editor',
+        icon: <Clapperboard />,
+        keywords: ['preview', 'reel', 'mp4', 'gif', 'transitions'],
+        run: () => useUi.getState().setCarouselPreview(true),
       },
       {
         id: 'ed-history',

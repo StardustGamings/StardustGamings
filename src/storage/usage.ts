@@ -5,6 +5,7 @@ export interface StorageBreakdown {
   projects: { count: number; trashed: number; bytes: number };
   photos: { count: number; bytes: number };
   stickers: { count: number; bytes: number };
+  videos: { count: number; bytes: number };
   /** Cut-out masks — part of the photos they belong to. */
   masks: { count: number; bytes: number };
   versions: { count: number; named: number; bytes: number };
@@ -38,6 +39,7 @@ export async function storageBreakdown(): Promise<StorageBreakdown> {
     },
     photos: byKind('photo'),
     stickers: byKind('sticker'),
+    videos: byKind('video'),
     masks: byKind('mask'),
     versions: {
       count: versions.length,
@@ -48,7 +50,13 @@ export async function storageBreakdown(): Promise<StorageBreakdown> {
     folders: folders.length,
   };
   const total =
-    out.projects.bytes + out.photos.bytes + out.stickers.bytes + out.masks.bytes + out.versions.bytes + out.templates.bytes;
+    out.projects.bytes +
+    out.photos.bytes +
+    out.stickers.bytes +
+    out.videos.bytes +
+    out.masks.bytes +
+    out.versions.bytes +
+    out.templates.bytes;
   return { ...out, total };
 }
 

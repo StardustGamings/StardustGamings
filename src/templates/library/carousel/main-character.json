@@ -10,7 +10,8 @@
     "seamless",
     "gen-z",
     "bold",
-    "pink"
+    "pink",
+    "animated"
   ],
   "palette": [
     "#FF4F9A",
@@ -29,15 +30,18 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       },
       {
         "id": "s1",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       },
       {
         "id": "s2",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       }
     ],
     "elements": [
@@ -49,6 +53,13 @@
         "height": 514,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 210,
+            "duration": 700
+          }
+        },
         "type": "text",
         "text": "Main character",
         "fontFamily": "Anton",
@@ -73,6 +84,13 @@
         "height": 620,
         "rotation": -4,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 210,
+            "duration": 700
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -95,6 +113,13 @@
         "height": 620,
         "rotation": 5,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 340,
+            "duration": 700
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -117,6 +142,13 @@
         "height": 520,
         "rotation": -3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 80,
+            "duration": 700
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -139,6 +171,13 @@
         "height": 44,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 80,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "ep. 01",
         "fontFamily": "Manrope",
@@ -163,6 +202,13 @@
         "height": 121,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 340,
+            "duration": 700
+          }
+        },
         "type": "text",
         "text": "a series about\ndoing it anyway",
         "fontFamily": "Bricolage Grotesque",
@@ -186,6 +232,13 @@
         "height": 108,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 340,
+            "duration": 700
+          }
+        },
         "type": "text",
         "text": "(it’s giving)",
         "fontFamily": "Instrument Serif",
@@ -209,6 +262,13 @@
         "height": 180,
         "rotation": 12,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "rotate",
+            "delay": 80,
+            "duration": 700
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:burst",
         "tint": "#FFE14D"
@@ -221,6 +281,13 @@
         "height": 140,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "rotate",
+            "delay": 470,
+            "duration": 700
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:sparkle",
         "tint": "#FFE14D"
@@ -233,10 +300,21 @@
         "height": 110,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "rotate",
+            "delay": 210,
+            "duration": 700
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:sparkle",
         "tint": "#FFF1E6"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "cut",
+      "transitionDuration": 0
+    }
   }
 }

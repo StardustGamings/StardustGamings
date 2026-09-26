@@ -156,19 +156,38 @@ function drawLine(ctx: Ctx2D, line: TextLine, x: number, baseline: number, spaci
   });
 }
 
-/** Draws a text element into its local box (0,0,width,height). */
-export function drawText(ctx: Ctx2D, el: TextElement, shadow: () => void, clearShadow: () => void): void {
+/** Keeps the first `reveal` fraction of the characters (typewriter), line by line. Widths are re-measured. */
+function revealLines(ctx: Ctx2D, lines: TextLine[], reveal: number, spacing: number): TextLine[] {
+  if (reveal >= 1) return lines;
+  const total = lines.reduce((n, l) => n + chars(l.text).length, 0);
+  let budget = Math.floor(Math.max(0, reveal) * total + 1e-6);
+  return lines.map((l) => {
+    const glyphs = chars(l.text);
+    const shown = glyphs.slice(0, Math.max(0, budget)).join('');
+    budget -= glyphs.length;
+    return shown.length === l.text.length ? l : { text: shown, width: measure(ctx, shown, spacing) };
+  });
+}
+
+/**
+ * Draws a text element into its local box (0,0,width,height). `reveal` < 1
+ * shows only the first part of the text (typewriter); lines keep the position
+ * they have when complete, so the text types out in place.
+ */
+export function drawText(ctx: Ctx2D, el: TextElement, shadow: () => void, clearShadow: () => void, reveal = 1): void {
   const layout = layoutText(ctx, el);
-  const { lines, lineHeight, ascent, descent, spacing, blockHeight } = layout;
+  const { lineHeight, ascent, descent, spacing, blockHeight } = layout;
+  const lines = layout.lines;
+  const shown = revealLines(ctx, lines, reveal, spacing);
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
 
   const top =
     el.verticalAlign === 'middle' ? (el.height - blockHeight) / 2 : el.verticalAlign === 'bottom' ? el.height - blockHeight : 0;
   const halfLeading = (lineHeight - (ascent + descent)) / 2;
-  const positioned = lines.map((line, i) => {
-    const x = el.align === 'center' ? (el.width - line.width) / 2 : el.align === 'right' ? el.width - line.width : 0;
-    return { line, x, baseline: top + i * lineHeight + halfLeading + ascent };
+  const positioned = lines.map((full, i) => {
+    const x = el.align === 'center' ? (el.width - full.width) / 2 : el.align === 'right' ? el.width - full.width : 0;
+    return { line: shown[i]!, x, baseline: top + i * lineHeight + halfLeading + ascent };
   });
 
   let shadowPending = Boolean(el.shadow);

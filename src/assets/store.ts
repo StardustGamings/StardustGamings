@@ -4,6 +4,8 @@ import { create } from 'zustand';
 import { toast } from '@/components/ui/toast-store';
 import { invalidateAsset } from './cache';
 import * as repo from './repository';
+import { sniffVideoFormat } from './sniff';
+import { importVideoFile } from './video';
 import type { AssetKind, AssetMeta } from './types';
 
 interface AssetsState {
@@ -24,6 +26,14 @@ interface AssetsState {
 }
 
 const IMAGE_ACCEPT = /^image\//;
+const VIDEO_ACCEPT = /^video\//;
+
+/** Videos ride along with photos (same pickers, drops and library). */
+async function isVideo(file: Blob): Promise<boolean> {
+  if (VIDEO_ACCEPT.test(file.type)) return true;
+  if (file.type && IMAGE_ACCEPT.test(file.type)) return false;
+  return sniffVideoFormat(new Uint8Array(await file.slice(0, 64).arrayBuffer())) !== null;
+}
 
 export const useAssets = create<AssetsState>()((set, get) => ({
   status: 'idle',
@@ -58,6 +68,12 @@ export const useAssets = create<AssetsState>()((set, get) => ({
     let optimizedToast = false;
     for (const file of files) {
       try {
+        if (kind === 'photo' && (await isVideo(file))) {
+          const video = await importVideoFile(file);
+          imported.push(video.meta);
+          get().add(video.meta);
+          continue;
+        }
         // Browsers sometimes report an empty type for valid photos; the sniffer is the real check.
         if (file.type && !IMAGE_ACCEPT.test(file.type) && file.type !== 'application/octet-stream') {
           throw new repo.ImportError('unsupported');

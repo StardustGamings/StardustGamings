@@ -24,6 +24,8 @@ import { SIZE_PRESETS } from '@/projects/formats';
 import { getLook } from '@/filters/looks';
 import type { FormatId } from '@/types/project';
 import { templateSchema, type TemplateDefinition, type TemplateStyle } from '../schema';
+import type { DesignDocument } from '@/types/document';
+import { autoAnimate, type AutoVibe } from '@/animations/auto';
 
 export type Paint = string | Fill;
 
@@ -170,6 +172,8 @@ export interface TemplateMeta {
   slides?: number;
   background: Paint;
   slideFills?: (Paint | null)[];
+  /** Ships with motion: every element gets an entrance in this vibe (deterministic, editable after). */
+  animate?: AutoVibe;
 }
 
 const base = { rotation: 0, opacity: 1 };
@@ -362,6 +366,23 @@ export function defineTemplate(meta: TemplateMeta, build: (k: Kit) => void): Tem
   build(kit);
 
   const slideFills = meta.slideFills ?? [];
+  let doc: DesignDocument = {
+    version: 1,
+    slideWidth: W,
+    slideHeight: H,
+    background: paint(meta.background),
+    slides: Array.from({ length: slides }, (_, i) => ({
+      id: `s${i}`,
+      fill: slideFills[i] ? paint(slideFills[i]!) : null,
+    })),
+    elements,
+  };
+  if (meta.animate)
+    doc = autoAnimate(
+      doc,
+      doc.slides.map((_, i) => i),
+      meta.animate,
+    );
   return templateSchema.parse({
     id: meta.id,
     name: meta.name,
@@ -369,18 +390,8 @@ export function defineTemplate(meta: TemplateMeta, build: (k: Kit) => void): Tem
     sizeId: meta.sizeId,
     style: meta.style,
     description: meta.description,
-    tags: meta.tags,
+    tags: meta.animate ? [...meta.tags.filter((t) => t !== 'animated'), 'animated'].slice(0, 12) : meta.tags,
     palette: meta.palette,
-    doc: {
-      version: 1,
-      slideWidth: W,
-      slideHeight: H,
-      background: paint(meta.background),
-      slides: Array.from({ length: slides }, (_, i) => ({
-        id: `s${i}`,
-        fill: slideFills[i] ? paint(slideFills[i]!) : null,
-      })),
-      elements,
-    },
+    doc,
   });
 }

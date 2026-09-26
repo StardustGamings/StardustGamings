@@ -10,7 +10,8 @@
     "cute",
     "week",
     "diary",
-    "gen-z"
+    "gen-z",
+    "animated"
   ],
   "palette": [
     "#FBF7F0",
@@ -30,15 +31,18 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 5000
       },
       {
         "id": "s1",
-        "fill": null
+        "fill": null,
+        "duration": 7500
       },
       {
         "id": "s2",
-        "fill": null
+        "fill": null,
+        "duration": 5000
       }
     ],
     "elements": [
@@ -52,6 +56,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -69,6 +80,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -86,6 +104,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 420,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -103,6 +128,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -120,6 +152,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -137,6 +176,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 870,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -154,6 +200,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1020,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -171,6 +224,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1170,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -188,6 +248,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -205,6 +272,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1470,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -222,6 +296,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1620,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -239,6 +320,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -256,6 +344,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -273,6 +368,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 420,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -290,6 +392,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -307,6 +416,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -324,6 +440,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 870,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -341,6 +464,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1020,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -358,6 +488,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1170,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -375,6 +512,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -392,6 +536,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1470,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -409,6 +560,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1620,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -426,6 +584,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1770,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -443,6 +608,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -460,6 +632,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -477,6 +656,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 420,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -494,6 +680,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -511,6 +704,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -528,6 +728,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 870,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -545,6 +752,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1020,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -562,6 +776,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1170,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -579,6 +800,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -596,6 +824,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1470,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -613,6 +848,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1620,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -630,6 +872,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1770,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -647,6 +896,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1920,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -664,6 +920,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2220,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -681,6 +944,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2370,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -698,6 +968,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2670,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -715,6 +992,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2970,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -732,6 +1016,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3120,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -749,6 +1040,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3420,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -766,6 +1064,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3720,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -783,6 +1088,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3870,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -800,6 +1112,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4170,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -817,6 +1136,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4470,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -834,6 +1160,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4770,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -851,6 +1184,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 5070,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -868,6 +1208,13 @@
         "rotation": 0,
         "opacity": 1,
         "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 5220,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -883,6 +1230,13 @@
         "height": 238,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1770,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "my week in\nstickers",
         "fontFamily": "Bricolage Grotesque",
@@ -920,6 +1274,13 @@
           "x": 0,
           "y": 10
         },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2220,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -943,6 +1304,14 @@
         "height": 69,
         "rotation": -3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2520,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "mon — thrifted everything",
         "fontFamily": "Caveat",
@@ -972,6 +1341,13 @@
           "x": 0,
           "y": 10
         },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2520,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -995,6 +1371,13 @@
         "height": 69,
         "rotation": 3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4020,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "wed — new playlist",
         "fontFamily": "Caveat",
@@ -1023,6 +1406,13 @@
           "blur": 30,
           "x": 0,
           "y": 10
+        },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 4620,
+            "duration": 1000
+          }
         },
         "type": "image",
         "assetId": null,
@@ -1053,6 +1443,13 @@
           "x": 0,
           "y": 10
         },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2070,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -1076,6 +1473,13 @@
         "height": 79,
         "rotation": -2,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2370,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "sat — best day ever",
         "fontFamily": "Caveat",
@@ -1099,6 +1503,14 @@
         "height": 130,
         "rotation": 12,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1920,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:star",
         "tint": "#FFD84D"
@@ -1111,6 +1523,14 @@
         "height": 120,
         "rotation": -12,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2070,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:heart",
         "tint": "#FF7AB6"
@@ -1123,6 +1543,14 @@
         "height": 130,
         "rotation": 8,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2370,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:smiley",
         "tint": "#FFD84D"
@@ -1135,6 +1563,14 @@
         "height": 150,
         "rotation": -6,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 4320,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:daisy",
         "tint": "#FF7AB6"
@@ -1147,6 +1583,14 @@
         "height": 140,
         "rotation": 10,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2820,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:lightning",
         "tint": "#7AD3FF"
@@ -1159,6 +1603,14 @@
         "height": 150,
         "rotation": -8,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2070,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:crown",
         "tint": "#FFD84D"
@@ -1171,6 +1623,14 @@
         "height": 150,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 3570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:speech",
         "tint": "#7AD3FF"
@@ -1183,6 +1643,14 @@
         "height": 120,
         "rotation": 6,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 3270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:pixel-heart",
         "tint": "#FF7AB6"
@@ -1195,6 +1663,14 @@
         "height": 130,
         "rotation": -4,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 4920,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:checkmark",
         "tint": "#1C1530"
@@ -1207,6 +1683,14 @@
         "height": 140,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1920,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:sparkle",
         "tint": "#FFD84D"
@@ -1219,6 +1703,14 @@
         "height": 150,
         "rotation": -10,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2220,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:globe-y2k",
         "tint": "#7AD3FF"
@@ -1231,10 +1723,22 @@
         "height": 150,
         "rotation": 6,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2520,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:arrow-loop",
         "tint": "#1C1530"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
   }
 }

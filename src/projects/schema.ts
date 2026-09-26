@@ -36,6 +36,43 @@ export const fontFamilySchema = z
   .max(64)
   .regex(/^[\w\- ]+$/u, 'Invalid font family');
 
+const direction = z.enum(['up', 'down', 'left', 'right']);
+const ms = finite.min(0).max(120_000);
+
+/** Motion (see src/types/animation.ts). Unknown presets are rejected so nothing unexpected is animated. */
+export const animationSchema = z.object({
+  enter: z
+    .object({
+      preset: z.enum(['fade', 'slide', 'zoom', 'bounce', 'pop', 'rotate', 'blur', 'typewriter', 'glitch', 'elastic']),
+      delay: ms,
+      duration: finite.min(50).max(20_000),
+      direction: direction.optional(),
+    })
+    .optional(),
+  exit: z
+    .object({
+      preset: z.enum(['fade', 'slide', 'zoom', 'pop', 'rotate', 'blur']),
+      duration: finite.min(50).max(20_000),
+      direction: direction.optional(),
+    })
+    .optional(),
+  loop: z
+    .object({
+      preset: z.enum(['parallax', 'float', 'pulse']),
+      intensity: finite.min(0).max(100),
+      direction: direction.optional(),
+    })
+    .optional(),
+});
+
+export const videoClipSchema = z.object({
+  trimStart: finite.min(0).max(3600),
+  trimEnd: finite.min(0).max(3600),
+  speed: finite.min(0.25).max(4),
+  muted: z.boolean(),
+  loop: z.boolean(),
+});
+
 const base = {
   id: z.string().min(1).max(64),
   name: z.string().max(80).optional(),
@@ -57,6 +94,7 @@ const base = {
       index: finite.min(0).max(10_000).optional(),
     })
     .optional(),
+  animation: animationSchema.optional(),
 };
 
 const textElement = z.object({
@@ -173,6 +211,7 @@ const imageElement = z.object({
   cornerRadius: size.optional(),
   stroke: stroke.optional(),
   placeholder: z.object({ label: z.string().max(80).optional(), fill: fillSchema }).optional(),
+  video: videoClipSchema.optional(),
 });
 
 const stickerElement = z.object({
@@ -215,7 +254,9 @@ export const documentSchema = z.object({
   slideHeight: size.min(16).max(8000),
   background: fillSchema,
   slides: z
-    .array(z.object({ id: z.string().min(1).max(64), fill: fillSchema.nullable() }))
+    .array(
+      z.object({ id: z.string().min(1).max(64), fill: fillSchema.nullable(), duration: finite.min(500).max(60_000).optional() }),
+    )
     .min(1)
     .max(MAX_SLIDES),
   elements: z.array(elementSchema).max(2000),
@@ -224,6 +265,9 @@ export const documentSchema = z.object({
     .max(200)
     .optional(),
   layouts: z.array(layoutSchema).max(200).optional(),
+  motion: z
+    .object({ transition: z.enum(['swipe', 'fade', 'zoom', 'cut']), transitionDuration: finite.min(0).max(5000) })
+    .optional(),
 });
 
 const formatIds = Object.keys(FORMATS) as [keyof typeof FORMATS, ...(keyof typeof FORMATS)[]];

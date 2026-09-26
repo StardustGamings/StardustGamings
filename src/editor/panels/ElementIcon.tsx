@@ -1,4 +1,4 @@
-import { Circle, Image as ImageIcon, Minus, MoveRight, Smile, Square, Star, Triangle, Type, Hexagon } from 'lucide-react';
+import { Circle, Film, Image as ImageIcon, Minus, MoveRight, Smile, Square, Star, Triangle, Type, Hexagon } from 'lucide-react';
 import type { DesignElement } from '@/types/document';
 
 export function ElementIcon({ el, className }: { el: DesignElement; className?: string }) {
@@ -6,7 +6,7 @@ export function ElementIcon({ el, className }: { el: DesignElement; className?: 
     case 'text':
       return <Type className={className} aria-hidden />;
     case 'image':
-      return <ImageIcon className={className} aria-hidden />;
+      return el.video ? <Film className={className} aria-hidden /> : <ImageIcon className={className} aria-hidden />;
     case 'sticker':
       return <Smile className={className} aria-hidden />;
     case 'shape': {

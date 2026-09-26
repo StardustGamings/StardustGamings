@@ -7,7 +7,7 @@
  * - `preview`:  ≤ PREVIEW_MAX px on the long edge, used while editing.
  * - `thumb`:    ≤ THUMB_MAX px, used in panels and pickers.
  */
-export type AssetKind = 'photo' | 'sticker' | 'mask';
+export type AssetKind = 'photo' | 'sticker' | 'mask' | 'video';
 export type AssetVariant = 'original' | 'preview' | 'thumb';
 
 export const ORIGINAL_MAX = 8192;
@@ -17,6 +17,9 @@ export const THUMB_MAX = 384;
 export const MAX_FILE_BYTES = 60 * 1024 * 1024;
 /** Photos above this many pixels on the long edge get the "optimizing it for you" message. */
 export const LARGE_IMAGE_EDGE = 4096;
+/** Short clips only: phones would struggle with longer or bigger files in a design. */
+export const MAX_VIDEO_BYTES = 300 * 1024 * 1024;
+export const MAX_VIDEO_SECONDS = 120;
 
 export interface AssetMeta {
   id: string;
@@ -37,6 +40,8 @@ export interface AssetMeta {
   hasAlpha: boolean;
   /** A few dominant colours (hex), offered in colour pickers. */
   palette: string[];
+  /** Videos: length in seconds. The `preview`/`thumb` variants are poster frames. */
+  duration?: number;
 }
 
 export interface AssetBlobs {

@@ -47,17 +47,24 @@ export function TemplateBrowser() {
   const [query, setQuery] = useState('');
   const [format, setFormat] = useState<FormatId | 'all'>('all');
   const [style, setStyle] = useState<TemplateStyle | 'all'>('all');
+  const [animatedOnly, setAnimatedOnly] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const source = tab === 'yours' ? user : bundled;
   const formats = FORMAT_ORDER.filter((f) => source.some((t) => t.format === f));
   const styles = TEMPLATE_STYLES.filter((s) => source.some((t) => t.style === s));
-  const results = useMemo(() => filterTemplates(source, { query, format, style }), [source, query, format, style]);
-  const filtered = query !== '' || format !== 'all' || style !== 'all';
+  const results = useMemo(
+    () =>
+      filterTemplates(source, { query, format, style }).filter((t) => !animatedOnly || t.doc.elements.some((el) => el.animation)),
+    [source, query, format, style, animatedOnly],
+  );
+  const hasAnimated = source.some((t) => t.doc.elements.some((el) => el.animation));
+  const filtered = query !== '' || format !== 'all' || style !== 'all' || animatedOnly;
   const clear = () => {
     setQuery('');
     setFormat('all');
     setStyle('all');
+    setAnimatedOnly(false);
   };
 
   return (
@@ -127,6 +134,11 @@ export function TemplateBrowser() {
             <Chip active={format === 'all'} onClick={() => setFormat('all')}>
               All formats
             </Chip>
+            {hasAnimated && (
+              <Chip active={animatedOnly} onClick={() => setAnimatedOnly(!animatedOnly)}>
+                ✦ Animated
+              </Chip>
+            )}
             {formats.map((f) => (
               <Chip key={f} active={format === f} onClick={() => setFormat(f)}>
                 {FORMATS[f].label}

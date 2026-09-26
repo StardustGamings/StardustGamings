@@ -15,14 +15,18 @@ command palette, or _Export…_ in a project card's menu on the home and project
 | **JPG**  | Photo-heavy designs, smallest files                | No           | Quality 88 / 92 / 97 by preset                                   |
 | **WebP** | Small files with great quality                     | Yes          | Disabled where the browser can't encode it (checked at run time) |
 | **PDF**  | Sending or printing a carousel, one slide per page | No           | Each page is one full-bleed JPEG                                 |
-| MP4      | Animated designs                                   | —            | Marked **Soon**; it arrives with animations                      |
+| **MP4**  | Animated designs and video clips, with sound       | No           | H.264 where the browser has it, otherwise VP9 / AV1; 30 fps      |
+| **GIF**  | Short loops that play anywhere                     | No           | Up to 30 s; 480–1080 px, 15–24 fps by preset                     |
+
+MP4 and GIF play the design with its animations, transitions and video clips. The other formats show every element at
+rest. See [ANIMATION.md](ANIMATION.md) for motion export in detail (sizes, codecs, sound).
 
 ## What to export
 
 - **All slides.** One file per slide, delivered as **one ZIP** or, with _Separate files_ on, as individual downloads.
 - **One slide.** Pick it from the thumbnails. The dialog opens on the slide you're editing.
 - **Full carousel.** The whole strip as a single wide image, for previews, portfolios or a panorama. It isn't offered for
-  PDF, because a PDF is always pages.
+  PDF, because a PDF is always pages, or for MP4 and GIF, which play the slides in order.
 
 Files are named after the design: `summer-dump-01.png` … `summer-dump-12.png` inside `summer-dump.zip`,
 `summer-dump.png` for a single-slide design, and `summer-dump-carousel.png` for the full strip. Accents are folded and
@@ -76,6 +80,7 @@ plan (pure)  ─▶  fonts ready  ─▶  per file: load photos ▸ develop look
 | `src/export/zip.ts`                      | Minimal ZIP writer (stored entries, CRC-32, UTF-8 names, de-duplicated names)                                                                                                |
 | `src/export/pdf.ts`                      | Minimal PDF 1.4 writer                                                                                                                                                       |
 | `src/export/export.ts`                   | `exportDesign()`: runs the plan with progress and cancellation, and packages the result                                                                                      |
+| `src/export/motion-plan.ts`, `motion.ts` | MP4 and GIF: sizes, codec choice, frame-by-frame rendering, sound, encoding (loaded only when used)                                                                          |
 | `src/components/export/ExportDialog.tsx` | The dialog: options, progress, done screen, save and share                                                                                                                   |
 
 - Files are rendered one at a time, and each canvas is released straight after encoding, so a 20-slide Maximum export
@@ -94,3 +99,4 @@ plan (pure)  ─▶  fonts ready  ─▶  per file: load photos ▸ develop look
   entries, separate files, the full carousel, PDF pages, transparent pixels, photos with a look (also in the no-WebGL
   project, through the CPU worker), export from a project card, and the phone share / save flow.
 - `e2e/offline.spec.ts`: exports with the network switched off.
+- `e2e/motion.spec.ts`: MP4 and GIF downloads parsed and played back (length, size, sound track or none).

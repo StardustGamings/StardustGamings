@@ -290,6 +290,14 @@ const MESSAGES: Record<ImportError['code'], { title: string; description: string
     title: 'Your device is out of space for photos',
     description: 'Free up space in Settings → Storage, then try again.',
   },
+  'video-too-long': {
+    title: 'That video is a bit long',
+    description: 'Designs take clips up to 2 minutes (and 300 MB). Trim it on your phone first, then add it again.',
+  },
+  'video-unplayable': {
+    title: 'This browser can’t play that video',
+    description: 'Try an MP4 (H.264) or WebM file — most phones can save or share videos in that format.',
+  },
 };
 
 export function describeImportError(err: unknown): { title: string; description: string } {

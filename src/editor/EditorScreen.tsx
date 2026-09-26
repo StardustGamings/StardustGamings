@@ -16,13 +16,14 @@ import {
   Maximize,
   PenLine,
   SlidersHorizontal,
+  Sparkles,
   Trash2,
   Type,
   Unlock,
   Wand2,
   X,
 } from 'lucide-react';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { FORMATS } from '@/projects/formats';
 import { useSettings } from '@/settings/store';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -40,6 +41,7 @@ import { PhotosPanel } from './panels/PhotosPanel';
 import { LayoutsPanel } from './panels/LayoutsPanel';
 import { TemplatesPanel } from './panels/TemplatesPanel';
 import { FiltersPanel } from './panels/FiltersPanel';
+import { AnimatePanel } from './panels/AnimatePanel';
 import { PreviewDialog } from './PreviewDialog';
 import { useUi } from '@/settings/ui-store';
 import { VersionHistoryDialog } from './VersionHistoryDialog';
@@ -57,6 +59,8 @@ import { LayersPanel } from './panels/LayersPanel';
 import { PropertiesPanel } from './panels/PropertiesPanel';
 import { useSelectedElements } from './panels/useSelection';
 import { SlideStrip } from './SlideStrip';
+import { Timeline } from './Timeline';
+import { usePlayback } from './playback';
 import { selectDoc, useEditor, type PanelId } from './store';
 import { PANEL_TOOLS, ToolButton, ToolRail } from './ToolRail';
 import { useEditorShortcuts } from './useEditorShortcuts';
@@ -69,6 +73,7 @@ const PANEL_TITLES: Record<PanelId, string> = {
   photos: 'Photos',
   filters: 'Filters',
   layouts: 'Layouts',
+  animate: 'Animate',
   design: 'Background',
   layers: 'Layers',
   properties: 'Edit',
@@ -90,6 +95,8 @@ function PanelContent({ panel }: { panel: PanelId }) {
       return <FiltersPanel />;
     case 'layouts':
       return <LayoutsPanel />;
+    case 'animate':
+      return <AnimatePanel />;
     case 'design':
       return <BackgroundPanel />;
     case 'layers':
@@ -111,6 +118,7 @@ function Flyout() {
     panel === 'photos' ||
     panel === 'filters' ||
     panel === 'layouts' ||
+    panel === 'animate' ||
     panel === 'design';
   return (
     <AnimatePresence initial={false}>
@@ -248,6 +256,7 @@ function MobileToolbar() {
               onClick={() => openPhotoPicker({ targetId: single.id, single: true })}
             />
           )}
+          <MobileAction label="Animate" icon={<Sparkles />} active={panel === 'animate'} onClick={() => toggle('animate')} />
           {selected.some((e) => e.layout) && <MobileAction label="Shuffle" icon={<Dices />} onClick={shuffleLayout} />}
           <MobileAction label="Duplicate" icon={<Copy />} onClick={actions.duplicateSelection} />
           <MobileAction label="Forward" icon={<ArrowUp />} onClick={() => actions.reorder('forward')} />
@@ -321,12 +330,27 @@ function Editor() {
   const saveState = useEditor((s) => s.saveState);
   const tool = useEditor((s) => s.tool);
   const cropping = useEditor((s) => s.croppingId !== null);
+  const panel = useEditor((s) => s.panel);
   const loadAssets = useAssets((s) => s.load);
   useEditorShortcuts();
 
   useEffect(() => {
     void loadAssets();
   }, [loadAssets]);
+
+  // The timeline takes room from the canvas: re-fit when it opens or closes, and leave
+  // any motion preview when the Animate panel closes.
+  const timelineOpen = panel === 'animate';
+  const timelineMounted = useRef(false);
+  useEffect(() => {
+    if (!timelineOpen) usePlayback.getState().stop();
+    if (!timelineMounted.current) {
+      timelineMounted.current = true;
+      return;
+    }
+    const id = requestAnimationFrame(() => actions.fitSlide());
+    return () => cancelAnimationFrame(id);
+  }, [timelineOpen]);
 
   // Files dropped anywhere in the editor (outside the canvas) go onto the active slide
   // instead of making the browser navigate away to the file.
@@ -403,6 +427,7 @@ function Editor() {
               </div>
             )}
           </div>
+          {panel === 'animate' && !cropping && <Timeline />}
           {multi && !cropping && <SlideStrip />}
           {cropping ? (
             <CropBar layout="docked" />

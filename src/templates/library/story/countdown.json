@@ -10,7 +10,8 @@
     "launch",
     "event",
     "y2k",
-    "night"
+    "night",
+    "animated"
   ],
   "palette": [
     "#0D0B1F",
@@ -42,7 +43,8 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3750
       }
     ],
     "elements": [
@@ -54,6 +56,14 @@
         "height": 98,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "in",
         "fontFamily": "Unbounded",
@@ -82,6 +92,13 @@
           "blur": 60,
           "x": 0,
           "y": 0
+        },
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
         },
         "type": "text",
         "text": "3",
@@ -120,6 +137,14 @@
         "height": 147,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 720,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "days",
         "fontFamily": "Unbounded",
@@ -144,6 +169,13 @@
         "height": 400,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 1020,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -163,6 +195,14 @@
         "height": 44,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1170,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "set a reminder ✓",
         "fontFamily": "Silkscreen",
@@ -186,6 +226,14 @@
         "height": 160,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 120,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:y2k-star",
         "tint": "#FF6FD8"
@@ -198,6 +246,14 @@
         "height": 110,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 870,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:y2k-star",
         "tint": "#7CF7FF"
@@ -210,10 +266,22 @@
         "height": 100,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:sparkle",
         "tint": "#FFFFFF"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
   }
 }

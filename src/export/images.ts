@@ -8,6 +8,27 @@ import { getAssetBlob, getAssetMeta } from '@/assets/repository';
 import { PREVIEW_MAX } from '@/assets/types';
 import { needsDevelop } from '@/images/adjustments';
 import { developForExport } from '@/images/develop';
+import { VideoFrames } from '@/assets/video';
+
+/** A video's still frame: the first frame of its trimmed clip. */
+async function firstFrame(el: ImageElement, maxSize: number): Promise<LoadedAsset | null> {
+  const meta = await getAssetMeta(el.assetId!);
+  if (!meta || !el.video) return null;
+  const frames = new VideoFrames(el.assetId!, maxSize);
+  try {
+    if (!(await frames.open())) return null;
+    const frame = await frames.frame(el.video.trimStart);
+    const copy = document.createElement('canvas');
+    copy.width = frame.width;
+    copy.height = frame.height;
+    copy.getContext('2d')!.drawImage(frame, 0, 0);
+    return { image: copy, meta };
+  } catch {
+    return null;
+  } finally {
+    frames.close();
+  }
+}
 
 /**
  * Photos for one exported region, fully loaded (and developed) before the
@@ -62,7 +83,10 @@ export async function prepareRegionImages(
     signal?.throwIfAborted();
     const needed = Math.max(el.width, el.height) * scale * Math.max(1, el.zoom ?? 1);
     let base: LoadedAsset | null = null;
-    if (useOriginals && needed > PREVIEW_MAX * 0.9) {
+    if (el.video) {
+      base = await firstFrame(el, Math.min(4096, Math.max(PREVIEW_MAX, Math.ceil(needed))));
+      if (base) owned.push(base.image);
+    } else if (useOriginals && needed > PREVIEW_MAX * 0.9) {
       base = await decodeOriginal(el.assetId!);
       if (base) owned.push(base.image);
     }

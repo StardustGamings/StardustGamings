@@ -9,7 +9,8 @@
     "magazine",
     "editorial",
     "cover",
-    "fashion"
+    "fashion",
+    "animated"
   ],
   "palette": [
     "#F3EEE6",
@@ -28,22 +29,26 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3250
       },
       {
         "id": "s1",
-        "fill": null
+        "fill": null,
+        "duration": 5250
       },
       {
         "id": "s2",
-        "fill": null
+        "fill": null,
+        "duration": 3250
       },
       {
         "id": "s3",
         "fill": {
           "type": "solid",
           "color": "#16120F"
-        }
+        },
+        "duration": 3000
       }
     ],
     "elements": [
@@ -55,6 +60,13 @@
         "height": 1350,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "loop": {
+            "preset": "parallax",
+            "intensity": 45,
+            "direction": "left"
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -78,6 +90,13 @@
           "blur": 28,
           "x": 0,
           "y": 6
+        },
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
         },
         "type": "text",
         "text": "No. 07 — Autumn 2026 — The Swipe Issue",
@@ -109,6 +128,14 @@
           "x": 0,
           "y": 6
         },
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "Midnight",
         "fontFamily": "Playfair Display",
@@ -138,6 +165,13 @@
           "x": 0,
           "y": 6
         },
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "The new rules\nof posting",
         "fontFamily": "Playfair Display",
@@ -161,6 +195,13 @@
         "height": 210,
         "rotation": -8,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
         "type": "shape",
         "shape": "ellipse",
         "fill": {
@@ -176,6 +217,13 @@
         "height": 210,
         "rotation": -8,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "10\nPAGES\nINSIDE",
         "fontFamily": "Archivo",
@@ -205,6 +253,13 @@
           "x": 0,
           "y": 6
         },
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1050,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Swipe to read →",
         "fontFamily": "Manrope",
@@ -229,6 +284,14 @@
         "height": 147,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 150,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "Contents",
         "fontFamily": "Playfair Display",
@@ -252,6 +315,13 @@
         "height": 4,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 330,
+            "duration": 600
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -267,6 +337,13 @@
         "height": 79,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "01",
         "fontFamily": "Archivo",
@@ -290,6 +367,13 @@
         "height": 92,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Main character energy",
         "fontFamily": "Playfair Display",
@@ -313,6 +397,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1050,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "page 4",
         "fontFamily": "Manrope",
@@ -337,6 +428,13 @@
         "height": 79,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1230,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "02",
         "fontFamily": "Archivo",
@@ -360,6 +458,13 @@
         "height": 92,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1410,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Slow mornings, loud outfits",
         "fontFamily": "Playfair Display",
@@ -383,6 +488,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1590,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "page 7",
         "fontFamily": "Manrope",
@@ -407,6 +519,13 @@
         "height": 79,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1770,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "03",
         "fontFamily": "Archivo",
@@ -430,6 +549,13 @@
         "height": 92,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1950,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "The group chat decides",
         "fontFamily": "Playfair Display",
@@ -453,6 +579,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 2130,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "page 10",
         "fontFamily": "Manrope",
@@ -477,6 +610,13 @@
         "height": 79,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 2490,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "04",
         "fontFamily": "Archivo",
@@ -500,6 +640,13 @@
         "height": 92,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 2670,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Notes from the feed",
         "fontFamily": "Playfair Display",
@@ -523,6 +670,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 2850,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "page 13",
         "fontFamily": "Manrope",
@@ -547,6 +701,13 @@
         "height": 520,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "zoom",
+            "delay": 690,
+            "duration": 650
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -565,6 +726,13 @@
         "height": 73,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 2310,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "On the cover: you, obviously.",
         "fontFamily": "Instrument Serif",
@@ -588,6 +756,13 @@
         "height": 27,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 3030,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "02",
         "fontFamily": "Manrope",
@@ -611,6 +786,13 @@
         "height": 740,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "zoom",
+            "delay": 150,
+            "duration": 650
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -629,6 +811,13 @@
         "height": 27,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 330,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Feature",
         "fontFamily": "Manrope",
@@ -653,6 +842,14 @@
         "height": 156,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 510,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "Everyone is a main\ncharacter now",
         "fontFamily": "Playfair Display",
@@ -676,6 +873,13 @@
         "height": 179,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Somewhere between the group chat and the grid, posting stopped being a highlight reel and became a diary. The best carousels read like a short story — a hook, a middle, and one slide you screenshot.",
         "fontFamily": "Instrument Serif",
@@ -699,6 +903,13 @@
         "height": 250,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 1050,
+            "duration": 600
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -714,6 +925,13 @@
         "height": 142,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "“Post like no one is counting.”",
         "fontFamily": "Playfair Display",
@@ -737,6 +955,13 @@
         "height": 780,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "zoom",
+            "delay": 150,
+            "duration": 650
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -756,6 +981,14 @@
         "height": 93,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "See you next issue",
         "fontFamily": "Playfair Display",
@@ -779,6 +1012,13 @@
         "height": 3,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -794,6 +1034,13 @@
         "height": 30,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Save this · send it to a friend",
         "fontFamily": "Manrope",
@@ -810,6 +1057,10 @@
         "letterSpacing": 0.16,
         "textTransform": "uppercase"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "swipe",
+      "transitionDuration": 500
+    }
   }
 }

@@ -13,8 +13,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 6   | Filters & effects          | ✅ Done |
 | 7   | Export                     | ✅ Done |
 | 8   | Offline storage & projects | ✅ Done |
-| 9   | Animations & video         | ⏭️ Next |
-| 10  | Trend system               | Planned |
+| 9   | Animations & video         | ✅ Done |
+| 10  | Trend system               | ⏭️ Next |
 | 11  | Optional AI integrations   | Planned |
 | 12  | Performance                | Planned |
 | 13  | Testing & hardening        | Planned |
@@ -158,7 +158,7 @@ Phase 11. (Saving a collage as a reusable template arrived in Phase 5: with _Kee
   preview + colourway + use, use with photos, editor panel fill/add/replace/undo, save/rename/export/delete/undo/import,
   project-menu save, phone flow).
 
-Known limits: template animation data arrives with animations in Phase 9; adapting a template to a very different shape
+Known limits: adapting a template to a very different shape
 (e.g. a story template into a thumbnail) scales it to fit rather than re-flowing the layout — smarter resizing is part of
 the optional AI tools in Phase 11.
 
@@ -185,12 +185,12 @@ the optional AI tools in Phase 11.
   trend cards, phone Filters action).
 
 Known limits: filters apply to photos, not to text or shapes; custom looks shipped inside trend packs (as data) come
-with the trend system in Phase 10; video filters arrive with video in Phase 9.
+with the trend system in Phase 10.
 
 ## Phase 7 — Export ✅
 
-- **Formats:** PNG, JPG, WebP (where the browser can encode it) and multi-page **PDF**. MP4 is shown as **Soon** and
-  arrives with animations in Phase 9. Never watermarked, never behind a paywall.
+- **Formats:** PNG, JPG, WebP (where the browser can encode it) and multi-page **PDF** (MP4 and GIF followed in
+  Phase 9). Never watermarked, never behind a paywall.
 - **What to export:** every slide (one **ZIP**, or separate files), one slide (picked from thumbnails), or the **full
   carousel** as one wide image. Files are named after the design (`summer-dump-01.png`, `summer-dump.zip`).
 - **Quality:** Standard (1×), High (2×) and Maximum (3×, drawn from your **full-resolution originals**), kept inside
@@ -208,7 +208,7 @@ with the trend system in Phase 10; video filters arrive with video in Phase 9.
   download checked byte for byte: image headers and sizes, ZIP entries, separate files, the full strip, PDF pages,
   transparent pixels, photos with a look, export from a project card, the phone share/save flow, and exporting offline.
 
-Known limits: video (MP4/GIF) export arrives with animations in Phase 9. Exports are raster, with no vector PDF or SVG.
+Known limits: exports are raster, with no vector PDF or SVG.
 A PDF page is one image per slide, so its text isn't selectable. Very wide full-carousel images are scaled down to fit
 browser canvas limits (16 million pixels).
 
@@ -259,9 +259,57 @@ Known limits:
   app usually allows it), so backups are the safety net.
 - A single backup file tops out at 4 GB.
 
+## Phase 9 — Animations & video ✅
+
+- **Element animation:** every element can have an entrance, an exit and a loop, each picked from tiles that preview
+  the motion.
+  - 10 entrances: fade, slide, zoom, bounce, pop, rotate, blur reveal, typewriter, glitch and elastic.
+  - 6 exits, and 3 loops (parallax, float, pulse).
+  - Delay, duration, direction and loop intensity.
+  - A pure engine turns "element + moment" into a pose, and the one renderer draws it everywhere. Stills and editing
+    show the design at rest.
+- **Auto-animate:** one tap animates a slide or the whole design in a _Smooth_, _Playful_ or _Glitchy_ vibe.
+  - Roles decide the preset (backdrop, headline, text, photo, sticker, shape), and entrances are staggered.
+  - Slide lengths and a matching transition are set too. All of it stays editable.
+- **Timing:** slide lengths (0.5–60 s, _Fit_ to the motion), and transitions between slides (swipe, fade, zoom, cut)
+  that overlap so motion flows across them.
+- **Timeline (desktop):** drag an entrance to move it and its edge to resize it, drag the slide end, scrub the playhead.
+  Moves snap to 50 ms, work from the keyboard, and each drag is one undo step. Phones get a preview-time slider.
+- **Playback:** _Play slide_ and loop on the canvas (editing stops it), and _Preview → Play as video_ for the whole
+  design with transitions.
+- **Video clips:** MP4, WebM or MOV up to 2 minutes, from the picker, drag and drop or _Add a video_. Clips are stored
+  on the device next to your photos.
+  - They go anywhere a photo can: frames, crop, looks, adjustments, effects, project files.
+  - Playback settings: trim, speed (0.5–2×), sound, loop and _Fit slide_.
+  - Browser recordings with no stored length are handled, and duplicates are detected by content hash.
+- **MP4 and GIF export:** frame-exact rendering through the same renderer, encoded on the device.
+  - MP4 uses WebCodecs, preferring H.264 and falling back to VP9 / AV1. Sound from unmuted clips is mixed (trim, speed,
+    loop) and encoded as AAC or Opus.
+  - GIF is up to 30 s, with a palette per frame.
+  - All slides in order, or one slide, with sizes and frame rates per quality preset. The encoders load only when used.
+- **Templates:** templates can carry motion. 14 of the 51 built-ins are animated, with an _Animated_ filter and badge,
+  and _Play animation_ in the preview.
+- **Security:** CSP gains `media-src 'self' blob:`, so clips play from local object URLs only.
+- **Quality:**
+  - 267 unit/component tests: easing, every preset settling at rest, sequence overlaps, clip timing, typewriter and blur
+    in the renderer, auto-animate, video sizes and frame rates, a real GIF read back, and the schema round trip with
+    motion.
+  - 119 Playwright runs across desktop, phone and no-WebGL: presets, timeline drag and scrub checked by canvas pixels,
+    auto-animate and _Play as video_, MP4 and GIF parsed and played back for length and size, and a recorded clip with
+    sound (trimmed, sped up, exported with and without its audio track). Also animated templates and the phone flow.
+
+See [ANIMATION.md](ANIMATION.md).
+
+Known limits:
+
+- Changing a clip's speed also changes its pitch.
+- Where the browser has no H.264 encoder, MP4s use VP9 or AV1, which some social apps re-encode or refuse. The done
+  screen says so.
+- On screen, looks on moving video need WebGL (exports apply them either way).
+- There is no per-word text animation and there are no keyframed motion paths.
+
 ## Later phases (summary)
 
-- **9 · Animation & video:** element animations, timeline, MP4/GIF export where supported.
 - **10 · Trends:** remote pack updates, meme & social formats, trend-driven suggestions.
 - **11 · AI (optional, opt-in):** palette extraction, font pairing, AI resize and layout run locally; any cloud model is
   opt-in with clear disclosure and a server-side proxy for keys.

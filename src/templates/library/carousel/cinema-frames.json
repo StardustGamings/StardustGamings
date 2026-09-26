@@ -10,7 +10,8 @@
     "film",
     "travel",
     "subtitles",
-    "moody"
+    "moody",
+    "animated"
   ],
   "palette": [
     "#0A0A0A",
@@ -29,19 +30,23 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       },
       {
         "id": "s1",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       },
       {
         "id": "s2",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       },
       {
         "id": "s3",
-        "fill": null
+        "fill": null,
+        "duration": 3000
       }
     ],
     "elements": [
@@ -53,6 +58,13 @@
         "height": 27,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "A film by you",
         "fontFamily": "Manrope",
@@ -77,6 +89,14 @@
         "height": 303,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "Somewhere\nWarm",
         "fontFamily": "Playfair Display",
@@ -100,6 +120,13 @@
         "height": 2,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -115,6 +142,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "In theatres never · swipe",
         "fontFamily": "Manrope",
@@ -139,6 +173,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "00:12:48:02",
         "fontFamily": "JetBrains Mono",
@@ -162,6 +203,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 330,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Scene 01",
         "fontFamily": "JetBrains Mono",
@@ -186,6 +234,13 @@
         "height": 452,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "zoom",
+            "delay": 510,
+            "duration": 650
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -214,6 +269,14 @@
           "x": 0,
           "y": 2
         },
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 690,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "I think we were happy here.",
         "fontFamily": "Manrope",
@@ -237,6 +300,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "00:21:48:03",
         "fontFamily": "JetBrains Mono",
@@ -260,6 +330,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 330,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Scene 02",
         "fontFamily": "JetBrains Mono",
@@ -284,6 +361,13 @@
         "height": 452,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "zoom",
+            "delay": 510,
+            "duration": 650
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -312,6 +396,14 @@
           "x": 0,
           "y": 2
         },
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 690,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "Don’t look at the camera.",
         "fontFamily": "Manrope",
@@ -335,6 +427,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "00:30:48:04",
         "fontFamily": "JetBrains Mono",
@@ -358,6 +457,13 @@
         "height": 25,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 330,
+            "duration": 600
+          }
+        },
         "type": "text",
         "text": "Scene 03",
         "fontFamily": "JetBrains Mono",
@@ -382,6 +488,13 @@
         "height": 452,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "zoom",
+            "delay": 510,
+            "duration": 650
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -410,6 +523,14 @@
           "x": 0,
           "y": 2
         },
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 690,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
         "type": "text",
         "text": "Some summers stay with you.",
         "fontFamily": "Manrope",
@@ -425,6 +546,10 @@
         "lineHeight": 1.1,
         "letterSpacing": 0
       }
-    ]
+    ],
+    "motion": {
+      "transition": "swipe",
+      "transitionDuration": 500
+    }
   }
 }

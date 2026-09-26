@@ -52,6 +52,7 @@ export function stripPhotos(doc: DesignDocument, options: { keep?: Set<string>; 
       turns: _turns,
       perspective: _perspective,
       layout: _layout,
+      video: _video,
       ...frame
     } = el;
     const slot: ImageElement = {

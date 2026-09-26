@@ -79,6 +79,7 @@ async function writeIndex() {
       height: t.doc.slideHeight,
       slides: t.doc.slides.length,
       photoSlots: t.doc.elements.filter(isPhotoSlot).length,
+      animated: t.doc.elements.some((el) => el.animation),
     });
   }
   const names = files.map((_, i) => `t${i}`);

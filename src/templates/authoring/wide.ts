@@ -6,6 +6,7 @@ export const wide = [
   defineTemplate(
     {
       id: 'versus',
+      animate: 'playful',
       name: 'Versus',
       format: 'thumbnail',
       sizeId: 'yt-thumbnail',
@@ -196,6 +197,7 @@ export const wide = [
   defineTemplate(
     {
       id: 'loud-hours',
+      animate: 'glitchy',
       name: 'Loud Hours',
       format: 'poster',
       sizeId: 'poster',

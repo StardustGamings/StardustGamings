@@ -4,8 +4,9 @@ import type { AssetMeta, AssetVariant } from '@/assets/types';
 import type { Folder, ProjectMeta, VersionRecord } from '@/types/project';
 import type { UserTemplate } from '@/templates/user';
 import { documentAssetIds } from '@/assets/repository';
-import { sha256Hex } from '@/assets/process-core';
-import { RASTER_MIME, sniffImageFormat } from '@/assets/sniff';
+import { RASTER_MIME, sniffImageFormat, sniffVideoFormat, VIDEO_MIME } from '@/assets/sniff';
+import { assetHash } from '@/assets/video';
+import { MAX_VIDEO_BYTES } from '@/assets/types';
 import { createZipBlob, type ZipBlobEntry } from '@/export/zip';
 import { fileStem } from '@/export/plan';
 import { documentSchema, formatSchema, sizeIdSchema } from '@/projects/schema';
@@ -44,6 +45,9 @@ const EXT: Record<string, string> = {
   'image/gif': 'gif',
   'image/avif': 'avif',
   'image/bmp': 'bmp',
+  'video/mp4': 'mp4',
+  'video/webm': 'webm',
+  'video/quicktime': 'mov',
 };
 
 export type ProjectFileKind = 'project' | 'backup';
@@ -106,7 +110,7 @@ const projectSchema = z.object({
 
 const assetSchema = z.object({
   id,
-  kind: z.enum(['photo', 'sticker', 'mask']),
+  kind: z.enum(['photo', 'sticker', 'mask', 'video']),
   name: z.string().max(200),
   width: z.number().int().min(1).max(20_000),
   height: z.number().int().min(1).max(20_000),
@@ -115,6 +119,7 @@ const assetSchema = z.object({
   createdAt: time,
   hasAlpha: z.boolean(),
   palette: z.array(z.string().max(32)).max(16),
+  duration: z.number().min(0).max(3600).optional(),
   files: z.object({ original: z.string().max(200), preview: z.string().max(200), thumb: z.string().max(200) }),
 });
 
@@ -324,6 +329,17 @@ async function readImage(zip: ZipReader, path: string): Promise<Blob | null> {
   }
 }
 
+/** Reads a video entry, checking it really is MP4 / MOV / WebM. */
+async function readVideo(zip: ZipReader, path: string): Promise<Blob | null> {
+  try {
+    const bytes = await zip.bytes(path, MAX_VIDEO_BYTES);
+    const format = sniffVideoFormat(bytes.subarray(0, 64));
+    return format ? new Blob([bytes], { type: VIDEO_MIME[format] }) : null;
+  } catch {
+    return null;
+  }
+}
+
 /** Imports a project file or backup. Nothing on this device is overwritten. */
 export async function importProjectFile(
   file: Blob,
@@ -376,14 +392,15 @@ export async function importProjectFile(
       }
       const blobs: Partial<Record<AssetVariant, Blob>> = {};
       for (const variant of VARIANTS) {
-        const blob = await readImage(zip, `assets/${assetId}/${meta.files[variant].split('/').pop()}`);
+        const path = `assets/${assetId}/${meta.files[variant].split('/').pop()}`;
+        const blob = meta.kind === 'video' && variant === 'original' ? await readVideo(zip, path) : await readImage(zip, path);
         if (blob) blobs[variant] = blob;
       }
       if (!blobs.original || !blobs.preview || !blobs.thumb) {
         report.skipped++;
         continue;
       }
-      const hash = await sha256Hex(await blobs.original.arrayBuffer());
+      const hash = await assetHash(blobs.original);
       const existing = (await storage.findAssetByHash(hash)).find((a) => a.kind === meta.kind);
       if (existing) {
         assetMap.set(assetId, existing.id);
@@ -406,6 +423,7 @@ export async function importProjectFile(
         hash,
         hasAlpha: meta.hasAlpha,
         palette: meta.palette.filter(isValidColor),
+        ...(meta.kind === 'video' && meta.duration !== undefined ? { duration: meta.duration } : {}),
       };
       await storage.putAsset(record, { original: blobs.original, preview: blobs.preview, thumb: blobs.thumb });
       assetMap.set(assetId, newId);

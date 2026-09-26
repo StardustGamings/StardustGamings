@@ -247,6 +247,8 @@ function ExportSection() {
               { value: 'jpg', label: 'JPG' },
               { value: 'webp', label: 'WebP' },
               { value: 'pdf', label: 'PDF' },
+              { value: 'mp4', label: 'MP4' },
+              { value: 'gif', label: 'GIF' },
             ]}
           />
         )}

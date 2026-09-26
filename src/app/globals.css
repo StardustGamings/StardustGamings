@@ -453,3 +453,154 @@
 [data-motion='reduced'] .anim-palette[data-state='closed'] {
   animation: overlay-out 120ms ease-in forwards;
 }
+
+/* ───────────────────────── Animate panel previews ─────────────────────────
+   Each preset tile plays its animation once on hover, keyboard focus or when picked
+   (the motion preference kill-switches above still apply). */
+.anim-tile:hover .anim-dot,
+.anim-tile:focus-visible .anim-dot,
+.anim-tile[aria-checked='true'] .anim-dot {
+  animation: var(--anim) 1.1s var(--ease-out-expo) both;
+}
+.anim-tile[data-loop]:hover .anim-dot,
+.anim-tile[data-loop]:focus-visible .anim-dot,
+.anim-tile[data-loop][aria-checked='true'] .anim-dot {
+  animation: var(--anim) 1.6s ease-in-out infinite alternate;
+}
+@keyframes sd-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sd-slide {
+  from {
+    opacity: 0;
+    transform: translateY(70%);
+  }
+}
+@keyframes sd-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.45);
+  }
+}
+@keyframes sd-bounce {
+  0% {
+    transform: translateY(-130%);
+  }
+  50% {
+    transform: none;
+  }
+  68% {
+    transform: translateY(-28%);
+  }
+  84% {
+    transform: none;
+  }
+  92% {
+    transform: translateY(-8%);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes sd-pop {
+  0% {
+    transform: scale(0);
+  }
+  65% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes sd-rotate {
+  from {
+    opacity: 0;
+    transform: rotate(-120deg) scale(0.7);
+  }
+}
+@keyframes sd-blur {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+@keyframes sd-typewriter {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes sd-glitch {
+  0% {
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+    transform: translateX(-22%);
+  }
+  22% {
+    opacity: 0.15;
+  }
+  34% {
+    opacity: 1;
+    transform: translateX(16%);
+  }
+  48% {
+    transform: translateX(-7%);
+  }
+  60% {
+    opacity: 0.5;
+    transform: none;
+  }
+  72%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sd-elastic {
+  0% {
+    transform: scale(0.3);
+  }
+  40% {
+    transform: scale(1.25, 0.85);
+  }
+  60% {
+    transform: scale(0.92, 1.08);
+  }
+  80% {
+    transform: scale(1.04, 0.97);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes sd-parallax {
+  from {
+    transform: translateX(28%);
+  }
+  to {
+    transform: translateX(-28%);
+  }
+}
+@keyframes sd-float {
+  from {
+    transform: translateY(18%);
+  }
+  to {
+    transform: translateY(-18%);
+  }
+}
+@keyframes sd-pulse {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}

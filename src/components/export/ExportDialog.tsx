@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertTriangle, Check, Download, Film, Share2, ShieldCheck, Sparkles } from 'lucide-react';
+import { AlertTriangle, Check, Clapperboard, Download, Film, Share2, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { DesignDocument } from '@/types/document';
@@ -18,11 +18,13 @@ import {
   type ExportOptions,
   type ExportQuality,
 } from '@/export/plan';
+import { canExportMp4, MAX_GIF_MS, motionFps, motionSize, type MotionFormat } from '@/export/motion-plan';
+import type { MotionResult } from '@/export/motion';
+import { isAnimated, planSequence } from '@/animations/sequence';
 import { getProject } from '@/projects/repository';
 import { useSettings } from '@/settings/store';
 import { useUi, type ExportRequest } from '@/settings/ui-store';
 import { photoSlots } from '@/templates/describe';
-import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Dialog } from '@/components/ui/Dialog';
 import { Segmented } from '@/components/ui/Segmented';
@@ -33,6 +35,10 @@ import { cn } from '@/utils/cn';
 import { downloadBlob } from '@/utils/download';
 
 type Scope = 'all' | 'one' | 'strip';
+type AnyFormat = ExportFormat | MotionFormat;
+const isMotion = (f: AnyFormat): f is MotionFormat => f === 'mp4' || f === 'gif';
+const ALL_LABELS: Record<AnyFormat, string> = { ...FORMAT_LABELS, mp4: 'MP4', gif: 'GIF' };
+const secs = (ms: number) => `${(ms / 1000).toFixed(1)} s`;
 
 function Label({ children }: { children: ReactNode }) {
   return <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{children}</p>;
@@ -99,13 +105,15 @@ function Body({
   const defaults = useSettings((s) => s.export);
   const updateExport = useSettings((s) => s.updateExport);
   const multi = doc.slides.length > 1;
-  const [format, setFormat] = useState<ExportFormat>(defaults.format);
+  const [format, setFormat] = useState<AnyFormat>(defaults.format);
   const [quality, setQuality] = useState<ExportQuality>(defaults.quality);
   const [scope, setScope] = useState<Scope>('all');
   const [slide, setSlide] = useState(Math.min(initialSlide, doc.slides.length - 1));
   const [transparent, setTransparent] = useState(false);
   const [separate, setSeparate] = useState(false);
   const [webp, setWebp] = useState(true);
+  const [mp4, setMp4] = useState<boolean | null>(null);
+  const [motionInfo, setMotionInfo] = useState<MotionResult | null>(null);
   const [phase, setPhase] = useState<'options' | 'working' | 'done'>('options');
   const [progress, setProgress] = useState<ExportProgress | null>(null);
   const [result, setResult] = useState<ExportResult | null>(null);
@@ -114,11 +122,19 @@ function Body({
 
   useEffect(() => {
     void canEncode('webp').then(setWebp);
+    void canExportMp4().then(setMp4);
   }, []);
   useEffect(() => () => abort.current?.abort(), []);
 
-  const effectiveFormat: ExportFormat = format === 'webp' && !webp ? 'png' : format;
-  const effectiveScope: Scope = scope === 'strip' && (effectiveFormat === 'pdf' || !multi) ? 'all' : scope;
+  const chosen: AnyFormat = format === 'webp' && !webp ? 'png' : format === 'mp4' && mp4 === false ? 'gif' : format;
+  const motion = isMotion(chosen);
+  // Stills keep planning with a still format while a motion format is picked (unused then).
+  const effectiveFormat: ExportFormat = motion ? 'png' : chosen;
+  const effectiveScope: Scope = scope === 'strip' && (chosen === 'pdf' || motion || !multi) ? 'all' : scope;
+  const motionSlides = effectiveScope === 'one' ? [slide] : undefined;
+  const sequence = useMemo(() => planSequence(doc, motionSlides), [doc, motionSlides?.[0]]); // eslint-disable-line react-hooks/exhaustive-deps
+  const motionPx = motion ? motionSize(doc, chosen, quality) : null;
+  const tooLongForGif = chosen === 'gif' && sequence.total > MAX_GIF_MS;
   const options = useMemo<ExportOptions>(
     () => ({
       format: effectiveFormat,
@@ -137,8 +153,9 @@ function Body({
   const items = useMemo(() => planExport(doc, meta.name, options), [doc, meta.name, options]);
   const emptyFrames = useMemo(() => photoSlots(doc).length, [doc]);
   const first = items[0];
-  const summary =
-    effectiveFormat === 'pdf'
+  const summary = motion
+    ? `${chosen === 'gif' ? '1 GIF' : '1 video'} · ${ALL_LABELS[chosen]} · ${secs(sequence.total)}`
+    : effectiveFormat === 'pdf'
       ? `${items.length} page${items.length === 1 ? '' : 's'} · PDF`
       : `${items.length} ${effectiveScope === 'strip' ? 'wide image' : `image${items.length === 1 ? '' : 's'}`} · ${FORMAT_LABELS[effectiveFormat]}${
           items.length > 1 ? (separate ? ' · separate files' : ' · ZIP') : ''
@@ -147,14 +164,31 @@ function Body({
   const start = async () => {
     setError(null);
     setPhase('working');
-    updateExport({ format: effectiveFormat, quality });
+    updateExport({ format: chosen, quality });
     const controller = new AbortController();
     abort.current = controller;
     try {
-      const out = await exportDesign({ doc, name: meta.name, sizeId: meta.sizeId }, options, {
-        signal: controller.signal,
-        onProgress: setProgress,
-      });
+      let out: ExportResult;
+      if (motion) {
+        // The encoders load only when a video is actually made.
+        const { exportMotion } = await import('@/export/motion');
+        const made = await exportMotion(
+          { doc, name: meta.name },
+          { format: chosen, quality, slides: motionSlides },
+          {
+            signal: controller.signal,
+            onProgress: setProgress,
+          },
+        );
+        setMotionInfo(made);
+        out = { files: [made.file], bundle: made.file, missing: 0, width: made.width, height: made.height };
+      } else {
+        setMotionInfo(null);
+        out = await exportDesign({ doc, name: meta.name, sizeId: meta.sizeId }, options, {
+          signal: controller.signal,
+          onProgress: setProgress,
+        });
+      }
       setResult(out);
       setPhase('done');
       // Where the system share sheet exists (phones), let people pick Save or Share; elsewhere just save.
@@ -216,16 +250,29 @@ function Body({
         <div className="flex flex-col items-center gap-3 py-2 text-center" data-testid="export-done">
           <Celebration />
           <p className="text-xl font-extrabold">
-            {effectiveScope === 'strip'
-              ? 'Your carousel is ready'
-              : items.length > 1
-                ? 'Your slides are ready'
-                : 'Your design is ready'}
+            {motionInfo
+              ? chosen === 'gif'
+                ? 'Your GIF is ready'
+                : 'Your video is ready'
+              : effectiveScope === 'strip'
+                ? 'Your carousel is ready'
+                : items.length > 1
+                  ? 'Your slides are ready'
+                  : 'Your design is ready'}
           </p>
           <p className="text-[13px] text-fg-muted">
             {result.bundle ? result.bundle.name : `${result.files.length} files`} · {formatBytes(size)} · {result.width} ×{' '}
-            {result.height} px
+            {result.height} px{motionInfo && ` · ${secs(motionInfo.duration)}`}
           </p>
+          {motionInfo?.codec && (
+            <p className="text-[12px] text-fg-muted" data-testid="export-codec">
+              {motionInfo.codec}
+              {motionInfo.audio === 'included' ? ' · with sound' : motionInfo.audio === 'unsupported' ? ' · silent' : ''}
+              {motionInfo.codec !== 'H.264' &&
+                ' — plays in browsers and most apps. For Instagram or TikTok, export from Chrome, Edge or Safari to get H.264.'}
+              {motionInfo.audio === 'unsupported' && ' This browser can’t encode the sound, so the video is silent.'}
+            </p>
+          )}
           <p className="flex items-center gap-1.5 text-[12px] text-fg-subtle">
             <ShieldCheck className="size-3.5 text-success" /> Made on this device. No watermark, ever.
           </p>
@@ -264,6 +311,7 @@ function Body({
               variant="primary"
               icon={<Download className="size-4" />}
               onClick={() => void start()}
+              disabled={tooLongForGif}
               data-testid="export-start"
             >
               Export {summary.split(' · ')[0]}
@@ -293,42 +341,54 @@ function Body({
           <div>
             <Label>File type</Label>
             <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="File type">
-              {(['png', 'jpg', 'webp', 'pdf'] as const).map((f) => {
-                const disabled = f === 'webp' && !webp;
+              {(['png', 'jpg', 'webp', 'pdf', 'mp4', 'gif'] as const).map((f) => {
+                const disabled = (f === 'webp' && !webp) || (f === 'mp4' && mp4 === false);
                 return (
                   <button
                     key={f}
                     type="button"
                     role="radio"
-                    aria-checked={effectiveFormat === f}
+                    aria-checked={chosen === f}
                     disabled={disabled}
-                    title={disabled ? 'This browser can’t save WebP files' : undefined}
+                    title={
+                      f === 'webp' && disabled
+                        ? 'This browser can’t save WebP files'
+                        : f === 'mp4' && disabled
+                          ? 'This browser can’t make MP4 videos — try Chrome, Edge or Safari'
+                          : undefined
+                    }
                     onClick={() => setFormat(f)}
                     className={cn(
-                      'h-9 min-w-16 rounded-[12px] border px-3 text-[13px] font-bold transition-colors disabled:opacity-40',
-                      effectiveFormat === f ? 'border-transparent bg-fg text-bg' : 'border-line hover:border-line-strong',
+                      'flex h-9 min-w-16 items-center justify-center gap-1.5 rounded-[12px] border px-3 text-[13px] font-bold transition-colors disabled:opacity-40',
+                      chosen === f ? 'border-transparent bg-fg text-bg' : 'border-line hover:border-line-strong',
                     )}
                   >
-                    {FORMAT_LABELS[f]}
+                    {f === 'mp4' && <Film className="size-4" />}
+                    {f === 'gif' && <Clapperboard className="size-4" />}
+                    {ALL_LABELS[f]}
                   </button>
                 );
               })}
-              <span
-                className="flex h-9 items-center gap-1.5 rounded-[12px] border border-dashed border-line px-3 text-[13px] font-bold text-fg-subtle"
-                title="Video export arrives with animations"
-              >
-                <Film className="size-4" /> MP4 <Badge tone="soon">Soon</Badge>
-              </span>
             </div>
             <p className="mt-1.5 text-[11.5px] text-fg-subtle">
-              {effectiveFormat === 'png'
+              {chosen === 'png'
                 ? 'Lossless — sharpest text and graphics.'
-                : effectiveFormat === 'jpg'
+                : chosen === 'jpg'
                   ? 'Smallest files for photo-heavy designs.'
-                  : effectiveFormat === 'webp'
+                  : chosen === 'webp'
                     ? 'Small files, great quality, transparency supported.'
-                    : 'One page per slide — easy to send or print.'}
+                    : chosen === 'pdf'
+                      ? 'One page per slide — easy to send or print.'
+                      : chosen === 'mp4'
+                        ? 'A video of your design: slides in order with their animations, clips and transitions — ready for Reels, TikTok and Stories.'
+                        : 'A looping GIF of your design (no sound, up to 30 s) — for chats, sites and stickers.'}
             </p>
+            {motion && !isAnimated(doc) && (
+              <p className="mt-1.5 flex items-start gap-1.5 text-[11.5px] text-fg-muted">
+                <Sparkles className="mt-px size-3.5 shrink-0 text-accent-text" />
+                Nothing moves yet — add animations in the Animate panel (or it plays as a still).
+              </p>
+            )}
           </div>
 
           {multi && (
@@ -340,9 +400,12 @@ function Body({
                 value={effectiveScope}
                 onChange={setScope}
                 options={[
-                  { value: 'all', label: `All ${doc.slides.length} slides` },
+                  {
+                    value: 'all',
+                    label: motion ? `All ${doc.slides.length} slides, in order` : `All ${doc.slides.length} slides`,
+                  },
                   { value: 'one', label: 'One slide' },
-                  ...(effectiveFormat === 'pdf' ? [] : [{ value: 'strip' as const, label: 'Full carousel' }]),
+                  ...(chosen === 'pdf' || motion ? [] : [{ value: 'strip' as const, label: 'Full carousel' }]),
                 ]}
               />
               {effectiveScope === 'one' && (
@@ -385,14 +448,21 @@ function Body({
               onChange={setQuality}
               options={(Object.keys(QUALITY) as ExportQuality[]).map((q) => ({ value: q, label: QUALITY[q].label }))}
             />
-            <p className="mt-1.5 text-[11.5px] text-fg-subtle">
-              {QUALITY[quality].hint}
-              {first && ` — ${first.width} × ${first.height} px`}.
+            <p className="mt-1.5 text-[11.5px] text-fg-subtle" data-testid="quality-hint">
+              {motionPx
+                ? `${motionPx.width} × ${motionPx.height} px · ${motionFps(chosen as MotionFormat, quality)} fps · ${secs(sequence.total)}`
+                : `${QUALITY[quality].hint}${first ? ` — ${first.width} × ${first.height} px` : ''}`}
+              .
             </p>
+            {tooLongForGif && (
+              <p className="mt-1.5 text-[11.5px] text-warning" role="alert">
+                GIFs are limited to 30 seconds — pick one slide, shorten slides, or export an MP4.
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-3">
-            {supportsTransparency(effectiveFormat) && (
+            {!motion && supportsTransparency(effectiveFormat) && (
               <label className="flex items-center justify-between gap-3 text-[13.5px]">
                 <span>
                   <span className="font-semibold">Transparent background</span>
@@ -403,7 +473,7 @@ function Body({
                 <Switch checked={transparent} onCheckedChange={setTransparent} aria-label="Transparent background" />
               </label>
             )}
-            {effectiveFormat !== 'pdf' && items.length > 1 && (
+            {!motion && effectiveFormat !== 'pdf' && items.length > 1 && (
               <label className="flex items-center justify-between gap-3 text-[13.5px]">
                 <span>
                   <span className="font-semibold">Separate files</span>

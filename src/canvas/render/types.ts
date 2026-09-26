@@ -29,5 +29,7 @@ export interface ResolvedImage {
  * Supplies the pixels for an image element. `pixelScale` is device pixels per
  * design unit, so resolvers can pick an appropriate resolution.
  * Returns `undefined` while loading and `null` if the photo is missing.
+ * `time` is ms into the element's slide when motion is being played (videos
+ * then show the matching frame); omitted for the resting design.
  */
-export type ImageResolver = (el: ImageElement, pixelScale: number) => ResolvedImage | null | undefined;
+export type ImageResolver = (el: ImageElement, pixelScale: number, time?: number) => ResolvedImage | null | undefined;

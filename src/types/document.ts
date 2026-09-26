@@ -8,6 +8,8 @@
  * feature instead of a special case. Single-page formats simply have one slide.
  */
 
+import type { DesignMotion, ElementAnimation, VideoClip } from './animation';
+
 export type Id = string;
 
 export interface GradientStop {
@@ -52,6 +54,8 @@ interface ElementBase {
   groupId?: Id;
   /** Membership in a generated layout (collage / seamless panorama) that can be re-generated. */
   layout?: LayoutMembership;
+  /** Entrance, exit and loop motion (videos and GIFs; stills show the resting state). */
+  animation?: ElementAnimation;
 }
 
 export interface LayoutMembership {
@@ -217,6 +221,8 @@ export interface ImageElement extends ElementBase {
   cornerRadius?: number;
   stroke?: Stroke;
   placeholder?: { label?: string; fill: Fill };
+  /** Set when the frame holds a video clip (its asset is a video). */
+  video?: VideoClip;
 }
 
 export interface StickerElement extends ElementBase {
@@ -268,6 +274,8 @@ export interface Slide {
   id: Id;
   /** `null` lets the strip-wide background show through. */
   fill: Fill | null;
+  /** How long the slide plays in a video, ms (default 3000). */
+  duration?: number;
 }
 
 export interface DesignDocument {
@@ -283,6 +291,8 @@ export interface DesignDocument {
   guides?: Guide[];
   /** Generated layouts that can be shuffled or restyled later. */
   layouts?: LayoutSpec[];
+  /** Transitions between slides in videos (defaults to a swipe). */
+  motion?: DesignMotion;
 }
 
 export interface Guide {

@@ -49,7 +49,7 @@ export function sanitizeSettings(input: unknown): Settings {
       showSafeArea: bool(editor.showSafeArea, d.editor.showSafeArea),
     },
     export: {
-      format: ['png', 'jpg', 'webp', 'pdf'].includes(exp.format as string) ? exp.format! : d.export.format,
+      format: ['png', 'jpg', 'webp', 'pdf', 'mp4', 'gif'].includes(exp.format as string) ? exp.format! : d.export.format,
       quality: ['standard', 'high', 'max'].includes(exp.quality as string) ? exp.quality! : d.export.quality,
     },
     privacy: { cloudFeatures: bool(privacy.cloudFeatures, d.privacy.cloudFeatures) },

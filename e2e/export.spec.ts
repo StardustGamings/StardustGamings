@@ -91,11 +91,13 @@ const blue = (p: number[]) => p[2]! > p[0]! + 60;
 test.describe('export (desktop)', () => {
   test.skip(({ isMobile }) => isMobile, 'Phones are covered below');
 
-  test('one slide as PNG, JPG and WebP — right size, remembered, MP4 honestly marked “Soon”', async ({ app: page }) => {
+  test('one slide as PNG, JPG and WebP — right size, remembered; MP4 and GIF offered', async ({ app: page }) => {
     await createCarousel(page, 3);
     let dialog = await openExport(page);
-    await expect(dialog.getByText('Soon')).toBeVisible();
-    await expect(dialog.getByRole('radio', { name: /MP4/ })).toHaveCount(0);
+    // Motion formats are real now (Phase 9), not "Soon".
+    await expect(dialog.getByRole('radio', { name: 'MP4' })).toBeVisible();
+    await expect(dialog.getByRole('radio', { name: 'GIF' })).toBeVisible();
+    await expect(dialog.getByText('Soon')).toHaveCount(0);
 
     await pick(dialog, 'PNG', 'Standard', 'One slide', 'Slide 2');
     await expect(dialog.getByTestId('export-start')).toHaveText(/Export 1 image/);

@@ -244,6 +244,8 @@ interface Program {
 
 export interface DevelopInput {
   source: DrawableImage;
+  /** The source changes in place (a video frame): upload it fresh instead of caching the texture. */
+  dynamic?: boolean;
   width: number;
   height: number;
   params: PixelParams;
@@ -502,7 +504,11 @@ export class GlProcessor {
     const held: Target[] = [];
 
     try {
-      let base = this.imageTexture(input.source);
+      let base: WebGLTexture;
+      if (input.dynamic) {
+        base = this.transientTexture(input.source);
+        transient.push(base);
+      } else base = this.imageTexture(input.source);
 
       if (input.warp) {
         const t = this.target(width, height, held);

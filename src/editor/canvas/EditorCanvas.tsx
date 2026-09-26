@@ -34,6 +34,7 @@ import { SHAPE_PRESETS, TEXT_PRESETS } from '../core/factory';
 import { getElements } from '../core/ops';
 import { screenToDoc, useCamera } from '../camera';
 import { selectDoc, useEditor } from '../store';
+import { usePlayback } from '../playback';
 import { Overlay, Readout } from './Overlay';
 import { Rulers } from './Rulers';
 import { TextEditor } from './TextEditor';
@@ -134,7 +135,7 @@ export function EditorCanvas() {
       if (item.kind === 'photo') {
         const meta = useAssets.getState().assets.find((a) => a.id === item.assetId);
         if (!meta) return;
-        if (target && meta.kind === 'photo') fillFrame(target.id, meta);
+        if (target && (meta.kind === 'photo' || meta.kind === 'video')) fillFrame(target.id, meta);
         else placePhotos([meta], at);
       }
       if (item.kind === 'frame') {
@@ -174,6 +175,10 @@ export function EditorCanvas() {
           data-testid="canvas-viewport"
           data-tool={tool}
           className="relative size-full touch-none overflow-hidden bg-canvas [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:22px_22px] outline-none select-none"
+          onPointerDownCapture={() => {
+            // Touching the canvas ends a motion preview: back to editing the resting design.
+            if (usePlayback.getState().slide !== null) usePlayback.getState().stop();
+          }}
           onPointerDown={handlers.onPointerDown}
           onPointerMove={handlers.onPointerMove}
           onPointerUp={handlers.onPointerUp}

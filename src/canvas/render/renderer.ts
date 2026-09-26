@@ -8,6 +8,8 @@ import { createFillStyle, fillPrimaryColor } from './fill';
 import { roundRectPath, traceClip, traceShape } from './shapes';
 import { drawText } from './text';
 import type { Ctx2D, ImageResolver, Rect, ResolvedImage } from './types';
+import { noise, poseAt, REST, type Pose } from '@/animations/engine';
+import { homeSlide, slideDuration } from '@/animations/sequence';
 
 export interface RenderOptions {
   /** Area of the strip to draw, in design units. Defaults to the whole strip. */
@@ -19,6 +21,11 @@ export interface RenderOptions {
   placeholders?: boolean;
   /** Elements to leave out (e.g. the text box being edited in place). */
   skip?: ReadonlySet<string>;
+  /**
+   * Motion: ms into each slide, by slide index (see src/animations). Omitted, or
+   * `undefined` for a slide, draws the resting design — what stills export.
+   */
+  time?: (slide: number) => number | undefined;
 }
 
 export const EMOJI_FONT = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif';
@@ -192,11 +199,18 @@ function drawAsLayer(ctx: Ctx2D, el: ImageElement, img: ResolvedImage, pixelScal
   return true;
 }
 
-function drawImage(ctx: Ctx2D, el: ImageElement, opts: RenderOptions, pixelScale: number, applyShadow: () => void): void {
+function drawImage(
+  ctx: Ctx2D,
+  el: ImageElement,
+  opts: RenderOptions,
+  pixelScale: number,
+  applyShadow: () => void,
+  time: number | undefined,
+): void {
   const { width: w, height: h } = el;
   const radius = el.cornerRadius ?? 0;
   const clip = el.clip ?? 'rect';
-  const resolved = el.assetId ? opts.images?.(el, pixelScale) : null;
+  const resolved = el.assetId ? opts.images?.(el, pixelScale, time) : null;
 
   if (resolved && resolved.width > 0 && resolved.height > 0) {
     const transparent = resolved.alpha || el.fit === 'contain';
@@ -274,12 +288,27 @@ function drawSticker(ctx: Ctx2D, el: StickerElement): void {
   }
 }
 
-function drawElement(ctx: Ctx2D, el: DesignElement, opts: RenderOptions, pixelScale: number): void {
+function drawElement(
+  ctx: Ctx2D,
+  el: DesignElement,
+  opts: RenderOptions,
+  pixelScale: number,
+  pose: Pose = REST,
+  time?: number,
+): void {
   ctx.save();
-  ctx.globalAlpha *= el.opacity;
-  ctx.translate(el.x + el.width / 2, el.y + el.height / 2);
-  if (el.rotation) ctx.rotate(degToRad(el.rotation));
+  ctx.globalAlpha *= el.opacity * pose.opacity;
+  ctx.translate(el.x + el.width / 2 + pose.dx, el.y + el.height / 2 + pose.dy);
+  if (el.rotation || pose.rotate) ctx.rotate(degToRad(el.rotation + pose.rotate));
+  if (pose.scale !== 1 || pose.scaleX !== 1) ctx.scale(pose.scale * pose.scaleX, pose.scale);
   ctx.translate(-el.width / 2, -el.height / 2);
+  if (pose.blur > 0 && 'filter' in ctx) ctx.filter = `blur(${(pose.blur * pixelScale * pose.scale).toFixed(2)}px)`;
+  // Wipe-in for everything that isn't text (text types itself out instead).
+  if (pose.reveal < 1 && el.type !== 'text') {
+    ctx.beginPath();
+    ctx.rect(0, -el.height, el.width * Math.max(0, pose.reveal), el.height * 3);
+    ctx.clip();
+  }
 
   // Canvas shadows ignore the transform, so they're scaled to device pixels here.
   const applyShadow = () => {
@@ -293,22 +322,50 @@ function drawElement(ctx: Ctx2D, el: DesignElement, opts: RenderOptions, pixelSc
     ctx.shadowColor = 'transparent';
   };
 
-  switch (el.type) {
-    case 'text':
-      drawText(ctx, el, applyShadow, clearShadow);
-      break;
-    case 'shape':
-      applyShadow();
-      drawShape(ctx, el);
-      break;
-    case 'image':
-      drawImage(ctx, el, opts, pixelScale, applyShadow);
-      break;
-    case 'sticker':
-      applyShadow();
-      drawSticker(ctx, el);
-      break;
+  const body = () => {
+    switch (el.type) {
+      case 'text':
+        drawText(ctx, el, applyShadow, clearShadow, pose.reveal);
+        break;
+      case 'shape':
+        applyShadow();
+        drawShape(ctx, el);
+        break;
+      case 'image':
+        drawImage(ctx, el, opts, pixelScale, applyShadow, time);
+        break;
+      case 'sticker':
+        applyShadow();
+        drawSticker(ctx, el);
+        break;
+    }
+  };
+
+  if (pose.glitch > 0) drawGlitched(ctx, el, pose, body);
+  else body();
+  ctx.restore();
+}
+
+/** Digital glitch: horizontal bands knocked sideways, plus a faint offset ghost. */
+function drawGlitched(ctx: Ctx2D, el: DesignElement, pose: Pose, body: () => void): void {
+  const bands = 7;
+  const reach = el.width * 0.16 * pose.glitch;
+  for (let b = 0; b < bands; b++) {
+    const y = (b / bands) * el.height;
+    const shift = noise(pose.seed * 13 + b) > 0.45 ? (noise(pose.seed * 7 + b * 3) - 0.5) * 2 * reach : 0;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(-el.width, y, el.width * 3, el.height / bands + 0.5);
+    ctx.clip();
+    ctx.translate(shift, 0);
+    body();
+    ctx.restore();
   }
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.globalAlpha *= 0.3 * pose.glitch;
+  ctx.translate(reach * 0.25, 0);
+  body();
   ctx.restore();
 }
 
@@ -342,8 +399,19 @@ export function renderDocument(ctx: Ctx2D, doc: DesignDocument, opts: RenderOpti
 
   for (const el of doc.elements) {
     if (el.hidden || el.opacity <= 0 || opts.skip?.has(el.id)) continue;
-    if (!intersects(elementBounds(el), region)) continue;
-    drawElement(ctx, el, opts, pixelScale);
+    let pose: Pose | null = REST;
+    let t: number | undefined;
+    if (opts.time) {
+      const home = homeSlide(doc, el);
+      t = opts.time(home);
+      if (t !== undefined) {
+        pose = poseAt(el, t, { width: doc.slideWidth, height: doc.slideHeight, duration: slideDuration(doc, home) });
+      }
+    }
+    if (!pose) continue;
+    // Moving elements may travel in from outside the region, so only resting ones are culled.
+    if (pose === REST && !intersects(elementBounds(el), region)) continue;
+    drawElement(ctx, el, opts, pixelScale, pose, t);
   }
   ctx.restore();
 }

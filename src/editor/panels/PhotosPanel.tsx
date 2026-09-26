@@ -1,6 +1,6 @@
 'use client';
 
-import { ImagePlus, ShieldCheck, Trash2 } from 'lucide-react';
+import { Film, ImagePlus, ShieldCheck, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import type { ImageClip } from '@/types/document';
 import type { AssetKind, AssetMeta } from '@/assets/types';
@@ -103,6 +103,12 @@ function AssetTile({
           <span className="block size-full animate-pulse bg-surface-active" />
         )}
       </button>
+      {asset.kind === 'video' && (
+        <span className="pointer-events-none absolute right-1.5 bottom-1.5 flex items-center gap-0.5 rounded-full bg-ink/75 px-1.5 py-0.5 text-[10px] font-bold text-white">
+          <Film className="size-3" aria-hidden />
+          {Math.round(asset.duration ?? 0)}s
+        </span>
+      )}
       {used && (
         <span
           className="pointer-events-none absolute bottom-1.5 left-1.5 size-2 rounded-full bg-accent ring-2 ring-bg"
@@ -149,13 +155,15 @@ export function AssetLibrary({ kind, emptyText }: { kind: Exclude<AssetKind, 'ma
   useEffect(() => {
     void load();
   }, [load]);
-  const assets = useMemo(() => all.filter((a) => a.kind === kind), [all, kind]);
+  // Videos live in the photo library too.
+  const assets = useMemo(() => all.filter((a) => a.kind === kind || (kind === 'photo' && a.kind === 'video')), [all, kind]);
   const inDoc = useMemo(() => (doc ? documentAssetIds(doc) : new Set<string>()), [doc]);
 
   const add = (asset: AssetMeta) => {
     const target = selectedImage();
     // Tapping a photo while an empty frame is selected fills that frame.
-    if (target && !target.assetId && !target.locked && asset.kind === 'photo') fillFrame(target.id, asset);
+    if (target && !target.assetId && !target.locked && (asset.kind === 'photo' || asset.kind === 'video'))
+      fillFrame(target.id, asset);
     else placePhotos([asset]);
   };
 
@@ -205,13 +213,17 @@ export function PhotosPanel() {
         <Button variant="primary" block icon={<ImagePlus className="size-4" />} onClick={() => openPhotoPicker()}>
           Add photos
         </Button>
+        <Button block icon={<Film className="size-4" />} onClick={() => openPhotoPicker()} data-testid="add-video">
+          Add a video
+        </Button>
         <p className="flex items-start gap-1.5 text-[11.5px] leading-snug text-fg-subtle">
           <ShieldCheck className="mt-px size-3.5 shrink-0 text-success" />
-          Photos stay on this device. Drop files anywhere on the canvas, or paste with {'⌘/Ctrl'} V.
+          Photos and videos (MP4, WebM or MOV, up to 2 minutes) stay on this device. Drop files anywhere on the canvas, or paste
+          with {'⌘/Ctrl'} V.
         </p>
         {importing > 0 && (
           <p role="status" className="flex items-center gap-2 text-[12.5px] font-semibold text-fg-muted">
-            <Spinner className="size-4 text-accent-text" label="" /> Adding {importing} photo{importing === 1 ? '' : 's'}…
+            <Spinner className="size-4 text-accent-text" label="" /> Adding {importing} file{importing === 1 ? '' : 's'}…
           </p>
         )}
       </div>
@@ -234,7 +246,7 @@ export function PhotosPanel() {
         ))}
       </div>
 
-      <h3 className="px-4 pt-1 pb-3 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Your photos</h3>
+      <h3 className="px-4 pt-1 pb-3 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Your photos & videos</h3>
       <AssetLibrary kind="photo" emptyText="No photos yet. Add some from your device — they never leave it." />
     </div>
   );

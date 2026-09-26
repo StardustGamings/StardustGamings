@@ -7,6 +7,7 @@ import { subscribeAssets } from '@/assets/cache';
 import { resolveImage } from '@/images/resolver';
 import { useCamera } from '../camera';
 import { selectDoc, useEditor } from '../store';
+import { usePlayback } from '../playback';
 
 /**
  * Draws the visible part of the document into a single viewport-sized canvas.
@@ -58,11 +59,14 @@ export function useSceneRenderer(canvasRef: React.RefObject<HTMLCanvasElement | 
       if (x1 <= x0 || y1 <= y0) return;
       const region = { x: x0, y: y0, width: x1 - x0, height: y1 - y0 };
       ctx.translate((region.x - cam.x) * cam.zoom, (region.y - cam.y) * cam.zoom);
+      const playback = usePlayback.getState();
+      const previewing = playback.slide;
       renderDocument(ctx, doc, {
         region,
         scale: cam.zoom,
         images: resolveImage,
         skip: editing ? new Set([editing]) : undefined,
+        time: previewing === null ? undefined : (slide) => (slide === previewing ? playback.time : undefined),
       });
       // Crop mode: the whole photo, ghosted, on top of everything (it may extend past the slide).
       if (croppingId) {
@@ -90,6 +94,7 @@ export function useSceneRenderer(canvasRef: React.RefObject<HTMLCanvasElement | 
       }
     });
     const unsubCamera = useCamera.subscribe(schedule);
+    const unsubPlayback = usePlayback.subscribe(schedule);
     const unsubAssets = subscribeAssets(schedule);
     if (lastDoc) void ensureDocumentFonts(lastDoc).then((changed) => changed && schedule());
     schedule();
@@ -97,6 +102,7 @@ export function useSceneRenderer(canvasRef: React.RefObject<HTMLCanvasElement | 
     return () => {
       unsubEditor();
       unsubCamera();
+      unsubPlayback();
       unsubAssets();
       if (frame.current) cancelAnimationFrame(frame.current);
     };

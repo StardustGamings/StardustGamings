@@ -10,7 +10,8 @@
     "comparison",
     "youtube",
     "challenge",
-    "bold"
+    "bold",
+    "animated"
   ],
   "palette": [
     "#FF3B3B",
@@ -30,7 +31,8 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3250
       }
     ],
     "elements": [
@@ -57,6 +59,13 @@
         "height": 520,
         "rotation": -3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 270,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -80,6 +89,13 @@
         "height": 520,
         "rotation": 3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 420,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -103,6 +119,13 @@
         "height": 147,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "$10 vs $100",
         "fontFamily": "Anton",
@@ -131,6 +154,13 @@
         "height": 200,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
         "type": "shape",
         "shape": "ellipse",
         "fill": {
@@ -150,6 +180,14 @@
         "height": 200,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 720,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "VS",
         "fontFamily": "Anton",
@@ -165,6 +203,10 @@
         "lineHeight": 1.1,
         "letterSpacing": 0
       }
-    ]
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
   }
 }

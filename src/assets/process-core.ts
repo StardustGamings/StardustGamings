@@ -44,7 +44,8 @@ export const domFactory: CanvasFactory = {
     }),
 };
 
-export type ImportErrorCode = 'unsupported' | 'heic' | 'too-large' | 'decode' | 'empty' | 'storage';
+export type ImportErrorCode =
+  'unsupported' | 'heic' | 'too-large' | 'decode' | 'empty' | 'storage' | 'video-too-long' | 'video-unplayable';
 
 export class ImportError extends Error {
   constructor(readonly code: ImportErrorCode) {

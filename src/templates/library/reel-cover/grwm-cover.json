@@ -10,7 +10,8 @@
     "beauty",
     "reels",
     "soft",
-    "pink"
+    "pink",
+    "animated"
   ],
   "palette": [
     "#F7D9E3",
@@ -29,7 +30,8 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3250
       }
     ],
     "elements": [
@@ -41,6 +43,13 @@
         "height": 900,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 420,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -64,6 +73,13 @@
         "height": 180,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "GRWM",
         "fontFamily": "Syne",
@@ -87,6 +103,14 @@
         "height": 118,
         "rotation": -3,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 720,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "for a first date",
         "fontFamily": "Caveat",
@@ -110,6 +134,14 @@
         "height": 150,
         "rotation": 14,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:heart",
         "tint": "#8C2F5A"
@@ -122,10 +154,22 @@
         "height": 120,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:sparkle",
         "tint": "#FFFFFF"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
   }
 }

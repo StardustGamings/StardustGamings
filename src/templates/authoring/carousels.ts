@@ -6,6 +6,7 @@ export const carousels = [
   defineTemplate(
     {
       id: 'magazine-issue',
+      animate: 'smooth',
       name: 'The Issue',
       format: 'carousel',
       sizeId: 'ig-portrait',
@@ -187,6 +188,7 @@ export const carousels = [
   defineTemplate(
     {
       id: 'five-tips',
+      animate: 'playful',
       name: 'Five Tips',
       format: 'carousel',
       sizeId: 'ig-portrait',
@@ -357,6 +359,7 @@ export const carousels = [
   defineTemplate(
     {
       id: 'cinema-frames',
+      animate: 'smooth',
       name: 'Cinema Frames',
       format: 'carousel',
       sizeId: 'ig-portrait',
@@ -508,6 +511,7 @@ export const carousels = [
   defineTemplate(
     {
       id: 'sticker-board',
+      animate: 'playful',
       name: 'Sticker Board',
       format: 'carousel',
       sizeId: 'ig-portrait',
@@ -1017,6 +1021,7 @@ export const carousels = [
   defineTemplate(
     {
       id: 'main-character',
+      animate: 'glitchy',
       name: 'Main Character',
       format: 'carousel',
       sizeId: 'ig-portrait',
@@ -1107,6 +1112,7 @@ export const carousels = [
   defineTemplate(
     {
       id: 'y2k-era',
+      animate: 'glitchy',
       name: 'Y2K Era',
       format: 'carousel',
       sizeId: 'ig-portrait',

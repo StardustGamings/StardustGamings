@@ -10,7 +10,8 @@
     "launch",
     "product",
     "sale",
-    "bold"
+    "bold",
+    "animated"
   ],
   "palette": [
     "#1B1B1F",
@@ -29,7 +30,8 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 3250
       }
     ],
     "elements": [
@@ -41,6 +43,13 @@
         "height": 534,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
         "type": "text",
         "text": "New\ndrop",
         "fontFamily": "Anton",
@@ -65,6 +74,13 @@
         "height": 680,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 270,
+            "duration": 1000
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -84,6 +100,14 @@
         "height": 320,
         "rotation": -10,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "sticker",
         "stickerId": "vector:burst",
         "tint": "#FF5DA2"
@@ -96,6 +120,14 @@
         "height": 320,
         "rotation": -10,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "09.26",
         "fontFamily": "Anton",
@@ -119,6 +151,14 @@
         "height": 37,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 720,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
         "type": "text",
         "text": "Link in bio",
         "fontFamily": "Manrope",
@@ -143,6 +183,10 @@
           "radius": 30
         }
       }
-    ]
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
   }
 }

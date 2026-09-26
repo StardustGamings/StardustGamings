@@ -301,6 +301,24 @@ export function developImage(
 }
 
 /**
+ * Looks and adjustments on a video frame (live preview). GPU only — per-frame
+ * CPU processing can't keep up, so without WebGL the frame shows unfiltered.
+ */
+export function developFrame(el: ImageElement, frame: DrawableImage, width: number, height: number): DrawableImage | null {
+  if (typeof document === 'undefined') return null;
+  const gl = glProcessor();
+  if (!gl) return null;
+  const input = gpuInput(el, { image: frame } as LoadedAsset, null, null);
+  const out = gl.develop({ ...input, source: frame, width, height, dynamic: true, cutout: null });
+  if (!out) return null;
+  const s = writeSlot(`${el.id}|video`, `frame${++clock}`, false, (ctx) => ctx.drawImage(out, 0, 0), out.width, out.height);
+  return s.canvas;
+}
+
+/** Whether looks and adjustments can run on video frames here. */
+export const canDevelopVideo = () => typeof document !== 'undefined' && glProcessor() !== null;
+
+/**
  * Developed pixels for an export: full quality, never from the editor's cache,
  * awaited even on the CPU path. The caller owns (and should free) the canvas.
  */

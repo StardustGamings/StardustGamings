@@ -35,6 +35,7 @@ import {
 } from '../photo-actions';
 import { CurveEditor } from './CurveEditor';
 import { EffectsSection, FiltersSection } from './FilterSections';
+import { VideoSection } from './VideoSection';
 import { ActionButton, FillField, IconToggle, NumberField, Row, Section } from './fields';
 import { ClipGlyph } from './PhotosPanel';
 import { updateSelection } from './useSelection';
@@ -132,8 +133,9 @@ function PhotoSection({ el }: { el: ImageElement }) {
       </Section>
     );
   }
+  const kind = el.video ? 'video' : 'photo';
   return (
-    <Section title="Photo">
+    <Section title={el.video ? 'Video' : 'Photo'}>
       <div className="flex items-center gap-3">
         <div className={cn('size-14 shrink-0 overflow-hidden rounded-[10px] border border-line', 'checkerboard')}>
           {/* eslint-disable-next-line @next/next/no-img-element -- local blob URL */}
@@ -152,7 +154,7 @@ function PhotoSection({ el }: { el: ImageElement }) {
             onClick={() => openPhotoPicker({ targetId: el.id, single: true })}
             className="h-8 rounded-[10px] border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
           >
-            Replace photo
+            Replace {kind}
           </button>
         </div>
       </div>
@@ -346,6 +348,7 @@ export function ImageSections({ el, cutout }: { el: ImageElement; cutout?: React
   return (
     <>
       <PhotoSection el={el} />
+      {el.video && el.assetId && <VideoSection el={el} />}
       <FrameSection el={el} />
       {el.assetId && (
         <>
@@ -354,7 +357,8 @@ export function ImageSections({ el, cutout }: { el: ImageElement; cutout?: React
           <EffectsSection el={el} />
           <CurvesSection el={el} />
           <PerspectiveSection el={el} />
-          {cutout}
+          {/* Background removal works on stills only. */}
+          {!el.video && cutout}
         </>
       )}
     </>

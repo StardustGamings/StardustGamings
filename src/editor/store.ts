@@ -7,6 +7,7 @@ import * as repo from '@/projects/repository';
 import { useProjects } from '@/projects/store';
 import { renderThumbnail } from '@/canvas/thumbnail';
 import { clearDevelopCache } from '@/images/develop';
+import { releaseAllPlayers } from '@/assets/video';
 import { clamp } from '@/utils/math';
 import { createHistory, HISTORY_LIMIT, pushHistory, redoHistory, undoHistory, type History } from './history';
 import { afterSave, endVersionSession, startVersionSession } from './versioning';
@@ -20,7 +21,17 @@ export type SaveError = 'quota' | 'failed';
 export type Conflict = 'changed' | 'trashed';
 export type Tool = 'select' | 'text' | 'hand';
 export type PanelId =
-  'templates' | 'design' | 'text' | 'shapes' | 'stickers' | 'photos' | 'filters' | 'layouts' | 'layers' | 'properties';
+  | 'templates'
+  | 'design'
+  | 'text'
+  | 'shapes'
+  | 'stickers'
+  | 'photos'
+  | 'filters'
+  | 'layouts'
+  | 'animate'
+  | 'layers'
+  | 'properties';
 
 interface ApplyOptions {
   /** Consecutive edits with the same key (e.g. dragging a colour picker) merge into one undo step. */
@@ -193,6 +204,7 @@ export const useEditor = create<EditorState>()((set, get) => {
       endVersionSession();
       // Developed photos are per-design; free them (thumbnails are rendered after this).
       setTimeout(clearDevelopCache, THUMB_DELAY + 2000);
+      releaseAllPlayers();
       set({
         status: 'idle',
         meta: null,

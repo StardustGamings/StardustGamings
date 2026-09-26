@@ -36,7 +36,7 @@ test.describe('photos (desktop)', () => {
   test('adds a photo from the device and keeps it in the local library', async ({ app: page }) => {
     await newPost(page);
     await page.getByRole('button', { name: 'Photos', exact: true }).first().click();
-    await expect(page.getByText('Photos stay on this device.')).toBeVisible();
+    await expect(page.getByText(/Photos and videos .* stay on this device\./)).toBeVisible();
     await addPhoto(page);
     const f = await frameBox(page);
     await expect.poll(async () => isRed(await scenePixel(page, { x: f.cx, y: f.cy }))).toBe(true);
@@ -218,12 +218,12 @@ test.describe('photos (desktop)', () => {
     // Let autosave store the deletion before leaving.
     await expect(page.getByTestId('save-indicator')).toHaveAttribute('data-state', 'saved');
     await open(page, '/settings/');
-    const row = page.getByText(/1 photo · 0 stickers/);
+    const row = page.getByText(/1 photo · 0 videos · 0 stickers/);
     await expect(row).toBeVisible();
     await expect(page.getByText(/1 not used anywhere/)).toBeVisible();
     await page.getByRole('button', { name: 'Clean up', exact: true }).click();
     await page.getByRole('dialog').getByRole('button', { name: 'Clean up' }).click();
-    await expect(page.getByText(/0 photos · 0 stickers/)).toBeVisible();
+    await expect(page.getByText(/0 photos · 0 videos · 0 stickers/)).toBeVisible();
   });
 });
 

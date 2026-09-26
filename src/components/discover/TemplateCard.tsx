@@ -1,6 +1,6 @@
 'use client';
 
-import { Flame, Images, Layers } from 'lucide-react';
+import { Flame, Images, Layers, Sparkles } from 'lucide-react';
 import { ScenePreview } from '@/canvas/ScenePreview';
 import { FORMATS } from '@/projects/formats';
 import type { Template } from '@/templates/registry';
@@ -28,6 +28,7 @@ export function TemplateCard({ template, title, subtitle, heat, className, targe
   const slides = template.doc.slides.length;
   const multi = slides > 1;
   const frames = photoSlots(template.doc).length;
+  const animated = template.doc.elements.some((el) => el.animation);
 
   return (
     <button
@@ -63,6 +64,11 @@ export function TemplateCard({ template, title, subtitle, heat, className, targe
             {frames > 0 && (
               <span className="inline-flex h-6 items-center gap-1 rounded-full px-2 text-[11px] font-bold text-fg glass-strong">
                 <Images className="size-3" /> {frames}
+              </span>
+            )}
+            {animated && (
+              <span className="inline-flex h-6 items-center gap-1 rounded-full bg-violet px-2 text-[11px] font-bold text-white">
+                <Sparkles className="size-3" /> Animated
               </span>
             )}
             {template.source === 'user' && (

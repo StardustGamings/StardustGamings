@@ -48,6 +48,7 @@ function useBreakdown() {
 const SEGMENTS = [
   { key: 'projects', label: 'Designs', className: 'bg-accent' },
   { key: 'photos', label: 'Photos & cut-outs', className: 'bg-nova' },
+  { key: 'videos', label: 'Videos', className: 'bg-success' },
   { key: 'stickers', label: 'Stickers', className: 'bg-pink' },
   { key: 'versions', label: 'Version history', className: 'bg-violet' },
   { key: 'templates', label: 'Saved templates', className: 'bg-warning' },
@@ -169,10 +170,10 @@ export function StorageSection() {
         )}
       />
       <SettingRow
-        title="Photos & stickers"
+        title="Photos, videos & stickers"
         description={
           b
-            ? `${plural(b.photos.count, 'photo')} · ${plural(b.stickers.count, 'sticker')} · ${formatBytes(b.photos.bytes + b.stickers.bytes + b.masks.bytes)}${
+            ? `${plural(b.photos.count, 'photo')} · ${plural(b.videos.count, 'video')} · ${plural(b.stickers.count, 'sticker')} · ${formatBytes(b.photos.bytes + b.videos.bytes + b.stickers.bytes + b.masks.bytes)}${
                 unused?.count ? ` · ${unused.count} not used anywhere (${formatBytes(unused.bytes)})` : ''
               }`
             : 'Counting…'

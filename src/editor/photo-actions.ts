@@ -13,6 +13,8 @@ import type {
 import { computeCutout, describeCutoutError } from '@/images/cutout';
 import type { CutoutMethod } from '@/images/cutout/types';
 import type { AssetMeta } from '@/assets/types';
+import type { VideoClip } from '@/types/animation';
+import { homeSlide, MAX_SLIDE_DURATION, slideDuration } from '@/animations/sequence';
 import { peekAsset, loadAsset } from '@/assets/cache';
 import { useAssets } from '@/assets/store';
 import { slideIndexOf } from '@/projects/document';
@@ -57,6 +59,26 @@ const layerName = (name: string) => name.replace(/\.[a-z0-9]{2,5}$/i, '').slice(
 /* ───────────── Adding photos ───────────── */
 
 /** Adds photos to the active slide (cascading when there are several) as one undo step. */
+/** A new clip plays the first 15 seconds of the video, looping, with sound. */
+export function defaultClip(asset: AssetMeta): VideoClip {
+  return { trimStart: 0, trimEnd: Math.min(asset.duration ?? 5, 15), speed: 1, muted: false, loop: true };
+}
+
+/** Lengthens the slides holding video so each clip plays through once (never shortens). */
+function fitSlidesToClips(d: DesignDocument, ids: Set<string>): DesignDocument {
+  let slides = d.slides;
+  for (const el of d.elements) {
+    if (!ids.has(el.id) || el.type !== 'image' || !el.video) continue;
+    const i = homeSlide(d, el);
+    const need = Math.min(
+      MAX_SLIDE_DURATION,
+      Math.ceil((((el.video.trimEnd - el.video.trimStart) / el.video.speed) * 1000) / 100) * 100,
+    );
+    if (need > slideDuration(d, i)) slides = slides.map((s, k) => (k === i ? { ...s, duration: need } : s));
+  }
+  return slides === d.slides ? d : { ...d, slides };
+}
+
 export function placePhotos(assets: AssetMeta[], at?: Point): string[] {
   const d = doc();
   if (!d || assets.length === 0) return [];
@@ -64,9 +86,11 @@ export function placePhotos(assets: AssetMeta[], at?: Point): string[] {
   const step = d.slideWidth * 0.04;
   const els = assets.map((a, i) => {
     const offset = (i - (assets.length - 1) / 2) * step;
-    return createImage(d, { x: origin.x + offset, y: origin.y + offset }, a);
+    const el = createImage(d, { x: origin.x + offset, y: origin.y + offset }, a);
+    return a.kind === 'video' ? { ...el, video: defaultClip(a) } : el;
   });
-  ed().apply((x) => addElements(x, els));
+  const ids = new Set(els.map((e) => e.id));
+  ed().apply((x) => fitSlidesToClips(addElements(x, els), ids));
   ed().select(els.map((e) => e.id));
   ed().setActiveSlide(slideIndexOf(els[els.length - 1]!, d));
   ed().setTool('select');
@@ -76,9 +100,22 @@ export function placePhotos(assets: AssetMeta[], at?: Point): string[] {
 /** Puts a photo into an existing image element, resetting its crop but keeping its look. */
 export function fillFrame(id: string, asset: AssetMeta) {
   updateImage(id, (el) => {
-    const { focusX: _fx, focusY: _fy, zoom: _z, straighten: _s, turns: _t, flipX: _h, flipY: _v, cutout: _c, ...rest } = el;
-    return { ...rest, assetId: asset.id, name: asset.kind === 'sticker' ? 'Sticker' : layerName(asset.name) };
+    const {
+      focusX: _fx,
+      focusY: _fy,
+      zoom: _z,
+      straighten: _s,
+      turns: _t,
+      flipX: _h,
+      flipY: _v,
+      cutout: _c,
+      video: _video,
+      ...rest
+    } = el;
+    const next = { ...rest, assetId: asset.id, name: asset.kind === 'sticker' ? 'Sticker' : layerName(asset.name) };
+    return asset.kind === 'video' ? { ...next, video: defaultClip(asset) } : next;
   });
+  if (asset.kind === 'video') ed().apply((d) => fitSlidesToClips(d, new Set([id])), { coalesce: `fill-${id}` });
   ed().select([id]);
 }
 

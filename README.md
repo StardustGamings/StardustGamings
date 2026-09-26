@@ -10,8 +10,8 @@ thumbnails, collages, posters and moodboards.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 - **Never lose work.** Autosave, version history, `.stardeck` project files and one-tap backups — all on your device.
 
-> **Status: Phase 8 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
-> templates, filters & effects, export and offline storage. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
+> **Status: Phase 9 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
+> templates, filters & effects, export, offline storage, and animations & video. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
 > next. Features that aren't built yet are marked **Soon** in the UI; there are no fake buttons.
 
 ---
@@ -29,7 +29,8 @@ thumbnails, collages, posters and moodboards.
 | **Carousel tools**    | Seamless swipe: one panorama across 2–10 slides with slide count, spacing, margin, crop position, alignment (centre / top / bottom / stagger) and manual adjustment. Collage engine for 2–20 photos in 6 styles (grid, editorial, bento, scrapbook, polaroid, filmstrip) with Shuffle, More chaotic / minimal / aesthetic / editorial / Gen-Z, spacing, messiness and tape & stickers — keep any photo in place while shuffling. Live swipe preview of the carousel (drag, arrows, dots).                                                                                                                                                                                              |
 | **Photo magic**       | Smart photo dump: pick 3–20 photos and one of 12 vibes (chaotic Gen-Z, clean, cinematic, Y2K, travel, birthday, college, streetwear, vacation, night out, minimal, aesthetic) and get a finished, fully editable carousel — cover, title, collages, captions — generated on your device from design rules, no AI service. Start from the home screen or add to an open design.                                                                                                                                                                                                                                                                                                         |
 | **Templates**         | 51 original templates across every format and 12 styles (editorial, minimal, big type, scrapbook, cinematic, Y2K, streetwear, retro, soft, luxury, brutalist, playful) — magazine, tips list, polaroid wall, film stills, torn paper, sticker board, split screen, giant type, story polls, covers, thumbnails, posters, moodboards. Templates page with search and filters, swipe preview, colourways, _use with my photos_ (fills the frames), and a Templates panel in the editor that adds slides or replaces the design (undoable). Save any design as your own template (photos stay on the device), rename/duplicate/delete, and export/import `.stardeck-template.json` files. |
-| **Export**            | PNG, JPG, WebP and multi-page PDF — every slide as a ZIP or separate files, one slide, or the full carousel as one wide image. Standard / High (2×) / Maximum (3×, from your full-resolution originals), transparent PNG/WebP, progress with cancel, share sheet on phones. Made on your device, works offline, **never watermarked**. <kbd>Ctrl/⌘</kbd> + <kbd>⇧</kbd> + <kbd>E</kbd> or _Export…_ on any project card. MP4 is marked **Soon** (animations, Phase 9).                                                                                                                                                                                                                 |
+| **Export**            | PNG, JPG, WebP and multi-page PDF — every slide as a ZIP or separate files, one slide, or the full carousel as one wide image. Standard / High (2×) / Maximum (3×, from your full-resolution originals), transparent PNG/WebP, progress with cancel, share sheet on phones. Made on your device, works offline, **never watermarked**. <kbd>Ctrl/⌘</kbd> + <kbd>⇧</kbd> + <kbd>E</kbd> or _Export…_ on any project card. **MP4** (H.264 where supported, with sound) and **GIF** for animated designs.                                                                                                                                                                                 |
+| **Animation & video** | Entrances (fade, slide, zoom, bounce, pop, rotate, blur reveal, typewriter, glitch, elastic), exits and loops (parallax, float, pulse) on any element; one-tap **auto-animate** in three vibes; slide lengths and transitions (swipe, fade, zoom, cut); a **timeline** to drag timing and scrub; play on the canvas or the whole design as a video. **Video clips** (MP4, WebM, MOV up to 2 min) in any frame, with trim, speed, sound, loop, crop, looks and effects. 14 animated templates. See [`docs/ANIMATION.md`](docs/ANIMATION.md).                                                                                                                                            |
 | **Trend engine**      | Trend packs are plain JSON in `public/trends/` — publish a new drop without rebuilding the app.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Projects**          | Search, format filters, sort, favourites, **folders** (drag designs onto them), trash with undo and 30-day auto-clean, restore, delete forever. Import `.stardeck` project files by button or drop.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **Storage & history** | Autosave with automatic retries and a rescue download when the device is full. **Version history** (as opened, every 10 min, Ctrl/⌘ S, named versions, before big changes) with preview, restore (undoable) and save-as-copy. **Project files** carry a design and its photos to another device; **Back up everything** saves every design, its history, folders, templates and photos in one file. Settings → Storage shows what's stored by kind, with cleanups. Tabs stay in sync, and edits in two places never overwrite each other silently.                                                                                                                                     |
@@ -84,22 +85,25 @@ primitives · cmdk · IndexedDB (`idb`) · Zod · Vitest · Playwright.
 ```
 src/
   app/            Routes: / · /projects · /discover · /settings · /editor?id=…
+  animations/     Motion engine: presets & easing, poses at a moment, slide sequence & transitions, auto-animate
   canvas/         Canvas2D scene renderer (fills, text layout, shapes, stickers), previews, thumbnails
-  assets/         Local photo library: IndexedDB blobs, file sniffing, worker decode/downscale, decode cache
+  assets/         Local photo & video library: IndexedDB blobs, file sniffing, worker decode/downscale, decode cache,
+                  video import, live players and frame-exact export frames
   layouts/        Collage generators, seamless panorama, smart photo dump styles, apply/regenerate/shuffle
   filters/        One-tap looks (data), intensity blending over your edits, look previews
   effects/        Effect definitions and the reference maths the shader mirrors (glow, leaks, dust, RGB split, scanlines)
-  export/         Export: pure plan (sizes, names, quality caps), photo loading & develop, encoders, ZIP and PDF writers
+  export/         Export: pure plan (sizes, names, quality caps), photo loading & develop, encoders, ZIP and PDF writers,
+                  MP4 (WebCodecs + mp4-muxer) and GIF (gifenc)
   images/         Photo pipeline: layout maths, adjustments & curves, WebGL develop (+ CPU worker fallback),
     cutout/       Background removal providers (on-device AI, colour key, optional server), guided filter
   editor/         Editor store (history, transactions, autosave), camera, actions, photo actions, shortcuts
     core/         Pure logic: geometry & transforms, snapping, element ops, factories, clipboard
     canvas/       Viewport renderer, pointer/touch interactions, overlay (handles, guides), text editor, rulers
-    panels/       Properties, layers, text/shapes/stickers, background, font picker
+    panels/       Properties, layers, text/shapes/stickers, background, font picker, animate, video playback
   components/
     ui/           Design-system primitives (Button, Dialog, Segmented, Switch, Toaster, …)
     shell/        App shell: nav rail, bottom bar, top bar, command palette, providers, backdrop
-    carousel/     Swipe preview
+    carousel/     Swipe preview and motion (play as video) preview
     templates/    Template browser, preview (colourways, use with photos) and save-as-template dialogs
     export/       Export dialog (options, progress, done screen, save & share)
     magic/        Photo chooser and the dump / seamless / collage flows
@@ -139,6 +143,11 @@ Key decisions:
 - **Export stays on the device.** Files are rendered one at a time at the chosen scale (photos re-developed at that
   size, originals for Maximum), encoded with `canvas.toBlob`, and packaged by small built-in ZIP and PDF writers — no
   upload, no dependency, works offline, no watermark. See [`docs/EXPORT.md`](docs/EXPORT.md).
+- **Motion is a function of time.** Animations are data on each element; a pure engine turns "element + moment" into a
+  pose (opacity, offset, scale, rotation, blur, reveal, glitch), and the same renderer draws the editor preview, the
+  _Play as video_ preview and every MP4/GIF frame. Without a time, the renderer draws the design at rest, so stills and
+  editing are unaffected. Video clips are image elements whose asset is a video: live frames come from `<video>`
+  players, exports seek each frame exactly. See [`docs/ANIMATION.md`](docs/ANIMATION.md).
 - **Non-destructive photos.** Photos are stored once (original, 2048px preview, thumbnail) and referenced by id. Crop,
   zoom, straighten and flips are layout maths in the renderer; adjustments, curves, perspective and cut-outs run through
   a cached WebGL "develop" pipeline (a Web Worker does the same maths where WebGL is missing). The vignette is drawn per
@@ -216,8 +225,11 @@ any current feature.
 ## Privacy & security
 
 - No analytics, trackers or accounts. The app only requests its own files and trend packs.
-- Photos are stored in IndexedDB on your device. Imports are checked by their bytes (not the file name), decoded in a
-  worker, and SVGs are rasterised through an `<img>` so scripts never run.
+- Photos and video clips are stored in IndexedDB on your device. Imports are checked by their bytes (not the file name),
+  decoded in a worker (videos by the browser's own `<video>` element), and SVGs are rasterised through an `<img>` so
+  scripts never run.
+- MP4 and GIF exports are encoded in the browser (WebCodecs, gifenc); CSP allows media only from this site and local
+  `blob:` URLs.
 - Background removal runs in your browser. The model and runtime (~19 MB) are downloaded once from this site and cached
   for offline use; photos never leave the device. See [`docs/BACKGROUND-REMOVAL.md`](docs/BACKGROUND-REMOVAL.md) for the
   optional, opt-in server provider — it asks before uploading anything.
@@ -233,6 +245,7 @@ Fonts are bundled from [Fontsource](https://fontsource.org/) under the SIL Open 
 alongside each family in `public/fonts/`). Interface icons are from [Lucide](https://lucide.dev/) (ISC). Background
 removal uses [U²-Net](https://github.com/xuebinqin/U-2-Net) (U²-Netp, Apache-2.0, ONNX export from
 [rembg](https://github.com/danielgatis/rembg)) on [ONNX Runtime Web](https://onnxruntime.ai/) (MIT) — see
-`public/ml/NOTICE.txt`. Templates, stickers, the logo and illustrations are original to this project.
+`public/ml/NOTICE.txt`. Video export uses [mp4-muxer](https://github.com/Vanilagy/mp4-muxer) (MIT) and GIF export
+[gifenc](https://github.com/mattdesl/gifenc) (MIT). Templates, stickers, the logo and illustrations are original to this project.
 
 The `Afk-Bot.zip` archive at the repository root predates Stardeck and is unrelated; it has been left untouched.

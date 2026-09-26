@@ -30,15 +30,15 @@ A template is metadata plus a complete design document:
 
 What each part covers:
 
-| The brief asks for | Where it lives                                                                                                                                                                                    |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Canvas size        | `doc.slideWidth` / `doc.slideHeight` (+ `sizeId`), `doc.slides`                                                                                                                                   |
-| Elements/positions | `doc.elements` — strip coordinates, so an element can straddle two slides (seamless carousels)                                                                                                    |
-| Fonts              | each text element's `fontFamily` / weight / style — only bundled fonts, so templates work offline                                                                                                 |
-| Colours            | fills and strokes throughout; `palette` lists the main colours so the template can be re-coloured (colourways)                                                                                    |
-| Images             | photo frames: image elements with `"assetId": null` and a placeholder fill. Frames keep their shape, border, adjustments and filter (the kit's `look` option), so photos dropped in arrive styled |
-| Animations         | not yet — element animation data joins the document format in Phase 9 (Animations & video) behind a `version` bump, with a migration                                                              |
-| Metadata           | `name`, `description`, `style`, `tags`, `format`                                                                                                                                                  |
+| The brief asks for | Where it lives                                                                                                                                                                                                        |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Canvas size        | `doc.slideWidth` / `doc.slideHeight` (+ `sizeId`), `doc.slides`                                                                                                                                                       |
+| Elements/positions | `doc.elements` — strip coordinates, so an element can straddle two slides (seamless carousels)                                                                                                                        |
+| Fonts              | each text element's `fontFamily` / weight / style — only bundled fonts, so templates work offline                                                                                                                     |
+| Colours            | fills and strokes throughout; `palette` lists the main colours so the template can be re-coloured (colourways)                                                                                                        |
+| Images             | photo frames: image elements with `"assetId": null` and a placeholder fill. Frames keep their shape, border, adjustments and filter (the kit's `look` option), so photos dropped in arrive styled                     |
+| Animations         | each element's `animation` (entrance, exit, loop), each slide's `duration` and the document's `motion` (transition). All optional, so older files stay valid. The kit's `animate` option applies an auto-animate vibe |
+| Metadata           | `name`, `description`, `style`, `tags`, `format`                                                                                                                                                                      |
 
 Bundled templates never contain photos (only empty frames), and never reference anything outside the app.
 
@@ -49,7 +49,7 @@ Files live in `src/templates/library/<format>/<id>.json`. `scripts/build-templat
 - `src/templates/library/index.ts` — imports every JSON file. The app loads it **lazily** (a separate chunk, precached
   by the service worker), so dozens of templates don't weigh down every page.
 - `src/templates/catalog.generated.json` — light metadata (names, formats, styles, tags, palettes, sizes, photo-frame
-  counts) available synchronously: search in the command palette and trend-pack validation use it.
+  counts, whether it's animated) available synchronously: search in the command palette and trend-pack validation use it.
 
 `npm run dev` and `npm run build` regenerate both; the unit tests fail if they're out of date.
 
@@ -63,7 +63,8 @@ Either:
 2. **Use the authoring kit** — most bundled templates are written in TypeScript with `src/templates/authoring/kit.ts`
    (`text()`, `rect()`, `photo()`, `sticker()`, `polaroid()`, `tornPaper()`, …) and compiled to JSON by
    `npm run templates`. Ids are deterministic, so re-running produces identical files. Edit the `.ts` source, not the
-   generated JSON, for those templates.
+   generated JSON, for those templates. `animate: 'smooth' | 'playful' | 'glitchy'` in a template's metadata animates
+   it with auto-animate and tags it _animated_ (see [ANIMATION.md](ANIMATION.md)).
 
 Then run `npm run templates:check`. It measures every text box with the real bundled fonts in Chromium and fails if a
 word is wider than its box or a box is too short for its lines (the kit can only estimate glyph widths). The unit tests
@@ -74,10 +75,11 @@ Everything must be original: no copied layouts, artwork, photos or brand assets.
 
 ## Using templates
 
-- **Templates page** (`/templates`) — search (name, tags, style, format), filter by format and style, and your own
-  templates under _Yours_. The command palette searches templates too.
-- **Preview** — a swipe preview for carousels, the facts (size, slides, photo frames, fonts), and **colourways**:
-  trend-pack palettes mapped onto the template's palette by lightness, so contrast survives (`src/templates/remix.ts`).
+- **Templates page** (`/templates`) — search (name, tags, style, format), filter by format and style (or _✦ Animated_),
+  and your own templates under _Yours_. The command palette searches templates too.
+- **Preview** — a swipe preview for carousels, _Play animation_ for animated templates, the facts (size, slides, photo
+  frames, fonts), and **colourways**: trend-pack palettes mapped onto the template's palette by lightness, so contrast
+  survives (`src/templates/remix.ts`).
 - **Use with my photos** — pick photos from the local library (or the device); they fill the photo frames in reading
   order (slide by slide, top to bottom, left to right).
 - **In the editor** — the _Templates_ panel adds a template's slides after the current slide, scaled uniformly to the

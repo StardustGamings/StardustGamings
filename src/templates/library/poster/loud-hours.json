@@ -10,7 +10,8 @@
     "concert",
     "poster",
     "music",
-    "tour"
+    "tour",
+    "animated"
   ],
   "palette": [
     "#0E0E0E",
@@ -29,7 +30,8 @@
     "slides": [
       {
         "id": "s0",
-        "fill": null
+        "fill": null,
+        "duration": 4000
       }
     ],
     "elements": [
@@ -41,6 +43,13 @@
         "height": 1000,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 80,
+            "duration": 700
+          }
+        },
         "type": "image",
         "assetId": null,
         "fit": "cover",
@@ -67,6 +76,13 @@
         "height": 300,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 210,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -92,6 +108,13 @@
         "height": 269,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 340,
+            "duration": 700
+          }
+        },
         "type": "text",
         "text": "Loud Hours",
         "fontFamily": "UnifrakturMaguntia",
@@ -115,6 +138,13 @@
         "height": 12,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 470,
+            "duration": 800
+          }
+        },
         "type": "shape",
         "shape": "rect",
         "fill": {
@@ -130,6 +160,13 @@
         "height": 71,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 600,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "10.02  Lisbon",
         "fontFamily": "Archivo",
@@ -154,6 +191,13 @@
         "height": 71,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 730,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "10.05  Berlin",
         "fontFamily": "Archivo",
@@ -178,6 +222,13 @@
         "height": 71,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 860,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "10.09  London",
         "fontFamily": "Archivo",
@@ -202,6 +253,13 @@
         "height": 71,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 990,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "10.12  Paris",
         "fontFamily": "Archivo",
@@ -226,6 +284,13 @@
         "height": 71,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 1120,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "10.16  Your city?",
         "fontFamily": "Archivo",
@@ -250,6 +315,13 @@
         "height": 37,
         "rotation": 0,
         "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 1250,
+            "duration": 1200
+          }
+        },
         "type": "text",
         "text": "World tour 2026",
         "fontFamily": "Archivo",
@@ -266,6 +338,10 @@
         "letterSpacing": 0.4,
         "textTransform": "uppercase"
       }
-    ]
+    ],
+    "motion": {
+      "transition": "cut",
+      "transitionDuration": 0
+    }
   }
 }

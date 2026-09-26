@@ -37,6 +37,8 @@ const CSP = [
   "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
+  // Video clips in designs play from local blob: URLs (they never leave the device).
+  "media-src 'self' blob:",
   "font-src 'self'",
   "connect-src 'self'",
   "worker-src 'self' blob:",
