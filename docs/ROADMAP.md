@@ -11,8 +11,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 4   | Carousel tools             | ✅ Done |
 | 5   | Template engine            | ✅ Done |
 | 6   | Filters & effects          | ✅ Done |
-| 7   | Export                     | ⏭️ Next |
-| 8   | Offline storage & projects | Planned |
+| 7   | Export                     | ✅ Done |
+| 8   | Offline storage & projects | ⏭️ Next |
 | 9   | Animations & video         | Planned |
 | 10  | Trend system               | Planned |
 | 11  | Optional AI integrations   | Planned |
@@ -98,7 +98,7 @@ upload and the Google Fonts catalogue are labelled "Soon"; photos arrive in Phas
   phone crop flow).
 
 Known limits: one-tap filter looks arrived in Phase 6 (built on these adjustments); brush-refining a
-cut-out mask and exporting at full original resolution come with later phases (export is Phase 7).
+cut-out mask comes with a later phase. (Exporting from full-resolution originals arrived in Phase 7.)
 
 ## Phase 4 — Carousel tools ✅
 
@@ -187,9 +187,33 @@ the optional AI tools in Phase 11.
 Known limits: filters apply to photos, not to text or shapes; custom looks shipped inside trend packs (as data) come
 with the trend system in Phase 10; video filters arrive with video in Phase 9.
 
+## Phase 7 — Export ✅
+
+- **Formats:** PNG, JPG, WebP (where the browser can encode it) and multi-page **PDF**. MP4 is shown as **Soon** and
+  arrives with animations in Phase 9. Never watermarked, never behind a paywall.
+- **What to export:** every slide (one **ZIP**, or separate files), one slide (picked from thumbnails), or the **full
+  carousel** as one wide image. Files are named after the design (`summer-dump-01.png`, `summer-dump.zip`).
+- **Quality:** Standard (1×), High (2×) and Maximum (3×, drawn from your **full-resolution originals**), kept inside
+  browser canvas limits with the exact pixel size shown up front. **Transparent background** for PNG and WebP.
+- **Made on this device:** the editor's own renderer draws each file, and photo looks and edits are developed at export
+  size (GPU, or the CPU worker without WebGL). Our own ZIP and PDF writers mean no dependencies and no network, so
+  export works offline. Progress, cancel, and a done screen with a small celebration, the file size and the dimensions.
+- **Saving:** downloads right away on desktop. Phones with a share sheet get **Share** (straight into Instagram, Photos…)
+  or **Save**.
+- **Entry points:** the editor's Export button, <kbd>Ctrl/⌘</kbd> + <kbd>⇧</kbd> + <kbd>E</kbd>, the command palette,
+  and _Export…_ on every project card. The format and quality you last used are remembered, and Settings sets the
+  defaults. See [EXPORT.md](EXPORT.md).
+- **Quality:** 226 unit/component tests (ZIP read-back and CRC-32, PDF structure and xref offsets, naming, scopes,
+  canvas caps, transparency, PDF page sizes). 100 Playwright runs across desktop, phone and no-WebGL, with every
+  download checked byte for byte: image headers and sizes, ZIP entries, separate files, the full strip, PDF pages,
+  transparent pixels, photos with a look, export from a project card, the phone share/save flow, and exporting offline.
+
+Known limits: video (MP4/GIF) export arrives with animations in Phase 9. Exports are raster, with no vector PDF or SVG.
+A PDF page is one image per slide, so its text isn't selectable. Very wide full-carousel images are scaled down to fit
+browser canvas limits (16 million pixels).
+
 ## Later phases (summary)
 
-- **7 · Export:** PNG / JPG / WebP / PDF, per-slide / all / ZIP, quality presets, share sheet — never watermarked.
 - **8 · Storage:** version history, folders, import/export project files, storage management.
 - **9 · Animation & video:** element animations, timeline, MP4/GIF export where supported.
 - **10 · Trends:** remote pack updates, meme & social formats, trend-driven suggestions.

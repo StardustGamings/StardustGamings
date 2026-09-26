@@ -3,7 +3,18 @@
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { BookmarkPlus, Copy, ExternalLink, MoreHorizontal, PenLine, RotateCcw, Star, Trash2, XCircle } from 'lucide-react';
+import {
+  BookmarkPlus,
+  Copy,
+  Download,
+  ExternalLink,
+  MoreHorizontal,
+  PenLine,
+  RotateCcw,
+  Star,
+  Trash2,
+  XCircle,
+} from 'lucide-react';
 import type { ProjectMeta } from '@/types/project';
 import { FORMATS } from '@/projects/formats';
 import { useProjects } from '@/projects/store';
@@ -134,6 +145,12 @@ export function ProjectCard({ project, trashed = false }: { project: ProjectMeta
                   </MenuItem>
                   <MenuItem icon={<Copy />} onSelect={() => void actions.duplicate(project.id)}>
                     Duplicate
+                  </MenuItem>
+                  <MenuItem
+                    icon={<Download />}
+                    onSelect={() => useUi.getState().openExport({ source: 'project', projectId: project.id })}
+                  >
+                    Export…
                   </MenuItem>
                   <MenuItem
                     icon={<BookmarkPlus />}

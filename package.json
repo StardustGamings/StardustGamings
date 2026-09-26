@@ -1,6 +1,6 @@
 {
   "name": "stardeck",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "description": "Stardeck — a free, local-first social design & carousel studio. Create. Swipe. Flex.",
   "scripts": {

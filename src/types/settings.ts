@@ -4,7 +4,7 @@ export type ThemePreference = 'system' | 'dark' | 'light' | 'oled';
 export type ResolvedTheme = 'dark' | 'light' | 'oled';
 export type MotionPreference = 'system' | 'full' | 'reduced' | 'off';
 export type ResolvedMotion = 'full' | 'reduced' | 'off';
-export type ExportFormat = 'png' | 'jpg' | 'webp';
+export type ExportFormat = 'png' | 'jpg' | 'webp' | 'pdf';
 export type ExportQuality = 'standard' | 'high' | 'max';
 
 export interface Settings {

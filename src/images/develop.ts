@@ -201,16 +201,8 @@ function pixelsOf(image: DrawableImage, maxDim = Infinity): Pixels {
   return { data: ctx.getImageData(0, 0, w, h).data, width: w, height: h };
 }
 
-function runCpu(slotKey: string, key: string, input: DevelopInput, alpha: boolean) {
-  const job = cpuJobs.get(slotKey) ?? { running: false, next: null };
-  cpuJobs.set(slotKey, job);
-  if (job.running) {
-    job.next = () => runCpu(slotKey, key, input, alpha);
-    return;
-  }
-  job.running = true;
-  // Without workers the main thread does the work, at a smaller size to stay responsive.
-  const limit = typeof Worker === 'undefined' ? 1024 : Infinity;
+/** Runs the CPU pipeline (in the worker when there is one). `limit` caps the working size. */
+function cpuDevelop(input: DevelopInput, limit: number): Promise<Pixels> {
   const source = pixelsOf(input.source, limit);
   const scale = source.width / input.width;
   const cpu: CpuDevelopInput = {
@@ -239,10 +231,22 @@ function runCpu(slotKey: string, key: string, input: DevelopInput, alpha: boolea
         ? createWorkerClient(() => new Worker('/workers/develop.js', { name: 'photo-develop' }))
         : null;
   }
-  const work: Promise<Pixels> = cpuClient
+  return cpuClient
     ? cpuClient.call(cpu).catch(() => developCpu(cpu))
     : new Promise((resolve) => setTimeout(() => resolve(developCpu(cpu)), 0));
-  void work
+}
+
+function runCpu(slotKey: string, key: string, input: DevelopInput, alpha: boolean) {
+  const job = cpuJobs.get(slotKey) ?? { running: false, next: null };
+  cpuJobs.set(slotKey, job);
+  if (job.running) {
+    job.next = () => runCpu(slotKey, key, input, alpha);
+    return;
+  }
+  job.running = true;
+  // Without workers the main thread does the work, at a smaller size to stay responsive.
+  const limit = typeof Worker === 'undefined' ? 1024 : Infinity;
+  void cpuDevelop(input, limit)
     .then((out) => {
       writeSlot(
         slotKey,
@@ -294,6 +298,35 @@ export function developImage(
   }
   runCpu(slotKey, key, input, alpha);
   return slot ? { image: slot.canvas, alpha: slot.alpha } : null;
+}
+
+/**
+ * Developed pixels for an export: full quality, never from the editor's cache,
+ * awaited even on the CPU path. The caller owns (and should free) the canvas.
+ */
+export async function developForExport(
+  el: ImageElement,
+  base: LoadedAsset,
+  mask: LoadedAsset | null,
+  backdrop: LoadedAsset | null,
+): Promise<DevelopResult | null> {
+  if (typeof document === 'undefined') return null;
+  const input = gpuInput(el, base, mask, backdrop);
+  const alpha = transparentResult(el, mask);
+  const out = glProcessor()?.develop(input);
+  if (out) {
+    const c = makeCanvas(out.width, out.height);
+    c.getContext('2d')!.drawImage(out, 0, 0);
+    return { image: c, alpha };
+  }
+  try {
+    const px = await cpuDevelop(input, Infinity);
+    const c = makeCanvas(px.width, px.height);
+    c.getContext('2d')!.putImageData(new ImageData(new Uint8ClampedArray(px.data), px.width, px.height), 0, 0);
+    return { image: c, alpha };
+  } catch {
+    return null;
+  }
 }
 
 /** Frees developed images (e.g. when the editor closes). */

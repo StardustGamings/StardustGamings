@@ -22,10 +22,10 @@ export default defineConfig({
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
     { name: 'mobile', use: { ...devices['Pixel 7'] } },
-    // Photo tools must keep working where WebGL is unavailable (CPU develop worker).
+    // Photo tools and export must keep working where WebGL is unavailable (CPU develop worker).
     {
       name: 'no-webgl',
-      testMatch: /(photos|filters)\.spec\.ts/,
+      testMatch: /(photos|filters|export)\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1440, height: 900 },

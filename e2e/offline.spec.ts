@@ -21,6 +21,14 @@ test('works offline after the first visit (PWA)', async ({ app: page, context, i
   await page.getByTestId('create-project').click();
   await expect(page.getByTestId('canvas-viewport')).toBeVisible();
   await expect(page.getByTestId('save-indicator')).toHaveAttribute('data-state', 'saved');
+
+  // …and export it, still offline: everything is made on the device.
+  await page.getByTestId('open-export').click();
+  const dialog = page.getByRole('dialog', { name: 'Export' });
+  await dialog.getByRole('radio', { name: 'PNG', exact: true }).click();
+  const [download] = await Promise.all([page.waitForEvent('download'), dialog.getByTestId('export-start').click()]);
+  expect(download.suggestedFilename()).toMatch(/\.(png|zip)$/);
+  await expect(page.getByTestId('export-done')).toBeVisible();
   await context.setOffline(false);
 });
 

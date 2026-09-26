@@ -25,6 +25,9 @@ export interface TemplatePreviewRequest {
   target: 'new' | 'editor';
 }
 
+/** Export a design: the one open in the editor, or a project from the library. */
+export type ExportRequest = { source: 'editor' } | { source: 'project'; projectId: string };
+
 /** Save a design as a template: from the editor (`current`) or a project in the library. */
 export type SaveTemplateRequest = { source: 'editor' } | { source: 'project'; projectId: string };
 
@@ -51,6 +54,9 @@ interface UiState {
   templatePreview: TemplatePreviewRequest | null;
   openTemplate: (id: string, target?: TemplatePreviewRequest['target']) => void;
   closeTemplate: () => void;
+  exportRequest: ExportRequest | null;
+  openExport: (request: ExportRequest) => void;
+  closeExport: () => void;
   saveTemplate: SaveTemplateRequest | null;
   openSaveTemplate: (request: SaveTemplateRequest) => void;
   closeSaveTemplate: () => void;
@@ -76,6 +82,9 @@ export const useUi = create<UiState>()((set) => ({
   templatePreview: null,
   openTemplate: (id, target = 'new') => set({ templatePreview: { id, target }, paletteOpen: false, newProject: null }),
   closeTemplate: () => set({ templatePreview: null }),
+  exportRequest: null,
+  openExport: (exportRequest) => set({ exportRequest, paletteOpen: false }),
+  closeExport: () => set({ exportRequest: null }),
   saveTemplate: null,
   openSaveTemplate: (saveTemplate) => set({ saveTemplate, paletteOpen: false }),
   closeSaveTemplate: () => set({ saveTemplate: null }),

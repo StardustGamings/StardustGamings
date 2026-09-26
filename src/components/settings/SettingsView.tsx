@@ -241,8 +241,7 @@ function ExportSection() {
       id="export"
       title="Export"
       icon={<Share2 />}
-      badge={<SoonBadge>Exporter soon</SoonBadge>}
-      description="Your defaults are saved now and used as soon as exporting ships. Never watermarked, never paywalled."
+      description="Defaults for the Export dialog (it remembers your last choice). Exports are made on this device — never watermarked, never paywalled."
     >
       <SettingRow
         title="Default file type"
@@ -255,13 +254,14 @@ function ExportSection() {
               { value: 'png', label: 'PNG' },
               { value: 'jpg', label: 'JPG' },
               { value: 'webp', label: 'WebP' },
+              { value: 'pdf', label: 'PDF' },
             ]}
           />
         )}
       />
       <SettingRow
         title="Quality"
-        description="Maximum exports at 2× resolution."
+        description="Standard is the design’s own size, High is 2×, Maximum is 3× using your full-resolution photos."
         control={() => (
           <Segmented
             aria-label="Export quality"
@@ -565,6 +565,7 @@ function ShortcutsSection() {
   const rows: { keys: string[]; action: string; soon?: boolean }[] = [
     { keys: [mod, 'K'], action: 'Command palette' },
     { keys: [mod, 'S'], action: 'Save now' },
+    { keys: [mod, '⇧', 'E'], action: 'Export (PNG, JPG, WebP, PDF, ZIP)' },
     { keys: [mod, 'Z'], action: 'Undo' },
     { keys: [mod, '⇧', 'Z'], action: 'Redo' },
     { keys: [mod, 'C'], action: 'Copy' },

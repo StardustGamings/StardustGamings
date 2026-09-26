@@ -13,6 +13,7 @@ import { ProjectDialogs } from '@/components/projects/ProjectDialogs';
 import { Onboarding } from '@/components/onboarding/Onboarding';
 import { PhotoFlowDialog } from '@/components/magic/PhotoFlowDialog';
 import { SaveTemplateDialog } from '@/components/templates/SaveTemplateDialog';
+import { ExportDialog } from '@/components/export/ExportDialog';
 import { TemplatePreviewDialog } from '@/components/templates/TemplatePreviewDialog';
 import { Backdrop } from './Backdrop';
 import { CommandPalette } from './CommandPalette';
@@ -43,6 +44,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         <PhotoFlowDialog />
         <TemplatePreviewDialog />
         <SaveTemplateDialog />
+        <ExportDialog />
         <CommandPalette />
         <Onboarding />
         <Toaster />

@@ -2,6 +2,7 @@
 
 import {
   ArrowDownToLine,
+  Download,
   Wand2,
   BookmarkPlus,
   LayoutTemplate,
@@ -119,9 +120,10 @@ export function useEditorShortcuts() {
     'shift+r': () => ed().toggleRulers(),
   });
 
-  // Save works even while typing (e.g. in the project name field).
+  // Save and export work even while typing (e.g. in the project name field).
   useHotkeys(
     {
+      'mod+shift+e': () => useUi.getState().openExport({ source: 'editor' }),
       'mod+s': async () => {
         await ed().save();
         if (ed().saveState === 'saved') toast({ title: 'Saved on this device', tone: 'success', duration: 1800 });
@@ -263,6 +265,15 @@ export function useEditorShortcuts() {
         icon: <Sparkles />,
         keywords: ['carousel', 'auto', 'generate', 'photos'],
         run: () => useUi.getState().openPhotoFlow('dump', 'current'),
+      },
+      {
+        id: 'ed-export',
+        label: 'Export…',
+        group: 'Editor',
+        icon: <Download />,
+        shortcut: '⌘ ⇧ E',
+        keywords: ['export', 'download', 'save as', 'png', 'jpg', 'jpeg', 'webp', 'pdf', 'zip', 'share'],
+        run: () => useUi.getState().openExport({ source: 'editor' }),
       },
       {
         id: 'ed-filters',

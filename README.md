@@ -9,8 +9,8 @@ thumbnails, collages, posters and moodboards.
   removal runs on your device.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 
-> **Status: Phase 6 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
-> templates and filters & effects. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
+> **Status: Phase 7 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
+> templates, filters & effects and export. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
 > next. Features that aren't built yet are marked **Soon** in the UI; there are no fake buttons.
 
 ---
@@ -28,6 +28,7 @@ thumbnails, collages, posters and moodboards.
 | **Carousel tools**    | Seamless swipe: one panorama across 2–10 slides with slide count, spacing, margin, crop position, alignment (centre / top / bottom / stagger) and manual adjustment. Collage engine for 2–20 photos in 6 styles (grid, editorial, bento, scrapbook, polaroid, filmstrip) with Shuffle, More chaotic / minimal / aesthetic / editorial / Gen-Z, spacing, messiness and tape & stickers — keep any photo in place while shuffling. Live swipe preview of the carousel (drag, arrows, dots).                                                                                                                                                                                              |
 | **Photo magic**       | Smart photo dump: pick 3–20 photos and one of 12 vibes (chaotic Gen-Z, clean, cinematic, Y2K, travel, birthday, college, streetwear, vacation, night out, minimal, aesthetic) and get a finished, fully editable carousel — cover, title, collages, captions — generated on your device from design rules, no AI service. Start from the home screen or add to an open design.                                                                                                                                                                                                                                                                                                         |
 | **Templates**         | 51 original templates across every format and 12 styles (editorial, minimal, big type, scrapbook, cinematic, Y2K, streetwear, retro, soft, luxury, brutalist, playful) — magazine, tips list, polaroid wall, film stills, torn paper, sticker board, split screen, giant type, story polls, covers, thumbnails, posters, moodboards. Templates page with search and filters, swipe preview, colourways, _use with my photos_ (fills the frames), and a Templates panel in the editor that adds slides or replaces the design (undoable). Save any design as your own template (photos stay on the device), rename/duplicate/delete, and export/import `.stardeck-template.json` files. |
+| **Export**            | PNG, JPG, WebP and multi-page PDF — every slide as a ZIP or separate files, one slide, or the full carousel as one wide image. Standard / High (2×) / Maximum (3×, from your full-resolution originals), transparent PNG/WebP, progress with cancel, share sheet on phones. Made on your device, works offline, **never watermarked**. <kbd>Ctrl/⌘</kbd> + <kbd>⇧</kbd> + <kbd>E</kbd> or _Export…_ on any project card. MP4 is marked **Soon** (animations, Phase 9).                                                                                                                                                                                                                 |
 | **Trend engine**      | Trend packs are plain JSON in `public/trends/` — publish a new drop without rebuilding the app.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Projects**          | Search, format filters, sort, favourites, trash with undo and 30-day auto-clean, restore, delete forever.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Settings**          | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Storage, Shortcuts, Accessibility, About.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -86,6 +87,7 @@ src/
   layouts/        Collage generators, seamless panorama, smart photo dump styles, apply/regenerate/shuffle
   filters/        One-tap looks (data), intensity blending over your edits, look previews
   effects/        Effect definitions and the reference maths the shader mirrors (glow, leaks, dust, RGB split, scanlines)
+  export/         Export: pure plan (sizes, names, quality caps), photo loading & develop, encoders, ZIP and PDF writers
   images/         Photo pipeline: layout maths, adjustments & curves, WebGL develop (+ CPU worker fallback),
     cutout/       Background removal providers (on-device AI, colour key, optional server), guided filter
   editor/         Editor store (history, transactions, autosave), camera, actions, photo actions, shortcuts
@@ -97,6 +99,7 @@ src/
     shell/        App shell: nav rail, bottom bar, top bar, command palette, providers, backdrop
     carousel/     Swipe preview
     templates/    Template browser, preview (colourways, use with photos) and save-as-template dialogs
+    export/       Export dialog (options, progress, done screen, save & share)
     magic/        Photo chooser and the dump / seamless / collage flows
     home/ discover/ projects/ settings/ onboarding/
   projects/       Document model & operations, formats, repository, Zod schemas, store
@@ -128,9 +131,12 @@ Key decisions:
 - **Canvas + overlay editor.** The scene is drawn into one viewport-sized canvas (only the visible region, once per
   animation frame); selection handles, guides and the text caret live in an SVG/DOM overlay. Gestures run as
   _transactions_ — a drag previews continuously but lands as a single undo step.
-- **One renderer everywhere.** Thumbnails, template previews, the editor canvas and (Phase 7) exports all use the same
-  pure `renderDocument()` Canvas2D function — what you see is exactly what you export, and it can run in a worker via
+- **One renderer everywhere.** Thumbnails, template previews, the editor canvas and exports all use the same pure
+  `renderDocument()` Canvas2D function — what you see is exactly what you export, and it can run in a worker via
   `OffscreenCanvas`.
+- **Export stays on the device.** Files are rendered one at a time at the chosen scale (photos re-developed at that
+  size, originals for Maximum), encoded with `canvas.toBlob`, and packaged by small built-in ZIP and PDF writers — no
+  upload, no dependency, works offline, no watermark. See [`docs/EXPORT.md`](docs/EXPORT.md).
 - **Non-destructive photos.** Photos are stored once (original, 2048px preview, thumbnail) and referenced by id. Crop,
   zoom, straighten and flips are layout maths in the renderer; adjustments, curves, perspective and cut-outs run through
   a cached WebGL "develop" pipeline (a Web Worker does the same maths where WebGL is missing). The vignette is drawn per

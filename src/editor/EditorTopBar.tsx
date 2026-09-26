@@ -223,20 +223,18 @@ export function EditorTopBar() {
           tooltipSide="bottom"
           className="hidden sm:inline-flex"
         />
-        <Tooltip content="Exporting arrives in an upcoming update — no watermark, no paywall." side="bottom">
-          <span tabIndex={0} className="ml-1 rounded-[13px]">
-            <Button
-              variant="primary"
-              size="sm"
-              disabled
-              aria-disabled
-              icon={<Download className="size-4" />}
-              className="pointer-events-none"
-            >
-              <span className="hidden sm:inline">Export</span>
-              <span className="rounded-full bg-accent-fg/15 px-1.5 text-[9px] font-bold tracking-wide uppercase">Soon</span>
-            </Button>
-          </span>
+        <Tooltip content={`Export — PNG, JPG, WebP or PDF (${mod} ⇧ E). No watermark, ever.`} side="bottom">
+          <Button
+            variant="primary"
+            size="sm"
+            aria-label="Export"
+            icon={<Download className="size-4" />}
+            className="ml-1"
+            onClick={() => useUi.getState().openExport({ source: 'editor' })}
+            data-testid="open-export"
+          >
+            <span className="hidden sm:inline">Export</span>
+          </Button>
         </Tooltip>
       </div>
     </header>
