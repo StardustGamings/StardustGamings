@@ -30,6 +30,7 @@ export type PanelId =
   | 'filters'
   | 'layouts'
   | 'animate'
+  | 'trends'
   | 'layers'
   | 'properties';
 

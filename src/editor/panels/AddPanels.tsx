@@ -4,7 +4,7 @@ import { Search, Upload } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import type { DesignDocument } from '@/types/document';
 import { ScenePreview } from '@/canvas/ScenePreview';
-import { EMOJI_STICKERS, VECTOR_STICKERS, type StickerCategory } from '@/stickers/library';
+import { EMOJI_STICKERS, stickerName, VECTOR_STICKERS, type StickerCategory } from '@/stickers/library';
 import { fontStack, loadFont } from '@/typography/fonts';
 import { useTrends } from '@/trends/store';
 import { cn } from '@/utils/cn';
@@ -270,11 +270,19 @@ const STICKERS = [
 
 export function StickersPanel() {
   const [query, setQuery] = useState('');
-  const [tab, setTab] = useState<StickerCategory | 'all'>('all');
-  const docs = useMemo(() => new Map(STICKERS.map((s) => [s.id, stickerDoc(s.id)])), []);
-  const list = STICKERS.filter(
+  const [tab, setTab] = useState<StickerCategory | 'all' | 'drop'>('all');
+  const drop = useTrends((s) => s.pack);
+  // The trend drop's stickers (built-in ones it features, plus its own art).
+  const dropStickers = useMemo(
+    () => drop.stickers.map((ref) => ({ id: ref, name: stickerName(ref), category: 'drop' as const })),
+    [drop],
+  );
+  const all = useMemo(() => [...STICKERS, ...dropStickers.filter((s) => s.id.startsWith('art:'))], [dropStickers]);
+  const docs = useMemo(() => new Map([...all, ...dropStickers].map((s) => [s.id, stickerDoc(s.id)])), [all, dropStickers]);
+  const tabs = [STICKER_TABS[0]!, { id: 'drop' as const, label: `✦ ${drop.title}` }, ...STICKER_TABS.slice(1)];
+  const list = (tab === 'drop' ? dropStickers : all).filter(
     (s) =>
-      (tab === 'all' || s.category === tab) &&
+      (tab === 'all' || tab === 'drop' || s.category === tab) &&
       (!query.trim() ||
         s.name.toLowerCase().includes(query.trim().toLowerCase()) ||
         s.category.includes(query.trim().toLowerCase())),
@@ -294,7 +302,7 @@ export function StickersPanel() {
           />
         </div>
         <div className="-mx-4 mt-2 hide-scrollbar flex gap-1 overflow-x-auto px-4">
-          {STICKER_TABS.map((t) => (
+          {tabs.map((t) => (
             <button
               key={t.id}
               type="button"

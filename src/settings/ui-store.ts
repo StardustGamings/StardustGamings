@@ -17,6 +17,8 @@ export interface PhotoFlowRequest {
   target: 'new' | 'current';
   /** Collage style to start with. */
   family?: CollageFamily;
+  /** Photo-dump style to start with (e.g. a trend drop's layout rule). */
+  styleId?: string;
 }
 
 /** Template preview: `new` starts a project; `editor` adds to (or replaces) the open design. */
@@ -46,7 +48,7 @@ interface UiState {
   purgeId: string | null;
   setPurgeId: (id: string | null) => void;
   photoFlow: PhotoFlowRequest | null;
-  openPhotoFlow: (mode: PhotoFlowMode, target: PhotoFlowRequest['target'], family?: CollageFamily) => void;
+  openPhotoFlow: (mode: PhotoFlowMode, target: PhotoFlowRequest['target'], family?: CollageFamily, styleId?: string) => void;
   closePhotoFlow: () => void;
   /** Full-screen swipe preview of the carousel open in the editor. */
   carouselPreview: boolean;
@@ -88,7 +90,8 @@ export const useUi = create<UiState>()((set) => ({
   purgeId: null,
   setPurgeId: (purgeId) => set({ purgeId }),
   photoFlow: null,
-  openPhotoFlow: (mode, target, family) => set({ photoFlow: { mode, target, family }, paletteOpen: false, newProject: null }),
+  openPhotoFlow: (mode, target, family, styleId) =>
+    set({ photoFlow: { mode, target, family, styleId }, paletteOpen: false, newProject: null }),
   closePhotoFlow: () => set({ photoFlow: null }),
   carouselPreview: false,
   setCarouselPreview: (carouselPreview) => set({ carouselPreview }),

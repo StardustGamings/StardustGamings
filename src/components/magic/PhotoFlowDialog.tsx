@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowLeft, Dices } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import type { CollageFamily, DesignDocument } from '@/types/document';
 import type { AssetMeta } from '@/assets/types';
 import type { SizePresetId } from '@/types/project';
@@ -14,6 +14,8 @@ import { generatePhotoDump, paletteTint } from '@/layouts/dump';
 import { DUMP_MAX_PHOTOS, DUMP_MIN_PHOTOS, DUMP_STYLES, getDumpStyle } from '@/layouts/dump-styles';
 import { suggestedSlides, type PanoramaParams } from '@/layouts/panorama';
 import { useUi, type PhotoFlowRequest } from '@/settings/ui-store';
+import { useTrends } from '@/trends/store';
+import { ruleToDumpStyle } from '@/trends/pack';
 import { useEditor } from '@/editor/store';
 import { addCollage, addPanorama, addPhotoDump, newSeed, toPhotoRef } from '@/editor/layout-actions';
 import { useCreateProject } from '@/components/projects/useCreateProject';
@@ -57,6 +59,9 @@ const MOODS: { id: CollageMood; label: string }[] = [
   { id: 'genz', label: 'More Gen-Z' },
 ];
 
+/** "Clean" → "Clean dump"; a style already called a dump keeps its name. */
+const dumpName = (style: string) => (/\bdump$/i.test(style) ? style : `${style} dump`);
+
 function Label({ children }: { children: React.ReactNode }) {
   return <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{children}</p>;
 }
@@ -68,7 +73,10 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
   const [step, setStep] = useState<'photos' | 'style'>('photos');
   const [selected, setSelected] = useState<string[]>([]);
   const [seed, setSeed] = useState(newSeed);
-  const [styleId, setStyleId] = useState(DUMP_STYLES[0]!.id);
+  const [styleId, setStyleId] = useState(flow.styleId ?? DUMP_STYLES[0]!.id);
+  const trendRules = useTrends((s) => s.pack.layoutRules);
+  const dropTitle = useTrends((s) => s.pack.title);
+  const trendStyles = useMemo(() => trendRules.map(ruleToDumpStyle), [trendRules]);
   const [title, setTitle] = useState('');
   const [family, setFamily] = useState<CollageFamily>(flow.family ?? 'bento');
   const [collage, setCollage] = useState(() => defaultCollageParams(flow.family ?? 'bento', 0));
@@ -124,7 +132,7 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
       const format = mode === 'collage' ? 'collage' : 'carousel';
       const name =
         mode === 'dump'
-          ? `${getDumpStyle(styleId).name} dump`
+          ? dumpName(getDumpStyle(styleId).name)
           : mode === 'seamless'
             ? 'Seamless swipe'
             : `${FAMILY_LABELS[family]} collage`;
@@ -191,26 +199,32 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
                 <div>
                   <Label>Vibe</Label>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Photo dump style">
-                    {DUMP_STYLES.map((s) => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        role="radio"
-                        aria-checked={styleId === s.id}
-                        onClick={() => setStyleId(s.id)}
-                        className={cn(
-                          'flex items-start gap-2 rounded-[14px] border p-2.5 text-left transition-colors',
-                          styleId === s.id ? 'border-accent bg-accent/10' : 'border-line hover:border-line-strong',
+                    {[...DUMP_STYLES, ...trendStyles].map((s, i) => (
+                      <Fragment key={s.id}>
+                        {i === DUMP_STYLES.length && (
+                          <p className="col-span-full mt-1 text-[11px] font-bold tracking-[0.1em] text-fg-subtle uppercase">
+                            ✦ From {dropTitle}
+                          </p>
                         )}
-                      >
-                        <span className="text-lg leading-none" aria-hidden>
-                          {s.emoji}
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block text-[13px] font-bold">{s.name}</span>
-                          <span className="block text-[11px] leading-snug text-fg-subtle">{s.blurb}</span>
-                        </span>
-                      </button>
+                        <button
+                          type="button"
+                          role="radio"
+                          aria-checked={styleId === s.id}
+                          onClick={() => setStyleId(s.id)}
+                          className={cn(
+                            'flex items-start gap-2 rounded-[14px] border p-2.5 text-left transition-colors',
+                            styleId === s.id ? 'border-accent bg-accent/10' : 'border-line hover:border-line-strong',
+                          )}
+                        >
+                          <span className="text-lg leading-none" aria-hidden>
+                            {s.emoji}
+                          </span>
+                          <span className="min-w-0">
+                            <span className="block text-[13px] font-bold">{s.name}</span>
+                            <span className="block text-[11px] leading-snug text-fg-subtle">{s.blurb}</span>
+                          </span>
+                        </button>
+                      </Fragment>
                     ))}
                   </div>
                 </div>

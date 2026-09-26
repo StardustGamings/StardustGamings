@@ -1,11 +1,11 @@
 {
   "name": "stardeck",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "description": "Stardeck — a free, local-first social design & carousel studio. Create. Swipe. Flex.",
   "scripts": {
-    "dev": "node scripts/build-workers.mjs && node scripts/build-templates.mjs && next dev",
-    "build": "node scripts/build-workers.mjs && node scripts/build-templates.mjs && next build && node scripts/build-sw.mjs",
+    "dev": "node scripts/build-workers.mjs && node scripts/build-templates.mjs && node scripts/build-trends.mjs && next dev",
+    "build": "node scripts/build-workers.mjs && node scripts/build-templates.mjs && node scripts/build-trends.mjs && next build && node scripts/build-sw.mjs",
     "start": "node scripts/serve.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -19,7 +19,9 @@
     "format:check": "prettier --check .",
     "workers": "node scripts/build-workers.mjs",
     "templates": "node scripts/build-templates.mjs --author",
-    "templates:check": "node scripts/check-templates.mjs"
+    "templates:check": "node scripts/check-templates.mjs",
+    "trends": "node scripts/build-trends.mjs",
+    "trends:check": "node scripts/build-trends.mjs --check"
   },
   "dependencies": {
     "clsx": "^2.1.1",

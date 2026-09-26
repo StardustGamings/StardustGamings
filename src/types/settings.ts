@@ -32,5 +32,7 @@ export interface Settings {
   privacy: {
     /** Opt-in for any feature that would send data off the device. Off by default. */
     cloudFeatures: boolean;
+    /** Download new trend drops from this app's own site (a plain file download; nothing is sent). */
+    trendUpdates: boolean;
   };
 }

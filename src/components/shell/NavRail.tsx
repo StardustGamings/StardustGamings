@@ -10,6 +10,7 @@ import { LogoMark } from '@/components/ui/Logo';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { cn } from '@/utils/cn';
 import { NAV_ITEMS } from './nav';
+import { NewDropDot } from './NewDropDot';
 
 /** Desktop / tablet navigation: a floating glass rail. */
 export function NavRail() {
@@ -64,6 +65,7 @@ export function NavRail() {
                   className={cn('size-[22px] transition-transform group-hover:scale-110', active && 'text-accent-text')}
                 />
                 {item.label}
+                {item.trendDot && <NewDropDot />}
               </Link>
             </li>
           );

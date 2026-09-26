@@ -8,6 +8,7 @@ import { useSettings } from '@/settings/store';
 import { useUi } from '@/settings/ui-store';
 import { cn } from '@/utils/cn';
 import { NAV_ITEMS } from './nav';
+import { NewDropDot } from './NewDropDot';
 
 /** Phone navigation: floating tab bar with a centre create button. */
 export function BottomNav() {
@@ -38,6 +39,7 @@ export function BottomNav() {
           )}
           <item.icon className="size-[22px]" />
           {item.label}
+          {item.trendDot && <NewDropDot className="top-2 right-[calc(50%-18px)]" />}
         </Link>
       </li>
     );

@@ -14,8 +14,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 7   | Export                     | ✅ Done |
 | 8   | Offline storage & projects | ✅ Done |
 | 9   | Animations & video         | ✅ Done |
-| 10  | Trend system               | ⏭️ Next |
-| 11  | Optional AI integrations   | Planned |
+| 10  | Trend system               | ✅ Done |
+| 11  | Optional AI integrations   | ⏭️ Next |
 | 12  | Performance                | Planned |
 | 13  | Testing & hardening        | Planned |
 
@@ -184,8 +184,8 @@ the optional AI tools in Phase 11.
   (looks + intensity + undo, curves on GPU, light leak colours, filters for every photo, templates carrying looks,
   trend cards, phone Filters action).
 
-Known limits: filters apply to photos, not to text or shapes; custom looks shipped inside trend packs (as data) come
-with the trend system in Phase 10.
+Known limits: filters apply to photos, not to text or shapes. (Trend drops started shipping their own looks as data in
+Phase 10.)
 
 ## Phase 7 — Export ✅
 
@@ -308,9 +308,63 @@ Known limits:
 - On screen, looks on moving video need WebGL (exports apply them either way).
 - There is no per-word text animation and there are no keyframed motion paths.
 
+## Phase 10 — Trend system ✅
+
+- **Trend drops as data:** a drop is one JSON file (pack format v2; v1 still loads), published without a build.
+  - It covers every category in the brief: layouts and **layout rules**, fonts, colours, **filters** (looks as data),
+    effects, stickers and **sticker art** (vector paths), carousel styles, meme formats and social formats.
+  - Also a cover and **trend kits**.
+  - Everything is validated, allow-listed and length-capped. No images, fonts or scripts are downloaded.
+- **Feed, schedule and archive:** `index.json` lists the drops.
+  - A drop dated in the future goes live on its day (local midnight). The October drop is published ahead of time.
+  - The newest drop is always re-downloaded, so fixes reach people.
+  - Earlier drops stay browsable, and drops that arrived since your last visit get a **new-drop dot**.
+  - Three drops ship: August, September and October 2026.
+- **Offline:** all drops are bundled into the app, the last ones downloaded are cached on the device, and the service
+  worker caches the feed.
+  - A build can point at a feed hosted elsewhere (`NEXT_PUBLIC_TRENDS_URL`, e.g. for the native app).
+  - **Settings → Trends** turns downloads off, shows where the drop came from, checks now, and previews a pack file for
+    authors (with the strict check's findings).
+- **Discover → What's trending:** the drop's cover (drawn from its data), a drop switcher, a sticky category bar, and
+  sections for kits, templates, layouts and layout rules (_Try with my photos_), fonts, colours, filters, effects,
+  stickers, carousel styles, meme formats, social formats and the remix feed.
+  - Home's trending tabs add filters and memes & formats.
+- **Editor → Trends (<kbd>R</kbd>):**
+  - **Suggestions** for the open design: a kit, a filter for bare photos, a trending pairing for the headline, motion,
+    a layout rule for your photos, a meme or social format.
+  - **Kits** preview _your_ design restyled and apply in one tap — colours (contrast kept), heading and body fonts
+    (text re-fitted), a filter and motion, each switchable.
+  - The drop's palettes, fonts, filters and stickers one at a time. Every action is one undo.
+  - Drop filters also appear under _Trending_ in the filter picker, drop stickers get their own tab, and layout rules
+    are extra photo-dump styles.
+- **Designs don't depend on drops:** a drop's filter travels inside the photo (its recipe) and its sticker art inside
+  the sticker, so both work offline, after the drop is gone, and in project files.
+- **12 new meme & social format templates** (63 in all): Nah / Yeah, Level Up, Nobody / Me, POV, Top & Bottom, Tier
+  List, Starter Pack, Vibe Chart, Text Post Card, Thread, Hot Take, Rate My…
+- **Authoring:** `npm run trends:check` validates every pack strictly (templates, stickers, looks, fonts, text styles,
+  ids). `public/trends/pack.schema.json` validates in editors. See [TRENDS.md](TRENDS.md).
+- **Fixed along the way:**
+  - A drop going live after the build made the pre-rendered page and the browser disagree (a React hydration error). The
+    first render now uses the build's drop, and today's drop follows right after.
+  - Settings → About showed a stale "v0.3" badge. It now shows the real version.
+  - A filters end-to-end check could mistake the empty-frame placeholder for the photo on a busy machine. It now waits
+    for the photo's own colour.
+- **Quality:**
+  - 286 unit/component tests: feed, cache, scheduling, index path rules, sanitising and injection, kits, suggestions,
+    and every published pack checked strictly and in sync with its bundled copy.
+  - 128 Playwright runs across desktop, phone and no-WebGL: every Discover category and the archive, a scheduled drop
+    going live, a drop from the feed then offline, downloads off (no requests), the pack-file preview, the Trends tool
+    (suggestions, restyle, undo, palettes), drop filters and sticker art surviving a reload, a layout rule in the photo
+    dump, the new formats, and the phone flow.
+
+Known limits:
+
+- Drops can only use the fonts bundled with the app, because designs must render offline and export identically.
+- Layout rules are recipes over the built-in collage families.
+- Suggestions are simple rules. Smarter ones belong to the optional AI tools in Phase 11.
+
 ## Later phases (summary)
 
-- **10 · Trends:** remote pack updates, meme & social formats, trend-driven suggestions.
 - **11 · AI (optional, opt-in):** palette extraction, font pairing, AI resize and layout run locally; any cloud model is
   opt-in with clear disclosure and a server-side proxy for keys.
 - **12–13 · Performance & hardening:** worker rendering, memory budgets for large images, accessibility audit, visual

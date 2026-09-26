@@ -42,6 +42,7 @@ import {
   WandSparkles,
   ZoomIn,
   ZoomOut,
+  Flame,
 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useHotkeys } from '@/hooks/useHotkeys';
@@ -117,6 +118,7 @@ export function useEditorShortcuts() {
     l: () => ed().setPanel(ed().panel === 'layouts' ? null : 'layouts'),
     f: () => ed().setPanel(ed().panel === 'filters' ? null : 'filters'),
     a: () => ed().setPanel(ed().panel === 'animate' ? null : 'animate'),
+    r: () => ed().setPanel(ed().panel === 'trends' ? null : 'trends'),
     h: () => ed().setTool('hand'),
     'mod+=': () => actions.zoomStep(1),
     'mod++': () => actions.zoomStep(1),
@@ -313,6 +315,15 @@ export function useEditorShortcuts() {
           'timeline',
         ],
         run: () => ed().setPanel('animate'),
+      },
+      {
+        id: 'ed-trends',
+        label: 'Trends: restyle with this month’s drop…',
+        group: 'Editor',
+        icon: <Flame />,
+        shortcut: 'R',
+        keywords: ['trend', 'trending', 'restyle', 'palette', 'fonts', 'kit', 'drop', 'suggestions', 'meme'],
+        run: () => ed().setPanel('trends'),
       },
       {
         id: 'ed-auto-animate',

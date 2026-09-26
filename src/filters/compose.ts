@@ -2,7 +2,7 @@ import type { ImageAdjustments, ImageEffects, ImageElement } from '@/types/docum
 import { ADJUSTMENT_GROUPS, cleanAdjustments, curvesLut, hasCurves, type AdjustmentKey } from '@/images/adjustments';
 import { EFFECT_KEYS, hasEffects } from '@/effects/effects';
 import { clamp } from '@/utils/math';
-import { getLook, type LookDefinition } from './looks';
+import { resolveLook, type LookDefinition } from './looks';
 
 /**
  * How a look combines with the photo's own edits: every slider is the user's
@@ -17,7 +17,7 @@ const RANGES = new Map(ADJUSTMENT_GROUPS.flatMap((g) => g.items.map((d) => [d.ke
 
 /** The active look and its strength (0..1), if any. */
 export function activeLook(el: Photo): { look: LookDefinition; t: number } | null {
-  const look = getLook(el.filter?.id);
+  const look = resolveLook(el.filter);
   const t = clamp((el.filter?.intensity ?? 0) / 100, 0, 1);
   return look && t > 0 ? { look, t } : null;
 }

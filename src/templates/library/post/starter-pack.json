@@ -1,0 +1,313 @@
+{
+  "id": "starter-pack",
+  "name": "Starter Pack",
+  "format": "post",
+  "sizeId": "ig-square",
+  "style": "minimal",
+  "description": "Six pics that sum up a whole personality, each with a tiny deadpan label.",
+  "tags": [
+    "meme",
+    "meme format",
+    "starter pack",
+    "grid",
+    "labels"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#0B0A12",
+    "#ECE9F2",
+    "#7A5CFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#FFFFFF"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "sp0",
+        "x": 30,
+        "y": 44,
+        "width": 1020,
+        "height": 69,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "the photo dump starter pack",
+        "fontFamily": "Manrope",
+        "fontSize": 56,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp1",
+        "x": 30,
+        "y": 150,
+        "width": 320,
+        "height": 390,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 12,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#ECE9F2"
+          }
+        }
+      },
+      {
+        "id": "sp2",
+        "x": 30,
+        "y": 550,
+        "width": 320,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "blurry concert pic",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp3",
+        "x": 380,
+        "y": 150,
+        "width": 320,
+        "height": 390,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 12,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#ECE9F2"
+          }
+        }
+      },
+      {
+        "id": "sp4",
+        "x": 380,
+        "y": 550,
+        "width": 320,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "coffee, from above",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp5",
+        "x": 730,
+        "y": 150,
+        "width": 320,
+        "height": 390,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 12,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#ECE9F2"
+          }
+        }
+      },
+      {
+        "id": "sp6",
+        "x": 730,
+        "y": 550,
+        "width": 320,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "mirror selfie",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp7",
+        "x": 30,
+        "y": 610,
+        "width": 320,
+        "height": 390,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 12,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#ECE9F2"
+          }
+        }
+      },
+      {
+        "id": "sp8",
+        "x": 30,
+        "y": 1010,
+        "width": 320,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "sunset (×14)",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp9",
+        "x": 380,
+        "y": 610,
+        "width": 320,
+        "height": 390,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 12,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#ECE9F2"
+          }
+        }
+      },
+      {
+        "id": "spa",
+        "x": 380,
+        "y": 1010,
+        "width": 320,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "a funny sign",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "spb",
+        "x": 730,
+        "y": 610,
+        "width": 320,
+        "height": 390,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 12,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#ECE9F2"
+          }
+        }
+      },
+      {
+        "id": "spc",
+        "x": 730,
+        "y": 1010,
+        "width": 320,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "the group pic",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

@@ -170,6 +170,7 @@ test.describe('motion (desktop)', () => {
     await page.keyboard.press('t');
     const vp = (await page.getByTestId('canvas-viewport').boundingBox())!;
     await page.mouse.click(vp.x + vp.width / 2, vp.y + vp.height / 3);
+    await expect(page.getByRole('textbox', { name: 'Edit text' })).toBeFocused();
     await page.keyboard.type('Hello motion');
     await page.keyboard.press('Escape');
     await page.keyboard.press('Escape');

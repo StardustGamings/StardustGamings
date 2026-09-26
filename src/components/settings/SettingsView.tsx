@@ -3,6 +3,7 @@
 import {
   Accessibility,
   Download,
+  Flame,
   Gauge,
   HardDrive,
   Info,
@@ -37,6 +38,7 @@ import { clamp } from '@/utils/math';
 import { cn } from '@/utils/cn';
 import { SettingRow, SettingsSection } from './SettingRow';
 import { StorageSection } from './StorageSection';
+import { TrendsSection } from './TrendsSection';
 import { ThemePicker } from './ThemePicker';
 
 const SECTIONS = [
@@ -46,6 +48,7 @@ const SECTIONS = [
   { id: 'export', label: 'Export', icon: Share2 },
   { id: 'performance', label: 'Performance', icon: Gauge },
   { id: 'privacy', label: 'Privacy', icon: Lock },
+  { id: 'trends', label: 'Trends', icon: Flame },
   { id: 'storage', label: 'Storage', icon: HardDrive },
   { id: 'shortcuts', label: 'Shortcuts', icon: Keyboard },
   { id: 'accessibility', label: 'Accessibility', icon: Accessibility },
@@ -374,7 +377,10 @@ function PrivacySection() {
           <p className="text-sm font-bold">Leaves this device</p>
           <ul className="mt-2 list-inside list-disc space-y-1 text-[13px] text-fg-muted">
             <li>Nothing you create.</li>
-            <li>The app only downloads its own files, trend packs and (once, if you use it) its background-removal model.</li>
+            <li>
+              The app only downloads its own files, trend drops (you can turn those off under Trends) and, once if you use it, its
+              background-removal model.
+            </li>
             <li>No analytics, no ad trackers, no account.</li>
           </ul>
         </div>
@@ -516,7 +522,12 @@ function AboutSection() {
   const { state, install } = useInstallPrompt();
   const setOnboardingReplay = useUi((s) => s.setOnboardingReplay);
   return (
-    <SettingsSection id="about" title="About Stardeck" icon={<Info />} badge={<Badge>v0.3 · Phase 3</Badge>}>
+    <SettingsSection
+      id="about"
+      title="About Stardeck"
+      icon={<Info />}
+      badge={<Badge>v{process.env.NEXT_PUBLIC_APP_VERSION}</Badge>}
+    >
       <div className="pb-4 text-sm leading-relaxed text-fg-muted">
         <p>
           <strong className="text-fg">Free forever.</strong> No watermarks, no “Pro” locks on the basics, no forced subscription.
@@ -582,6 +593,7 @@ export function SettingsView() {
         <ExportSection />
         <PerformanceSection />
         <PrivacySection />
+        <TrendsSection />
         <StorageSection />
         <ShortcutsSection />
         <AccessibilitySection />

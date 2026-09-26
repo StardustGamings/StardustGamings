@@ -52,7 +52,10 @@ export function sanitizeSettings(input: unknown): Settings {
       format: ['png', 'jpg', 'webp', 'pdf', 'mp4', 'gif'].includes(exp.format as string) ? exp.format! : d.export.format,
       quality: ['standard', 'high', 'max'].includes(exp.quality as string) ? exp.quality! : d.export.quality,
     },
-    privacy: { cloudFeatures: bool(privacy.cloudFeatures, d.privacy.cloudFeatures) },
+    privacy: {
+      cloudFeatures: bool(privacy.cloudFeatures, d.privacy.cloudFeatures),
+      trendUpdates: bool(privacy.trendUpdates, d.privacy.trendUpdates),
+    },
   };
 }
 
@@ -64,7 +67,8 @@ export const useSettings = create<SettingsState>()(
       update: (patch) => set((s) => sanitizeSettings({ ...s, ...patch })),
       updateEditor: (patch) => set((s) => ({ editor: sanitizeSettings({ ...s, editor: { ...s.editor, ...patch } }).editor })),
       updateExport: (patch) => set((s) => ({ export: sanitizeSettings({ ...s, export: { ...s.export, ...patch } }).export })),
-      updatePrivacy: (patch) => set((s) => ({ privacy: { ...s.privacy, ...patch } })),
+      updatePrivacy: (patch) =>
+        set((s) => ({ privacy: sanitizeSettings({ ...s, privacy: { ...s.privacy, ...patch } }).privacy })),
       reset: () => set({ ...DEFAULT_SETTINGS, onboarded: true }),
     }),
     {

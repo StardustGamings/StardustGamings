@@ -1,4 +1,4 @@
-import type { CurvePoint, ImageAdjustments, ImageCurves, ImageEffects } from '@/types/document';
+import type { CurvePoint, ImageAdjustments, ImageCurves, ImageEffects, ImageFilter } from '@/types/document';
 
 /**
  * One-tap looks. Each is plain data — adjustments, tone curves and effects at
@@ -145,3 +145,35 @@ const byId = new Map(LOOKS.map((l) => [l.id, l]));
 
 /** A built-in look, or undefined for ids this version doesn't know (they're ignored, not errors). */
 export const getLook = (id: string | undefined): LookDefinition | undefined => (id ? byId.get(id) : undefined);
+
+export const isBuiltInLook = (id: string): boolean => byId.has(id);
+
+/**
+ * The look a photo uses: a built-in by id, or the recipe carried in the filter
+ * (looks from trend packs), so designs render the same wherever they're opened.
+ */
+export function resolveLook(filter: ImageFilter | undefined): LookDefinition | undefined {
+  if (!filter) return undefined;
+  const builtIn = byId.get(filter.id);
+  if (builtIn) return builtIn;
+  const custom = filter.look;
+  if (!custom) return undefined;
+  return {
+    id: filter.id,
+    name: custom.name,
+    description: '',
+    swatch: ['#7A5CFF', '#C6FF3D'],
+    adjust: custom.adjust,
+    curves: custom.curves,
+    effects: custom.effects,
+  };
+}
+
+/** The filter to store on a photo for a look: built-ins by id, anything else with its recipe. */
+export function lookFilter(look: LookDefinition, intensity: number): ImageFilter {
+  if (byId.has(look.id)) return { id: look.id, intensity };
+  const recipe: NonNullable<ImageFilter['look']> = { name: look.name, adjust: look.adjust };
+  if (look.curves) recipe.curves = look.curves;
+  if (look.effects) recipe.effects = look.effects;
+  return { id: look.id, intensity, look: recipe };
+}

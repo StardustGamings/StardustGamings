@@ -24,5 +24,6 @@ export const DEFAULT_SETTINGS: Settings = {
   },
   privacy: {
     cloudFeatures: false,
+    trendUpdates: true,
   },
 };

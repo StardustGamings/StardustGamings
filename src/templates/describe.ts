@@ -1,7 +1,7 @@
 import type { DesignDocument, Fill, ImageElement } from '@/types/document';
 import { slideIndexOf } from '@/projects/document';
 import { normalizeHex } from '@/utils/color';
-import { getLook } from '@/filters/looks';
+import { resolveLook } from '@/filters/looks';
 
 /** What a template is made of — shown in the template preview and checked by tests. */
 export interface TemplateFacts {
@@ -83,7 +83,7 @@ export function describeTemplate(doc: DesignDocument): TemplateFacts {
       texts++;
     } else if (el.type === 'sticker') stickers.add(el.stickerId);
     else if (el.type === 'image') {
-      const look = getLook(el.filter?.id);
+      const look = resolveLook(el.filter);
       if (look) looks.add(look.name);
     }
   }

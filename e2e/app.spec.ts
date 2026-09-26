@@ -1,4 +1,4 @@
-import { createCarousel, expect, open, test } from './fixtures';
+import { createCarousel, expect, open, test, pinDate } from './fixtures';
 
 test.describe('onboarding', () => {
   test.use({ fresh: true });
@@ -20,6 +20,7 @@ test.describe('onboarding', () => {
 });
 
 test('home dashboard shows quick create, trending and a friendly empty state', async ({ app: page }) => {
+  await pinDate(page);
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'What are we making?' })).toBeVisible();
   for (const label of ['Carousel', 'Story', 'Post', 'Reel Cover', 'Thumbnail', 'Collage', 'Poster', 'Moodboard']) {
@@ -113,6 +114,7 @@ test('command palette switches theme and search templates opens the editor', asy
 });
 
 test('templates from Discover open in the editor with their slides', async ({ app: page }) => {
+  await pinDate(page);
   await page.goto('/discover/');
   await page.getByRole('button', { name: 'Template Big Type Drop' }).first().click();
   await page.getByRole('dialog', { name: 'Big Type Drop' }).getByTestId('template-use').click();

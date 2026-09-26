@@ -168,10 +168,23 @@ export interface Cutout {
 
 export type ImageClip = 'rect' | 'ellipse' | 'arch' | 'heart' | 'star' | 'hexagon';
 
+/** A look that isn't built into the app (from a trend pack): its full recipe, carried with the photo. */
+export interface CustomLook {
+  name: string;
+  adjust: ImageAdjustments;
+  curves?: ImageCurves;
+  effects?: ImageEffects;
+}
+
 /** A one-tap look (see src/filters/looks.ts), blended over the photo's own edits by `intensity` (0..100). */
 export interface ImageFilter {
   id: string;
   intensity: number;
+  /**
+   * Set for looks from a trend pack: the recipe travels with the design, so it
+   * renders the same offline, after the pack is gone, and on other devices.
+   */
+  look?: CustomLook;
 }
 
 export type LeakStyle = 'amber' | 'rose' | 'prism' | 'ice';
@@ -225,12 +238,29 @@ export interface ImageElement extends ElementBase {
   video?: VideoClip;
 }
 
+/** One path of vector sticker art on a 100×100 grid; `'tint'` takes the sticker's recolour. */
+export interface StickerArtLayer {
+  d: string;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+}
+
+/** Vector sticker art that isn't built into the app (from a trend pack), carried with the design. */
+export interface StickerArt {
+  name: string;
+  defaultTint: string;
+  layers: StickerArtLayer[];
+}
+
 export interface StickerElement extends ElementBase {
   type: 'sticker';
-  /** `emoji:<char>` or `vector:<id>` from the sticker library. */
+  /** `emoji:<char>` or `vector:<id>` from the sticker library, or `art:<id>` with its `art` inline. */
   stickerId: string;
   /** Recolour for vector stickers. */
   tint?: string;
+  /** The drawing for `art:` stickers. */
+  art?: StickerArt;
 }
 
 export type DesignElement = TextElement | ShapeElement | ImageElement | StickerElement;

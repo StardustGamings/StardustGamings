@@ -414,6 +414,35 @@
     "animated": false
   },
   {
+    "id": "thread-carousel",
+    "name": "Thread",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "editorial",
+    "description": "A hook, three numbered points and a save-this ending — a thread you swipe through.",
+    "tags": [
+      "social format",
+      "thread",
+      "tips",
+      "educational",
+      "numbered",
+      "text",
+      "animated"
+    ],
+    "palette": [
+      "#F4F1EA",
+      "#0B0A12",
+      "#7A5CFF",
+      "#C6FF3D",
+      "#8E8A9C"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 5,
+    "photoSlots": 0,
+    "animated": true
+  },
+  {
     "id": "torn-notes",
     "name": "Torn Notes",
     "format": "carousel",
@@ -706,6 +735,64 @@
     "animated": false
   },
   {
+    "id": "hot-take",
+    "name": "Hot Take",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "bold",
+    "description": "A stamped HOT TAKE, one unpopular opinion and an agree / fight-me poll.",
+    "tags": [
+      "social format",
+      "opinion",
+      "poll",
+      "hot take",
+      "bold",
+      "animated"
+    ],
+    "palette": [
+      "#0B0A12",
+      "#FFFFFF",
+      "#FF4D2E",
+      "#C6FF3D",
+      "#2A2638"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 0,
+    "animated": true
+  },
+  {
+    "id": "level-up",
+    "name": "Level Up",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "y2k",
+    "description": "Four escalating levels, each one glowing a little more unhinged than the last.",
+    "tags": [
+      "meme",
+      "meme format",
+      "escalating",
+      "levels",
+      "y2k",
+      "glow",
+      "animated"
+    ],
+    "palette": [
+      "#16131F",
+      "#2C2640",
+      "#7A5CFF",
+      "#3CF0C8",
+      "#C6FF3D",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 4,
+    "animated": true
+  },
+  {
     "id": "meme-caption",
     "name": "Caption Meme",
     "format": "post",
@@ -726,6 +813,33 @@
     "height": 1080,
     "slides": 1,
     "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "nah-yeah",
+    "name": "Nah / Yeah",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "Two reaction pics: the thing you’re meant to do, and the thing you actually do.",
+    "tags": [
+      "meme",
+      "meme format",
+      "reaction",
+      "two panel",
+      "funny"
+    ],
+    "palette": [
+      "#FFF8E7",
+      "#0B0A12",
+      "#E8432E",
+      "#C6FF3D",
+      "#E7DDC8"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 2,
     "animated": false
   },
   {
@@ -781,6 +895,32 @@
     "animated": false
   },
   {
+    "id": "nobody-me",
+    "name": "Nobody / Me",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "Nobody asked. You did it anyway. The two-line setup and one perfect pic.",
+    "tags": [
+      "meme",
+      "meme format",
+      "text meme",
+      "relatable",
+      "funny"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#0B0A12",
+      "#D9D4E4",
+      "#7A5CFF"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
     "id": "quiet-luxury",
     "name": "Quiet Luxury",
     "format": "post",
@@ -830,6 +970,139 @@
     "slides": 1,
     "photoSlots": 0,
     "animated": true
+  },
+  {
+    "id": "starter-pack",
+    "name": "Starter Pack",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "minimal",
+    "description": "Six pics that sum up a whole personality, each with a tiny deadpan label.",
+    "tags": [
+      "meme",
+      "meme format",
+      "starter pack",
+      "grid",
+      "labels"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#0B0A12",
+      "#ECE9F2",
+      "#7A5CFF"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 6,
+    "animated": false
+  },
+  {
+    "id": "text-post",
+    "name": "Text Post Card",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "minimal",
+    "description": "A short opinion on a clean card — avatar, name, the take and a row of reactions.",
+    "tags": [
+      "social format",
+      "text post",
+      "opinion",
+      "card",
+      "minimal"
+    ],
+    "palette": [
+      "#C6FF3D",
+      "#3CF0C8",
+      "#FFFFFF",
+      "#0B0A12",
+      "#8E8A9C"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "tier-list",
+    "name": "Tier List",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "playful",
+    "description": "Rank anything: four tiers, three spots each, one very strong opinion.",
+    "tags": [
+      "meme",
+      "meme format",
+      "tier list",
+      "ranking",
+      "grid"
+    ],
+    "palette": [
+      "#0B0A12",
+      "#FFFFFF",
+      "#FF5E7E",
+      "#FFB23E",
+      "#F6E94A",
+      "#7EE08A",
+      "#2A2638"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 12,
+    "animated": false
+  },
+  {
+    "id": "top-bottom",
+    "name": "Top & Bottom",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "bold",
+    "description": "The classic: one pic, a setup on top and the punchline underneath, outlined.",
+    "tags": [
+      "meme",
+      "meme format",
+      "classic",
+      "caption",
+      "impact"
+    ],
+    "palette": [
+      "#5A5470",
+      "#FFFFFF",
+      "#0B0A12"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "vibe-chart",
+    "name": "Vibe Chart",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "Nine pics on two axes — organised to chaotic, soft to loud. Tag your friends.",
+    "tags": [
+      "meme",
+      "meme format",
+      "chart",
+      "grid",
+      "tag your friends"
+    ],
+    "palette": [
+      "#F4F1EA",
+      "#0B0A12",
+      "#7A5CFF",
+      "#E0DAF0"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 9,
+    "animated": false
   },
   {
     "id": "y2k-chrome",
@@ -1169,6 +1442,60 @@
     "height": 1920,
     "slides": 1,
     "photoSlots": 3,
+    "animated": false
+  },
+  {
+    "id": "pov-caption",
+    "name": "POV",
+    "format": "story",
+    "sizeId": "story",
+    "style": "bold",
+    "description": "Full-bleed photo, a giant POV and the scenario underneath. Story-sized.",
+    "tags": [
+      "meme",
+      "meme format",
+      "pov",
+      "story",
+      "full bleed",
+      "animated"
+    ],
+    "palette": [
+      "#3B3450",
+      "#FFFFFF",
+      "#C6FF3D",
+      "#0B0A12"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "rate-my",
+    "name": "Rate My…",
+    "format": "story",
+    "sizeId": "story",
+    "style": "playful",
+    "description": "A story that asks for a score out of ten — outfit, desk, dinner, anything.",
+    "tags": [
+      "social format",
+      "story",
+      "rate",
+      "poll",
+      "interactive"
+    ],
+    "palette": [
+      "#FFE3F1",
+      "#0B0A12",
+      "#FF5EA8",
+      "#FFFFFF",
+      "#F2C6DB"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
     "animated": false
   },
   {

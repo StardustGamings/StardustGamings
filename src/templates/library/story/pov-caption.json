@@ -1,0 +1,182 @@
+{
+  "id": "pov-caption",
+  "name": "POV",
+  "format": "story",
+  "sizeId": "story",
+  "style": "bold",
+  "description": "Full-bleed photo, a giant POV and the scenario underneath. Story-sized.",
+  "tags": [
+    "meme",
+    "meme format",
+    "pov",
+    "story",
+    "full bleed",
+    "animated"
+  ],
+  "palette": [
+    "#3B3450",
+    "#FFFFFF",
+    "#C6FF3D",
+    "#0B0A12"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#3B3450"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null,
+        "duration": 3000
+      }
+    ],
+    "elements": [
+      {
+        "id": "pc0",
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "loop": {
+            "preset": "parallax",
+            "intensity": 45,
+            "direction": "left"
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Your scene",
+          "fill": {
+            "type": "solid",
+            "color": "#3B3450"
+          }
+        }
+      },
+      {
+        "id": "pc1",
+        "x": 0,
+        "y": 1020,
+        "width": 1080,
+        "height": 900,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "linear",
+          "angle": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "rgba(11,10,18,0)"
+            },
+            {
+              "offset": 1,
+              "color": "rgba(11,10,18,0.82)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pc2",
+        "x": 80,
+        "y": 1250,
+        "width": 920,
+        "height": 247,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 510,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "POV:",
+        "fontFamily": "Anton",
+        "fontSize": 220,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pc3",
+        "x": 80,
+        "y": 1500,
+        "width": 900,
+        "height": 223,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "you finally posted the photo dump you’ve been drafting since June",
+        "fontFamily": "Manrope",
+        "fontSize": 64,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.12,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pc4",
+        "x": 820,
+        "y": 1220,
+        "width": 150,
+        "height": 150,
+        "rotation": 12,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 330,
+            "duration": 500
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#C6FF3D"
+      }
+    ],
+    "motion": {
+      "transition": "swipe",
+      "transitionDuration": 500
+    }
+  }
+}

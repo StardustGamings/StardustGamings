@@ -1,4 +1,23 @@
 {
-  "version": 1,
-  "packs": [{ "id": "2026-09", "path": "/trends/2026/september.json" }]
+  "version": 2,
+  "packs": [
+    {
+      "id": "2026-10",
+      "path": "/trends/2026/october.json",
+      "publishedAt": "2026-10-01",
+      "title": "October Drop"
+    },
+    {
+      "id": "2026-09",
+      "path": "/trends/2026/september.json",
+      "publishedAt": "2026-09-01",
+      "title": "September Drop"
+    },
+    {
+      "id": "2026-08",
+      "path": "/trends/2026/august.json",
+      "publishedAt": "2026-08-01",
+      "title": "August Drop"
+    }
+  ]
 }

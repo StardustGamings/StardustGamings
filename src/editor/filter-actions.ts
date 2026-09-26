@@ -2,6 +2,7 @@
 
 import type { DesignDocument, ImageEffects, ImageElement, LeakStyle } from '@/types/document';
 import type { EffectKey } from '@/effects/effects';
+import { getLook, lookFilter, type LookDefinition } from '@/filters/looks';
 import { updateElements } from './core/ops';
 import { useEditor } from './store';
 
@@ -34,13 +35,15 @@ function updatePhotos(scope: LookScope, fn: (el: ImageElement) => ImageElement, 
 export const DEFAULT_INTENSITY = 100;
 
 /** Puts a look on the target photos (`null` removes it). Keeps each photo's intensity when switching looks. */
-export function applyLook(id: string | null, scope: LookScope = 'selection', intensity?: number) {
+export function applyLook(look: LookDefinition | string | null, scope: LookScope = 'selection', intensity?: number) {
+  const def = typeof look === 'string' ? getLook(look) : look;
+  if (look !== null && !def) return;
   updatePhotos(scope, (el) => {
-    if (!id) {
+    if (!def) {
       const { filter: _filter, ...rest } = el;
       return rest;
     }
-    return { ...el, filter: { id, intensity: Math.round(intensity ?? el.filter?.intensity ?? DEFAULT_INTENSITY) } };
+    return { ...el, filter: lookFilter(def, Math.round(intensity ?? el.filter?.intensity ?? DEFAULT_INTENSITY)) };
   });
 }
 

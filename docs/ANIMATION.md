@@ -94,9 +94,9 @@ output size, frame rate and length before you start.
 
 ## Templates
 
-Templates can carry motion. 14 of the 51 built-in templates are **animated**, using the same vibes as auto-animate:
+Templates can carry motion. 18 of the 63 built-in templates are **animated**, using the same vibes as auto-animate:
 The Issue, Five Tips, Cinema Frames, Sticker Board, Y2K Era, Main Character, New Drop, Breaking News, Countdown,
-Episode Cover, GRWM, Quote Card, Versus and Loud Hours. The Templates page has an **✦ Animated** filter, animated
+Episode Cover, GRWM, Quote Card, Versus, Loud Hours, Level Up, POV, Thread and Hot Take. The Templates page has an **✦ Animated** filter, animated
 cards carry a badge, and the preview can **Play animation** before you use one. Templates you save keep their
 animations. Video clips are removed from saved templates, like photos.
 

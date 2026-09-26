@@ -29,11 +29,11 @@ export function AppProviders({ children }: { children: ReactNode }) {
   useStorageSync();
 
   useEffect(() => {
-    void useSettings.persist.rehydrate();
+    // Trends wait for settings: the user may have turned trend downloads off.
+    void Promise.resolve(useSettings.persist.rehydrate()).then(() => refreshTrends());
     // Signals that client handlers (shortcuts etc.) are live — used by e2e tests.
     document.documentElement.dataset.ready = 'true';
     void loadProjects();
-    void refreshTrends();
   }, [loadProjects, refreshTrends]);
 
   return (

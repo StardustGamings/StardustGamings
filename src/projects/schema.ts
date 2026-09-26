@@ -151,15 +151,6 @@ export const adjustmentsSchema = z.object({
   blur: unipolar,
 });
 
-export const filterSchema = z.object({
-  id: z
-    .string()
-    .min(1)
-    .max(40)
-    .regex(/^[a-z0-9-]+$/),
-  intensity: finite.min(0).max(100),
-});
-
 export const effectsSchema = z.object({
   glow: unipolar,
   leak: unipolar,
@@ -174,6 +165,26 @@ const curve = z
   .min(2)
   .max(16)
   .optional();
+
+export const curvesSchema = z.object({ rgb: curve, r: curve, g: curve, b: curve });
+
+/** A look's recipe (trend-pack looks travel with the photo). */
+export const customLookSchema = z.object({
+  name: z.string().min(1).max(40),
+  adjust: adjustmentsSchema,
+  curves: curvesSchema.optional(),
+  effects: effectsSchema.optional(),
+});
+
+export const filterSchema = z.object({
+  id: z
+    .string()
+    .min(1)
+    .max(40)
+    .regex(/^[a-z0-9-]+$/),
+  intensity: finite.min(0).max(100),
+  look: customLookSchema.optional(),
+});
 
 const backdropSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('none') }),
@@ -195,7 +206,7 @@ const imageElement = z.object({
   flipY: z.boolean().optional(),
   turns: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]).optional(),
   adjust: adjustmentsSchema.optional(),
-  curves: z.object({ rgb: curve, r: curve, g: curve, b: curve }).optional(),
+  curves: curvesSchema.optional(),
   filter: filterSchema.optional(),
   effects: effectsSchema.optional(),
   perspective: z.object({ vertical: finite.min(-100).max(100), horizontal: finite.min(-100).max(100) }).optional(),
@@ -214,15 +225,42 @@ const imageElement = z.object({
   video: videoClipSchema.optional(),
 });
 
-const stickerElement = z.object({
-  ...base,
-  type: z.literal('sticker'),
-  stickerId: z
-    .string()
-    .max(64)
-    .regex(/^(vector:[a-z0-9-]+|emoji:.{1,16})$/u),
-  tint: color.optional(),
+/** SVG path data: commands and numbers only (no URLs, no markup). */
+const pathData = z
+  .string()
+  .min(1)
+  .max(6000)
+  .regex(/^[MmLlHhVvCcSsQqTtAaZz0-9eE.,\s+-]+$/, 'Invalid path');
+const artPaint = z.union([z.literal('tint'), color]);
+
+export const stickerArtSchema = z.object({
+  name: z.string().min(1).max(40),
+  defaultTint: color,
+  layers: z
+    .array(
+      z.object({
+        d: pathData,
+        fill: artPaint.optional(),
+        stroke: artPaint.optional(),
+        strokeWidth: finite.min(0.1).max(40).optional(),
+      }),
+    )
+    .min(1)
+    .max(16),
 });
+
+const stickerElement = z
+  .object({
+    ...base,
+    type: z.literal('sticker'),
+    stickerId: z
+      .string()
+      .max(64)
+      .regex(/^(vector:[a-z0-9-]+|emoji:.{1,16}|art:[a-z0-9-]+)$/u),
+    tint: color.optional(),
+    art: stickerArtSchema.optional(),
+  })
+  .refine((el) => el.stickerId.startsWith('art:') === Boolean(el.art), 'Sticker art goes with art: stickers only');
 
 const layoutSchema = z.discriminatedUnion('kind', [
   z.object({

@@ -255,7 +255,7 @@ function drawImage(
 }
 
 function drawSticker(ctx: Ctx2D, el: StickerElement): void {
-  const resolved = resolveSticker(el.stickerId);
+  const resolved = resolveSticker(el.stickerId, el.art);
   if (!resolved) return;
   const { width: w, height: h } = el;
   if (resolved.kind === 'emoji') {

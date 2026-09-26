@@ -7,6 +7,8 @@ export interface NavItem {
   match: (path: string) => boolean;
   /** Shown in the phone tab bar (Settings lives behind the profile button there). */
   phone?: boolean;
+  /** Shows a dot when a new trend drop has arrived since it was last opened. */
+  trendDot?: boolean;
 }
 
 export const normalizePath = (path: string) => (path.length > 1 ? path.replace(/\/+$/, '') : path);
@@ -27,6 +29,13 @@ export const NAV_ITEMS: NavItem[] = [
     match: (p) => normalizePath(p).startsWith('/templates'),
     phone: true,
   },
-  { href: '/discover/', label: 'Discover', icon: Compass, match: (p) => normalizePath(p).startsWith('/discover'), phone: true },
+  {
+    href: '/discover/',
+    label: 'Discover',
+    icon: Compass,
+    match: (p) => normalizePath(p).startsWith('/discover'),
+    phone: true,
+    trendDot: true,
+  },
   { href: '/settings/', label: 'Settings', icon: Settings, match: (p) => normalizePath(p).startsWith('/settings') },
 ];

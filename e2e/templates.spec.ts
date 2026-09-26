@@ -23,7 +23,7 @@ test.describe('templates (desktop)', () => {
 
   test('browse, search and filter the library, then preview and use a template', async ({ app: page }) => {
     await open(page, '/templates/');
-    await expect(cards(page)).toHaveCount(51);
+    await expect(cards(page)).toHaveCount(63);
 
     await page.getByRole('textbox', { name: 'Search templates' }).fill('polaroid');
     await expect(page.getByRole('button', { name: 'Template Polaroid Wall' })).toBeVisible();
@@ -37,7 +37,7 @@ test.describe('templates (desktop)', () => {
     await page.getByRole('group', { name: 'Filter by style' }).getByRole('button', { name: 'Y2K' }).click();
     const y2k = await cards(page).count();
     expect(y2k).toBeGreaterThanOrEqual(3);
-    expect(y2k).toBeLessThan(51);
+    expect(y2k).toBeLessThan(63);
 
     await page.getByRole('button', { name: 'Template Y2K Era' }).click();
     const dialog = page.getByRole('dialog', { name: 'Y2K Era' });

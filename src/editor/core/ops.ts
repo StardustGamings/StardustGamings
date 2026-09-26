@@ -261,7 +261,7 @@ export function elementLabel(el: DesignElement): string {
     case 'image':
       return el.assetId ? 'Photo' : 'Photo frame';
     case 'sticker':
-      return resolveSticker(el.stickerId)?.sticker.name ?? 'Sticker';
+      return resolveSticker(el.stickerId, el.art)?.sticker.name ?? 'Sticker';
   }
 }
 

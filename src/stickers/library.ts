@@ -1,3 +1,5 @@
+import type { StickerArt } from '@/types/document';
+
 /**
  * Built-in sticker library. Every vector sticker is original artwork drawn on a
  * 100×100 grid. Layers with `fill: 'tint'` / `stroke: 'tint'` take the user's
@@ -398,8 +400,33 @@ const emojiById = new Map(EMOJI_STICKERS.map((s) => [s.id, s]));
 
 export type ResolvedSticker = { kind: 'vector'; sticker: VectorSticker } | { kind: 'emoji'; sticker: EmojiSticker };
 
-/** Resolves `vector:<id>` or `emoji:<char>` references. */
-export function resolveSticker(ref: string): ResolvedSticker | null {
+/** Sticker art from trend packs, by id (`art:<id>`). Elements carry their own copy, so this only serves pickers. */
+const artById = new Map<string, StickerArt>();
+
+export function registerStickerArt(list: { id: string; art: StickerArt }[]): void {
+  for (const { id, art } of list) artById.set(id, art);
+}
+
+export const stickerArtFor = (ref: string): StickerArt | undefined =>
+  ref.startsWith('art:') ? artById.get(ref.slice(4)) : undefined;
+
+const artSticker = (id: string, art: StickerArt): VectorSticker => ({
+  id,
+  name: art.name,
+  category: 'doodles',
+  defaultTint: art.defaultTint,
+  layers: art.layers,
+});
+
+/**
+ * Resolves `vector:<id>` or `emoji:<char>` references, and `art:<id>` from the
+ * element's own `art` (or a registered trend pack).
+ */
+export function resolveSticker(ref: string, art?: StickerArt): ResolvedSticker | null {
+  if (ref.startsWith('art:')) {
+    const found = art ?? artById.get(ref.slice(4));
+    return found ? { kind: 'vector', sticker: artSticker(ref.slice(4), found) } : null;
+  }
   if (ref.startsWith('vector:')) {
     const sticker = vectorById.get(ref.slice(7));
     return sticker ? { kind: 'vector', sticker } : null;

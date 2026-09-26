@@ -42,6 +42,7 @@ import { LayoutsPanel } from './panels/LayoutsPanel';
 import { TemplatesPanel } from './panels/TemplatesPanel';
 import { FiltersPanel } from './panels/FiltersPanel';
 import { AnimatePanel } from './panels/AnimatePanel';
+import { TrendsPanel } from './panels/TrendsPanel';
 import { PreviewDialog } from './PreviewDialog';
 import { useUi } from '@/settings/ui-store';
 import { VersionHistoryDialog } from './VersionHistoryDialog';
@@ -74,6 +75,7 @@ const PANEL_TITLES: Record<PanelId, string> = {
   filters: 'Filters',
   layouts: 'Layouts',
   animate: 'Animate',
+  trends: 'Trends',
   design: 'Background',
   layers: 'Layers',
   properties: 'Edit',
@@ -97,6 +99,8 @@ function PanelContent({ panel }: { panel: PanelId }) {
       return <LayoutsPanel />;
     case 'animate':
       return <AnimatePanel />;
+    case 'trends':
+      return <TrendsPanel />;
     case 'design':
       return <BackgroundPanel />;
     case 'layers':
@@ -119,6 +123,7 @@ function Flyout() {
     panel === 'filters' ||
     panel === 'layouts' ||
     panel === 'animate' ||
+    panel === 'trends' ||
     panel === 'design';
   return (
     <AnimatePresence initial={false}>

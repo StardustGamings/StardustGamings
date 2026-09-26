@@ -1,13 +1,15 @@
 import { test as base, expect, type Page } from '@playwright/test';
 
 /** Marks onboarding as done before the app boots (unless a test opts out). */
-export const test = base.extend<{ fresh: boolean; app: Page }>({
+export const test = base.extend<{ fresh: boolean; ignoreErrors: RegExp[]; app: Page }>({
   fresh: [false, { option: true }],
-  app: async ({ page, fresh }, provide) => {
+  /** Console errors a test expects (e.g. the browser logging a request the test cut off). */
+  ignoreErrors: [[], { option: true }],
+  app: async ({ page, fresh, ignoreErrors }, provide) => {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
     page.on('console', (m) => {
-      if (m.type() === 'error') errors.push(m.text());
+      if (m.type() === 'error' && !ignoreErrors.some((re) => re.test(m.text()))) errors.push(m.text());
     });
     if (!fresh) {
       await page.addInitScript(() => {
@@ -22,6 +24,14 @@ export const test = base.extend<{ fresh: boolean; app: Page }>({
 });
 
 export { expect };
+
+/**
+ * Pins "today" in the page. Trend drops go live by date, so tests that look at
+ * a drop's content pin a day inside it (timers keep running normally).
+ */
+export async function pinDate(page: Page, iso = '2026-09-15T12:00:00') {
+  await page.clock.setFixedTime(new Date(iso));
+}
 
 /** Navigates and waits until the app has hydrated (keyboard shortcuts are live). */
 export async function open(page: Page, path: string) {

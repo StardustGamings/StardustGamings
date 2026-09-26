@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { expect, frameBox, open, scenePixel, test } from './fixtures';
+import { expect, frameBox, open, scenePixel, test, pinDate } from './fixtures';
 
 /**
  * Filters & effects: one-tap looks with intensity, effects, the Filters panel
@@ -33,8 +33,16 @@ async function newPostWithPhoto(page: Page) {
   const f = await frameBox(page);
   const top = { x: f.cx, y: f.y + f.height * 0.25 };
   const bottom = { x: f.cx, y: f.y + f.height * 0.75 };
-  // Wait for the photo itself to be drawn.
-  await expect.poll(async () => (await scenePixel(page, top))[2]!, { timeout: 15_000 }).toBeGreaterThan(150);
+  // Wait for the photo itself to be drawn: its blue top (#2F6BD8), not the lilac empty-frame placeholder.
+  await expect
+    .poll(
+      async () => {
+        const p = await scenePixel(page, top);
+        return p[2]! > 150 && p[0]! < 120;
+      },
+      { timeout: 15_000 },
+    )
+    .toBe(true);
   return { f, top, bottom };
 }
 
@@ -136,6 +144,7 @@ test.describe('filters (desktop)', () => {
   });
 
   test('template frames carry a look to the photos you drop in, and trend cards use real filters', async ({ app: page }) => {
+    await pinDate(page);
     await open(page, '/templates/');
     await page.getByRole('button', { name: 'Template Gilded Frame' }).click();
     const dialog = page.getByRole('dialog', { name: 'Gilded Frame' });

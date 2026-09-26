@@ -3,12 +3,12 @@
 import { ImagePlus } from 'lucide-react';
 import { useMemo } from 'react';
 import { Button } from '@/components/ui/Button';
-import { getLook } from '@/filters/looks';
+import { resolveLook } from '@/filters/looks';
 import { openPhotoPicker } from '../file-picker';
 import { applyLook, lookTargets, setLookIntensity, type LookScope } from '../filter-actions';
 import { selectDoc, useEditor } from '../store';
 import { PercentSlider } from './FilterSections';
-import { LookPicker } from './LookPicker';
+import { LookPicker, usePickerExtras } from './LookPicker';
 
 /**
  * The Filters tool: one-tap looks for the selected photos — or, with no photo
@@ -24,6 +24,7 @@ export function FiltersPanel() {
     // `selection` is read inside lookTargets.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doc, selection]);
+  const extras = usePickerExtras(resolveLook(targets.find((t) => resolveLook(t.filter))?.filter));
 
   if (targets.length === 0) {
     return (
@@ -38,9 +39,9 @@ export function FiltersPanel() {
   }
 
   const first = targets[0]!;
-  const ids = new Set(targets.map((t) => t.filter?.id ?? null));
-  const value = ids.size === 1 ? (getLook([...ids][0] ?? undefined) ? [...ids][0]! : null) : 'mixed';
-  const withLook = targets.find((t) => getLook(t.filter?.id));
+  const ids = new Set(targets.map((t) => (resolveLook(t.filter) ? t.filter!.id : null)));
+  const value = ids.size === 1 ? [...ids][0]! : 'mixed';
+  const withLook = targets.find((t) => resolveLook(t.filter));
 
   return (
     <div className="flex flex-col gap-3 p-4" data-testid="filters-panel">
@@ -53,7 +54,13 @@ export function FiltersPanel() {
             ? 'Applies to the photo in this design.'
             : `Applies to all ${targets.length} photos in this design.`}
       </p>
-      <LookPicker assetId={first.assetId} value={value} onPick={(id) => applyLook(id, scope)} />
+      <LookPicker
+        assetId={first.assetId}
+        value={value}
+        onPick={(l) => applyLook(l, scope)}
+        extra={extras.looks}
+        extraLabel={extras.label}
+      />
       {withLook && (
         <PercentSlider label="Intensity" value={withLook.filter?.intensity ?? 0} onChange={(v) => setLookIntensity(v, scope)} />
       )}

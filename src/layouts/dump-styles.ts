@@ -227,7 +227,17 @@ export const DUMP_STYLES: DumpStyle[] = [
   },
 ];
 
-export const getDumpStyle = (id: string): DumpStyle => DUMP_STYLES.find((s) => s.id === id) ?? DUMP_STYLES[0]!;
+/** Styles from trend packs' layout rules (see src/trends), registered when a pack loads. */
+let extraStyles: DumpStyle[] = [];
+
+export function registerDumpStyles(styles: DumpStyle[]): void {
+  extraStyles = styles;
+}
+
+export const trendDumpStyles = (): DumpStyle[] => extraStyles;
+
+export const getDumpStyle = (id: string): DumpStyle =>
+  DUMP_STYLES.find((s) => s.id === id) ?? extraStyles.find((s) => s.id === id) ?? DUMP_STYLES[0]!;
 
 /** The brief's sweet spot is 5–20; three is the least that still makes a dump. */
 export const DUMP_MIN_PHOTOS = 3;

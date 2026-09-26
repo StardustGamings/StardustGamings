@@ -5,32 +5,35 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useTemplateLookup } from '@/templates/store';
-import { useTrends } from '@/trends/store';
+import { useTrendLooks, useTrends } from '@/trends/store';
 import { Segmented } from '@/components/ui/Segmented';
 import { buttonClasses } from '@/components/ui/button-styles';
 import { SectionHeader } from '@/components/home/SectionHeader';
-import { EffectCard } from './EffectCard';
+import { EffectCard, FilterCard } from './EffectCard';
 import { PaletteCard } from './PaletteCard';
 import { Rail } from './Rail';
 import { StickerTile } from './StickerTile';
 import { TemplateCard, TemplateCardSkeleton } from './TemplateCard';
 import { TypeCard } from './TypeCard';
 
-type Tab = 'templates' | 'typography' | 'layouts' | 'effects' | 'palettes' | 'stickers';
+type Tab = 'templates' | 'typography' | 'layouts' | 'effects' | 'palettes' | 'stickers' | 'formats';
 
 const TABS: { value: Tab; label: string }[] = [
   { value: 'templates', label: 'Templates' },
   { value: 'typography', label: 'Typography' },
   { value: 'layouts', label: 'Layouts' },
-  { value: 'effects', label: 'Effects' },
+  { value: 'effects', label: 'Filters & effects' },
   { value: 'palettes', label: 'Palettes' },
   { value: 'stickers', label: 'Stickers' },
+  { value: 'formats', label: 'Memes & formats' },
 ];
 
 export function Trending() {
   const pack = useTrends((s) => s.pack);
   const [tab, setTab] = useState<Tab>('templates');
   const templates = useTemplateLookup();
+  const looks = useTrendLooks();
+  const newDrop = useTrends((s) => s.newDrop);
 
   const content = () => {
     switch (tab) {
@@ -71,9 +74,12 @@ export function Trending() {
       case 'effects':
         return (
           <Rail label="Trending effects" itemClassName="w-[260px]">
-            {pack.effects.map((e) => (
-              <EffectCard key={e.id} effect={e} />
-            ))}
+            {[
+              ...looks.map((l) => (
+                <FilterCard key={`look-${l.id}`} look={l} heat={pack.looks.find((x) => x.id === l.id)?.heat ?? 0} />
+              )),
+              ...pack.effects.map((e) => <EffectCard key={e.id} effect={e} />),
+            ]}
           </Rail>
         );
       case 'palettes':
@@ -82,6 +88,25 @@ export function Trending() {
             {pack.palettes.map((p) => (
               <PaletteCard key={p.id} palette={p} />
             ))}
+          </Rail>
+        );
+      case 'formats':
+        return (
+          <Rail label="Trending formats" itemClassName="w-[200px] sm:w-[230px]">
+            {pack.formats.map((f) => {
+              const template = templates.get(f.templateId);
+              return template ? (
+                <TemplateCard
+                  key={f.id}
+                  template={template}
+                  title={f.name}
+                  subtitle={`${f.kind} — ${f.description}`}
+                  heat={f.heat}
+                />
+              ) : (
+                <TemplateCardSkeleton key={f.id} />
+              );
+            })}
           </Rail>
         );
       case 'stickers':
@@ -99,7 +124,7 @@ export function Trending() {
     <section aria-labelledby="trending" className="mt-14">
       <SectionHeader
         id="trending"
-        eyebrow={`Trending · ${pack.title}`}
+        eyebrow={newDrop ? `New drop · ${pack.title}` : `Trending · ${pack.title}`}
         title="What’s hot right now"
         description={pack.subtitle}
         action={

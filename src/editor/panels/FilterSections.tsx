@@ -4,12 +4,12 @@ import { ChevronDown, Copy } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import type { ImageElement } from '@/types/document';
 import { EFFECT_DEFS, LEAK_STYLES, hasEffects } from '@/effects/effects';
-import { getLook } from '@/filters/looks';
+import { resolveLook } from '@/filters/looks';
 import { Slider } from '@/components/ui/Slider';
 import { toast } from '@/components/ui/toast-store';
 import { cn } from '@/utils/cn';
 import { applyLook, lookTargets, resetEffects, setEffect, setLeakStyle, setLookIntensity } from '../filter-actions';
-import { LookPicker } from './LookPicker';
+import { LookPicker, usePickerExtras } from './LookPicker';
 
 /** Collapsible section matching the other photo tools. */
 export function ToolSection({
@@ -69,11 +69,12 @@ export function PercentSlider({ label, value, onChange }: { label: string; value
 
 /** One-tap looks for the selected photo(s), with intensity and "apply to every photo". */
 export function FiltersSection({ el }: { el: ImageElement }) {
-  const look = getLook(el.filter?.id);
+  const look = resolveLook(el.filter);
   const others = lookTargets('all').length - 1;
+  const { looks: extra, label } = usePickerExtras(look);
   return (
     <ToolSection title="Filters" edited={!!look} defaultOpen>
-      <LookPicker assetId={el.assetId} value={look?.id ?? null} onPick={(id) => applyLook(id)} />
+      <LookPicker assetId={el.assetId} value={look?.id ?? null} onPick={(l) => applyLook(l)} extra={extra} extraLabel={label} />
       {look && (
         <>
           <PercentSlider label="Intensity" value={el.filter?.intensity ?? 0} onChange={(v) => setLookIntensity(v)} />
@@ -81,7 +82,7 @@ export function FiltersSection({ el }: { el: ImageElement }) {
             <button
               type="button"
               onClick={() => {
-                applyLook(look.id, 'all', el.filter?.intensity);
+                applyLook(look, 'all', el.filter?.intensity);
                 toast({
                   title: `${look.name} on all ${others + 1} photos`,
                   description: 'One undo takes it back.',

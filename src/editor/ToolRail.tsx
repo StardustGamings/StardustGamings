@@ -13,6 +13,7 @@ import {
   Sparkles,
   Type,
   Wand2,
+  Flame,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Tooltip } from '@/components/ui/Tooltip';
@@ -48,6 +49,7 @@ export const PANEL_TOOLS: ToolDef[] = [
   { id: 'layouts', label: 'Layouts', icon: <LayoutGrid />, panel: 'layouts', shortcut: 'L' },
   { id: 'filters', label: 'Filters', icon: <Wand2 />, panel: 'filters', shortcut: 'F' },
   { id: 'animate', label: 'Animate', icon: <Sparkles />, panel: 'animate', shortcut: 'A' },
+  { id: 'trends', label: 'Trends', icon: <Flame />, panel: 'trends', shortcut: 'R' },
 ];
 
 export function ToolButton({

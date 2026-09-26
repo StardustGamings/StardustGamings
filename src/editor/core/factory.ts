@@ -12,7 +12,7 @@ import type { AssetMeta } from '@/assets/types';
 import { fillPrimaryColor } from '@/canvas/render/fill';
 import { measureTextWidth } from '@/canvas/render/text';
 import { clamp } from '@/utils/math';
-import { resolveSticker } from '@/stickers/library';
+import { resolveSticker, stickerArtFor } from '@/stickers/library';
 import { supportedWeight } from '@/typography/fonts';
 import { createId } from '@/utils/id';
 import { readableOn } from '@/utils/color';
@@ -310,6 +310,8 @@ export function createSticker(
   size = doc.slideWidth * 0.26,
 ): StickerElement {
   const resolved = resolveSticker(stickerId);
+  // Trend-pack art travels inside the element, so the design never depends on the pack.
+  const art = stickerArtFor(stickerId);
   return {
     id: createId('el'),
     type: 'sticker',
@@ -321,6 +323,7 @@ export function createSticker(
     rotation: 0,
     opacity: 1,
     ...(resolved?.kind === 'vector' ? { tint: resolved.sticker.defaultTint } : {}),
+    ...(art ? { art } : {}),
   };
 }
 
