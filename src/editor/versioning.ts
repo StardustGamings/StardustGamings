@@ -91,7 +91,11 @@ export function saveVersion(
   if (!s || !doc) return Promise.resolve(null);
   return queue(async () => {
     await s.ready;
-    s.openedTaken = true;
+    if (!s.openedTaken) {
+      // Keep the design as it was opened first — even when this runs before the first edit's save has.
+      s.openedTaken = true;
+      if (!versions.sameDocument(s.openedDoc, doc) && changedSinceLast(s, s.openedDoc)) await record(s, 'opened', s.openedDoc);
+    }
     if (!options.name && !changedSinceLast(s, doc)) return null;
     return record(s, options.kind ?? 'manual', doc, { name: options.name, note: options.note });
   });

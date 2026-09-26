@@ -31,6 +31,7 @@ export type PanelId =
   | 'layouts'
   | 'animate'
   | 'trends'
+  | 'magic'
   | 'layers'
   | 'properties';
 

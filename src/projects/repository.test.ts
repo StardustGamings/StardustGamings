@@ -52,6 +52,26 @@ describe('project repository (IndexedDB)', () => {
     expect((await repo.getProject(meta.id))?.doc.slides).toHaveLength(3);
   });
 
+  it('keeps size and format in step with the document (resize in place, and its undo)', async () => {
+    const { meta, doc } = await repo.createProject({ format: 'post' });
+    const resized = await repo.setProjectSize(meta.id, 'story', 'story');
+    expect(resized.updatedAt).toBe(meta.updatedAt);
+    const story = { ...doc, slideWidth: 1080, slideHeight: 1920 };
+    expect(await repo.saveDocument(meta.id, story)).toMatchObject({ sizeId: 'story', format: 'story' });
+    // Undo: the document is 4:5 again, so the project is a post again.
+    expect(await repo.saveDocument(meta.id, doc)).toMatchObject({ sizeId: 'ig-portrait', format: 'post' });
+    // A carousel that goes to 1:1 stays a carousel; an odd size is custom and keeps its format.
+    const c = await repo.createProject({ format: 'carousel', slideCount: 3 });
+    expect(await repo.saveDocument(c.meta.id, { ...c.doc, slideWidth: 1080, slideHeight: 1080 })).toMatchObject({
+      sizeId: 'ig-square',
+      format: 'carousel',
+    });
+    expect(await repo.saveDocument(c.meta.id, { ...c.doc, slideWidth: 1234, slideHeight: 1080 })).toMatchObject({
+      sizeId: 'custom',
+      format: 'carousel',
+    });
+  });
+
   it('sanitises names', () => {
     expect(repo.sanitizeName('\u0000hello\nworld')).toBe('hello world');
     expect(repo.sanitizeName('   ')).toBe('Untitled design');

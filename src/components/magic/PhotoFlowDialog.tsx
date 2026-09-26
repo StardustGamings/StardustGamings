@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Dices } from 'lucide-react';
+import { ArrowLeft, Dices, Sparkles } from 'lucide-react';
 import { Fragment, useMemo, useState } from 'react';
 import type { CollageFamily, DesignDocument } from '@/types/document';
 import type { AssetMeta } from '@/assets/types';
@@ -15,6 +15,10 @@ import { DUMP_MAX_PHOTOS, DUMP_MIN_PHOTOS, DUMP_STYLES, getDumpStyle } from '@/l
 import { suggestedSlides, type PanoramaParams } from '@/layouts/panorama';
 import { useUi, type PhotoFlowRequest } from '@/settings/ui-store';
 import { useTrends } from '@/trends/store';
+import { loadAsset } from '@/assets/cache';
+import { measureImage, toFacts } from '@/ai/layout';
+import { planLayout, type AiSource } from '@/ai/service';
+import { toast } from '@/components/ui/toast-store';
 import { ruleToDumpStyle } from '@/trends/pack';
 import { useEditor } from '@/editor/store';
 import { addCollage, addPanorama, addPhotoDump, newSeed, toPhotoRef } from '@/editor/layout-actions';
@@ -77,6 +81,8 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
   const trendRules = useTrends((s) => s.pack.layoutRules);
   const dropTitle = useTrends((s) => s.pack.title);
   const trendStyles = useMemo(() => trendRules.map(ruleToDumpStyle), [trendRules]);
+  const [auto, setAuto] = useState<{ reason: string; source: AiSource } | null>(null);
+  const [autoBusy, setAutoBusy] = useState(false);
   const [title, setTitle] = useState('');
   const [family, setFamily] = useState<CollageFamily>(flow.family ?? 'bento');
   const [collage, setCollage] = useState(() => defaultCollageParams(flow.family ?? 'bento', 0));
@@ -117,6 +123,44 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
     const base = createDocument({ ...size, slideCount: 1, background: { type: 'solid', color: paletteTint(refs, 'light') } });
     return createCollage(base, { slide: 0, family, seed, photos: refs, dims: () => null, overrides: collage }).doc;
   }, [step, refs, limits.min, mode, styleId, size.width, size.height, seed, title, slideCount, pano, family, collage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /** AI layout: measure the photos on this device, then let the plan pick order, cover, style and title. */
+  const runAuto = async () => {
+    setAutoBusy(true);
+    try {
+      const measured = [];
+      for (const a of assets) {
+        const loaded = await loadAsset(a.id, 'thumb');
+        const facts = loaded ? measureImage(loaded.image) : null;
+        measured.push({
+          ...(facts ?? {
+            brightness: 0.5,
+            saturation: 0.3,
+            warmth: 0,
+            sharpness: 0.5,
+            hash: BigInt(assets.indexOf(a) + 1) * 0x9e3779b97f4an,
+            mean: [128, 128, 128] as [number, number, number],
+          }),
+          width: a.width,
+          height: a.height,
+          palette: a.palette,
+        });
+      }
+      const styles = [...DUMP_STYLES, ...trendStyles].map((s) => ({ id: s.id, name: s.name, blurb: s.blurb }));
+      const answer = await planLayout({ photos: toFacts(measured), styles });
+      const plan = answer.result;
+      const ordered = plan.order.map((i) => assets[i]!.id);
+      // Keep enough photos for a dump even if near-duplicates were left out.
+      const rest = assets.map((a) => a.id).filter((id) => !ordered.includes(id));
+      setSelected(ordered.length >= limits.min ? ordered : [...ordered, ...rest].slice(0, Math.max(limits.min, ordered.length)));
+      setStyleId(plan.styleId);
+      setTitle(plan.title);
+      setAuto({ reason: plan.reason, source: answer.source });
+      if (answer.notice) toast({ title: answer.notice, tone: 'info', duration: 3000 });
+    } finally {
+      setAutoBusy(false);
+    }
+  };
 
   const create = async () => {
     if (!preview) return;
@@ -196,6 +240,30 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
           <div className="flex min-w-0 flex-col gap-5">
             {mode === 'dump' && (
               <>
+                <div className="rounded-[14px] border border-line bg-surface p-3" data-testid="dump-auto">
+                  <div className="flex items-center gap-2">
+                    <Button
+                      size="sm"
+                      variant="primary"
+                      icon={<Sparkles className="size-4" />}
+                      loading={autoBusy}
+                      onClick={() => void runAuto()}
+                    >
+                      Auto
+                    </Button>
+                    <p className="min-w-0 flex-1 text-[12px] text-fg-muted">
+                      Let your photos pick the cover, order, vibe and title — measured on this device.
+                    </p>
+                  </div>
+                  {auto && (
+                    <p className="mt-2 text-[12px] text-fg" data-testid="dump-auto-reason">
+                      <span className="mr-1.5 text-[10.5px] font-semibold text-fg-subtle">
+                        {auto.source === 'server' ? 'AI server' : 'On this device'} ·
+                      </span>
+                      {auto.reason}
+                    </p>
+                  )}
+                </div>
                 <div>
                   <Label>Vibe</Label>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Photo dump style">

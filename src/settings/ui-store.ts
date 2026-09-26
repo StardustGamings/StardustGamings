@@ -65,6 +65,10 @@ interface UiState {
   /** Version history of the design open in the editor. */
   historyOpen: boolean;
   setHistoryOpen: (open: boolean) => void;
+  /** Smart resize dialog (editor); the size to start with, if any. */
+  resize: { target: string | null } | null;
+  openResize: (target?: string) => void;
+  closeResize: () => void;
   /** Projects being moved to a folder. */
   moveIds: string[] | null;
   openMove: (ids: string[]) => void;
@@ -106,6 +110,9 @@ export const useUi = create<UiState>()((set) => ({
   closeSaveTemplate: () => set({ saveTemplate: null }),
   historyOpen: false,
   setHistoryOpen: (historyOpen) => set({ historyOpen, paletteOpen: false }),
+  resize: null,
+  openResize: (target) => set({ resize: { target: target ?? null }, paletteOpen: false }),
+  closeResize: () => set({ resize: null }),
   moveIds: null,
   openMove: (moveIds) => set({ moveIds, paletteOpen: false }),
   closeMove: () => set({ moveIds: null }),

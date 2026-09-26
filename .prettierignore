@@ -12,3 +12,4 @@ public/ml/
 src/templates/catalog.generated.json
 src/trends/bundled.generated.json
 public/trends/pack.schema.json
+server/dist

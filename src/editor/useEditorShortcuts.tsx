@@ -43,6 +43,7 @@ import {
   ZoomIn,
   ZoomOut,
   Flame,
+  Maximize2,
 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useHotkeys } from '@/hooks/useHotkeys';
@@ -119,6 +120,7 @@ export function useEditorShortcuts() {
     f: () => ed().setPanel(ed().panel === 'filters' ? null : 'filters'),
     a: () => ed().setPanel(ed().panel === 'animate' ? null : 'animate'),
     r: () => ed().setPanel(ed().panel === 'trends' ? null : 'trends'),
+    m: () => ed().setPanel(ed().panel === 'magic' ? null : 'magic'),
     h: () => ed().setTool('hand'),
     'mod+=': () => actions.zoomStep(1),
     'mod++': () => actions.zoomStep(1),
@@ -315,6 +317,34 @@ export function useEditorShortcuts() {
           'timeline',
         ],
         run: () => ed().setPanel('animate'),
+      },
+      {
+        id: 'ed-magic',
+        label: 'Magic: AI captions, palettes, fonts, backgrounds…',
+        group: 'Editor',
+        icon: <WandSparkles />,
+        shortcut: 'M',
+        keywords: [
+          'ai',
+          'magic',
+          'caption',
+          'hashtags',
+          'palette',
+          'colours',
+          'font pairing',
+          'background',
+          'generate',
+          'suggest',
+        ],
+        run: () => ed().setPanel('magic'),
+      },
+      {
+        id: 'ed-resize',
+        label: 'Resize design…',
+        group: 'Editor',
+        icon: <Maximize2 />,
+        keywords: ['resize', 'magic resize', 'story', 'square', 'thumbnail', '9:16', '16:9', '1:1', '4:5', 'adapt', 'format'],
+        run: () => useUi.getState().openResize(),
       },
       {
         id: 'ed-trends',

@@ -167,6 +167,19 @@ export const FORMAT_ORDER: FormatId[] = [
 
 export const MAX_SLIDES = 30;
 
+/**
+ * The format a design belongs to at a new size: the same one if it offers the
+ * size, a carousel if it has several slides and carousels offer the size, else
+ * the format made for that size (never a carousel for a single slide).
+ */
+export function formatForSize(sizeId: SizePresetId, current: FormatId, slideCount = 1): FormatId {
+  if (sizeId === 'custom' || FORMATS[current].sizes.includes(sizeId)) return current;
+  if (slideCount > 1 && FORMATS.carousel.sizes.includes(sizeId)) return 'carousel';
+  const order = slideCount > 1 ? FORMAT_ORDER : FORMAT_ORDER.filter((f) => f !== 'carousel');
+  const made = order.find((f) => FORMATS[f].sizeId === sizeId);
+  return made ?? order.find((f) => FORMATS[f].sizes.includes(sizeId)) ?? current;
+}
+
 export function isFormatId(value: unknown): value is FormatId {
   return typeof value === 'string' && value in FORMATS;
 }

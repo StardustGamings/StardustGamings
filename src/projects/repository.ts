@@ -4,7 +4,7 @@ import { getStorage } from '@/storage/db';
 import { notify } from '@/storage/sync';
 import { createId } from '@/utils/id';
 import { cloneDocument, createDocument } from './document';
-import { FORMATS, resolveSize } from './formats';
+import { formatForSize, FORMATS, resolveSize, SIZE_PRESETS } from './formats';
 
 export const MAX_NAME_LENGTH = 80;
 export const TRASH_RETENTION_DAYS = 30;
@@ -146,6 +146,17 @@ async function patchMeta(id: string, patch: Partial<ProjectMeta>, touch = false)
   return next;
 }
 
+/** The size preset a document's slides match (a resize, or its undo), else custom. */
+function sizeFor(current: SizePresetId, doc: DesignDocument): SizePresetId {
+  const fits = (id: SizePresetId) => {
+    if (id === 'custom') return false;
+    const p = SIZE_PRESETS[id];
+    return p.width === doc.slideWidth && p.height === doc.slideHeight;
+  };
+  if (fits(current)) return current;
+  return (Object.keys(SIZE_PRESETS) as SizePresetId[]).find(fits) ?? 'custom';
+}
+
 /**
  * Saves a project's document. With `expectedUpdatedAt`, refuses (SaveConflictError)
  * when the stored copy is newer — so a stale tab never silently overwrites another's work.
@@ -157,8 +168,12 @@ export async function saveDocument(
 ): Promise<ProjectMeta> {
   const meta = await requireMeta(id);
   if (options.expectedUpdatedAt !== undefined && meta.updatedAt > options.expectedUpdatedAt) throw new SaveConflictError(id);
+  const sizeId = sizeFor(meta.sizeId, doc);
   const next: ProjectMeta = {
     ...meta,
+    sizeId,
+    // Resized (or an in-place resize undone): the format follows the size.
+    format: sizeId === meta.sizeId ? meta.format : formatForSize(sizeId, meta.format, doc.slides.length),
     slideWidth: doc.slideWidth,
     slideHeight: doc.slideHeight,
     slideCount: doc.slides.length,
@@ -170,6 +185,9 @@ export async function saveDocument(
 }
 
 export const renameProject = (id: string, name: string) => patchMeta(id, { name: sanitizeName(name) }, true);
+
+/** After a design is resized in place: its size preset and the format that size belongs to. */
+export const setProjectSize = (id: string, sizeId: SizePresetId, format: FormatId) => patchMeta(id, { sizeId, format });
 
 export const setFavorite = (id: string, favorite: boolean) => patchMeta(id, { favorite });
 

@@ -321,10 +321,11 @@ test.describe('storage (desktop)', () => {
     await expect(other.getByTestId('canvas-viewport')).toBeVisible();
     await expect((await layers(other)).getByText('Tab A')).toBeVisible();
 
-    // An edit in the other tab shows up here.
+    // An edit in the other tab shows up here. The notice is brief (and once a minute), so watch for it from the start.
+    const notice = expect(page.getByText('Updated with changes from another tab')).toBeVisible({ timeout: 20_000 });
     await addText(other, 'From tab B');
     await saved(other);
-    await expect(page.getByText('Updated with changes from another tab')).toBeVisible();
+    await notice;
     await expect((await layers(page)).getByText('From tab B')).toBeVisible();
 
     // Renames reach the projects list in a third tab.

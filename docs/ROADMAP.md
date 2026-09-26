@@ -15,8 +15,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 8   | Offline storage & projects | ✅ Done |
 | 9   | Animations & video         | ✅ Done |
 | 10  | Trend system               | ✅ Done |
-| 11  | Optional AI integrations   | ⏭️ Next |
-| 12  | Performance                | Planned |
+| 11  | Optional AI integrations   | ✅ Done |
+| 12  | Performance                | ⏭️ Next |
 | 13  | Testing & hardening        | Planned |
 
 ## Phase 1 — App shell & design system ✅
@@ -127,8 +127,8 @@ cut-out mask comes with a later phase. (Exporting from full-resolution originals
   70 Playwright runs across desktop, phone and no-WebGL (photo dump from home and into an existing carousel, seamless
   swipe + slide count + preview navigation, collage remix + keep-in-place + undo, phone shuffle).
 
-Known limits: photo dump captions are generic per vibe (editable text) — smarter wording is an optional AI feature in
-Phase 11. (Saving a collage as a reusable template arrived in Phase 5: with _Keep my photos_ on it stays shuffleable.)
+Known limits: photo dump captions are generic per vibe (editable text). Since Phase 11, _Magic → Caption_ writes
+captions from a design's own words, and _Auto_ picks the dump's cover, order, vibe and title. (Saving a collage as a reusable template arrived in Phase 5: with _Keep my photos_ on it stays shuffleable.)
 
 ## Phase 5 — Template engine ✅
 
@@ -159,8 +159,8 @@ Phase 11. (Saving a collage as a reusable template arrived in Phase 5: with _Kee
   project-menu save, phone flow).
 
 Known limits: adapting a template to a very different shape
-(e.g. a story template into a thumbnail) scales it to fit rather than re-flowing the layout — smarter resizing is part of
-the optional AI tools in Phase 11.
+(e.g. a story template into a thumbnail) scales it to fit rather than re-flowing the layout. Phase 11's smart resize
+(_Magic → Resize_) adapts a design to another size element by element.
 
 ## Phase 6 — Filters & effects ✅
 
@@ -361,11 +361,67 @@ Known limits:
 
 - Drops can only use the fonts bundled with the app, because designs must render offline and export identically.
 - Layout rules are recipes over the built-in collage families.
-- Suggestions are simple rules. Smarter ones belong to the optional AI tools in Phase 11.
+- Suggestions are simple rules. The optional AI tools arrived in Phase 11.
+
+## Phase 11 — Optional AI integrations ✅
+
+All six AI tools from the brief work **on the device**, with no key, account or network. An AI server is optional.
+
+- **Editor → Magic (<kbd>M</kbd>)**, on desktop and in the phone sheet:
+  - **AI Caption:** four captions in six tones (casual, hype, minimal, witty, aesthetic, pro), written from the design's
+    headline and words. Each has a call to action that fits the format, hashtags from its keywords, and a character
+    count. _More ideas_ gives four more. Copy one, or add it as a text box.
+  - **AI Color Palette:** a palette extracted from the design's photos, plus harmonies around any base colour —
+    complementary, analogous, triadic, monochromatic, cinematic, pastel, neon, Y2K and dark luxury. Recolour in one tap
+    (contrast kept) or copy the HEX codes.
+  - **AI Font Pairing:** scored heading + body pairings from the bundled fonts (contrast, a readable body, the mood).
+    One tap restyles all text and re-fits it.
+  - **AI Background:** four concepts in the design's colours (fill + shapes that keep the middle calm) for this slide
+    or every slide. The shapes are locked _Background art_ layers, and applying again replaces them.
+  - **AI Resize:** 4:5, 1:1, 9:16, 16:9, and more under _Resize design…_ (also in the ⋯ menu and the command palette).
+    A before/after preview, then _As a new design_ (a copy in the right format) or _Resize this one_ (one undo).
+    Backgrounds stretch, pieces stay near their edges, text re-wraps, collages and panoramas re-arrange.
+- **AI Layout — Auto in the smart photo dump:** measures each photo on the device (brightness, saturation, warmth,
+  sharpness, a difference hash and the average colour). It leaves out near-duplicates, picks a cover, orders the photos
+  so colours flow, chooses a vibe and a title, and explains the choice in one sentence.
+- **Colour tools:** the colour picker takes HEX, RGB or HSL, next to the design's own colours and gradients. The
+  palettes above cover extraction and the harmonies from the brief.
+- **Optional AI server** (`server/ai-proxy/`): a Fetch-API handler with Node and Workers adapters that calls a Claude
+  model through the Anthropic SDK.
+  - The API key stays in the server's environment. The app only knows the server's address
+    (`NEXT_PUBLIC_AI_ENDPOINT`).
+  - Structured outputs, validated again on the server and in the app. The system prompt is cached and the design's
+    text is fenced as content.
+  - CORS allow-list, per-client rate limit, 16 KB body cap, and error mapping that never leaks upstream details.
+  - It is only used when the site has one **and** the person turns it on in **Settings → AI tools**. It receives text,
+    colours and photo measurements, never photos.
+  - Any failure falls back to the on-device result with a notice. See [AI.md](AI.md).
+- **Settings → AI tools** lists what runs on the device and has the server switch (or _Not set up_). Privacy says
+  what leaves the device when the server is on.
+- **Fixed along the way:**
+  - A design's recorded size and format now follow its slides, so undoing an in-place resize restores both.
+  - A single-slide design takes a background concept as its own background, so the Background tool shows it.
+  - The Node AI server answered some unusual request methods by crashing. It now returns 400.
+  - Version history could miss _When you opened it_ if Ctrl/⌘ S landed while the first edit was still saving. Whichever
+    comes first now keeps the opened design.
+- **Quality:**
+  - 315 unit/component tests, including 17 for the AI tools, 7 for the AI server (fake client: no key, no cost), 2 for
+    the words the tools read from a design, size/format tracking in the repository, and the version-history race.
+  - 136 Playwright runs across desktop, phone and no-WebGL. New for this phase, on desktop and phone: captions from a template's words (copy, tones, add as text), every palette type
+    with recolour and undo, font pairing, background concepts on one slide and every slide, resize as a copy and in
+    place with undo, HEX/RGB/HSL, Auto with a near-duplicate left out, Settings → AI, and the phone flow — each checking
+    that no request leaves the site.
+
+Known limits:
+
+- The on-device tools are rules and measurements, not a language model. Captions only know the design's words, not what
+  its photos show.
+- Smart resize adapts element by element and doesn't redesign a layout. A busy design moved to a very different shape
+  may need a tidy-up.
+- AI Background makes concepts from fills and shapes. It doesn't generate images.
+- The AI server's rate limit is in memory, per process or isolate. Add the host's own limits for stricter control.
 
 ## Later phases (summary)
 
-- **11 · AI (optional, opt-in):** palette extraction, font pairing, AI resize and layout run locally; any cloud model is
-  opt-in with clear disclosure and a server-side proxy for keys.
 - **12–13 · Performance & hardening:** worker rendering, memory budgets for large images, accessibility audit, visual
   regression tests.

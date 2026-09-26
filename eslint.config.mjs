@@ -15,6 +15,7 @@ export default defineConfig([
     'public/ml/**',
     'test-results/**',
     'playwright-report/**',
+    'server/dist/**',
   ]),
   {
     rules: {

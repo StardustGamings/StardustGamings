@@ -10,8 +10,8 @@ thumbnails, collages, posters and moodboards.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 - **Never lose work.** Autosave, version history, `.stardeck` project files and one-tap backups — all on your device.
 
-> **Status: Phase 10 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
-> templates, filters & effects, export, offline storage, animations & video, and the trend system. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
+> **Status: Phase 11 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
+> templates, filters & effects, export, offline storage, animations & video, the trend system and optional AI tools. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
 > next. Features that aren't built yet are marked **Soon** in the UI; there are no fake buttons.
 
 ---
@@ -32,9 +32,10 @@ thumbnails, collages, posters and moodboards.
 | **Export**            | PNG, JPG, WebP and multi-page PDF — every slide as a ZIP or separate files, one slide, or the full carousel as one wide image. Standard / High (2×) / Maximum (3×, from your full-resolution originals), transparent PNG/WebP, progress with cancel, share sheet on phones. Made on your device, works offline, **never watermarked**. <kbd>Ctrl/⌘</kbd> + <kbd>⇧</kbd> + <kbd>E</kbd> or _Export…_ on any project card. **MP4** (H.264 where supported, with sound) and **GIF** for animated designs.                                                                                                                                                                                                                                                                                   |
 | **Animation & video** | Entrances (fade, slide, zoom, bounce, pop, rotate, blur reveal, typewriter, glitch, elastic), exits and loops (parallax, float, pulse) on any element; one-tap **auto-animate** in three vibes; slide lengths and transitions (swipe, fade, zoom, cut); a **timeline** to drag timing and scrub; play on the canvas or the whole design as a video. **Video clips** (MP4, WebM, MOV up to 2 min) in any frame, with trim, speed, sound, loop, crop, looks and effects. 14 animated templates. See [`docs/ANIMATION.md`](docs/ANIMATION.md).                                                                                                                                                                                                                                              |
 | **Trends**            | Monthly **trend drops** as plain JSON (no rebuild to publish): _What's trending_ on Discover with every category — kits, templates, layouts, fonts, colours, filters, effects, stickers, carousel styles, meme formats, social formats — plus an archive of past drops, scheduled drops that go live on their day, a new-drop dot, and offline caching. Drops add real filters, vector stickers and photo-dump layout rules. In the editor, the **Trends** tool (<kbd>R</kbd>) suggests ideas for your design and restyles it with a kit (colours, fonts, filter, motion) in one tap. Downloads can be turned off; see [`docs/TRENDS.md`](docs/TRENDS.md).                                                                                                                               |
+| **AI tools**          | Optional, and on your device by default. The **Magic** tool (<kbd>M</kbd>): captions & hashtags written from your design's words in six tones; colour palettes from your photos plus complementary, analogous, triadic, monochromatic, cinematic, pastel, neon, Y2K and dark-luxury harmonies; font pairings from the bundled fonts; background concepts in your colours; **smart resize** to 4:5, 1:1, 9:16, 16:9 and more (a copy or in place). **Auto** in the photo dump picks the cover, order, vibe and title from the photos. Everything stays editable and undoable. The colour picker takes HEX, RGB or HSL. A site can add an AI server (keys stay on the server, photos are never sent) that people switch on in Settings; see [`docs/AI.md`](docs/AI.md).                    |
 | **Projects**          | Search, format filters, sort, favourites, **folders** (drag designs onto them), trash with undo and 30-day auto-clean, restore, delete forever. Import `.stardeck` project files by button or drop.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Storage & history** | Autosave with automatic retries and a rescue download when the device is full. **Version history** (as opened, every 10 min, Ctrl/⌘ S, named versions, before big changes) with preview, restore (undoable) and save-as-copy. **Project files** carry a design and its photos to another device; **Back up everything** saves every design, its history, folders, templates and photos in one file. Settings → Storage shows what's stored by kind, with cleanups. Tabs stay in sync, and edits in two places never overwrite each other silently.                                                                                                                                                                                                                                       |
-| **Settings**          | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Storage, Shortcuts, Accessibility, About.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Settings**          | Account (none needed), Appearance (Dark / Light / OLED / System), Animation (System / Full / Reduced / Off), Editor, Export defaults, Performance, Privacy, Trends, AI tools, Storage, Shortcuts, Accessibility, About.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Command palette**   | <kbd>Ctrl/⌘</kbd> + <kbd>K</kbd> — create, navigate, search templates, open recent projects, switch theme/motion, editor actions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Onboarding**        | Five animated intro screens; skippable; never asks for an account.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | **PWA / offline**     | Manifest, maskable icons, install prompt, service worker precaching the whole app, "Offline Mode" indicator.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -74,6 +75,8 @@ npm start            # serves out/ at http://127.0.0.1:3000 with production secu
 | `npm run icons`                 | Re-render PWA icons from the logo                                        |
 | `npm run templates`             | Compile the template authoring kit to JSON and re-index the library      |
 | `npm run templates:check`       | Check every template's text fits its box, measured with the real fonts   |
+| `npm run trends:check`          | Validate every trend drop strictly and check the bundled copy is in sync |
+| `npm run ai-proxy`              | Build and start the optional AI server (see `docs/AI.md`)                |
 
 End-to-end tests run against the production build: `npm run build && npm run test:e2e`.
 
@@ -85,6 +88,8 @@ primitives · cmdk · IndexedDB (`idb`) · Zod · Vitest · Playwright.
 ```
 src/
   app/            Routes: / · /projects · /discover · /settings · /editor?id=…
+  ai/             On-device AI tools (captions, palettes, font pairing, backgrounds, photo analysis & carousel plans,
+                  smart resize), shared schemas, and the optional AI-server client
   animations/     Motion engine: presets & easing, poses at a moment, slide sequence & transitions, auto-animate
   canvas/         Canvas2D scene renderer (fills, text layout, shapes, stickers), previews, thumbnails
   assets/         Local photo & video library: IndexedDB blobs, file sniffing, worker decode/downscale, decode cache,
@@ -117,6 +122,8 @@ src/
   typography/     Bundled font catalog & on-demand loader
   settings/       Preferences store, theme/motion resolution, UI store
   hooks/ utils/ types/
+server/
+  ai-proxy/       Optional AI server: a Fetch-API handler (Node and Workers adapters) that keeps the model API key server-side
 public/
   trends/         Trend drops loaded at run time (index.json → packs) and pack.schema.json
   fonts/          18 OFL font families (latin + latin-ext), bundled for offline use
@@ -202,6 +209,10 @@ Free hosting straight from this repository, no server needed:
 Pick the branch you want to publish as the production branch. The Node version comes from `.nvmrc` (Vercel reads
 `engines` in `package.json`). Every push to that branch redeploys automatically.
 
+Optional: set `NEXT_PUBLIC_AI_ENDPOINT` at build time to connect an AI server you run (`npm run ai-proxy`, or the
+Workers build) for freer captions, font pairings, background concepts and carousel plans — see
+[`docs/AI.md`](docs/AI.md). The app works fully without it.
+
 Optional: set `NEXT_PUBLIC_CUTOUT_ENDPOINT` at build time to offer a self-hosted background-removal server as a third
 method (and add its origin to `connect-src` in `public/_headers`). See [`docs/BACKGROUND-REMOVAL.md`](docs/BACKGROUND-REMOVAL.md).
 
@@ -226,6 +237,9 @@ any current feature.
 ## Privacy & security
 
 - No analytics, trackers or accounts. The app only requests its own files and trend packs.
+- The AI tools run on your device. If the site has an AI server _and_ you turn it on (Settings → AI tools), the Magic
+  tools send it your design's text, colours and photo measurements — never photos — and the panel says so. The model API
+  key lives only on that server. See [`docs/AI.md`](docs/AI.md).
 - Photos and video clips are stored in IndexedDB on your device. Imports are checked by their bytes (not the file name),
   decoded in a worker (videos by the browser's own `<video>` element), and SVGs are rasterised through an `<img>` so
   scripts never run.

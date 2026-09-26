@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import type { Folder, ProjectMeta } from '@/types/project';
+import type { Folder, FormatId, ProjectMeta, SizePresetId } from '@/types/project';
 import { renderThumbnail } from '@/canvas/thumbnail';
 import * as folderRepo from './folders';
 import * as repo from './repository';
@@ -19,6 +19,7 @@ interface ProjectsState {
   create: (input: repo.CreateProjectInput) => Promise<ProjectMeta>;
   duplicate: (id: string) => Promise<ProjectMeta>;
   rename: (id: string, name: string) => Promise<void>;
+  setSize: (id: string, sizeId: SizePresetId, format: FormatId) => Promise<ProjectMeta>;
   toggleFavorite: (id: string) => Promise<void>;
   trash: (id: string) => Promise<void>;
   restore: (id: string) => Promise<void>;
@@ -111,6 +112,12 @@ export const useProjects = create<ProjectsState>()((set, get) => {
     },
 
     rename: async (id, name) => replace(await repo.renameProject(id, name)),
+
+    setSize: async (id, sizeId, format) => {
+      const meta = await repo.setProjectSize(id, sizeId, format);
+      replace(meta);
+      return meta;
+    },
 
     toggleFavorite: async (id) => {
       const current = get().projects.find((p) => p.id === id);

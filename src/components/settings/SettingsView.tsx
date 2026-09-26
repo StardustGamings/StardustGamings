@@ -2,6 +2,7 @@
 
 import {
   Accessibility,
+  Bot,
   Download,
   Flame,
   Gauge,
@@ -21,6 +22,7 @@ import type { FormatId } from '@/types/project';
 import { FORMAT_ORDER, FORMATS, MAX_SLIDES } from '@/projects/formats';
 import { UI_SCALE_RANGE } from '@/settings/defaults';
 import { useSettings } from '@/settings/store';
+import { aiServerConfigured } from '@/ai/service';
 import { useUi } from '@/settings/ui-store';
 import { BUNDLED_FONTS } from '@/typography/fonts';
 import { useInstallPrompt } from '@/hooks/useInstallPrompt';
@@ -39,6 +41,7 @@ import { cn } from '@/utils/cn';
 import { SettingRow, SettingsSection } from './SettingRow';
 import { StorageSection } from './StorageSection';
 import { TrendsSection } from './TrendsSection';
+import { AiSection } from './AiSection';
 import { ThemePicker } from './ThemePicker';
 
 const SECTIONS = [
@@ -49,6 +52,7 @@ const SECTIONS = [
   { id: 'performance', label: 'Performance', icon: Gauge },
   { id: 'privacy', label: 'Privacy', icon: Lock },
   { id: 'trends', label: 'Trends', icon: Flame },
+  { id: 'ai', label: 'AI tools', icon: Bot },
   { id: 'storage', label: 'Storage', icon: HardDrive },
   { id: 'shortcuts', label: 'Shortcuts', icon: Keyboard },
   { id: 'accessibility', label: 'Accessibility', icon: Accessibility },
@@ -361,6 +365,7 @@ function PerformanceSection() {
 }
 
 function PrivacySection() {
+  const cloud = useSettings((s) => s.privacy.cloudFeatures);
   return (
     <SettingsSection id="privacy" title="Privacy" icon={<Lock />} description="Local-first means your work lives with you.">
       <div className="grid gap-3 py-1 sm:grid-cols-2">
@@ -376,7 +381,11 @@ function PrivacySection() {
         <div className="rounded-[18px] border border-line p-4">
           <p className="text-sm font-bold">Leaves this device</p>
           <ul className="mt-2 list-inside list-disc space-y-1 text-[13px] text-fg-muted">
-            <li>Nothing you create.</li>
+            <li>
+              {cloud && aiServerConfigured()
+                ? 'With the AI server on: your design’s text and colours, and photo measurements, when you use a Magic tool — never photos.'
+                : 'Nothing you create.'}
+            </li>
             <li>
               The app only downloads its own files, trend drops (you can turn those off under Trends) and, once if you use it, its
               background-removal model.
@@ -387,8 +396,10 @@ function PrivacySection() {
       </div>
       <SettingRow
         title="Optional AI & cloud tools"
-        description="Background removal runs on your device. Any cloud tool is off by default, clearly labelled, and asks before anything is uploaded."
-        control={() => <Badge tone="success">Nothing uploaded</Badge>}
+        description="Background removal and every AI tool run on your device. An AI server (only if this site has one) is off until you turn it on under AI tools, and never receives photos."
+        control={() => (
+          <Badge tone={cloud ? 'violet' : 'success'}>{cloud && aiServerConfigured() ? 'AI server on' : 'Nothing uploaded'}</Badge>
+        )}
       />
     </SettingsSection>
   );
@@ -594,6 +605,7 @@ export function SettingsView() {
         <PerformanceSection />
         <PrivacySection />
         <TrendsSection />
+        <AiSection />
         <StorageSection />
         <ShortcutsSection />
         <AccessibilitySection />

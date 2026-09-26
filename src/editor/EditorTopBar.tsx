@@ -20,6 +20,7 @@ import {
   Undo2,
   ZoomIn,
   ZoomOut,
+  Maximize2,
 } from 'lucide-react';
 import { useState } from 'react';
 import { FORMATS } from '@/projects/formats';
@@ -118,6 +119,9 @@ function MoreMenu() {
           Save a version
         </MenuItem>
         <MenuSeparator />
+        <MenuItem icon={<Maximize2 />} onSelect={() => useUi.getState().openResize()}>
+          Resize design…
+        </MenuItem>
         <MenuItem icon={<Play />} onSelect={() => useUi.getState().setCarouselPreview(true)}>
           Swipe preview
         </MenuItem>

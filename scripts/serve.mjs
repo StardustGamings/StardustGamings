@@ -29,6 +29,14 @@ const TYPES = {
   '.onnx': 'application/octet-stream',
 };
 
+function aiOrigin() {
+  try {
+    return process.env.NEXT_PUBLIC_AI_ENDPOINT ? ` ${new URL(process.env.NEXT_PUBLIC_AI_ENDPOINT).origin}` : '';
+  } catch {
+    return '';
+  }
+}
+
 // Mirrors public/_headers so tests run under the same Content-Security-Policy as production.
 // Next.js' static export relies on inline bootstrap scripts, hence 'unsafe-inline' for scripts;
 // 'wasm-unsafe-eval' lets the on-device background-removal model compile WebAssembly (no JS eval).
@@ -40,7 +48,8 @@ const CSP = [
   // Video clips in designs play from local blob: URLs (they never leave the device).
   "media-src 'self' blob:",
   "font-src 'self'",
-  "connect-src 'self'",
+  // The optional AI server, when the app was built with one (see docs/AI.md).
+  `connect-src 'self'${aiOrigin()}`,
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   "object-src 'none'",
