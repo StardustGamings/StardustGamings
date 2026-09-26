@@ -3,6 +3,7 @@ import { resolveSticker } from '@/stickers/library';
 import { degToRad } from '@/utils/math';
 import { withAlpha } from '@/utils/color';
 import { contentLayout } from '@/images/content';
+import { effectiveVignette } from '@/filters/compose';
 import { createFillStyle, fillPrimaryColor } from './fill';
 import { roundRectPath, traceClip, traceShape } from './shapes';
 import { drawText } from './text';
@@ -130,7 +131,7 @@ function drawPhoto(ctx: Ctx2D, el: ImageElement, img: ResolvedImage): void {
  * smoothstep(0.35, 1.05, d) × |amount| × 0.8, darkening (or lightening) the edges.
  */
 function drawVignette(ctx: Ctx2D, el: ImageElement): void {
-  const v = Math.max(-1, Math.min(1, (el.adjust?.vignette ?? 0) / 100));
+  const v = Math.max(-1, Math.min(1, effectiveVignette(el) / 100));
   if (!v || typeof ctx.createRadialGradient !== 'function') return;
   const ink = v > 0 ? '0, 0, 0' : '255, 255, 255';
   ctx.save();
@@ -199,7 +200,7 @@ function drawImage(ctx: Ctx2D, el: ImageElement, opts: RenderOptions, pixelScale
 
   if (resolved && resolved.width > 0 && resolved.height > 0) {
     const transparent = resolved.alpha || el.fit === 'contain';
-    const layered = transparent && (el.shadow || el.adjust?.vignette);
+    const layered = transparent && (el.shadow || effectiveVignette(el));
     if (!(layered && drawAsLayer(ctx, el, resolved, pixelScale, applyShadow))) {
       ctx.save();
       traceClip(ctx, clip, w, h, radius);

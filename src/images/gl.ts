@@ -1,12 +1,17 @@
 import type { DrawableImage } from '@/canvas/render/types';
 import { clamp } from '@/utils/math';
 import type { PixelParams } from './adjustments';
+import { LEAK_BLOBS, rgbSplitOffset, type EffectParams } from '@/effects/effects';
 
 /**
  * GPU develop pipeline (WebGL 1, so it runs on practically every phone).
  *
- *   source ─▶ warp (perspective) ─▶ [blur] ─▶ develop (tone, colour, curves,
- *   sharpen, fade, vignette, grain) ─▶ [composite with mask + backdrop] ─▶ canvas
+ *   source ─▶ warp (perspective) ─▶ [blur] ─▶ develop (RGB split, sharpen, tone,
+ *   colour, curves, fade, glow, light leak, scanlines, dust, grain)
+ *   ─▶ [composite with mask + backdrop] ─▶ canvas
+ *
+ * Glow reads a blurred bright-pass copy of the source. The effect maths mirror
+ * src/effects/effects.ts.
  *
  * Intermediate textures hold straight (non-premultiplied) alpha; the final pass
  * premultiplies for the canvas. The maths mirror `adjustPixel` in adjustments.ts.
@@ -69,17 +74,59 @@ uniform float uSharpen;
 uniform float uPremultiply;
 uniform float uExposure, uBrightness, uContrast, uHighlights, uShadows;
 uniform float uTemperature, uTint, uSaturation, uVibrance, uFade, uVignette, uGrain;
+uniform float uRgbSplit, uGlow, uLeak, uScan, uDust;
+uniform sampler2D uGlowTex;
+uniform vec3 uLeakBlob[3];
+uniform vec3 uLeakColor[3];
 
 float luma(vec3 c) { return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
 float grainNoise(vec2 p) {
   p = mod(p, 257.0);
   return fract(sin(p.x * 12.9898 + p.y * 78.233) * 43758.5453) - 0.5;
 }
+float hash2(vec2 p) { return fract(sin(p.x * 127.1 + p.y * 311.7) * 43758.5453); }
+vec3 screen(vec3 c, vec3 light) { return 1.0 - (1.0 - c) * (1.0 - clamp(light, 0.0, 1.0)); }
+
+vec3 leakColor(vec2 uv, float aspect) {
+  vec3 col = vec3(0.0);
+  for (int i = 0; i < 3; i++) {
+    vec2 d = vec2((uv.x - uLeakBlob[i].x) * aspect, uv.y - uLeakBlob[i].y);
+    float f = 1.0 - smoothstep(0.0, uLeakBlob[i].z, length(d));
+    col += uLeakColor[i] * f * f;
+  }
+  return col;
+}
+
+float dustAt(vec2 uv, float aspect, float amount) {
+  vec2 s = vec2(uv.x * aspect, uv.y) * 140.0;
+  vec2 cell = floor(s);
+  float v = 0.0;
+  if (hash2(cell) > 1.0 - 0.035 * amount) {
+    vec2 o = vec2(hash2(cell + vec2(17.0, 3.0)), hash2(cell + vec2(5.0, 29.0))) * 0.5 - 0.25;
+    float r = 0.12 + 0.22 * hash2(cell + vec2(11.0, 7.0));
+    float m = 1.0 - smoothstep(r * 0.4, r, length(s - cell - 0.5 - o));
+    v += (hash2(cell + vec2(3.0, 13.0)) > 0.3 ? 0.55 : -0.45) * m;
+  }
+  for (int k = 0; k < 4; k++) {
+    float fk = float(k);
+    if (amount > fk * 0.25) {
+      float x = 0.08 + 0.84 * hash2(vec2(fk * 7.0 + 1.0, 13.0));
+      float w = 0.0009 + 0.0007 * hash2(vec2(fk, 5.0));
+      float along = 0.5 + 0.5 * sin(uv.y * (9.0 + fk * 5.0) + fk * 1.7);
+      v += (1.0 - smoothstep(0.0, w, abs(uv.x - x))) * 0.35 * along;
+    }
+  }
+  return v * amount;
+}
 
 void main() {
   vec2 uv = uvIn();
   vec4 src = texture2D(uTex, uv);
   vec3 c = src.rgb;
+  if (uRgbSplit > 0.0) {
+    c.r = texture2D(uTex, uv + vec2(uRgbSplit, 0.0)).r;
+    c.b = texture2D(uTex, uv - vec2(uRgbSplit, 0.0)).b;
+  }
   if (uSharpen > 0.0) {
     vec3 n = texture2D(uTex, uv + vec2(0.0, uTexel.y)).rgb;
     vec3 s = texture2D(uTex, uv - vec2(0.0, uTexel.y)).rgb;
@@ -114,15 +161,29 @@ void main() {
     c = vec3(texture2D(uLut, vec2(cc.r, 0.5)).r, texture2D(uLut, vec2(cc.g, 0.5)).g, texture2D(uLut, vec2(cc.b, 0.5)).b);
   }
   if (uFade > 0.0) c = c * (1.0 - 0.22 * uFade) + 0.16 * uFade;
+  float aspect = uSize.x / uSize.y;
   if (uVignette != 0.0) {
-    float aspect = uSize.x / uSize.y;
     vec2 d = (uv - 0.5) * vec2(min(1.0, aspect), min(1.0, 1.0 / aspect));
     float m = smoothstep(0.35, 1.05, length(d) / 0.7071) * abs(uVignette) * 0.8;
     c = uVignette > 0.0 ? c * (1.0 - m) : c + (1.0 - c) * m;
   }
+  if (uGlow > 0.0) c = screen(clamp(c, 0.0, 1.0), texture2D(uGlowTex, uv).rgb * uGlow * 1.3);
+  if (uLeak > 0.0) c = screen(clamp(c, 0.0, 1.0), leakColor(uv, aspect) * uLeak * 1.35);
+  if (uScan > 0.0) c *= 1.0 - uScan * 0.38 * (0.5 + 0.5 * cos(uv.y * 320.0 * 6.28318530718));
+  if (uDust > 0.0) c += dustAt(uv, aspect, uDust);
+  c = clamp(c, 0.0, 1.0);
   if (uGrain > 0.0) c += grainNoise(floor(uv * uSize)) * uGrain * 0.22;
   c = clamp(c, 0.0, 1.0);
   gl_FragColor = uPremultiply > 0.5 ? vec4(c * src.a, src.a) : vec4(c, src.a);
+}`;
+
+/** Glow source: the bright parts of the photo (straight alpha). */
+const BRIGHT = `${HEADER}
+uniform sampler2D uTex;
+void main() {
+  vec4 s = texture2D(uTex, uvIn());
+  float w = smoothstep(0.45, 1.0, dot(s.rgb, vec3(0.2126, 0.7152, 0.0722)));
+  gl_FragColor = vec4(s.rgb * w, s.a);
 }`;
 
 /**
@@ -193,6 +254,9 @@ export interface DevelopInput {
   sharpen: number;
   /** Blur radius in output pixels (0 = none). */
   blur: number;
+  effects: EffectParams;
+  /** Glow blur radius in output pixels. */
+  glowRadius: number;
   cutout: null | {
     mask: DrawableImage;
     /** Feather radius in output pixels. */
@@ -416,8 +480,10 @@ export class GlProcessor {
     return b;
   }
 
+  /** Uploads the curves table on texture unit 1 (so it can't clobber the photo bound to unit 0). */
   private lut(data: Uint8Array): WebGLTexture {
     const gl = this.gl;
+    gl.activeTexture(gl.TEXTURE1);
     this.lutTex ??= this.newTexture();
     gl.bindTexture(gl.TEXTURE_2D, this.lutTex);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
@@ -454,14 +520,29 @@ export class GlProcessor {
         base = t.tex;
       }
 
+      const fx = input.effects;
+      let glowTex: WebGLTexture | null = null;
+      if (fx.glow > 0) {
+        const bright = this.target(width, height, held);
+        held.push(bright);
+        const src = base;
+        this.pass('bright', BRIGHT, bright, width, height, (p) => {
+          this.bindTex(0, src);
+          gl.uniform1i(this.u(p, 'uTex'), 0);
+        });
+        const t = this.blur(bright.tex, width, height, Math.max(1, input.glowRadius), held);
+        held.push(t);
+        glowTex = t.tex;
+      }
+
       const toCanvas = !input.cutout;
       const developed = toCanvas ? null : this.target(width, height, held);
       if (developed) held.push(developed);
       const pp = input.params;
       this.pass('develop', DEVELOP, developed, width, height, (p) => {
+        if (input.lut) this.bindTex(1, this.lut(input.lut));
         this.bindTex(0, base);
         gl.uniform1i(this.u(p, 'uTex'), 0);
-        if (input.lut) this.bindTex(1, this.lut(input.lut));
         gl.uniform1i(this.u(p, 'uLut'), 1);
         gl.uniform1f(this.u(p, 'uUseLut'), input.lut ? 1 : 0);
         gl.uniform2f(this.u(p, 'uTexel'), 1 / width, 1 / height);
@@ -480,6 +561,16 @@ export class GlProcessor {
         gl.uniform1f(this.u(p, 'uFade'), pp.fade);
         gl.uniform1f(this.u(p, 'uVignette'), pp.vignette);
         gl.uniform1f(this.u(p, 'uGrain'), pp.grain);
+        gl.uniform1f(this.u(p, 'uRgbSplit'), rgbSplitOffset(fx.rgbSplit));
+        gl.uniform1f(this.u(p, 'uGlow'), glowTex ? fx.glow : 0);
+        if (glowTex) this.bindTex(2, glowTex);
+        gl.uniform1i(this.u(p, 'uGlowTex'), 2);
+        gl.uniform1f(this.u(p, 'uLeak'), fx.leak);
+        const blobs = LEAK_BLOBS[fx.leakStyle];
+        gl.uniform3fv(this.u(p, 'uLeakBlob[0]'), new Float32Array(blobs.flatMap((b) => [b.x, b.y, b.radius])));
+        gl.uniform3fv(this.u(p, 'uLeakColor[0]'), new Float32Array(blobs.flatMap((b) => b.color)));
+        gl.uniform1f(this.u(p, 'uScan'), fx.scanlines);
+        gl.uniform1f(this.u(p, 'uDust'), fx.dust);
       });
 
       if (input.cutout && developed) {

@@ -50,6 +50,10 @@ export const trendPackSchema = z.object({
           .max(200)
           .regex(/^((grayscale|sepia|saturate|contrast|brightness|hue-rotate|invert|blur)\(-?[\d.]+(deg|px|%)?\)\s*)+$/),
         overlay: z.enum(['none', 'grain', 'bloom', 'scanlines', 'leak', 'vignette', 'fade']),
+        /** A built-in filter that recreates this effect (its id in src/filters/looks.ts). */
+        look: slug.optional(),
+        /** Filter intensity for this effect, 0..100. */
+        intensity: z.number().min(0).max(100).optional(),
         heat,
       }),
     )

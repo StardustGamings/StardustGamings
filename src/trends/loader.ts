@@ -1,6 +1,7 @@
 import bundledPack from '../../public/trends/2026/september.json';
 import { hasBundledTemplate } from '@/templates/registry';
 import { resolveSticker } from '@/stickers/library';
+import { getLook } from '@/filters/looks';
 import { trendIndexSchema, trendPackSchema, type TrendPack } from './schema';
 
 /** The pack compiled into the app — guarantees trends render offline on first launch. */
@@ -14,6 +15,8 @@ export function sanitizePack(pack: TrendPack): TrendPack {
     layouts: pack.layouts.filter((l) => hasBundledTemplate(l.templateId)),
     formats: pack.formats.filter((f) => hasBundledTemplate(f.templateId)),
     stickers: pack.stickers.filter((s) => resolveSticker(s) !== null),
+    // A pack may name looks from a newer app version; those effects fall back to their CSS preview.
+    effects: pack.effects.map((e) => (e.look && !getLook(e.look) ? { ...e, look: undefined } : e)),
   };
 }
 

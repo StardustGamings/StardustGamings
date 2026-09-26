@@ -51,9 +51,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "saturation": -60,
-          "fade": 20
+        "filter": {
+          "id": "vintage",
+          "intensity": 100
         },
         "placeholder": {
           "fill": {
@@ -91,9 +91,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "saturation": -40,
-          "fade": 12
+        "filter": {
+          "id": "vintage",
+          "intensity": 80
         },
         "placeholder": {
           "fill": {
@@ -195,9 +195,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "saturation": -40,
-          "fade": 12
+        "filter": {
+          "id": "vintage",
+          "intensity": 80
         },
         "placeholder": {
           "fill": {

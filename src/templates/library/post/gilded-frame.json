@@ -76,10 +76,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 8,
-          "temperature": 10,
-          "fade": 8
+        "filter": {
+          "id": "luxury",
+          "intensity": 85
         },
         "clip": "arch",
         "placeholder": {

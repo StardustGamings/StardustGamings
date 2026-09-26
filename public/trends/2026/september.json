@@ -184,6 +184,8 @@
       "description": "Soft contrast and fine grain like a disposable camera.",
       "css": "contrast(1.08) saturate(0.85) sepia(0.12)",
       "overlay": "grain",
+      "look": "film",
+      "intensity": 90,
       "heat": 92
     },
     {
@@ -192,6 +194,8 @@
       "description": "Cool highlights, lifted blacks and a dreamy bloom.",
       "css": "brightness(1.08) saturate(1.25) hue-rotate(-12deg)",
       "overlay": "bloom",
+      "look": "y2k",
+      "intensity": 85,
       "heat": 88
     },
     {
@@ -200,6 +204,8 @@
       "description": "Scanlines, colour bleed and a tape-worn tint.",
       "css": "saturate(1.4) contrast(1.15) hue-rotate(8deg)",
       "overlay": "scanlines",
+      "look": "vhs",
+      "intensity": 80,
       "heat": 83
     },
     {
@@ -208,6 +214,8 @@
       "description": "Warm orange flare creeping in from the edge.",
       "css": "brightness(1.05) saturate(1.1)",
       "overlay": "leak",
+      "look": "disposable",
+      "intensity": 90,
       "heat": 80
     },
     {
@@ -216,6 +224,8 @@
       "description": "High-contrast black and white with deep shadows.",
       "css": "grayscale(1) contrast(1.35) brightness(0.95)",
       "overlay": "vignette",
+      "look": "monochrome",
+      "intensity": 100,
       "heat": 77
     },
     {
@@ -224,6 +234,8 @@
       "description": "Washed-out pastels and a creamy white point.",
       "css": "sepia(0.25) saturate(0.8) brightness(1.1) contrast(0.9)",
       "overlay": "fade",
+      "look": "polaroid",
+      "intensity": 90,
       "heat": 75
     }
   ],

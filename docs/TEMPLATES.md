@@ -30,15 +30,15 @@ A template is metadata plus a complete design document:
 
 What each part covers:
 
-| The brief asks for | Where it lives                                                                                                                               |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Canvas size        | `doc.slideWidth` / `doc.slideHeight` (+ `sizeId`), `doc.slides`                                                                              |
-| Elements/positions | `doc.elements` — strip coordinates, so an element can straddle two slides (seamless carousels)                                               |
-| Fonts              | each text element's `fontFamily` / weight / style — only bundled fonts, so templates work offline                                            |
-| Colours            | fills and strokes throughout; `palette` lists the main colours so the template can be re-coloured (colourways)                               |
-| Images             | photo frames: image elements with `"assetId": null` and a placeholder fill. Frames keep their shape, border and "look" (adjustments, curves) |
-| Animations         | not yet — element animation data joins the document format in Phase 9 (Animations & video) behind a `version` bump, with a migration         |
-| Metadata           | `name`, `description`, `style`, `tags`, `format`                                                                                             |
+| The brief asks for | Where it lives                                                                                                                                                                                    |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Canvas size        | `doc.slideWidth` / `doc.slideHeight` (+ `sizeId`), `doc.slides`                                                                                                                                   |
+| Elements/positions | `doc.elements` — strip coordinates, so an element can straddle two slides (seamless carousels)                                                                                                    |
+| Fonts              | each text element's `fontFamily` / weight / style — only bundled fonts, so templates work offline                                                                                                 |
+| Colours            | fills and strokes throughout; `palette` lists the main colours so the template can be re-coloured (colourways)                                                                                    |
+| Images             | photo frames: image elements with `"assetId": null` and a placeholder fill. Frames keep their shape, border, adjustments and filter (the kit's `look` option), so photos dropped in arrive styled |
+| Animations         | not yet — element animation data joins the document format in Phase 9 (Animations & video) behind a `version` bump, with a migration                                                              |
+| Metadata           | `name`, `description`, `style`, `tags`, `format`                                                                                                                                                  |
 
 Bundled templates never contain photos (only empty frames), and never reference anything outside the app.
 

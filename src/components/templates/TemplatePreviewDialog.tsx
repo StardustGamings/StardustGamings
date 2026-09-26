@@ -302,6 +302,14 @@ function Body({ request, template, onClose }: { request: TemplatePreviewRequest;
               <Label>Fonts</Label>
               <p className="text-[13px] text-fg-muted">{facts.fonts.length ? facts.fonts.join(' · ') : 'No text'}</p>
             </div>
+            {facts.looks.length > 0 && (
+              <div>
+                <Label>Photo filters</Label>
+                <p className="text-[13px] text-fg-muted">
+                  {facts.looks.join(' · ')} — your photos get the look automatically; change it any time.
+                </p>
+              </div>
+            )}
 
             <p className="text-[12px] leading-relaxed text-fg-subtle">
               {inEditor

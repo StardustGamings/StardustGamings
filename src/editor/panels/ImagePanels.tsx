@@ -34,6 +34,7 @@ import {
   setPerspective,
 } from '../photo-actions';
 import { CurveEditor } from './CurveEditor';
+import { EffectsSection, FiltersSection } from './FilterSections';
 import { ActionButton, FillField, IconToggle, NumberField, Row, Section } from './fields';
 import { ClipGlyph } from './PhotosPanel';
 import { updateSelection } from './useSelection';
@@ -270,7 +271,7 @@ function AdjustSection({ el }: { el: ImageElement }) {
         </button>
         <button
           type="button"
-          disabled={!edited && !hasCurves(el.curves)}
+          disabled={!edited && !hasCurves(el.curves) && !el.filter && !el.effects}
           onPointerDown={() => setCompare(el.id)}
           onPointerUp={() => setCompare(null)}
           onPointerLeave={() => setCompare(null)}
@@ -348,7 +349,9 @@ export function ImageSections({ el, cutout }: { el: ImageElement; cutout?: React
       <FrameSection el={el} />
       {el.assetId && (
         <>
+          <FiltersSection el={el} />
           <AdjustSection el={el} />
+          <EffectsSection el={el} />
           <CurvesSection el={el} />
           <PerspectiveSection el={el} />
           {cutout}

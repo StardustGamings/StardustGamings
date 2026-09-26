@@ -425,7 +425,7 @@ export const carousels = [
           w: 1080,
           h: 452,
           fill: '#2A2622',
-          adjust: { contrast: 12, saturation: -18, fade: 12, grain: 22, temperature: 8 },
+          look: 'cinematic',
         });
         text(sub, {
           x: x + 60,
@@ -744,7 +744,8 @@ export const carousels = [
           w: 1080,
           h: 671,
           fill: '#DADADA',
-          adjust: i === 0 ? { saturation: -60, fade: 20 } : { saturation: -40, fade: 12 },
+          look: 'vintage',
+          intensity: i === 0 ? 100 : 80,
         });
         photo({ x, y: 679, w: 1080, h: 671, fill: '#C9C9C9' });
         if (i > 0) {
@@ -925,7 +926,8 @@ export const carousels = [
         h: 420,
         stroke: { color: '#0A0A0A', width: 6 },
         fill: '#BDBDBD',
-        adjust: { saturation: -100, contrast: 25 },
+        look: 'monochrome',
+        intensity: 100,
       });
       rect({ x: 40, y: 1040, w: 120, h: 120, fill: '#FF2E00' });
       text('(swipe)', { x: 40, y: 1230, w: 400, size: 28, font: 'JetBrains Mono', weight: 700 });
@@ -938,7 +940,8 @@ export const carousels = [
         h: 640,
         stroke: { color: '#0A0A0A', width: 6 },
         fill: '#C4C4C4',
-        adjust: { saturation: -100, contrast: 25 },
+        look: 'monochrome',
+        intensity: 100,
       });
       text('Fig. 02 — concrete, noon', { x: b + 40, y: 870, w: 620, size: 28, font: 'JetBrains Mono', upper: true });
       text('02', {
@@ -980,7 +983,8 @@ export const carousels = [
         h: 560,
         stroke: { color: '#0A0A0A', width: 6 },
         fill: '#BDBDBD',
-        adjust: { saturation: -100, contrast: 25 },
+        look: 'monochrome',
+        intensity: 100,
       });
       rect({ x: c + 40, y: 860, w: 1000, h: 300, fill: '#0A0A0A' });
       text('End of file', {

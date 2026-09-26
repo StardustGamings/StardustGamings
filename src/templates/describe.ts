@@ -1,6 +1,7 @@
 import type { DesignDocument, Fill, ImageElement } from '@/types/document';
 import { slideIndexOf } from '@/projects/document';
 import { normalizeHex } from '@/utils/color';
+import { getLook } from '@/filters/looks';
 
 /** What a template is made of — shown in the template preview and checked by tests. */
 export interface TemplateFacts {
@@ -12,6 +13,8 @@ export interface TemplateFacts {
   photoSlots: number;
   texts: number;
   stickers: string[];
+  /** Names of the filters its photo frames apply. */
+  looks: string[];
 }
 
 /** Empty photo frames in reading order: slide by slide, then top to bottom, then left to right. */
@@ -72,12 +75,17 @@ export function derivePalette(doc: DesignDocument, max = 6): string[] {
 export function describeTemplate(doc: DesignDocument): TemplateFacts {
   const fonts = new Set<string>();
   const stickers = new Set<string>();
+  const looks = new Set<string>();
   let texts = 0;
   for (const el of doc.elements) {
     if (el.type === 'text') {
       fonts.add(el.fontFamily);
       texts++;
     } else if (el.type === 'sticker') stickers.add(el.stickerId);
+    else if (el.type === 'image') {
+      const look = getLook(el.filter?.id);
+      if (look) looks.add(look.name);
+    }
   }
   return {
     width: doc.slideWidth,
@@ -88,5 +96,6 @@ export function describeTemplate(doc: DesignDocument): TemplateFacts {
     photoSlots: photoSlots(doc).length,
     texts,
     stickers: [...stickers],
+    looks: [...looks],
   };
 }

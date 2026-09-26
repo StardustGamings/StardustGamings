@@ -21,6 +21,7 @@ import type {
   TextElement,
 } from '@/types/document';
 import { SIZE_PRESETS } from '@/projects/formats';
+import { getLook } from '@/filters/looks';
 import type { FormatId } from '@/types/project';
 import { templateSchema, type TemplateDefinition, type TemplateStyle } from '../schema';
 
@@ -113,6 +114,10 @@ export interface PhotoOptions extends BoxOptions {
   radius?: number;
   stroke?: Stroke;
   adjust?: ImageAdjustments;
+  /** A built-in look (src/filters/looks.ts) the frame gives any photo dropped in. */
+  look?: string;
+  /** Look intensity (default 85). */
+  intensity?: number;
   label?: string;
 }
 
@@ -229,8 +234,9 @@ export function defineTemplate(meta: TemplateMeta, build: (k: Kit) => void): Tem
       ...(o.dash ? { dash: o.dash } : {}),
     });
 
-  const photo = (o: PhotoOptions): ImageElement =>
-    push({
+  const photo = (o: PhotoOptions): ImageElement => {
+    if (o.look && !getLook(o.look)) throw new Error(`${meta.id}: unknown look "${o.look}"`);
+    return push({
       ...box(o),
       type: 'image',
       assetId: null,
@@ -240,7 +246,9 @@ export function defineTemplate(meta: TemplateMeta, build: (k: Kit) => void): Tem
       ...(o.radius !== undefined ? { cornerRadius: o.radius } : {}),
       ...(o.stroke ? { stroke: o.stroke } : {}),
       ...(o.adjust ? { adjust: o.adjust } : {}),
+      ...(o.look ? { filter: { id: o.look, intensity: o.intensity ?? 85 } } : {}),
     });
+  };
 
   const kit: Kit = {
     W,

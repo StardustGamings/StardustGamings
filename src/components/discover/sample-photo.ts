@@ -1,13 +1,22 @@
 import { seededRandom } from '@/utils/math';
 
 let cached: string | null = null;
+let cachedCanvas: HTMLCanvasElement | null = null;
+
+/** The sample photo as a data URL (for <img>). */
+export function samplePhoto(): string | null {
+  if (cached) return cached;
+  const canvas = samplePhotoCanvas();
+  cached = canvas ? canvas.toDataURL('image/jpeg', 0.9) : null;
+  return cached;
+}
 
 /**
  * A procedurally painted "sunset over hills" used to preview photo effects.
  * Generated locally so previews need no stock photos and work offline.
  */
-export function samplePhoto(): string | null {
-  if (cached) return cached;
+export function samplePhotoCanvas(): HTMLCanvasElement | null {
+  if (cachedCanvas) return cachedCanvas;
   if (typeof document === 'undefined') return null;
   const w = 480;
   const h = 360;
@@ -55,6 +64,6 @@ export function samplePhoto(): string | null {
     ctx.fill();
   });
 
-  cached = canvas.toDataURL('image/jpeg', 0.9);
-  return cached;
+  cachedCanvas = canvas;
+  return canvas;
 }

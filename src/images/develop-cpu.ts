@@ -1,4 +1,5 @@
 import { clamp } from '@/utils/math';
+import { applyEffects, glowWeight, rgbSplitOffset, type EffectParams } from '@/effects/effects';
 import { adjustPixel, applyMatrix, type PixelParams } from './adjustments';
 
 /**
@@ -20,6 +21,9 @@ export interface CpuDevelopInput {
   warp: number[] | null;
   sharpen: number;
   blur: number;
+  effects: EffectParams;
+  /** Glow blur radius in pixels. */
+  glowRadius: number;
   cutout: null | {
     mask: Pixels;
     feather: number;
@@ -128,6 +132,36 @@ export function blurPixels(src: Pixels, radius: number): Pixels {
   return { data, width: w, height: h };
 }
 
+const NEUTRAL: PixelParams = {
+  exposure: 0,
+  brightness: 0,
+  contrast: 0,
+  highlights: 0,
+  shadows: 0,
+  temperature: 0,
+  tint: 0,
+  saturation: 0,
+  vibrance: 0,
+  fade: 0,
+  vignette: 0,
+  grain: 0,
+};
+
+/** Blurred bright-pass copy of the photo — what the glow adds back (straight alpha). */
+function glowSource(src: Pixels, radius: number): Pixels {
+  const data = new Uint8ClampedArray(src.data.length);
+  for (let i = 0; i < src.width * src.height; i++) {
+    const o = i * 4;
+    const l = (0.2126 * src.data[o]! + 0.7152 * src.data[o + 1]! + 0.0722 * src.data[o + 2]!) / 255;
+    const w = glowWeight(l);
+    data[o] = src.data[o]! * w;
+    data[o + 1] = src.data[o + 1]! * w;
+    data[o + 2] = src.data[o + 2]! * w;
+    data[o + 3] = src.data[o + 3]!;
+  }
+  return blurPixels({ data, width: src.width, height: src.height }, Math.max(1, radius));
+}
+
 export function developCpu(input: CpuDevelopInput): Pixels {
   const { width, height } = input.source;
   let base = input.warp ? resample(input.source, width, height, input.warp) : input.source;
@@ -137,12 +171,22 @@ export function developCpu(input: CpuDevelopInput): Pixels {
   const src = base.data;
   const aspect = width / height;
   const k = input.sharpen * 1.5;
+  const fx = input.effects;
+  const glow = fx.glow > 0 ? glowSource(base, input.glowRadius) : null;
+  const split = rgbSplitOffset(fx.rgbSplit) * width;
+  const px = [0, 0, 0, 0];
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const o = (y * width + x) * 4;
       let r = src[o]! / 255;
       let g = src[o + 1]! / 255;
       let b = src[o + 2]! / 255;
+      if (split > 0) {
+        sample(base, x + 0.5 + split, y + 0.5, px);
+        r = px[0]! / 255;
+        sample(base, x + 0.5 - split, y + 0.5, px);
+        b = px[2]! / 255;
+      }
       if (k > 0) {
         const at = (xx: number, yy: number, c: number) =>
           src[(clamp(yy, 0, height - 1) * width + clamp(xx, 0, width - 1)) * 4 + c]! / 255;
@@ -160,28 +204,18 @@ export function developCpu(input: CpuDevelopInput): Pixels {
         gg = input.lut[Math.round(gg * 255) * 4 + 1]! / 255;
         bb = input.lut[Math.round(bb * 255) * 4 + 2]! / 255;
       }
-      const post = adjustPixel(
-        [rr, gg, bb],
-        {
-          exposure: 0,
-          brightness: 0,
-          contrast: 0,
-          highlights: 0,
-          shadows: 0,
-          temperature: 0,
-          tint: 0,
-          saturation: 0,
-          vibrance: 0,
-          fade: p.fade,
-          vignette: p.vignette,
-          grain: p.grain,
-        },
-        (x + 0.5) / width,
-        (y + 0.5) / height,
-        x % 257,
-        y % 257,
+      const u = (x + 0.5) / width;
+      const v = (y + 0.5) / height;
+      const faded = adjustPixel([rr, gg, bb], { ...NEUTRAL, fade: p.fade, vignette: p.vignette }, u, v, 0, 0, aspect);
+      const effected = applyEffects(
+        faded,
+        fx,
+        u,
+        v,
         aspect,
+        glow ? [glow.data[o]! / 255, glow.data[o + 1]! / 255, glow.data[o + 2]! / 255] : null,
       );
+      const post = adjustPixel(effected, { ...NEUTRAL, grain: p.grain }, u, v, x % 257, y % 257, aspect);
       out[o] = post[0] * 255;
       out[o + 1] = post[1] * 255;
       out[o + 2] = post[2] * 255;

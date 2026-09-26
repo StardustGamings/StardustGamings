@@ -76,3 +76,20 @@ export async function makePng(page: Page, paint: Paint, w = 1200, h = 900, hue =
   );
   return Buffer.from(dataUrl.split(',')[1]!, 'base64');
 }
+
+/** A pixel of the editor canvas at a page position (RGBA). */
+export async function scenePixel(page: Page, at: { x: number; y: number }): Promise<number[]> {
+  return page.evaluate(({ x, y }) => {
+    const c = document.querySelector<HTMLCanvasElement>('[data-testid="scene-canvas"]')!;
+    const r = c.getBoundingClientRect();
+    const dpr = c.width / r.width;
+    const d = c.getContext('2d')!.getImageData(Math.round((x - r.left) * dpr), Math.round((y - r.top) * dpr), 1, 1).data;
+    return [...d];
+  }, at);
+}
+
+/** The selected element's frame on the page, with its centre. */
+export async function frameBox(page: Page) {
+  const b = (await page.getByTestId('selection-frame').boundingBox())!;
+  return { ...b, cx: b.x + b.width / 2, cy: b.y + b.height / 2 };
+}

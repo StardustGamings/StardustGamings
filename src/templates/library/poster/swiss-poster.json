@@ -59,9 +59,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 20,
-          "saturation": -100
+        "filter": {
+          "id": "monochrome",
+          "intensity": 85
         },
         "clip": "ellipse",
         "placeholder": {

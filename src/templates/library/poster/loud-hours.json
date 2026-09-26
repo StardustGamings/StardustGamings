@@ -45,9 +45,12 @@
         "assetId": null,
         "fit": "cover",
         "adjust": {
-          "contrast": 35,
-          "saturation": -100,
-          "grain": 30
+          "contrast": 20,
+          "grain": 20
+        },
+        "filter": {
+          "id": "monochrome",
+          "intensity": 100
         },
         "placeholder": {
           "fill": {

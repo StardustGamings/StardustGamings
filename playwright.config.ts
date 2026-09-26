@@ -25,7 +25,7 @@ export default defineConfig({
     // Photo tools must keep working where WebGL is unavailable (CPU develop worker).
     {
       name: 'no-webgl',
-      testMatch: /photos\.spec\.ts/,
+      testMatch: /(photos|filters)\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1440, height: 900 },

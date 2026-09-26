@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { expect, makePng, open, test, type Paint } from './fixtures';
+import { expect, frameBox, makePng, open, scenePixel, test, type Paint } from './fixtures';
 
 /**
  * Photo tools: import, crop, adjustments, frames, cut-outs, paste and stickers.
@@ -28,21 +28,6 @@ async function addPhoto(page: Page, paint: Paint = 'subject', name = 'studio.png
 }
 
 /** RGBA of the rendered scene (not the overlay) at a page coordinate. */
-async function scenePixel(page: Page, at: { x: number; y: number }): Promise<number[]> {
-  return page.evaluate(({ x, y }) => {
-    const c = document.querySelector<HTMLCanvasElement>('[data-testid="scene-canvas"]')!;
-    const r = c.getBoundingClientRect();
-    const dpr = c.width / r.width;
-    const d = c.getContext('2d')!.getImageData(Math.round((x - r.left) * dpr), Math.round((y - r.top) * dpr), 1, 1).data;
-    return [...d];
-  }, at);
-}
-
-async function frameBox(page: Page) {
-  const b = (await page.getByTestId('selection-frame').boundingBox())!;
-  return { ...b, cx: b.x + b.width / 2, cy: b.y + b.height / 2 };
-}
-
 const isRed = (p: number[]) => p[0]! > 170 && p[1]! < 90 && p[2]! < 90;
 
 test.describe('photos (desktop)', () => {

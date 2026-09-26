@@ -44,10 +44,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 6,
-          "temperature": 10,
-          "fade": 10
+        "filter": {
+          "id": "film",
+          "intensity": 70
         },
         "placeholder": {
           "fill": {

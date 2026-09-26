@@ -5,6 +5,7 @@ import { FORMATS, SIZE_PRESETS } from '@/projects/formats';
 import { documentSchema } from '@/projects/schema';
 import { resolveSticker } from '@/stickers/library';
 import { findBundledFont } from '@/typography/fonts';
+import { getLook } from '@/filters/looks';
 import { describeTemplate } from './describe';
 import { hasBundledTemplate, loadBundledTemplates, TEMPLATE_CATALOG } from './registry';
 import { templateSchema } from './schema';
@@ -63,6 +64,9 @@ describe('template library', () => {
       for (const sticker of facts.stickers) expect(resolveSticker(sticker), `${t.id}: ${sticker}`).not.toBeNull();
       // Bundled templates never reference photos — only empty photo frames.
       expect(t.doc.elements.some((e) => e.type === 'image' && e.assetId)).toBe(false);
+      for (const el of t.doc.elements) {
+        if (el.type === 'image' && el.filter) expect(getLook(el.filter.id), `${t.id}: ${el.filter.id}`).toBeDefined();
+      }
     }
   });
 
@@ -81,6 +85,7 @@ describe('template library', () => {
 
   it('covers every format with several styles', async () => {
     const templates = await loadBundledTemplates();
+    expect(templates.filter((t) => describeTemplate(t.doc).looks.length > 0).length).toBeGreaterThanOrEqual(8);
     for (const format of Object.keys(FORMATS)) {
       expect(templates.filter((t) => t.format === format).length, format).toBeGreaterThanOrEqual(2);
     }

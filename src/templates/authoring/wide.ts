@@ -87,7 +87,7 @@ export const wide = [
       background: '#1A1714',
     },
     ({ text, rect, photo }) => {
-      photo({ x: 0, y: 0, w: 1280, h: 720, fill: '#7D6B58', adjust: { fade: 10, temperature: 10, contrast: 6 } });
+      photo({ x: 0, y: 0, w: 1280, h: 720, fill: '#7D6B58', look: 'film', intensity: 70 });
       rect({ x: 0, y: 0, w: 760, h: 720, fill: linear(90, 'rgba(26,23,20,0.75)', 'rgba(26,23,20,0)') });
       text('Vlog 12', { x: 70, y: 200, w: 400, size: 26, font: 'Manrope', weight: 700, ls: 0.3, upper: true, color: '#E9DCC8' });
       text('a slow week\nin lisbon', {
@@ -173,7 +173,7 @@ export const wide = [
     },
     ({ text, rect, ellipse, photo }) => {
       ellipse({ x: 520, y: 180, w: 640, h: 640, fill: '#E63A26' });
-      photo({ x: 640, y: 300, w: 400, h: 400, clip: 'ellipse', fill: '#C94A38', adjust: { saturation: -100, contrast: 20 } });
+      photo({ x: 640, y: 300, w: 400, h: 400, clip: 'ellipse', fill: '#C94A38', look: 'monochrome' });
       text('Form\nfollows\nfeed', {
         x: 60,
         y: 820,
@@ -206,7 +206,16 @@ export const wide = [
       background: '#0E0E0E',
     },
     ({ text, rect, photo }) => {
-      photo({ x: 0, y: 0, w: 1240, h: 1000, fill: '#3A3A3A', adjust: { saturation: -100, contrast: 35, grain: 30 } });
+      photo({
+        x: 0,
+        y: 0,
+        w: 1240,
+        h: 1000,
+        fill: '#3A3A3A',
+        look: 'monochrome',
+        intensity: 100,
+        adjust: { contrast: 20, grain: 20 },
+      });
       rect({ x: 0, y: 700, w: 1240, h: 300, fill: linear(180, 'rgba(14,14,14,0)', '#0E0E0E') });
       text('Loud Hours', { x: 40, y: 830, w: 1160, size: 220, font: 'UnifrakturMaguntia', color: '#F1F1F1', align: 'center' });
       rect({ x: 60, y: 1110, w: 1120, h: 12, fill: '#FF2D2D' });

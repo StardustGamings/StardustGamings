@@ -127,7 +127,7 @@ export function DiscoverView() {
           id="effects"
           eyebrow="Effects"
           title="Looks of the month"
-          description="Live previews. One-tap looks arrive with Filters; until then you can dial them in with Adjust in the photo editor."
+          description="Rendered with the editor’s own filters. Select a photo and open Filters (F) to use them — hold a card to compare."
         />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pack.effects.map((e) => (

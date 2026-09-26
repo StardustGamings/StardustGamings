@@ -2,6 +2,7 @@
 
 import {
   ArrowDownToLine,
+  Wand2,
   BookmarkPlus,
   LayoutTemplate,
   ArrowUpToLine,
@@ -104,6 +105,7 @@ export function useEditorShortcuts() {
     t: () => ed().setTool('text'),
     p: () => ed().setPanel(ed().panel === 'photos' ? null : 'photos'),
     l: () => ed().setPanel(ed().panel === 'layouts' ? null : 'layouts'),
+    f: () => ed().setPanel(ed().panel === 'filters' ? null : 'filters'),
     h: () => ed().setTool('hand'),
     'mod+=': () => actions.zoomStep(1),
     'mod++': () => actions.zoomStep(1),
@@ -261,6 +263,14 @@ export function useEditorShortcuts() {
         icon: <Sparkles />,
         keywords: ['carousel', 'auto', 'generate', 'photos'],
         run: () => useUi.getState().openPhotoFlow('dump', 'current'),
+      },
+      {
+        id: 'ed-filters',
+        label: 'Filters',
+        group: 'Editor',
+        icon: <Wand2 />,
+        keywords: ['filter', 'look', 'preset', 'effects', 'cinematic', 'vintage', 'vhs', 'film', 'y2k'],
+        run: () => ed().setPanel('filters'),
       },
       {
         id: 'ed-templates',

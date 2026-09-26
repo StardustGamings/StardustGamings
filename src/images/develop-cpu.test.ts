@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { NO_EFFECTS } from '@/effects/effects';
 import { pixelParams } from './adjustments';
 import { blurPixels, developCpu, resample, type Pixels } from './develop-cpu';
 import { adjustmentsFromStats, imageStats } from './auto';
@@ -16,7 +17,16 @@ function image(w: number, h: number, paint: (x: number, y: number) => [number, n
 }
 
 const at = (p: Pixels, x: number, y: number) => [...p.data.slice((y * p.width + x) * 4, (y * p.width + x) * 4 + 4)];
-const neutral = { params: pixelParams(undefined), lut: null, warp: null, sharpen: 0, blur: 0, cutout: null };
+const neutral = {
+  params: pixelParams(undefined),
+  lut: null,
+  warp: null,
+  sharpen: 0,
+  blur: 0,
+  effects: NO_EFFECTS,
+  glowRadius: 0,
+  cutout: null,
+};
 
 describe('CPU develop pipeline', () => {
   it('passes pixels through untouched when nothing is set', () => {

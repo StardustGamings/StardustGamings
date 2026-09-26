@@ -189,12 +189,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 12,
-          "temperature": 8,
-          "saturation": -18,
-          "fade": 12,
-          "grain": 22
+        "filter": {
+          "id": "cinematic",
+          "intensity": 85
         },
         "placeholder": {
           "fill": {
@@ -290,12 +287,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 12,
-          "temperature": 8,
-          "saturation": -18,
-          "fade": 12,
-          "grain": 22
+        "filter": {
+          "id": "cinematic",
+          "intensity": 85
         },
         "placeholder": {
           "fill": {
@@ -391,12 +385,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 12,
-          "temperature": 8,
-          "saturation": -18,
-          "fade": 12,
-          "grain": 22
+        "filter": {
+          "id": "cinematic",
+          "intensity": 85
         },
         "placeholder": {
           "fill": {

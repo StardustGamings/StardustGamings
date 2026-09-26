@@ -46,7 +46,7 @@ export const PANEL_TOOLS: ToolDef[] = [
   { id: 'design', label: 'Background', icon: <PaintBucket />, panel: 'design' },
   { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
   { id: 'layouts', label: 'Layouts', icon: <LayoutGrid />, panel: 'layouts', shortcut: 'L' },
-  { id: 'filters', label: 'Filters', icon: <Wand2 />, soon: true },
+  { id: 'filters', label: 'Filters', icon: <Wand2 />, panel: 'filters', shortcut: 'F' },
   { id: 'animate', label: 'Animate', icon: <Sparkles />, soon: true },
 ];
 

@@ -164,6 +164,29 @@ export interface Cutout {
 
 export type ImageClip = 'rect' | 'ellipse' | 'arch' | 'heart' | 'star' | 'hexagon';
 
+/** A one-tap look (see src/filters/looks.ts), blended over the photo's own edits by `intensity` (0..100). */
+export interface ImageFilter {
+  id: string;
+  intensity: number;
+}
+
+export type LeakStyle = 'amber' | 'rose' | 'prism' | 'ice';
+
+/** Creative effects on top of the adjustments; each 0..100 (0 = off). */
+export interface ImageEffects {
+  /** Soft bloom around bright areas. */
+  glow?: number;
+  /** Light leak washing in from the edges. */
+  leak?: number;
+  leakStyle?: LeakStyle;
+  /** Film dust and scratches. */
+  dust?: number;
+  /** Chromatic aberration: red and blue drift apart. */
+  rgbSplit?: number;
+  /** CRT / VHS scanlines. */
+  scanlines?: number;
+}
+
 export interface ImageElement extends ElementBase {
   type: 'image';
   /** Reference into the local asset store. `null` renders a drop-zone frame. */
@@ -185,6 +208,8 @@ export interface ImageElement extends ElementBase {
   turns?: 0 | 1 | 2 | 3;
   adjust?: ImageAdjustments;
   curves?: ImageCurves;
+  filter?: ImageFilter;
+  effects?: ImageEffects;
   perspective?: ImagePerspective;
   cutout?: Cutout;
   /** Frame shape the photo is clipped to. */

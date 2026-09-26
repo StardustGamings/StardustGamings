@@ -1,5 +1,6 @@
 import type { CurvePoint, ImageAdjustments, ImageCurves, ImageElement, ImagePerspective } from '@/types/document';
 import { clamp } from '@/utils/math';
+import { hasEffects } from '@/effects/effects';
 
 /**
  * Photo adjustment definitions and the per-pixel maths. The WebGL shader in
@@ -368,14 +369,31 @@ function pixelAdjustments(a: ImageAdjustments | undefined): ImageAdjustments | n
   return hasAdjustments(rest) ? rest : null;
 }
 
+const hasFilter = (el: ImageElement) => !!el.filter && el.filter.intensity > 0;
+
 /** Does this element need the develop pipeline (vs. drawing the photo directly)? */
 export function needsDevelop(el: ImageElement): boolean {
-  return !!pixelAdjustments(el.adjust) || hasCurves(el.curves) || hasPerspective(el.perspective) || !!el.cutout;
+  return (
+    !!pixelAdjustments(el.adjust) ||
+    hasCurves(el.curves) ||
+    hasPerspective(el.perspective) ||
+    !!el.cutout ||
+    hasFilter(el) ||
+    hasEffects(el.effects)
+  );
 }
 
 /** Everything that affects developed pixels (not geometry or vignette — the renderer does those). */
 export function developSignature(el: ImageElement): string {
-  return JSON.stringify([el.assetId, pixelAdjustments(el.adjust), el.curves ?? null, el.perspective ?? null, el.cutout ?? null]);
+  return JSON.stringify([
+    el.assetId,
+    pixelAdjustments(el.adjust),
+    el.curves ?? null,
+    el.perspective ?? null,
+    el.cutout ?? null,
+    hasFilter(el) ? el.filter : null,
+    hasEffects(el.effects) ? el.effects : null,
+  ]);
 }
 
 /** Blur radius in source pixels for a 0..100 slider on an image of `maxDim` pixels. */

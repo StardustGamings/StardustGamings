@@ -19,6 +19,7 @@ import {
   Trash2,
   Type,
   Unlock,
+  Wand2,
   X,
 } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -38,6 +39,7 @@ import { TextPanel, ShapesPanel, StickersPanel } from './panels/AddPanels';
 import { PhotosPanel } from './panels/PhotosPanel';
 import { LayoutsPanel } from './panels/LayoutsPanel';
 import { TemplatesPanel } from './panels/TemplatesPanel';
+import { FiltersPanel } from './panels/FiltersPanel';
 import { PreviewDialog } from './PreviewDialog';
 import { shuffleLayout } from './layout-actions';
 import { CropBar } from './CropBar';
@@ -60,6 +62,7 @@ const PANEL_TITLES: Record<PanelId, string> = {
   shapes: 'Shapes',
   stickers: 'Stickers',
   photos: 'Photos',
+  filters: 'Filters',
   layouts: 'Layouts',
   design: 'Background',
   layers: 'Layers',
@@ -78,6 +81,8 @@ function PanelContent({ panel }: { panel: PanelId }) {
       return <StickersPanel />;
     case 'photos':
       return <PhotosPanel />;
+    case 'filters':
+      return <FiltersPanel />;
     case 'layouts':
       return <LayoutsPanel />;
     case 'design':
@@ -99,6 +104,7 @@ function Flyout() {
     panel === 'shapes' ||
     panel === 'stickers' ||
     panel === 'photos' ||
+    panel === 'filters' ||
     panel === 'layouts' ||
     panel === 'design';
   return (
@@ -223,6 +229,9 @@ function MobileToolbar() {
           />
           {single?.type === 'text' && !single.locked && (
             <MobileAction label="Text" icon={<PenLine />} onClick={() => useEditor.getState().setEditingText(single.id)} />
+          )}
+          {selected.some((e) => e.type === 'image' && e.assetId && !e.locked) && (
+            <MobileAction label="Filters" icon={<Wand2 />} active={panel === 'filters'} onClick={() => toggle('filters')} />
           )}
           {single?.type === 'image' && !single.locked && single.assetId && (
             <MobileAction label="Crop" icon={<Crop />} onClick={() => enterCrop(single.id)} />

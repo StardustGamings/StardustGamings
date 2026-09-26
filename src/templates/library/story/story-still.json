@@ -44,12 +44,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 14,
-          "saturation": -20,
-          "fade": 10,
-          "vignette": 30,
-          "grain": 25
+        "filter": {
+          "id": "cinematic",
+          "intensity": 95
         },
         "placeholder": {
           "fill": {

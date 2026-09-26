@@ -113,6 +113,24 @@ export const adjustmentsSchema = z.object({
   blur: unipolar,
 });
 
+export const filterSchema = z.object({
+  id: z
+    .string()
+    .min(1)
+    .max(40)
+    .regex(/^[a-z0-9-]+$/),
+  intensity: finite.min(0).max(100),
+});
+
+export const effectsSchema = z.object({
+  glow: unipolar,
+  leak: unipolar,
+  leakStyle: z.enum(['amber', 'rose', 'prism', 'ice']).optional(),
+  dust: unipolar,
+  rgbSplit: unipolar,
+  scanlines: unipolar,
+});
+
 const curve = z
   .array(z.object({ x: finite.min(0).max(1), y: finite.min(0).max(1) }))
   .min(2)
@@ -140,6 +158,8 @@ const imageElement = z.object({
   turns: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]).optional(),
   adjust: adjustmentsSchema.optional(),
   curves: z.object({ rgb: curve, r: curve, g: curve, b: curve }).optional(),
+  filter: filterSchema.optional(),
+  effects: effectsSchema.optional(),
   perspective: z.object({ vertical: finite.min(-100).max(100), horizontal: finite.min(-100).max(100) }).optional(),
   cutout: z
     .object({

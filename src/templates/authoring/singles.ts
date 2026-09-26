@@ -102,7 +102,7 @@ export const singles = [
     ({ text, rect, photo }) => {
       rect({ x: 40, y: 40, w: 1000, h: 1270, fill: null, stroke: { color: '#C9A86A', width: 3 } });
       rect({ x: 58, y: 58, w: 964, h: 1234, fill: null, stroke: { color: '#C9A86A', width: 1 } });
-      photo({ x: 240, y: 150, w: 600, h: 780, clip: 'arch', fill: '#3A332D', adjust: { contrast: 8, fade: 8, temperature: 10 } });
+      photo({ x: 240, y: 150, w: 600, h: 780, clip: 'arch', fill: '#3A332D', look: 'luxury' });
       text('Portrait of\na Sunday', {
         x: 90,
         y: 970,
@@ -433,7 +433,8 @@ export const singles = [
         w: 1080,
         h: 1920,
         fill: '#2A2622',
-        adjust: { contrast: 14, saturation: -20, fade: 10, grain: 25, vignette: 30 },
+        look: 'cinematic',
+        intensity: 95,
       });
       rect({ x: 0, y: 0, w: 1080, h: 300, fill: '#000000' });
       rect({ x: 0, y: 1620, w: 1080, h: 300, fill: '#000000' });
@@ -482,7 +483,7 @@ export const singles = [
         rect({ x: 850, y, w: 34, h: 48, radius: 8, fill: '#2A2A2A' });
       }
       [150, 730, 1310].forEach((y, i) => {
-        photo({ x: 264, y, w: 552, h: 520, fill: '#3A3530', adjust: { fade: 14, grain: 30, temperature: 12 } });
+        photo({ x: 264, y, w: 552, h: 520, fill: '#3A3530', look: 'film', intensity: 95 });
         text(`${String(i * 12 + 12).padStart(2, '0')}A`, {
           x: 40,
           y: y + 240,

@@ -12,7 +12,8 @@ import { createHistory, HISTORY_LIMIT, pushHistory, redoHistory, undoHistory, ty
 
 export type SaveState = 'saved' | 'dirty' | 'saving' | 'error';
 export type Tool = 'select' | 'text' | 'hand';
-export type PanelId = 'templates' | 'design' | 'text' | 'shapes' | 'stickers' | 'photos' | 'layouts' | 'layers' | 'properties';
+export type PanelId =
+  'templates' | 'design' | 'text' | 'shapes' | 'stickers' | 'photos' | 'filters' | 'layouts' | 'layers' | 'properties';
 
 interface ApplyOptions {
   /** Consecutive edits with the same key (e.g. dragging a colour picker) merge into one undo step. */

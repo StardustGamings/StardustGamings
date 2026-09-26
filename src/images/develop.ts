@@ -3,13 +3,13 @@ import type { DrawableImage } from '@/canvas/render/types';
 import { createFillStyle } from '@/canvas/render/fill';
 import { markAssetsChanged, type LoadedAsset } from '@/assets/cache';
 import { createWorkerClient, type WorkerClient } from '@/utils/worker-rpc';
+import { effectiveAdjust, effectiveEffects, effectiveLut } from '@/filters/compose';
+import { effectParams, glowRadius } from '@/effects/effects';
 import {
   backdropBlurRadius,
   blurRadius,
-  curvesLut,
   developSignature,
   featherRadius,
-  hasCurves,
   hasPerspective,
   perspectiveMatrix,
   pixelParams,
@@ -149,7 +149,8 @@ function gpuInput(el: ImageElement, base: LoadedAsset, mask: LoadedAsset | null,
   const width = base.image.width;
   const height = base.image.height;
   const maxDim = Math.max(width, height);
-  const a = el.adjust;
+  // The photo's own edits with its look (filter) blended in.
+  const a = effectiveAdjust(el);
   let cutout: DevelopInput['cutout'] = null;
   if (el.cutout && mask) {
     const bd = el.cutout.backdrop;
@@ -172,10 +173,12 @@ function gpuInput(el: ImageElement, base: LoadedAsset, mask: LoadedAsset | null,
     height,
     // The vignette is drawn by the renderer (it follows the frame, not the photo).
     params: { ...pixelParams(a), vignette: 0 },
-    lut: hasCurves(el.curves) ? curvesLut(el.curves) : null,
+    lut: effectiveLut(el),
     warp: hasPerspective(el.perspective) ? perspectiveMatrix(el.perspective) : null,
     sharpen: (a?.sharpness ?? 0) / 100,
     blur: blurRadius(a?.blur ?? 0, maxDim),
+    effects: effectParams(effectiveEffects(el)),
+    glowRadius: glowRadius(maxDim),
     cutout,
   };
 }
@@ -217,6 +220,8 @@ function runCpu(slotKey: string, key: string, input: DevelopInput, alpha: boolea
     warp: input.warp,
     sharpen: input.sharpen,
     blur: input.blur * scale,
+    effects: input.effects,
+    glowRadius: input.glowRadius * scale,
     cutout: input.cutout && {
       mask: pixelsOf(input.cutout.mask, limit),
       feather: input.cutout.feather * scale,

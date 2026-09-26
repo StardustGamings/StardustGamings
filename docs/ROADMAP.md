@@ -10,8 +10,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 3   | Image manipulation         | ✅ Done |
 | 4   | Carousel tools             | ✅ Done |
 | 5   | Template engine            | ✅ Done |
-| 6   | Filters & effects          | ⏭️ Next |
-| 7   | Export                     | Planned |
+| 6   | Filters & effects          | ✅ Done |
+| 7   | Export                     | ⏭️ Next |
 | 8   | Offline storage & projects | Planned |
 | 9   | Animations & video         | Planned |
 | 10  | Trend system               | Planned |
@@ -97,7 +97,7 @@ upload and the Google Fonts catalogue are labelled "Soon"; photos arrive in Phas
   colour-key and on-device AI cut-outs with a no-third-party-requests check, paste, sticker upload, storage cleanup, and
   phone crop flow).
 
-Known limits: one-tap filter looks arrive in Phase 6 (the adjustments to build them exist now); brush-refining a
+Known limits: one-tap filter looks arrived in Phase 6 (built on these adjustments); brush-refining a
 cut-out mask and exporting at full original resolution come with later phases (export is Phase 7).
 
 ## Phase 4 — Carousel tools ✅
@@ -162,10 +162,33 @@ Known limits: template animation data arrives with animations in Phase 9; adapti
 (e.g. a story template into a thumbnail) scales it to fit rather than re-flowing the layout — smarter resizing is part of
 the optional AI tools in Phase 11.
 
+## Phase 6 — Filters & effects ✅
+
+- **14 one-tap looks** — Cinematic, Vintage, Film, Y2K, Cyberpunk, Monochrome, VHS, Disposable, Polaroid, Dreamy, Dark,
+  Street, Luxury, Minimal — each plain data (adjustments, tone curves, effects). A photo stores the look's id and an
+  intensity; the pipeline blends the look over the photo's own edits (sliders add and clamp, curves compose, effects
+  add), so looks can be switched or removed without losing anything. See [FILTERS.md](FILTERS.md).
+- **Effects:** glow (bright-pass bloom), light leaks in four colours, dust & scratches, RGB split and scanlines — new
+  stages in the WebGL develop shader with an identical CPU implementation (shared reference maths in
+  `src/effects/effects.ts`), resolution-independent so thumbnails, the canvas and exports match.
+- **Editor:** a _Filters_ section on every photo with live thumbnails of that photo in each look, intensity and _Apply
+  to all N photos_; an _Effects_ section; and a real **Filters tool** (rail, <kbd>F</kbd>, phone selection bar,
+  command palette) that restyles the selected photos — or every photo in the design at once. All undoable, all
+  covered by _hold to compare_.
+- **Everywhere else:** Discover's "Looks of the month" render with the real filters (trend packs now name a look +
+  intensity for each effect); 9 templates give their photo frames a look, so dropped-in photos arrive styled.
+- **Fixed along the way:** on the GPU, tone curves could replace the photo with the curves table (a texture-unit
+  mix-up since Phase 3) — now covered by an end-to-end check with WebGL on.
+- **Quality:** 217 unit/component tests (every look valid and distinct, intensity blending, curve composition, each
+  effect's maths and a full look through the CPU pipeline); 87 Playwright runs across desktop, phone and no-WebGL
+  (looks + intensity + undo, curves on GPU, light leak colours, filters for every photo, templates carrying looks,
+  trend cards, phone Filters action).
+
+Known limits: filters apply to photos, not to text or shapes; custom looks shipped inside trend packs (as data) come
+with the trend system in Phase 10; video filters arrive with video in Phase 9.
+
 ## Later phases (summary)
 
-- **6 · Filters & effects:** 14 one-tap looks with intensity (built on the Phase 3 adjustment pipeline), light leaks,
-  textures.
 - **7 · Export:** PNG / JPG / WebP / PDF, per-slide / all / ZIP, quality presets, share sheet — never watermarked.
 - **8 · Storage:** version history, folders, import/export project files, storage management.
 - **9 · Animation & video:** element animations, timeline, MP4/GIF export where supported.

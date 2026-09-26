@@ -307,9 +307,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 25,
-          "saturation": -100
+        "filter": {
+          "id": "monochrome",
+          "intensity": 100
         },
         "stroke": {
           "color": "#0A0A0A",
@@ -371,9 +371,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 25,
-          "saturation": -100
+        "filter": {
+          "id": "monochrome",
+          "intensity": 100
         },
         "stroke": {
           "color": "#0A0A0A",
@@ -492,9 +492,9 @@
         "type": "image",
         "assetId": null,
         "fit": "cover",
-        "adjust": {
-          "contrast": 25,
-          "saturation": -100
+        "filter": {
+          "id": "monochrome",
+          "intensity": 100
         },
         "stroke": {
           "color": "#0A0A0A",
