@@ -17,7 +17,7 @@ assert.ok(releaseApk && debugApk, 'usage: node scripts/android-smoke.mjs <releas
 
 const SHOTS = 'android-screenshots';
 mkdirSync(SHOTS, { recursive: true });
-const adb = (...args) => execFileSync('adb', args, { encoding: 'utf8' });
+const adb = (...args) => execFileSync('adb', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const screencap = (name) => writeFileSync(`${SHOTS}/${name}.png`, execFileSync('adb', ['exec-out', 'screencap', '-p']));
 const step = (text) => console.log(`• ${text}`);
@@ -74,7 +74,9 @@ page.setDefaultTimeout(60_000);
 
 const problems = [];
 page.on('pageerror', (e) => problems.push(e.message));
-page.on('console', (m) => m.type() === 'error' && problems.push(m.text()));
+// Debug builds log every rejected plugin call; closing the share sheet is one, and the app handles it.
+const expected = [/Share canceled/];
+page.on('console', (m) => m.type() === 'error' && !expected.some((re) => re.test(m.text())) && problems.push(m.text()));
 
 const ready = () => page.waitForSelector('html[data-ready="true"]');
 await ready();
