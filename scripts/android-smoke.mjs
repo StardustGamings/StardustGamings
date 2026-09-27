@@ -42,6 +42,13 @@ process.on('exit', (code) => {
   }
 });
 
+/** Emulators sometimes show a system dialog (e.g. "System UI isn't responding") over the app: clear them and wake the screen. */
+function clearScreen() {
+  adb('shell', 'input', 'keyevent', 'KEYCODE_WAKEUP');
+  adb('shell', 'wm', 'dismiss-keyguard');
+  adb('shell', 'am', 'broadcast', '-a', 'android.intent.action.CLOSE_SYSTEM_DIALOGS');
+}
+
 function assertNoCrash() {
   const crashes = adb('logcat', '-d', '-b', 'crash');
   assert.ok(!crashes.includes(PKG), `The app crashed:\n${crashes}`);
@@ -52,6 +59,7 @@ function assertNoCrash() {
 step('installing the release APK');
 adb('install', '-r', releaseApk);
 adb('logcat', '-c');
+clearScreen();
 adb('shell', 'am', 'start', '-W', '-n', `${PKG}/.MainActivity`);
 await sleep(15_000);
 screencap('1-release-start');
@@ -64,6 +72,7 @@ adb('uninstall', PKG);
 
 step('installing the debug APK');
 adb('install', '-r', debugApk);
+clearScreen();
 adb('shell', 'am', 'start', '-W', '-n', `${PKG}/.MainActivity`);
 
 const [device] = await android.devices({ omitDriverInstall: true });
@@ -78,7 +87,8 @@ page.on('pageerror', (e) => problems.push(e.message));
 const expected = [/Share canceled/];
 page.on('console', (m) => m.type() === 'error' && !expected.some((re) => re.test(m.text())) && problems.push(m.text()));
 
-const ready = () => page.waitForSelector('html[data-ready="true"]');
+// The page flags itself ready once its handlers are live (checked as attached: <html> itself has no box to be "visible").
+const ready = () => page.waitForSelector('html[data-ready="true"]', { state: 'attached' });
 await ready();
 step(`home loaded at ${page.url()}`);
 assert.equal(new URL(page.url()).pathname, '/');
