@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import type { DesignElement } from '@/types/document';
 import { elementSchema } from '@/projects/schema';
 

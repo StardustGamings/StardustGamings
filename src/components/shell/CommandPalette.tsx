@@ -28,7 +28,6 @@ import { useSettings } from '@/settings/store';
 import { useUi } from '@/settings/ui-store';
 import { TEMPLATE_CATALOG } from '@/templates/registry';
 import { findTemplate, useTemplateLibrary } from '@/templates/store';
-import { useHotkeys } from '@/hooks/useHotkeys';
 import { Kbd } from '@/components/ui/Kbd';
 import { toast } from '@/components/ui/toast-store';
 import { FormatIcon } from '@/components/home/FormatIcon';
@@ -53,7 +52,7 @@ export function CommandPalette() {
   const userTemplates = useTemplateLibrary((s) => s.user);
   const [search, setSearch] = useState('');
 
-  useHotkeys({ 'mod+k': () => setOpen(!useUi.getState().paletteOpen) }, { allowInInputs: true });
+  // Ctrl/⌘ K is bound in LazyDialogs, so it works before this code has loaded.
   // Your own templates are searchable too; load them (and the library) when the palette opens.
   useEffect(() => {
     if (open) void useTemplateLibrary.getState().load();

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import { documentSchema, formatSchema, sizeIdSchema } from '@/projects/schema';
 import { isValidColor } from '@/utils/color';
 

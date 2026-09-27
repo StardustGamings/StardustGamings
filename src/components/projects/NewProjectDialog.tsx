@@ -104,8 +104,9 @@ export function NewProjectDialog() {
 
   const def = FORMATS[format];
 
-  // Reset the form whenever the dialog opens for a (possibly different) format.
-  const [lastRequest, setLastRequest] = useState(request);
+  // Reset the form whenever the dialog opens for a (possibly different) format — including
+  // the first time, since the dialog's code loads (and mounts) when it's first opened.
+  const [lastRequest, setLastRequest] = useState<typeof request>(null);
   if (request !== lastRequest) {
     setLastRequest(request);
     if (request) {

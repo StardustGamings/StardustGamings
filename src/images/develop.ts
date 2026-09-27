@@ -236,6 +236,12 @@ function cpuDevelop(input: DevelopInput, limit: number): Promise<Pixels> {
     : new Promise((resolve) => setTimeout(() => resolve(developCpu(cpu)), 0));
 }
 
+/**
+ * Develops a small image off the main thread (the CPU pipeline, in the worker).
+ * For thumbnails: no GPU read-back, so no stall however many are drawn at once.
+ */
+export const developPixelsInWorker = (input: DevelopInput): Promise<Pixels> => cpuDevelop(input, Infinity);
+
 function runCpu(slotKey: string, key: string, input: DevelopInput, alpha: boolean) {
   const job = cpuJobs.get(slotKey) ?? { running: false, next: null };
   cpuJobs.set(slotKey, job);

@@ -99,7 +99,7 @@ export function DiscoverView() {
     if (newDrop) markSeen();
   }, [newDrop, markSeen]);
 
-  const section = 'mb-14 scroll-mt-40';
+  const section = 'mb-14 scroll-mt-40 defer-render';
 
   return (
     <>

@@ -55,7 +55,8 @@ export class ImportError extends Error {
 }
 
 export interface ProcessInput {
-  bytes: ArrayBuffer;
+  /** The file itself (read where it's processed, so big photos never pass through the page) or its bytes. */
+  bytes: ArrayBuffer | Blob;
   format: Exclude<ImageFormat, 'svg'>;
   /** Keep the imported bytes as the original variant when possible. */
   keepOriginal: boolean;
@@ -158,12 +159,13 @@ function anyTransparent(data: Uint8ClampedArray): boolean {
 }
 
 export async function processImage(input: ProcessInput, factory: CanvasFactory): Promise<ProcessOutput> {
-  if (input.bytes.byteLength === 0) throw new ImportError('empty');
+  const bytes = input.bytes instanceof Blob ? await input.bytes.arrayBuffer() : input.bytes;
+  if (bytes.byteLength === 0) throw new ImportError('empty');
   const mime = RASTER_MIME[input.format];
-  const hash = await sha256Hex(input.bytes);
+  const hash = await sha256Hex(bytes);
   let bitmap: ImageBitmap;
   try {
-    bitmap = await decodeBitmap(new Blob([input.bytes], { type: mime }));
+    bitmap = await decodeBitmap(new Blob([bytes], { type: mime }));
   } catch {
     throw new ImportError(input.format === 'heic' ? 'heic' : 'decode');
   }
@@ -187,7 +189,7 @@ export async function processImage(input: ProcessInput, factory: CanvasFactory):
       input.keepOriginal && !downscaled && (input.format === 'jpeg' || input.format === 'png' || input.format === 'webp');
     let original: Blob;
     if (reusable) {
-      original = new Blob([input.bytes], { type: mime });
+      original = new Blob([bytes], { type: mime });
     } else {
       const canvas = downscaled
         ? drawScaled(factory, bitmap, full.width, full.height)

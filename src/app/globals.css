@@ -310,6 +310,13 @@
   background: linear-gradient(120deg, #c6ff3d 0%, #3cf0c8 35%, #a06bff 70%, #ff5caa 100%);
 }
 
+/* Long pages: a section off screen skips style, layout and paint until it's near the viewport
+   (the intrinsic size keeps the scrollbar honest; `auto` remembers the real size once seen). */
+@utility defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 @utility hide-scrollbar {
   scrollbar-width: none;
   &::-webkit-scrollbar {

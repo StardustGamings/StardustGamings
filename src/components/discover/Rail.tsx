@@ -10,18 +10,25 @@ export function Rail({ children, label, itemClassName }: { children: ReactNode[]
   const ref = useRef<HTMLUListElement>(null);
   const [edges, setEdges] = useState({ start: true, end: false });
 
+  const count = children.length;
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const update = () => setEdges({ start: el.scrollLeft < 8, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 8 });
-    update();
-    el.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      el.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+    const update = () => {
+      const start = el.scrollLeft < 8;
+      const end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      setEdges((prev) => (prev.start === start && prev.end === end ? prev : { start, end }));
     };
-  }, [children]);
+    // Measured after the browser's own layout (and on scroll), never forced from a render.
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null;
+    if (ro) ro.observe(el);
+    else update();
+    el.addEventListener('scroll', update, { passive: true });
+    return () => {
+      ro?.disconnect();
+      el.removeEventListener('scroll', update);
+    };
+  }, [count]);
 
   const scroll = (dir: 1 | -1) => ref.current?.scrollBy({ left: dir * ref.current.clientWidth * 0.8, behavior: 'smooth' });
 

@@ -37,17 +37,18 @@ import { useCamera } from './camera';
 import { EditorCanvas } from './canvas/EditorCanvas';
 import { EditorTopBar } from './EditorTopBar';
 import { TextPanel, ShapesPanel, StickersPanel } from './panels/AddPanels';
-import { PhotosPanel } from './panels/PhotosPanel';
-import { LayoutsPanel } from './panels/LayoutsPanel';
-import { TemplatesPanel } from './panels/TemplatesPanel';
-import { FiltersPanel } from './panels/FiltersPanel';
-import { AnimatePanel } from './panels/AnimatePanel';
-import { TrendsPanel } from './panels/TrendsPanel';
-import { MagicPanel } from './panels/MagicPanel';
-import { ResizeDialog } from './ResizeDialog';
-import { PreviewDialog } from './PreviewDialog';
+import {
+  AnimatePanel,
+  EditorDialogs,
+  FiltersPanel,
+  LayoutsPanel,
+  MagicPanel,
+  PhotosPanel,
+  TemplatesPanel,
+  Timeline,
+  TrendsPanel,
+} from './lazy';
 import { useUi } from '@/settings/ui-store';
-import { VersionHistoryDialog } from './VersionHistoryDialog';
 import { EditorAlerts } from './EditorAlerts';
 import { useVersions } from './versioning';
 import { subscribe } from '@/storage/sync';
@@ -62,7 +63,6 @@ import { LayersPanel } from './panels/LayersPanel';
 import { PropertiesPanel } from './panels/PropertiesPanel';
 import { useSelectedElements } from './panels/useSelection';
 import { SlideStrip } from './SlideStrip';
-import { Timeline } from './Timeline';
 import { usePlayback } from './playback';
 import { selectDoc, useEditor, type PanelId } from './store';
 import { PANEL_TOOLS, ToolButton, ToolRail } from './ToolRail';
@@ -452,9 +452,7 @@ function Editor() {
         <Inspector />
       </div>
       <PhotoPicker />
-      <PreviewDialog />
-      <VersionHistoryDialog />
-      <ResizeDialog />
+      <EditorDialogs />
     </div>
   );
 }

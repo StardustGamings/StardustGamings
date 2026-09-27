@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import bundled from './bundled.generated.json';
 import { isLive, newestFirst, sanitizePack } from './pack';
 import { trendIndexSchema, trendPackSchema, type TrendPack } from './schema';

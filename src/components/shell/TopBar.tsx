@@ -13,16 +13,33 @@ import { IconButton } from '@/components/ui/IconButton';
 import { cn } from '@/utils/cn';
 import { OfflineIndicator } from './OfflineIndicator';
 
+/*
+ * Whether the page has scrolled, read only in scroll events and animation frames: reading
+ * scrollY from React's snapshot (checked after every render) would force a layout each time.
+ */
+let scrolledNow = false;
+function subscribeScrolled(onChange: () => void) {
+  const update = () => {
+    const next = window.scrollY > 8;
+    if (next === scrolledNow) return;
+    scrolledNow = next;
+    onChange();
+  };
+  const frame = requestAnimationFrame(update);
+  window.addEventListener('scroll', update, { passive: true });
+  return () => {
+    cancelAnimationFrame(frame);
+    window.removeEventListener('scroll', update);
+  };
+}
+
 export function TopBar() {
   const setPaletteOpen = useUi((s) => s.setPaletteOpen);
   const displayName = useSettings((s) => s.displayName);
   const mod = useClientValue(modKey, 'Ctrl');
   const scrolled = useSyncExternalStore(
-    (onChange) => {
-      window.addEventListener('scroll', onChange, { passive: true });
-      return () => window.removeEventListener('scroll', onChange);
-    },
-    () => window.scrollY > 8,
+    subscribeScrolled,
+    () => scrolledNow,
     () => false,
   );
 

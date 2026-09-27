@@ -9,16 +9,10 @@ import { useStorageSync } from '@/storage/useStorageSync';
 import { useResolvedMotion } from '@/hooks/usePreferences';
 import { Toaster } from '@/components/ui/Toaster';
 import { TooltipProvider } from '@/components/ui/Tooltip';
-import { NewProjectDialog } from '@/components/projects/NewProjectDialog';
 import { ProjectDialogs } from '@/components/projects/ProjectDialogs';
-import { Onboarding } from '@/components/onboarding/Onboarding';
-import { PhotoFlowDialog } from '@/components/magic/PhotoFlowDialog';
-import { SaveTemplateDialog } from '@/components/templates/SaveTemplateDialog';
-import { ExportDialog } from '@/components/export/ExportDialog';
 import { TransferStatus } from '@/components/projects/TransferStatus';
-import { TemplatePreviewDialog } from '@/components/templates/TemplatePreviewDialog';
 import { Backdrop } from './Backdrop';
-import { CommandPalette } from './CommandPalette';
+import { LazyDialogs } from './LazyDialogs';
 import { ServiceWorker } from './ServiceWorker';
 import { ThemeController } from './ThemeController';
 
@@ -42,14 +36,8 @@ export function AppProviders({ children }: { children: ReactNode }) {
         <ThemeController />
         <Backdrop />
         {children}
-        <NewProjectDialog />
         <ProjectDialogs />
-        <PhotoFlowDialog />
-        <TemplatePreviewDialog />
-        <SaveTemplateDialog />
-        <ExportDialog />
-        <CommandPalette />
-        <Onboarding />
+        <LazyDialogs />
         <TransferStatus />
         <Toaster />
         <ServiceWorker />

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import type { DesignDocument, ImageElement } from '@/types/document';
 import type { AssetMeta, AssetVariant } from '@/assets/types';
 import type { Folder, ProjectMeta, VersionRecord } from '@/types/project';

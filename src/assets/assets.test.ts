@@ -49,11 +49,10 @@ describe('asset library', () => {
   beforeEach(() => {
     globalThis.indexedDB = new IDBFactory();
     setStorageForTesting(null);
-    let calls = 0;
-    // jsdom has no image codecs: a fake processor stands in for the worker.
+    // jsdom has no image codecs: a fake processor stands in for the worker (which also hashes the file).
     repo.setImageProcessorForTesting(async (input) => {
-      calls++;
-      const blob = new Blob([input.bytes], { type: 'image/png' });
+      const data = new Uint8Array(input.bytes instanceof Blob ? await input.bytes.arrayBuffer() : input.bytes);
+      const blob = new Blob([data], { type: 'image/png' });
       return {
         width: 1200,
         height: 800,
@@ -67,7 +66,7 @@ describe('asset library', () => {
         originalMime: 'image/png',
         preview: blob,
         thumb: blob,
-        hash: String(calls),
+        hash: data.join('.'),
       };
     });
   });

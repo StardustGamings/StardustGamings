@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: { unoptimized: true },
   devIndicators: false,
+  // `SOURCE_MAPS=1 npm run build` for profiling a production build; off for normal builds.
+  productionBrowserSourceMaps: process.env.SOURCE_MAPS === '1',
   env: {
     NEXT_PUBLIC_APP_VERSION: version,
     // The pre-rendered pages show the trend drop that was live when they were built (see src/trends/loader.ts).

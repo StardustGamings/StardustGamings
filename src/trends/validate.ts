@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import { TEXT_PRESETS } from '@/editor/core/factory';
 import { hasBundledTemplate } from '@/templates/registry';
 import { resolveSticker } from '@/stickers/library';

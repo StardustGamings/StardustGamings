@@ -432,6 +432,14 @@ export class GlProcessor {
   private pass(name: string, src: string, target: Target | null, width: number, height: number, setup: (p: Program) => void) {
     const p = this.program(name, src);
     this.use(p);
+    // Every pass starts with texture units 0–2 empty. A sampler a pass doesn't use this time
+    // (curves, glow) would otherwise keep an earlier pass's texture, which can be the pooled
+    // texture this pass draws into — WebGL then refuses the draw as a feedback loop.
+    const gl = this.gl;
+    for (let unit = 2; unit >= 0; unit--) {
+      gl.activeTexture(gl.TEXTURE0 + unit);
+      gl.bindTexture(gl.TEXTURE_2D, null);
+    }
     this.gl.uniform1f(this.u(p, 'uFlipY'), target ? 0 : 1);
     setup(p);
     this.draw(target, width, height);

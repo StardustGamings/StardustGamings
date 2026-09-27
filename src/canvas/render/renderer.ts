@@ -26,6 +26,10 @@ export interface RenderOptions {
    * `undefined` for a slide, draws the resting design — what stills export.
    */
   time?: (slide: number) => number | undefined;
+  /** Paint the background and slide fills (default). Off for a layer drawn over another. */
+  background?: boolean;
+  /** Draw only the elements this accepts (by position in `doc.elements`) — for cached layers. */
+  include?: (index: number) => boolean;
 }
 
 export const EMOJI_FONT = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif';
@@ -385,19 +389,23 @@ export function renderDocument(ctx: Ctx2D, doc: DesignDocument, opts: RenderOpti
   ctx.rect(region.x, region.y, region.width, region.height);
   ctx.clip();
 
-  const full = stripRegion(doc);
-  ctx.fillStyle = createFillStyle(ctx, doc.background, full.x, full.y, full.width, full.height);
-  ctx.fillRect(region.x, region.y, region.width, region.height);
+  if (opts.background !== false) {
+    const full = stripRegion(doc);
+    ctx.fillStyle = createFillStyle(ctx, doc.background, full.x, full.y, full.width, full.height);
+    ctx.fillRect(region.x, region.y, region.width, region.height);
 
-  doc.slides.forEach((slide, i) => {
-    if (!slide.fill) return;
-    const r = slideRegion(doc, i);
-    if (!intersects(r, region)) return;
-    ctx.fillStyle = createFillStyle(ctx, slide.fill, r.x, r.y, r.width, r.height);
-    ctx.fillRect(r.x, r.y, r.width, r.height);
-  });
+    doc.slides.forEach((slide, i) => {
+      if (!slide.fill) return;
+      const r = slideRegion(doc, i);
+      if (!intersects(r, region)) return;
+      ctx.fillStyle = createFillStyle(ctx, slide.fill, r.x, r.y, r.width, r.height);
+      ctx.fillRect(r.x, r.y, r.width, r.height);
+    });
+  }
 
-  for (const el of doc.elements) {
+  for (let index = 0; index < doc.elements.length; index++) {
+    const el = doc.elements[index]!;
+    if (opts.include && !opts.include(index)) continue;
     if (el.hidden || el.opacity <= 0 || opts.skip?.has(el.id)) continue;
     let pose: Pose | null = REST;
     let t: number | undefined;

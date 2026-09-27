@@ -1,14 +1,27 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
-import type { DesignDocument } from '@/types/document';
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
+import type { DesignDocument, DesignElement } from '@/types/document';
 import { ensureDocumentFonts } from './fonts';
+import { scheduleDraw } from './draw-queue';
 import { cn } from '@/utils/cn';
 import { renderDocument, slideRegion, stripRegion } from './render';
 import { assetsVersion, subscribeAssets } from '@/assets/cache';
 import { resolveImage } from '@/images/resolver';
 
 const serverVersion = () => 0;
+
+type Region = { x: number; y: number; width: number; height: number };
+
+/** Could this element draw into the region? (Generous: rotation, strokes and shadows reach past the box.) */
+function touches(el: DesignElement, r: Region): boolean {
+  const reach = Math.hypot(el.width, el.height) / 2 + 60;
+  const cx = el.x + el.width / 2;
+  const cy = el.y + el.height / 2;
+  return cx + reach > r.x && cx - reach < r.x + r.width && cy + reach > r.y && cy - reach < r.y + r.height;
+}
+
+const sameElements = (a: DesignElement[], b: DesignElement[]) => a.length === b.length && a.every((e, i) => e === b[i]);
 
 interface ScenePreviewProps {
   doc: DesignDocument;
@@ -50,8 +63,16 @@ export function ScenePreview({
   const [fontTick, setFontTick] = useState(0);
   const assetTick = useSyncExternalStore(subscribeAssets, assetsVersion, serverVersion);
 
-  const region = slide === 'strip' ? stripRegion(doc) : slideRegion(doc, Math.min(slide, doc.slides.length - 1));
+  const slideIndex = slide === 'strip' ? -1 : Math.min(slide, doc.slides.length - 1);
+  const region = slide === 'strip' ? stripRegion(doc) : slideRegion(doc, slideIndex);
   const aspect = region.width / region.height;
+  // What this preview shows. Designs are immutable, so when none of these change (an edit on
+  // another slide, a selection change) the preview keeps its pixels instead of redrawing.
+  const inRegion = doc.elements.filter((el) => touches(el, region));
+  const [content, setContent] = useState(inRegion);
+  if (!sameElements(content, inRegion)) setContent(inRegion);
+  const slideFill = slideIndex >= 0 ? doc.slides[slideIndex]?.fill : null;
+  const stripKey = `${doc.slides.length}|${doc.slideWidth}|${doc.slideHeight}`;
 
   useEffect(() => {
     if (visible || !boxRef.current) return;
@@ -68,7 +89,7 @@ export function ScenePreview({
     return () => io.disconnect();
   }, [visible]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const el = boxRef.current;
     if (!el) return;
     // Layout size (not getBoundingClientRect): it ignores transforms such as a dialog's
@@ -78,8 +99,12 @@ export function ScenePreview({
       const h = el.offsetHeight;
       setBox((prev) => (prev && prev.w === w && prev.h === h ? prev : { w, h }));
     };
-    measure();
-    if (typeof ResizeObserver === 'undefined') return;
+    if (typeof ResizeObserver === 'undefined') {
+      measure();
+      return;
+    }
+    // The first observation arrives after the browser's own layout, so mounting a page of
+    // previews doesn't force a layout of the whole page from script.
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
@@ -99,27 +124,31 @@ export function ScenePreview({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!visible || !canvas || !box || box.w === 0) return;
-    let cssW = box.w;
-    let cssH = box.w / aspect;
-    if (fit === 'contain' && box.h > 0) {
-      cssW = Math.min(box.w, box.h * aspect);
-      cssH = cssW / aspect;
-    }
-    const dpr = Math.min(typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1, maxDpr);
-    const pxW = Math.max(1, Math.round(cssW * dpr));
-    const pxH = Math.max(1, Math.round(cssH * dpr));
-    if (canvas.width !== pxW) canvas.width = pxW;
-    if (canvas.height !== pxH) canvas.height = pxH;
-    canvas.style.width = `${cssW}px`;
-    canvas.style.height = `${cssH}px`;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, pxW, pxH);
-    renderDocument(ctx, doc, { region, scale: pxW / region.width, images: resolveImage });
-    // `region` is derived from doc + slide, both of which are dependencies.
+    // Drawn in a short slice (see draw-queue), so a grid of previews never blocks input.
+    return scheduleDraw(canvas, () => {
+      let cssW = box.w;
+      let cssH = box.w / aspect;
+      if (fit === 'contain' && box.h > 0) {
+        cssW = Math.min(box.w, box.h * aspect);
+        cssH = cssW / aspect;
+      }
+      const dpr = Math.min(typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1, maxDpr);
+      const pxW = Math.max(1, Math.round(cssW * dpr));
+      const pxH = Math.max(1, Math.round(cssH * dpr));
+      if (canvas.width !== pxW) canvas.width = pxW;
+      if (canvas.height !== pxH) canvas.height = pxH;
+      canvas.style.width = `${cssW}px`;
+      canvas.style.height = `${cssH}px`;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, pxW, pxH);
+      renderDocument(ctx, doc, { region, scale: pxW / region.width, images: resolveImage });
+    });
+    // `doc` and `region` are read when drawing; what they contribute to this preview is
+    // captured by `content`, `slideFill`, `doc.background` and `stripKey`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [doc, slide, box, visible, fontTick, assetTick, aspect, fit, maxDpr]);
+  }, [content, slideFill, doc.background, stripKey, slide, box, visible, fontTick, assetTick, aspect, fit, maxDpr]);
 
   return (
     <div

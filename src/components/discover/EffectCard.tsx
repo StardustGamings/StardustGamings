@@ -6,7 +6,7 @@ import type { TrendEffect } from '@/trends/schema';
 import { lookFilter, type LookDefinition } from '@/filters/looks';
 import { findLook } from '@/trends/pack';
 import { useTrends } from '@/trends/store';
-import { renderLookPreview } from '@/filters/preview';
+import { lookPreview } from '@/filters/preview';
 import { Badge } from '@/components/ui/Badge';
 import { samplePhoto, samplePhotoCanvas } from './sample-photo';
 
@@ -33,11 +33,16 @@ export function LookRender({ look, intensity, hidden }: { look: LookDefinition; 
     const photo = samplePhotoCanvas();
     const canvas = ref.current;
     if (!photo || !canvas) return;
-    const out = renderLookPreview(photo, { filter: lookFilter(look, intensity) }, 480);
-    if (!out) return;
-    canvas.width = out.width;
-    canvas.height = out.height;
-    canvas.getContext('2d')?.drawImage(out, 0, 0);
+    let live = true;
+    void lookPreview(photo, { filter: lookFilter(look, intensity) }, 480).then((out) => {
+      if (!live || !out) return;
+      canvas.width = out.width;
+      canvas.height = out.height;
+      canvas.getContext('2d')?.drawImage(out, 0, 0);
+    });
+    return () => {
+      live = false;
+    };
   }, [look, intensity]);
   return <canvas ref={ref} aria-hidden className={`absolute inset-0 size-full object-cover ${hidden ? 'opacity-0' : ''}`} />;
 }

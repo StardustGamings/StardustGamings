@@ -108,6 +108,9 @@ const COALESCE_WINDOW = 1200;
 let txBase: DesignDocument | null = null;
 let lastCoalesce: { key: string; at: number } | null = null;
 
+/** The design as it was when the running gesture began, or null — the renderer caches what a gesture doesn't touch. */
+export const gestureBase = (): DesignDocument | null => txBase;
+
 export const useEditor = create<EditorState>()((set, get) => {
   const scheduleSave = () => {
     clearTimeout(saveTimer);

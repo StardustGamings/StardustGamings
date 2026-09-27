@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import { isValidColor } from '@/utils/color';
 import { FORMATS } from './formats';
 import { MAX_SLIDES } from './formats';

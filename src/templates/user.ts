@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 import type { DesignDocument, DesignElement, ImageElement } from '@/types/document';
 import type { FormatId, SizePresetId } from '@/types/project';
 import { sanitizeName } from '@/projects/repository';

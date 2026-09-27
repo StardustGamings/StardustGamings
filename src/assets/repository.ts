@@ -106,21 +106,28 @@ export async function importImageFile(
 ): Promise<ImportResult> {
   if (file.size === 0) throw new ImportError('empty');
   if (file.size > MAX_FILE_BYTES) throw new ImportError('too-large');
-  let bytes = await file.arrayBuffer();
-  const format = sniffImageFormat(new Uint8Array(bytes, 0, Math.min(bytes.byteLength, 1024)));
+  const format = sniffImageFormat(new Uint8Array(await file.slice(0, 1024).arrayBuffer()));
   if (!format) throw new ImportError('unsupported');
 
   const storage = await getStorage();
-  const hash = await sha256Hex(bytes);
-  const existing = (await storage.findAssetByHash(hash)).find((a) => a.kind === kind);
-  if (existing) return { meta: existing, reused: true, optimized: false };
-
-  let rasterFormat = format === 'svg' ? 'png' : format;
+  const findExisting = async (hash: string) => (await storage.findAssetByHash(hash)).find((a) => a.kind === kind);
+  let out: ProcessOutput;
+  let hash: string;
   if (format === 'svg') {
-    bytes = await rasterizeSvg(bytes);
-    rasterFormat = 'png';
+    // SVGs are small: hash the source here, so a re-import is found before rasterising.
+    const svg = await file.arrayBuffer();
+    hash = await sha256Hex(svg);
+    const existing = await findExisting(hash);
+    if (existing) return { meta: existing, reused: true, optimized: false };
+    out = await processor({ bytes: await rasterizeSvg(svg), format: 'png', keepOriginal: true });
+  } else {
+    // Photos go to the worker as the file itself: it reads, hashes and scales them, so a
+    // big photo is never copied or hashed on the page. A re-import is found by that hash.
+    out = await processor({ bytes: file, format, keepOriginal: true });
+    hash = out.hash;
+    const existing = await findExisting(hash);
+    if (existing) return { meta: existing, reused: true, optimized: false };
   }
-  const out = await processor({ bytes, format: rasterFormat, keepOriginal: true });
   const meta: AssetMeta = {
     id: createId('as'),
     kind,

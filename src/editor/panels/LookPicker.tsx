@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useSyncExternalStore } from 'react';
 import { assetsVersion, peekAsset, subscribeAssets } from '@/assets/cache';
 import { isBuiltInLook, lookFilter, LOOKS, type LookDefinition } from '@/filters/looks';
 import { useTrendLooks, useTrends } from '@/trends/store';
-import { renderLookPreview } from '@/filters/preview';
+import { lookPreview } from '@/filters/preview';
 import { cn } from '@/utils/cn';
 
 const serverVersion = () => 0;
@@ -19,11 +19,16 @@ function LookPreview({ assetId, look }: { assetId: string | null; look: LookDefi
     if (!canvas || !assetId) return;
     const asset = peekAsset(assetId, 'thumb');
     if (!asset) return;
-    const preview = renderLookPreview(asset.image, look ? { filter: lookFilter(look, 100) } : {}, 160);
-    if (!preview) return;
-    canvas.width = preview.width;
-    canvas.height = preview.height;
-    canvas.getContext('2d')?.drawImage(preview, 0, 0);
+    let live = true;
+    void lookPreview(asset.image, look ? { filter: lookFilter(look, 100) } : {}, 160).then((preview) => {
+      if (!live || !preview) return;
+      canvas.width = preview.width;
+      canvas.height = preview.height;
+      canvas.getContext('2d')?.drawImage(preview, 0, 0);
+    });
+    return () => {
+      live = false;
+    };
   }, [assetId, look, version]);
 
   if (!assetId) {
