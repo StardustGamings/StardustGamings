@@ -1,7 +1,11 @@
 package com.stardustgamings.stardeck;
 
+import android.annotation.TargetApi;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -33,6 +37,20 @@ public class MainActivity extends BridgeActivity {
         PageClient(Bridge bridge) {
             super(bridge);
             this.app = bridge;
+        }
+
+        /**
+         * The page's renderer can be stopped by Android (usually to reclaim memory) or crash.
+         * Android closes the whole app unless someone handles that, so start the screen again
+         * instead: designs are saved as you work, so nothing is lost.
+         */
+        @Override
+        @TargetApi(Build.VERSION_CODES.O)
+        public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
+            if (super.onRenderProcessGone(view, detail)) return true;
+            Log.w("Stardeck", "WebView renderer gone (crashed: " + detail.didCrash() + "); restarting the screen");
+            MainActivity.this.recreate();
+            return true;
         }
 
         @Override

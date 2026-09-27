@@ -22,6 +22,26 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const screencap = (name) => writeFileSync(`${SHOTS}/${name}.png`, execFileSync('adb', ['exec-out', 'screencap', '-p']));
 const step = (text) => console.log(`• ${text}`);
 
+// If anything fails, keep a screenshot and the device log (filtered copy in the job output).
+process.on('exit', (code) => {
+  if (code === 0) return;
+  try {
+    screencap('failure');
+  } catch {
+    /* the emulator may be gone */
+  }
+  try {
+    const log = adb('logcat', '-d', '-v', 'time');
+    writeFileSync(`${SHOTS}/logcat.txt`, log);
+    const wanted = /AndroidRuntime|FATAL|chromium|cr_|WebView|Capacitor|libc|DEBUG|lowmemorykiller|stardeck|render|Console/i;
+    const lines = log.split('\n').filter((l) => wanted.test(l));
+    console.log(`--- device log (filtered, last 200 of ${lines.length}) ---\n${lines.slice(-200).join('\n')}`);
+    console.log(`--- crash buffer ---\n${adb('logcat', '-d', '-b', 'crash')}`);
+  } catch (e) {
+    console.log(`Couldn't read the device log: ${e.message}`);
+  }
+});
+
 function assertNoCrash() {
   const crashes = adb('logcat', '-d', '-b', 'crash');
   assert.ok(!crashes.includes(PKG), `The app crashed:\n${crashes}`);
