@@ -28,6 +28,17 @@ function Hint() {
   return <p className="px-4 pt-3 text-[12px] text-fg-subtle">Tap to add, or drag onto the canvas.</p>;
 }
 
+const OUTLINE = [
+  [-1.5, 0],
+  [1.5, 0],
+  [0, -1.5],
+  [0, 1.5],
+  [-1, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+];
+
 function presetCss(p: TextPreset): React.CSSProperties {
   const s = p.style;
   return {
@@ -40,10 +51,16 @@ function presetCss(p: TextPreset): React.CSSProperties {
     ...(p.fixedColors && s.fill && s.fill.type !== 'solid'
       ? { background: fillToCss(s.fill), WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }
       : {}),
-    ...(s.stroke ? { WebkitTextStroke: `1.5px ${s.stroke.color}`, paintOrder: 'stroke fill' } : {}),
-    ...(s.shadow
+    // Outlines are drawn as a ring of hard shadows: at sample size they look the same as a stroke,
+    // and the text keeps its real fill colour (which is what contrast checkers read).
+    ...(s.stroke || s.shadow
       ? {
-          textShadow: `${Math.sign(s.shadow.x) * 2}px ${Math.sign(s.shadow.y) * 2}px ${s.shadow.blur ? 8 : 0}px ${s.shadow.color}`,
+          textShadow: [
+            ...(s.stroke ? OUTLINE.map(([x, y]) => `${x}px ${y}px 0 ${s.stroke!.color}`) : []),
+            ...(s.shadow
+              ? [`${Math.sign(s.shadow.x) * 2}px ${Math.sign(s.shadow.y) * 2}px ${s.shadow.blur ? 8 : 0}px ${s.shadow.color}`]
+              : []),
+          ].join(', '),
         }
       : {}),
     ...(s.highlight?.fill.type === 'solid' ? { background: s.highlight.fill.color, padding: '2px 8px', borderRadius: 999 } : {}),
@@ -89,10 +106,10 @@ export function TextPanel() {
               p.fixedColors ? 'bg-[#15131f]' : 'bg-surface',
             )}
           >
-            <span className="max-w-full truncate text-[17px] leading-none" style={presetCss(p)}>
+            <span aria-hidden className="max-w-full truncate text-[17px] leading-none" style={presetCss(p)}>
               {p.sample}
             </span>
-            <span className="text-[10px] font-semibold text-fg-subtle">{p.name}</span>
+            <span className={cn('text-[10px] font-semibold', p.fixedColors ? 'text-white/70' : 'text-fg-subtle')}>{p.name}</span>
           </button>
         ))}
       </div>

@@ -45,6 +45,10 @@ interface NumberFieldProps {
   className?: string;
   /** Short label shown inside the field (drag it to scrub). */
   glyph?: string;
+  /** Shown but not editable (e.g. a text box's height, which follows its text). */
+  disabled?: boolean;
+  /** Why it's disabled, as a tooltip. */
+  title?: string;
 }
 
 /**
@@ -62,6 +66,8 @@ export function NumberField({
   suffix,
   className,
   glyph,
+  disabled = false,
+  title,
 }: NumberFieldProps) {
   const id = useId();
   const [draft, setDraft] = useState<string | null>(null);
@@ -77,14 +83,20 @@ export function NumberField({
     <div
       className={cn(
         'flex h-9 min-w-0 items-center rounded-[10px] border border-line bg-bg-sunken/70 focus-within:border-ring',
+        disabled && 'opacity-50',
         className,
       )}
+      title={title}
     >
       <span
         aria-hidden
-        title={`Drag to adjust ${label.toLowerCase()}`}
-        className="flex h-full w-7 shrink-0 cursor-ew-resize touch-none items-center justify-center font-mono text-[10.5px] font-semibold text-fg-subtle select-none"
+        title={disabled ? undefined : `Drag to adjust ${label.toLowerCase()}`}
+        className={cn(
+          'flex h-full w-7 shrink-0 touch-none items-center justify-center font-mono text-[10.5px] font-semibold text-fg-subtle select-none',
+          !disabled && 'cursor-ew-resize',
+        )}
         onPointerDown={(e) => {
+          if (disabled) return;
           e.currentTarget.setPointerCapture(e.pointerId);
           scrub.current = { x: e.clientX, value };
         }}
@@ -101,6 +113,7 @@ export function NumberField({
         id={id}
         aria-label={label}
         inputMode="decimal"
+        disabled={disabled}
         value={shown}
         onChange={(e) => setDraft(e.target.value)}
         onFocus={(e) => e.currentTarget.select()}

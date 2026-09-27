@@ -67,7 +67,7 @@ export function TemplateCard({ template, title, subtitle, heat, className, targe
               </span>
             )}
             {animated && (
-              <span className="inline-flex h-6 items-center gap-1 rounded-full bg-violet px-2 text-[11px] font-bold text-white">
+              <span className="inline-flex h-6 items-center gap-1 rounded-full bg-violet px-2 text-[11px] font-bold text-ink">
                 <Sparkles className="size-3" /> Animated
               </span>
             )}

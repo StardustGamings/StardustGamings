@@ -31,7 +31,6 @@ import { findBundledFont, supportedWeight } from '@/typography/fonts';
 import { useTrends } from '@/trends/store';
 import { Switch } from '@/components/ui/Switch';
 import { Slider } from '@/components/ui/Slider';
-import { cn } from '@/utils/cn';
 import * as actions from '../actions';
 import { TEXT_PRESETS } from '../core/factory';
 import { elementLabel, fitTextHeight, scaleElementContent } from '../core/ops';
@@ -159,7 +158,8 @@ function Transform({ el }: { el: DesignElement }) {
           onChange={(v) =>
             !isText && updateSelection('h', (e) => (e.type === 'sticker' ? { ...e, width: v, height: v } : { ...e, height: v }))
           }
-          className={cn(isText && 'pointer-events-none opacity-50')}
+          disabled={isText}
+          title={isText ? 'A text box’s height follows its text' : undefined}
         />
         <NumberField
           label="Rotation"

@@ -123,31 +123,33 @@ export function Timeline() {
               {formatSeconds(here ? time : 0)} / {formatSeconds(duration)}
             </span>
           </div>
-          <div
-            className="relative h-full cursor-ew-resize"
-            style={{ width: track }}
-            onPointerDown={(e) => begin(e, { kind: 'scrub' })}
-            data-testid="timeline-ruler"
-            role="slider"
-            aria-label="Playhead"
-            aria-valuemin={0}
-            aria-valuemax={duration}
-            aria-valuenow={Math.round(here ? time : 0)}
-            aria-valuetext={formatSeconds(here ? time : 0)}
-            tabIndex={0}
-            onKeyDown={(e) => {
-              const delta = e.key === 'ArrowRight' ? 100 : e.key === 'ArrowLeft' ? -100 : 0;
-              if (!delta) return;
-              e.preventDefault();
-              usePlayback.getState().seek(active, (here ? time : 0) + delta);
-            }}
-          >
-            {ticks.map((t) => (
-              <span key={t} className="absolute top-1 text-[10px] text-fg-subtle tabular-nums" style={{ left: x(t) }}>
-                <span className="absolute top-3.5 left-0 h-2 w-px bg-line-strong" />
-                {t / 1000}s
-              </span>
-            ))}
+          {/* The playhead and the slide-end marker are sibling sliders (a control can't contain another). */}
+          <div className="relative h-full" style={{ width: track }}>
+            <div
+              className="absolute inset-0 cursor-ew-resize"
+              onPointerDown={(e) => begin(e, { kind: 'scrub' })}
+              data-testid="timeline-ruler"
+              role="slider"
+              aria-label="Playhead"
+              aria-valuemin={0}
+              aria-valuemax={duration}
+              aria-valuenow={Math.round(here ? time : 0)}
+              aria-valuetext={formatSeconds(here ? time : 0)}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                const delta = e.key === 'ArrowRight' ? 100 : e.key === 'ArrowLeft' ? -100 : 0;
+                if (!delta) return;
+                e.preventDefault();
+                usePlayback.getState().seek(active, (here ? time : 0) + delta);
+              }}
+            >
+              {ticks.map((t) => (
+                <span key={t} className="absolute top-1 text-[10px] text-fg-subtle tabular-nums" style={{ left: x(t) }}>
+                  <span className="absolute top-3.5 left-0 h-2 w-px bg-line-strong" />
+                  {t / 1000}s
+                </span>
+              ))}
+            </div>
             {/* Slide end marker (drag to change the slide's length). */}
             <span
               role="slider"

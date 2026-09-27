@@ -394,6 +394,8 @@ export function ProjectsBrowser() {
         ))}
       </div>
 
+      {/* Cards are h3s; in a folder the folder's name is the h2, otherwise this one is. */}
+      {!activeFolder && <h2 className="sr-only">{view === 'trash' ? 'Trash' : 'Designs'}</h2>}
       {loading ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {Array.from({ length: 5 }, (_, i) => (

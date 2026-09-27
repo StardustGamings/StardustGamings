@@ -112,7 +112,8 @@ export function TypeCard({ typo }: { typo: TrendTypography }) {
         </div>
         <p
           className="mt-5 min-h-[76px] text-[34px] leading-[1.05] break-words transition-opacity duration-300"
-          style={{ ...specStyle(typo.heading), opacity: ready ? 1 : 0.2 }}
+          // Slightly dimmed (still readable) in the fallback font until the real one arrives.
+          style={{ ...specStyle(typo.heading), opacity: ready ? 1 : 0.7 }}
         >
           {typo.sample}
         </p>

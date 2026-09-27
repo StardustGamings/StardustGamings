@@ -83,7 +83,7 @@ function LayerRow({
           {elementLabel(el)}
         </button>
       )}
-      <span className="shrink-0 font-mono text-[10px] text-fg-subtle">{String(slide + 1).padStart(2, '0')}</span>
+      <span className="shrink-0 font-mono text-[10px] text-fg-muted">{String(slide + 1).padStart(2, '0')}</span>
       <button
         type="button"
         aria-label={el.locked ? `Unlock ${elementLabel(el)}` : `Lock ${elementLabel(el)}`}

@@ -6,7 +6,7 @@ type Tone = 'neutral' | 'accent' | 'violet' | 'pink' | 'success' | 'warning' | '
 const TONES: Record<Tone, string> = {
   neutral: 'bg-surface-hover text-fg-muted border-line',
   accent: 'bg-accent/15 text-accent-text border-accent/25',
-  violet: 'bg-violet/15 text-violet border-violet/25 [[data-theme=light]_&]:text-[#5a32d6]',
+  violet: 'bg-violet/15 text-[#b794ff] border-violet/25 [[data-theme=light]_&]:text-[#5a32d6]',
   pink: 'bg-pink/15 text-pink border-pink/25 [[data-theme=light]_&]:text-[#c71f6f]',
   success: 'bg-success/15 text-success border-success/25',
   warning: 'bg-warning/15 text-warning border-warning/30',

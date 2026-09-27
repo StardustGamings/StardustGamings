@@ -276,7 +276,7 @@ function PairingRow({ p, sample }: { p: FontPairing; sample: string }) {
     >
       <span
         className="truncate text-[20px] leading-tight transition-opacity"
-        style={{ fontFamily: fontStack(p.heading), fontWeight: p.headingWeight, opacity: ready ? 1 : 0.3 }}
+        style={{ fontFamily: fontStack(p.heading), fontWeight: p.headingWeight, opacity: ready ? 1 : 0.7 }}
       >
         {sample}
       </span>
