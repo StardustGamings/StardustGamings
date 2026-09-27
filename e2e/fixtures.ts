@@ -51,6 +51,8 @@ export async function createCarousel(page: Page, slides = 5) {
   await dialog.getByTestId('create-project').click();
   await expect(page).toHaveURL(/\/editor\/\?id=prj_/);
   await expect(page.getByTestId('canvas-viewport')).toBeVisible();
+  // The dialog is gone by the time the editor shows (it would swallow the first click).
+  expect(await dialog.count()).toBe(0);
 }
 
 export type Paint = 'subject' | 'gradient';

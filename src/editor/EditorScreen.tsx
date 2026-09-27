@@ -467,6 +467,9 @@ export function EditorScreen() {
   const showGrid = useSettings((s) => s.editor.showGrid);
   const showSafeArea = useSettings((s) => s.editor.showSafeArea);
 
+  // The dialog that opened this design has closed; later dialogs animate out as usual.
+  useEffect(() => useUi.getState().setOpeningEditor(false), []);
+
   useEffect(() => {
     if (!id || !hydrated) return;
     useCamera.getState().reset();

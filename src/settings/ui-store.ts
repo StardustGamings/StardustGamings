@@ -34,6 +34,12 @@ export type ExportRequest = { source: 'editor' } | { source: 'project'; projectI
 export type SaveTemplateRequest = { source: 'editor' } | { source: 'project'; projectId: string };
 
 interface UiState {
+  /**
+   * A dialog's action is opening the editor: dialogs close at once rather than animating out, so a
+   * closing dialog is never over the editor when it appears. Cleared when the editor mounts.
+   */
+  openingEditor: boolean;
+  setOpeningEditor: (on: boolean) => void;
   paletteOpen: boolean;
   setPaletteOpen: (open: boolean) => void;
   newProject: NewProjectRequest | null;
@@ -82,6 +88,8 @@ interface UiState {
 export type FolderDialogRequest = { mode: 'create'; moveIds?: string[] } | { mode: 'edit'; id: string };
 
 export const useUi = create<UiState>()((set) => ({
+  openingEditor: false,
+  setOpeningEditor: (openingEditor) => set({ openingEditor }),
   paletteOpen: false,
   setPaletteOpen: (paletteOpen) => set({ paletteOpen }),
   newProject: null,

@@ -426,6 +426,12 @@
   }
 }
 
+/* A closing dialog, sheet or palette is on its way out: clicks go through to the page beneath. */
+.anim-overlay[data-state='closed'],
+.anim-dialog[data-state='closed'],
+.anim-palette[data-state='closed'] {
+  pointer-events: none !important;
+}
 .anim-overlay[data-state='open'] {
   animation: overlay-in 200ms ease-out;
 }

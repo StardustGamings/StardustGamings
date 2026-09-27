@@ -85,17 +85,23 @@ test.describe('performance (desktop)', () => {
   test('dragging in a carousel redraws without long stalls', async ({ app: page }) => {
     await createCarousel(page, 5);
     // A few texts, so the strip and the canvas have something to draw.
+    // Each step waits for the one before, so keystrokes never land while no text box is open (as shortcuts).
+    const editor = page.getByRole('textbox', { name: 'Edit text' });
     for (let i = 0; i < 4; i++) {
       await page.keyboard.press('Escape');
       await page.keyboard.press('t');
       const vp = (await page.getByTestId('canvas-viewport').boundingBox())!;
       await page.mouse.click(vp.x + vp.width / 2, vp.y + vp.height * (0.3 + i * 0.1));
+      await expect(editor, `text box ${i + 1}`).toBeFocused();
       await page.keyboard.type(`Line ${i + 1} of a busy slide`);
       await page.keyboard.press('Escape');
+      await expect(editor).toBeHidden();
     }
     await page.keyboard.press('Escape');
+    await expect(page.getByTestId('selection-frame')).toBeHidden();
     const vp = (await page.getByTestId('canvas-viewport').boundingBox())!;
     await page.mouse.click(vp.x + vp.width / 2, vp.y + vp.height * 0.3);
+    await expect(page.getByTestId('selection-frame')).toBeVisible();
     const frame = (await page.getByTestId('selection-frame').boundingBox())!;
     await watchLongTasks(page);
     await page.mouse.move(frame.x + frame.width / 2, frame.y + frame.height / 2);

@@ -5,6 +5,7 @@ import { Dialog as D } from 'radix-ui';
 import { X } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useUi } from '@/settings/ui-store';
 import { cn } from '@/utils/cn';
 import { IconButton } from './IconButton';
 
@@ -43,15 +44,23 @@ export function Dialog({
   bodyClassName,
 }: DialogProps) {
   const phone = !useMediaQuery('(min-width: 640px)', true);
+  // Closing because the editor is opening: skip the exit animation (the page is changing anyway).
+  const instant = useUi((s) => s.openingEditor);
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
       <D.Portal>
-        <D.Overlay className="anim-overlay fixed inset-0 z-[60] bg-[rgb(5_5_10/0.55)] backdrop-blur-[6px]" />
+        <D.Overlay
+          className={cn(
+            'anim-overlay fixed inset-0 z-[60] bg-[rgb(5_5_10/0.55)] backdrop-blur-[6px]',
+            instant && 'data-[state=closed]:animate-none!',
+          )}
+        />
         {/* Centred with inset + auto margins (not transforms) so the CSS enter/exit
             animations are free to use transform. */}
         <D.Content
           className={cn(
             'anim-dialog fixed inset-x-0 bottom-0 z-[61] mx-auto flex max-h-[92dvh] w-full flex-col outline-none',
+            instant && 'data-[state=closed]:animate-none!',
             'sm:inset-0 sm:m-auto sm:h-fit sm:max-h-[88dvh] sm:w-[calc(100%-48px)]',
             WIDTHS[size],
           )}

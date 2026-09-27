@@ -6,6 +6,7 @@ import { useProjects } from '@/projects/store';
 import type { CreateProjectInput } from '@/projects/repository';
 import type { Template } from '@/templates/registry';
 import { toast } from '@/components/ui/toast-store';
+import { useUi } from '@/settings/ui-store';
 
 export const editorHref = (id: string) => `/editor/?id=${encodeURIComponent(id)}`;
 
@@ -17,6 +18,7 @@ export function useCreateProject() {
     async (input: CreateProjectInput) => {
       try {
         const meta = await create(input);
+        useUi.getState().setOpeningEditor(true);
         router.push(editorHref(meta.id));
         return meta;
       } catch {
