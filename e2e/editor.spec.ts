@@ -196,7 +196,7 @@ test.describe('canvas editor (desktop)', () => {
     // The only element: nowhere to go.
     await expect(raise).toBeDisabled();
     await expect(lower).toBeDisabled();
-    await addRectangle(page);
+    await page.getByRole('button', { name: 'Add Rectangle' }).click(); // the Shapes panel is still open
     await expect(raise).toBeDisabled(); // the new one is on top
     await expect(lower).toBeEnabled();
     await lower.click();
@@ -207,7 +207,10 @@ test.describe('canvas editor (desktop)', () => {
     await page.getByTestId('text-panel').getByRole('button', { name: 'Add a heading' }).click();
     await page.getByRole('button', { name: /^Font: / }).click();
     await page.getByRole('textbox', { name: 'Search fonts' }).fill('Anton');
-    await page.getByRole('dialog', { name: 'Choose a font' }).getByRole('button', { name: /^Anton/ }).click();
+    await page
+      .getByRole('dialog', { name: 'Choose a font' })
+      .getByRole('button', { name: /^Anton/ })
+      .click();
     await expect(page.getByRole('button', { name: 'Italic' })).toBeDisabled();
     await expect(page.getByRole('button', { name: 'Italic' })).toHaveAttribute('title', 'Anton has no italic');
   });
