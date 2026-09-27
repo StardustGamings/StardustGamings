@@ -8,5 +8,15 @@ export function isNativeApp(): boolean {
   return cap?.isNativePlatform?.() === true;
 }
 
+/** The Windows app (Electron) serves the same export from its own `app://` scheme. */
+export function isDesktopApp(): boolean {
+  return typeof window !== 'undefined' && window.location.protocol === 'app:';
+}
+
+/** Running as an installed app (Android or Windows) rather than in a browser. */
+export function isInstalledApp(): boolean {
+  return isNativeApp() || isDesktopApp();
+}
+
 /** Where the Android app saves files: the phone's shared Documents folder. */
 export const NATIVE_SAVE_FOLDER = 'Documents/Stardeck';

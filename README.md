@@ -77,6 +77,8 @@ npm start            # serves out/ at http://127.0.0.1:3000 with production secu
 | `npm run icons`                 | Re-render PWA icons from the logo                                        |
 | `npm run icons:android`         | Re-render the Android launcher icons and launch screens                  |
 | `npm run android:apk`           | Build the Android APK (JDK 21 + Android SDK; see `docs/ANDROID.md`)      |
+| `npm run desktop:start`         | Run the Windows/desktop app in Electron (after a build)                  |
+| `npm run desktop:dist`          | Build the Windows installer (see `docs/WINDOWS.md`)                      |
 | `npm run templates`             | Compile the template authoring kit to JSON and re-index the library      |
 | `npm run templates:check`       | Check every template's text fits its box, measured with the real fonts   |
 | `npm run trends:check`          | Validate every trend drop strictly and check the bundled copy is in sync |
@@ -233,6 +235,7 @@ it like a native app, with its own icon and window, and it keeps working offline
 | Device                  | How to install                                                                                        |
 | ----------------------- | ----------------------------------------------------------------------------------------------------- |
 | Android (APK)           | Download **Stardeck.apk** from this repo's Releases page and open it (see below).                     |
+| Windows 10 / 11 (app)   | Download **Stardeck-Setup.exe** from this repo's Releases page and open it (see below).               |
 | Android (Chrome)        | Open the site → ⋮ menu → **Install app** (or **Add to Home screen**).                                 |
 | iPhone / iPad (Safari)  | Open the site → **Share** → **Add to Home Screen**.                                                   |
 | Windows / macOS / Linux | In Chrome or Edge, click the install icon in the address bar, or open **Settings → About → Install**. |
@@ -246,6 +249,12 @@ everything inside it so it works offline with nothing hosted. Every push builds 
 Download `Stardeck.apk` on the phone, open it, and allow installs from your browser if Android asks. Newer builds
 install over it and keep your designs. Details, local builds and signing: [`docs/ANDROID.md`](docs/ANDROID.md). iOS
 store builds aren't made yet.
+
+**Windows app:** an installer built with [Electron](https://www.electronjs.org/) from the same static export, also fully
+offline. Every push publishes it to the
+[**Stardeck for Windows**](https://github.com/StardustGamings/StardustGamings/releases/tag/desktop-latest) release.
+Open `Stardeck-Setup.exe` (no admin needed). It isn't code-signed, so if SmartScreen appears click **More info → Run
+anyway**. Details: [`docs/WINDOWS.md`](docs/WINDOWS.md).
 
 ## Privacy & security
 

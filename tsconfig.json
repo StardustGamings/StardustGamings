@@ -19,5 +19,5 @@
     "paths": { "@/*": ["./src/*"] }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
-  "exclude": ["node_modules", "out", "android", "e2e/**/*.spec.ts"]
+  "exclude": ["node_modules", "out", "android", "desktop/web", "dist-desktop", "e2e/**/*.spec.ts"]
 }

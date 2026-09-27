@@ -1,0 +1,9 @@
+{
+  "name": "stardeck-desktop",
+  "productName": "Stardeck",
+  "version": "1.0.1",
+  "description": "Free design app for social media carousels, posts and stories.",
+  "author": "StardustGamings",
+  "private": true,
+  "main": "main.mjs"
+}

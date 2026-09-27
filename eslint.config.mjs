@@ -17,6 +17,8 @@ export default defineConfig([
     'playwright-report/**',
     'server/dist/**',
     'android/**',
+    'desktop/web/**',
+    'dist-desktop/**',
   ]),
   {
     rules: {

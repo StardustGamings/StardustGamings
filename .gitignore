@@ -24,3 +24,7 @@ blob-report/
 .DS_Store
 *.log
 server/dist/
+
+# desktop app (Electron): copied export and built installers
+desktop/web/
+dist-desktop/

@@ -514,8 +514,16 @@ The brief's final checklist, item by item, is in [QUALITY.md](QUALITY.md).
 - Save writes to Documents/Stardeck, Share opens the Android share sheet, the back button closes dialogs before going
   back, and the status bar follows the theme. Page URLs load their own HTML (Capacitor's server would show Home).
 
+## Windows app ✅
+
+- The static export in an Electron window, served from `app://stardeck/` with the website's Content-Security-Policy:
+  fully offline, one-click per-user installer. CI smoke-tests it on Windows and publishes it as the **Stardeck for
+  Windows** release (see `docs/WINDOWS.md`).
+- Exports save straight to Downloads with one notification, other sites open in the browser, and a second launch
+  focuses the open window.
+
 ## After 1.0
 
 - Opt-in cloud backup & sync (labelled **Soon** in Settings; nothing requires it).
-- Play Store and iOS builds (needs a private signing key and store listings).
+- Play Store, Microsoft Store and iOS builds (need signing certificates and store listings).
 - Pairing a family's separate bold and italic files into one font.

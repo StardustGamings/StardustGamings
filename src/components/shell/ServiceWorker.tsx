@@ -2,15 +2,15 @@
 
 import { useEffect } from 'react';
 import { toast } from '@/components/ui/toast-store';
-import { isNativeApp } from '@/native/platform';
+import { isInstalledApp } from '@/native/platform';
 
 /**
  * Registers the offline service worker in production builds only. The Android
- * app skips it: every file already ships inside the app.
+ * and Windows apps skip it: every file already ships inside the app.
  */
 export function ServiceWorker() {
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'production' || !('serviceWorker' in navigator) || isNativeApp()) return;
+    if (process.env.NODE_ENV !== 'production' || !('serviceWorker' in navigator) || isInstalledApp()) return;
     let reloading = false;
     const hadController = Boolean(navigator.serviceWorker.controller);
 
