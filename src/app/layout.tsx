@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { AppProviders } from '@/components/shell/AppProviders';
 import { AppShell } from '@/components/shell/AppShell';
 import { THEME_INIT_SCRIPT } from '@/settings/resolve';
+import { startupImages } from './splash';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
   },
-  appleWebApp: { capable: true, title: 'Stardeck', statusBarStyle: 'black-translucent' },
+  appleWebApp: { capable: true, title: 'Stardeck', statusBarStyle: 'black-translucent', startupImage: startupImages },
   formatDetection: { telephone: false },
 };
 

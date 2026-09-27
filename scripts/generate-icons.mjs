@@ -1,7 +1,7 @@
-// Renders the PWA / home-screen icons from the brand mark using headless Chromium.
-// Run with `npm run icons` after changing the logo. Output is committed.
+// Renders the PWA / home-screen icons and the iOS launch screens from the brand mark using
+// headless Chromium. Run with `npm run icons` after changing the logo. Output is committed.
 import { chromium } from '@playwright/test';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -45,5 +45,51 @@ for (const t of targets) {
   const png = await page.screenshot({ omitBackground: true, clip: { x: 0, y: 0, width: t.size, height: t.size } });
   await writeFile(path.join(out, t.file), png);
   console.log('wrote', t.file);
+}
+
+/* ───────────── iOS launch screens ─────────────
+   Android and desktop build their splash from the manifest (name, icon, background colour);
+   iOS shows an image that exactly matches the device, or a blank screen. */
+
+const font = async (file) => (await readFile(path.join(root, 'public/fonts', file))).toString('base64');
+const [display, body] = await Promise.all([
+  font('bricolage-grotesque/bricolage-grotesque-latin-wght-normal.woff2'),
+  font('manrope/manrope-latin-wght-normal.woff2'),
+]);
+
+function splashHtml(w, h) {
+  const unit = Math.min(w, h);
+  const markSize = unit * 0.24;
+  return `<!doctype html><html><head><style>
+    @font-face { font-family: Display; src: url(data:font/woff2;base64,${display}) format('woff2'); font-weight: 200 800; }
+    @font-face { font-family: Body; src: url(data:font/woff2;base64,${body}) format('woff2'); font-weight: 200 800; }
+    html, body { margin: 0; }
+  </style></head><body>
+  <div style="width:${w}px;height:${h}px;position:relative;overflow:hidden;background:#0A0A11;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:${unit * 0.035}px">
+    <svg viewBox="0 0 40 40" width="${markSize}" height="${markSize}" style="position:relative">${mark}</svg>
+    <div style="position:relative;font-family:Display;font-weight:800;font-size:${unit * 0.1}px;letter-spacing:-0.045em;
+      line-height:1;color:#F5F4FF">stardeck</div>
+    <div style="position:relative;font-family:Body;font-weight:600;font-size:${unit * 0.036}px;letter-spacing:0.02em;
+      color:#A8A6C1">Create. Swipe. Flex.</div>
+  </div></body></html>`;
+}
+
+const { screens } = JSON.parse(await readFile(path.join(root, 'src/app/splash-screens.json'), 'utf8'));
+const splashDir = path.join(root, 'public/splash');
+await rm(splashDir, { recursive: true, force: true });
+await mkdir(splashDir, { recursive: true });
+const shots = screens.flatMap((s) => {
+  const portrait = { w: s.width * s.ratio, h: s.height * s.ratio };
+  return s.ipad ? [portrait, { w: portrait.h, h: portrait.w }] : [portrait];
+});
+for (const { w, h } of shots) {
+  await page.setViewportSize({ width: w, height: h });
+  await page.setContent(splashHtml(w, h));
+  await page.evaluate(() => document.fonts.ready);
+  const png = await page.screenshot({ clip: { x: 0, y: 0, width: w, height: h } });
+  const file = `splash-${w}x${h}.png`;
+  await writeFile(path.join(splashDir, file), png);
+  console.log('wrote', `splash/${file}`, `${Math.round(png.length / 1024)} KB`);
 }
 await browser.close();

@@ -17,8 +17,9 @@ async function walk(dir) {
 }
 
 // On-device AI files (~19 MB) are cached the first time someone uses background
-// removal instead of being forced on every install.
-const EXCLUDE = [/\/sw\.js$/, /\/_headers$/, /\.map$/, /\/LICENSE\.txt$/, /\/_not-found\//, /^\/ml\//];
+// removal instead of being forced on every install. iOS launch screens are fetched by
+// the system (one per device) when the app is added to the home screen.
+const EXCLUDE = [/\/sw\.js$/, /\/_headers$/, /\.map$/, /\/LICENSE\.txt$/, /\/_not-found\//, /^\/ml\//, /^\/splash\//];
 
 const files = (await walk(outDir))
   .map((f) => '/' + path.relative(outDir, f).split(path.sep).join('/'))

@@ -500,6 +500,9 @@ The brief's final checklist, item by item, is in [QUALITY.md](QUALITY.md).
     no closing dialog takes clicks.
   - Gradient-filled curved text could come out stretched after a bigger text had been drawn (the reused offscreen
     layer was drawn whole).
+  - The installed app had no launch screen on iPhone and iPad (Android and desktop build theirs from the manifest).
+    Launch screens now come in every current iPhone size and both iPad orientations. They're made by
+    `npm run icons`, and each device downloads only its own.
 - **Quality:** 327 unit/component tests and 157 Playwright runs, all passing; lint, types, formatting and the
   bundle budget are clean.
 - **Version 1.0.0.**
