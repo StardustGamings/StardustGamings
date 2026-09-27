@@ -24,14 +24,16 @@ conversion). Importing `{ z }` would pull all of it in.
 **Budget:** `npm run perf:budget`, run after `npm run build` and in CI, checks the gzipped JavaScript each page loads up
 front:
 
-| Page      | Phase 11 | Now    | Budget |
-| --------- | -------- | ------ | ------ |
-| Home      | 521 KB   | 402 KB | 430 KB |
-| Editor    | 592 KB   | 479 KB | 510 KB |
-| Templates | 506 KB   | 384 KB | 420 KB |
-| Discover  | 516 KB   | 393 KB | 430 KB |
-| Projects  | 515 KB   | 394 KB | 430 KB |
-| Settings  | 515 KB   | 409 KB | 440 KB |
+| Page      | Phase 11 | Phase 12 | 1.0    | Budget |
+| --------- | -------- | -------- | ------ | ------ |
+| Home      | 521 KB   | 402 KB   | 405 KB | 430 KB |
+| Editor    | 592 KB   | 479 KB   | 483 KB | 510 KB |
+| Templates | 506 KB   | 384 KB   | 387 KB | 420 KB |
+| Discover  | 516 KB   | 393 KB   | 396 KB | 430 KB |
+| Projects  | 515 KB   | 394 KB   | 397 KB | 430 KB |
+| Settings  | 515 KB   | 409 KB   | 411 KB | 440 KB |
+
+The 1.0 column includes curved text, fonts from the device and photo-filled text.
 
 About 200 KB of each is Next.js and React.
 

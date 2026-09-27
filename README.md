@@ -10,10 +10,11 @@ thumbnails, collages, posters and moodboards.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 - **Never lose work.** Autosave, version history, `.stardeck` project files and one-tap backups — all on your device.
 
-> **Status: Phase 12 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
-> templates, filters & effects, export, offline storage, animations & video, the trend system, optional AI tools and a
-> performance pass. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
-> next. Features that aren't built yet are marked **Soon** in the UI; there are no fake buttons.
+> **Status: 1.0: all 13 phases complete.** App shell, design system, canvas editor, photo editing, carousel tools,
+> templates, filters & effects, export, offline storage, animations & video, the trend system, optional AI tools, a
+> performance pass, and testing & hardening. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for what each phase delivered
+> and [`docs/QUALITY.md`](docs/QUALITY.md) for the final quality checklist. The one feature that isn't built (opt-in
+> cloud sync) is marked **Soon** in the UI; there are no fake buttons.
 
 ---
 

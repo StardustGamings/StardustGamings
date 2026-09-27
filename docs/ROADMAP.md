@@ -1,7 +1,8 @@
 # Stardeck roadmap
 
 Stardeck is built in phases. Each phase ends with the project building, linting, type-checking and passing its unit and
-end-to-end tests before the next one starts. Anything not yet built is labelled **Soon** in the UI.
+end-to-end tests before the next one starts. Anything not yet built is labelled **Soon** in the UI. All 13 phases are
+done; [QUALITY.md](QUALITY.md) maps the brief's final checklist to the tests that cover it.
 
 | #   | Phase                      | Status  |
 | --- | -------------------------- | ------- |
@@ -17,7 +18,7 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 10  | Trend system               | ✅ Done |
 | 11  | Optional AI integrations   | ✅ Done |
 | 12  | Performance                | ✅ Done |
-| 13  | Testing & hardening        | ⏭️ Next |
+| 13  | Testing & hardening        | ✅ Done |
 
 ## Phase 1 — App shell & design system ✅
 
@@ -465,7 +466,46 @@ Known limits:
   extra chunk arrives.
 - Export slides still render on the page, but encoding doesn't.
 
-## Later phases (summary)
+## Phase 13 — Testing & hardening ✅
 
-- **13 · Testing & hardening:** an accessibility audit, filling test gaps (large images, touch, responsive), a pass over
-  every button and console message, and the brief's final quality checklist.
+The brief's final checklist, item by item, is in [QUALITY.md](QUALITY.md).
+
+- **Accessibility audit:** axe (WCAG 2.1 A/AA and best practices) on every main screen, the editor, each of its tools,
+  a selected text box and the main dialogs, in the dark and light themes and on a phone. Fixes:
+  - contrast of subtle text, status colours and badges in both themes;
+  - font samples dimmed to 70% (not 20–30%) while their font loads;
+  - a slider nested inside another on the timeline;
+  - a field that was only visually disabled;
+  - a skipped heading level on the projects screen;
+  - the font picker is a labelled dialog with a plain list of buttons, not a listbox holding extra buttons;
+  - toasts no longer put a live-region role on their list item.
+- **Test gaps filled:** touch on a phone (double-tap to edit, resizing by a corner handle, two-finger pan), a
+  24-megapixel import, curved text, fonts from the device, photo-filled text and its export.
+- **Every control clicked:** a script clicked every button, tab, switch, radio and link on every screen and editor
+  panel, on desktop and phone, and checked each one does something without a console error (details in
+  [QUALITY.md](QUALITY.md)). It found two that could do nothing: **Italic** for a font without an italic face, and
+  **Bring forward** / **Send backward** at the top or bottom of the stack. Both are now disabled when there's nothing
+  to do, and Italic's tooltip says why.
+- **Typography finished** (the brief's list is now complete):
+  - **Curved and warped text:** arc, wave, bulge and rise, placed glyph by glyph. Gradients stay put while the letters
+    turn, and the box grows to hold the curve.
+  - **Fonts from your device:** TTF, OTF, WOFF or WOFF2, recognised by their bytes and kept on the device. They travel
+    in project files and backups. For Google Fonts, the picker links to fonts.google.com to download a family; the app
+    itself never contacts Google.
+  - **Photo-filled text (text masks):** a library photo shows through the letters, with zoom and position. It works
+    with outlines, shadows and warps, in the editor and in every export.
+- **Fixed along the way:**
+  - Right after creating a design, the first click or tap could land on the new-design dialog. It was still animating
+    closed over the editor, which on a busy device took longer. Dialogs that open the editor now close at once, and
+    no closing dialog takes clicks.
+  - Gradient-filled curved text could come out stretched after a bigger text had been drawn (the reused offscreen
+    layer was drawn whole).
+- **Quality:** 327 unit/component tests and 157 Playwright runs, all passing; lint, types, formatting and the
+  bundle budget are clean.
+- **Version 1.0.0.**
+
+## After 1.0
+
+- Opt-in cloud backup & sync (labelled **Soon** in Settings; nothing requires it).
+- Native wrappers (Capacitor) for the app stores.
+- Pairing a family's separate bold and italic files into one font.
