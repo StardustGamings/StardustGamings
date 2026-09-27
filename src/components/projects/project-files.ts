@@ -112,6 +112,7 @@ export async function importFiles(files: File[]): Promise<string[]> {
         report.photos.added ? plural(report.photos.added, 'photo') : null,
         report.folders ? plural(report.folders, 'folder') : null,
         report.templates ? plural(report.templates, 'template') : null,
+        report.fonts ? plural(report.fonts, 'font') : null,
       ].filter(Boolean);
       toast({
         title: parts.length ? `Added ${parts.join(', ')}` : 'Everything in that file is already here',

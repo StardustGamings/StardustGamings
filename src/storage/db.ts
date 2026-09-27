@@ -3,10 +3,11 @@ import type { DesignDocument } from '@/types/document';
 import type { Folder, ProjectMeta, VersionRecord } from '@/types/project';
 import type { AssetBlobs, AssetMeta, AssetVariant } from '@/assets/types';
 import type { UserTemplate } from '@/templates/user';
+import type { UserFontRecord } from '@/typography/user-font-types';
 
 export const DB_NAME = 'stardeck';
-/** v1: projects, documents, thumbnails · v2: assets + asset blobs · v3: user templates · v4: versions + folders. */
-export const DB_VERSION = 4;
+/** v1: projects, documents, thumbnails · v2: assets + asset blobs · v3: user templates · v4: versions + folders · v5: fonts. */
+export const DB_VERSION = 5;
 
 const VARIANTS: AssetVariant[] = ['original', 'preview', 'thumb'];
 const blobKey = (id: string, variant: AssetVariant) => `${id}/${variant}`;
@@ -36,6 +37,7 @@ interface StardeckSchema extends DBSchema {
   templates: { key: string; value: UserTemplate };
   versions: { key: string; value: VersionRecord; indexes: { 'by-project': string } };
   folders: { key: string; value: Folder };
+  fonts: { key: string; value: UserFontRecord };
 }
 
 /**
@@ -76,7 +78,11 @@ export interface ProjectStorage {
   getAllFolders(): Promise<Folder[]>;
   putFolder(folder: Folder): Promise<void>;
   deleteFolder(id: string): Promise<void>;
-  /** Removes projects, templates, assets, versions and folders. */
+  /** Fonts the person added (files kept on this device). */
+  getAllFonts(): Promise<UserFontRecord[]>;
+  putFont(font: UserFontRecord): Promise<void>;
+  deleteFont(id: string): Promise<void>;
+  /** Removes projects, templates, assets, versions, folders and fonts. */
   clearAll(): Promise<void>;
 }
 
@@ -204,8 +210,27 @@ class IndexedDbStorage implements ProjectStorage {
   async deleteFolder(id: string) {
     await this.db.delete('folders', id);
   }
+  getAllFonts() {
+    return this.db.getAll('fonts');
+  }
+  async putFont(font: UserFontRecord) {
+    await this.db.put('fonts', font);
+  }
+  async deleteFont(id: string) {
+    await this.db.delete('fonts', id);
+  }
   async clearAll() {
-    const stores = ['projects', 'documents', 'thumbnails', 'assets', 'assetBlobs', 'templates', 'versions', 'folders'] as const;
+    const stores = [
+      'projects',
+      'documents',
+      'thumbnails',
+      'assets',
+      'assetBlobs',
+      'templates',
+      'versions',
+      'folders',
+      'fonts',
+    ] as const;
     const tx = this.db.transaction([...stores], 'readwrite');
     await Promise.all([...stores.map((name) => tx.objectStore(name).clear()), tx.done]);
   }
@@ -221,6 +246,7 @@ export class MemoryStorage implements ProjectStorage {
   private templates = new Map<string, UserTemplate>();
   private versions = new Map<string, VersionRecord>();
   private folders = new Map<string, Folder>();
+  private fonts = new Map<string, UserFontRecord>();
 
   async getAllMeta() {
     return [...this.metas.values()].map((m) => ({ ...m }));
@@ -315,7 +341,17 @@ export class MemoryStorage implements ProjectStorage {
   async deleteFolder(id: string) {
     this.folders.delete(id);
   }
+  async getAllFonts() {
+    return [...this.fonts.values()].map((f) => ({ ...f }));
+  }
+  async putFont(font: UserFontRecord) {
+    this.fonts.set(font.id, { ...font });
+  }
+  async deleteFont(id: string) {
+    this.fonts.delete(id);
+  }
   async clearAll() {
+    this.fonts.clear();
     this.versions.clear();
     this.folders.clear();
     this.templates.clear();
@@ -351,6 +387,7 @@ async function open(): Promise<ProjectStorage> {
           versions.createIndex('by-project', 'projectId');
           database.createObjectStore('folders', { keyPath: 'id' });
         }
+        if (oldVersion < 5) database.createObjectStore('fonts', { keyPath: 'id' });
       },
       blocking() {
         // Another tab wants to upgrade the schema — step aside so it can.

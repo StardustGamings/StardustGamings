@@ -93,8 +93,15 @@ export function loadFont(family: string, weight = 400, style = 'normal'): Promis
   const key = `${family}|${weight}|${style}`;
   const existing = pending.get(key);
   if (existing) return existing;
-  const promise = document.fonts
-    .load(`${style} ${weight} 32px "${family}"`)
+  // A family that isn't bundled may be one the person added (kept in IndexedDB; loaded on demand).
+  const ready = font
+    ? Promise.resolve()
+    : import('./user-fonts').then(
+        (m) => m.ensureUserFont(family),
+        () => false,
+      );
+  const promise = ready
+    .then(() => document.fonts.load(`${style} ${weight} 32px "${family}"`))
     .then(() => {
       loadedVersion++;
     })

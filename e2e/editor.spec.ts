@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import type { Page } from '@playwright/test';
 import { expect, open, test } from './fixtures';
 
@@ -251,6 +253,52 @@ test.describe('curved text (desktop)', () => {
     await page.keyboard.press('ControlOrMeta+z');
     await expect(warps.getByRole('radio', { name: 'None' })).toHaveAttribute('aria-checked', 'false');
     await expect.poll(async () => (await frame.boundingBox())!.height).toBeGreaterThan(straight * 1.05);
+  });
+});
+
+test.describe('fonts from this device (desktop)', () => {
+  test.skip(({ isMobile }) => isMobile, 'Properties panel on desktop');
+
+  test('adds a font file, uses it, keeps it after a reload, and removes it', async ({ app: page }) => {
+    await newPost(page);
+    await page.getByRole('button', { name: 'Text', exact: true }).first().click();
+    await page.getByRole('button', { name: 'Add a heading' }).click();
+    await page.getByRole('button', { name: /^Font: / }).click();
+
+    const file = fs.readFileSync(path.resolve('public/fonts/anton/anton-latin-400-normal.woff2'));
+    await page
+      .getByTestId('font-upload')
+      .setInputFiles({ name: 'HeadlineFont-Regular.woff2', mimeType: 'font/woff2', buffer: file });
+    await expect(page.getByText('Added Headline Font')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Font: Headline Font' })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.fonts.check('32px "Headline Font"'))).toBe(true);
+
+    // Not a font: refused with a reason.
+    await page.getByRole('button', { name: 'Font: Headline Font' }).click();
+    await page
+      .getByTestId('font-upload')
+      .setInputFiles({ name: 'notes.woff2', mimeType: 'font/woff2', buffer: Buffer.from('hello') });
+    await expect(page.getByText('Couldn’t add that font')).toBeVisible();
+    await page.keyboard.press('Escape');
+
+    // After a reload the design still uses it, and it's registered again on demand.
+    await page.waitForTimeout(1200); // autosave
+    await page.reload();
+    await expect(page.getByTestId('canvas-viewport')).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.fonts.check('32px "Headline Font"'))).toBe(true);
+
+    await page.getByRole('tab', { name: 'Layers' }).click();
+    await page.getByTestId('layers-panel').getByText('Add a heading').click();
+    await page.getByRole('tab', { name: 'Design' }).click();
+    const picker = page.getByRole('button', { name: 'Font: Headline Font' });
+    await expect(picker).toBeVisible();
+    await picker.click();
+    await page.getByRole('button', { name: 'Yours', exact: true }).click();
+    await expect(page.getByRole('button', { name: /^Headline Font Yours/ })).toBeVisible();
+    await page.getByRole('button', { name: 'Remove Headline Font from this device' }).click();
+    await page.getByRole('button', { name: 'Remove', exact: true }).click();
+    await expect(page.getByText('Headline Font removed')).toBeVisible();
+    await expect(page.getByText('Fonts you add show up here.')).toBeVisible();
   });
 });
 

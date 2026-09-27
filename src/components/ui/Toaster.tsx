@@ -49,10 +49,10 @@ function ToastCard({ toast }: { toast: Toast }) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       className="pointer-events-auto flex w-full items-start gap-3 rounded-[18px] p-3.5 pr-2.5 shadow-[var(--shadow-float)] glass-strong sm:w-[380px]"
-      role={toast.tone === 'error' ? 'alert' : 'status'}
     >
       <Icon className={cn('mt-0.5 size-[18px] shrink-0', ICON_TONES[toast.tone])} aria-hidden />
-      <div className="min-w-0 flex-1">
+      {/* The list is a polite live region; errors interrupt. */}
+      <div className="min-w-0 flex-1" role={toast.tone === 'error' ? 'alert' : undefined}>
         <p className="text-sm leading-snug font-semibold">{toast.title}</p>
         {toast.description && <p className="mt-0.5 text-[13px] leading-snug text-fg-muted">{toast.description}</p>}
       </div>

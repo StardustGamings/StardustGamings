@@ -1,12 +1,12 @@
 # Offline storage
 
 Everything Stardeck keeps lives **in your browser on this device**: projects, photos, version history, folders, saved
-templates and settings. Nothing is uploaded, no account exists, and every feature below works offline. The only way your
-work leaves the device is a file you download yourself: an export, a project file or a backup.
+templates, fonts you add and settings. Nothing is uploaded, no account exists, and every feature below works offline.
+The only way your work leaves the device is a file you download yourself: an export, a project file or a backup.
 
 ## What's stored where
 
-IndexedDB database `stardeck` (schema v4, `src/storage/db.ts`):
+IndexedDB database `stardeck` (schema v5, `src/storage/db.ts`):
 
 | Store        | Holds                                                                                     |
 | ------------ | ----------------------------------------------------------------------------------------- |
@@ -18,6 +18,7 @@ IndexedDB database `stardeck` (schema v4, `src/storage/db.ts`):
 | `templates`  | Your saved templates                                                                      |
 | `versions`   | Version history (indexed by project)                                                      |
 | `folders`    | Folders on the projects screen                                                            |
+| `fonts`      | Font files you added (TTF, OTF, WOFF, WOFF2), with their family name and hash             |
 
 Settings are in `localStorage`. Meta and document are written in one transaction, and a failed write rolls back. If
 IndexedDB is blocked (some private-browsing modes), an in-memory backend keeps the app usable. The UI then says work
@@ -80,19 +81,20 @@ A `.stardeck` file is a ZIP:
 
 ```
 stardeck.json                    manifest: kind (project | backup), format version, project list, asset ids,
-                                 folders and templates (backups)
+                                 fonts, folders and templates (backups)
 projects/<id>.json               { meta, doc, thumbnail?, versions? }
 thumbs/<id>.webp                 the design's thumbnail
 assets/<id>/asset.json           photo record (name, size, palette…)
 assets/<id>/original|preview|thumb.<ext>
 templates/<id>.json              saved templates (backups)
+fonts/<id>.<ttf|otf|woff|woff2>  fonts you added that the designs use (all of them in a backup)
 ```
 
 - **Download project file**: from a project card's menu, the editor's **⋯** menu or the command palette. It holds one
-  design and only the photos it uses, with no version history. Use it to move a design to another device or send it to
-  someone. The toast notes that it includes your photos.
+  design, only the photos and added fonts it uses, and no version history. Use it to move a design to another device
+  or send it to someone. The toast notes that it includes your photos.
 - **Back up everything**: from Settings → Storage. It holds every design outside the trash with its version history,
-  plus folders, saved templates and the whole photo and sticker library.
+  plus folders, saved templates, every font you added and the whole photo and sticker library.
 - **Import**: use **Import** on the projects screen (or drop a `.stardeck` file onto it), or **Restore…** in
   Settings → Storage.
 

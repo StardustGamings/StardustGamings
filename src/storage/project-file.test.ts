@@ -7,6 +7,8 @@ import { crc32, createZip, createZipBlob } from '@/export/zip';
 import * as folders from '@/projects/folders';
 import * as repo from '@/projects/repository';
 import * as versions from '@/projects/versions';
+import { createText } from '@/editor/core/factory';
+import { addUserFont, deleteUserFont, listUserFonts } from '@/typography/user-fonts';
 import { getStorage, MemoryStorage, setStorageForTesting } from './db';
 import { importProjectFile, ProjectFileError, remapAssets, writeProjectFile } from './project-file';
 import { openZip, ZipReadError } from './unzip';
@@ -183,6 +185,36 @@ describe('project files', () => {
     expect(report.projects[0]!.id).not.toBe(p.meta.id);
     expect(report.projects[0]!.name).toBe('Summer ✦ (imported)');
     expect(report.photos).toEqual({ added: 0, reused: 1 });
+  });
+
+  it('carries the fonts a design uses, and adds them on another device once', async () => {
+    const woff2 = new Uint8Array([...'wOF2'].map((c) => c.charCodeAt(0)).concat(Array(40).fill(9)));
+    const { font } = await addUserFont(new File([woff2], 'BrandSans-Bold.woff2'));
+    await addUserFont(new File([woff2.map((b, i) => (i < 4 ? b : 3))], 'Unused.woff2'));
+    const p = await repo.createProject({ format: 'post', name: 'Brand post' });
+    const text = { ...createText(p.doc, { x: 540, y: 540 }), fontFamily: font.family };
+    await repo.saveDocument(p.meta.id, { ...p.doc, elements: [...p.doc.elements, text] });
+
+    const { file } = await writeProjectFile([p.meta.id], { kind: 'project' });
+    const zip = await openZip(file);
+    expect([...zip.entries.keys()].filter((k) => k.startsWith('fonts/'))).toEqual([`fonts/${font.id}.woff2`]);
+
+    // Another device: the font arrives with the design, named as it was.
+    setStorageForTesting(new MemoryStorage());
+    const report = await importProjectFile(file);
+    expect(report.fonts).toBe(1);
+    const fonts = await listUserFonts();
+    expect(fonts.map((f) => [f.family, f.format])).toEqual([[font.family, 'woff2']]);
+    expect(await importProjectFile(file)).toMatchObject({ fonts: 0 });
+
+    // A backup keeps every font, used or not.
+    await deleteUserFont(fonts[0]!.id);
+    setStorageForTesting(new MemoryStorage());
+    await addUserFont(new File([woff2], 'BrandSans-Bold.woff2'));
+    await addUserFont(new File([woff2.map((b, i) => (i < 4 ? b : 3))], 'Unused.woff2'));
+    const backup = await writeProjectFile('all', { kind: 'backup' });
+    setStorageForTesting(new MemoryStorage());
+    expect(await importProjectFile(backup.file)).toMatchObject({ fonts: 2 });
   });
 
   it('refuses files that aren’t Stardeck files or come from a newer version, and skips damaged parts', async () => {

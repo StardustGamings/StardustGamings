@@ -9,7 +9,9 @@ import { assetHash } from '@/assets/video';
 import { MAX_VIDEO_BYTES } from '@/assets/types';
 import { createZipBlob, type ZipBlobEntry } from '@/export/zip';
 import { fileStem } from '@/export/plan';
-import { documentSchema, formatSchema, sizeIdSchema } from '@/projects/schema';
+import { documentSchema, fontFamilySchema, formatSchema, sizeIdSchema } from '@/projects/schema';
+import { documentFonts } from '@/projects/document';
+import { importUserFonts, MAX_FONT_BYTES } from '@/typography/user-fonts';
 import { adoptFolder } from '@/projects/folders';
 import { insertProject, sanitizeName } from '@/projects/repository';
 import { documentBytes, sameDocument, versionsToPrune } from '@/projects/versions';
@@ -80,6 +82,11 @@ const manifestSchema = z.object({
     .max(1000)
     .optional(),
   templates: z.array(z.string().max(200)).max(2000).optional(),
+  /** Fonts the person added that these designs use (all of them in a backup). */
+  fonts: z
+    .array(z.object({ id, family: fontFamilySchema, fileName: z.string().max(120), path: z.string().max(200) }))
+    .max(500)
+    .optional(),
 });
 
 const versionSchema = z.object({
@@ -193,14 +200,20 @@ export async function writeProjectFile(projectIds: string[] | 'all', options: Wr
 
   const entries: ZipBlobEntry[] = [];
   const assetIds = new Set<string>();
+  const families = new Set<string>();
+  const noteFonts = (d: DesignDocument) => documentFonts(d).forEach((f) => families.add(f.family.toLowerCase()));
   const projectRefs: { id: string; path: string }[] = [];
 
   for (const meta of metas) {
     const doc = options.docs?.get(meta.id) ?? (await storage.getDocument(meta.id));
     if (!doc) continue;
     documentAssetIds(doc).forEach((a) => assetIds.add(a));
+    noteFonts(doc);
     const versions: VersionRecord[] = backup ? await storage.getVersions(meta.id) : [];
-    for (const v of versions) documentAssetIds(v.doc).forEach((a) => assetIds.add(a));
+    for (const v of versions) {
+      documentAssetIds(v.doc).forEach((a) => assetIds.add(a));
+      noteFonts(v.doc);
+    }
     const thumb = await storage.getThumbnail(meta.id);
     const thumbPath = thumb ? `thumbs/${meta.id}.${EXT[thumb.blob.type] ?? 'webp'}` : undefined;
     if (thumb && thumbPath) entries.push({ name: thumbPath, data: thumb.blob });
@@ -242,6 +255,7 @@ export async function writeProjectFile(projectIds: string[] | 'all', options: Wr
     folders = await storage.getAllFolders();
     for (const t of await storage.getAllTemplates()) {
       documentAssetIds(t.doc).forEach((a) => assetIds.add(a));
+      noteFonts(t.doc);
       const path = `templates/${t.id}.json`;
       entries.push({ name: path, data: json(t) });
       templatePaths.push(path);
@@ -276,6 +290,15 @@ export async function writeProjectFile(projectIds: string[] | 'all', options: Wr
   }
   options.onProgress?.(ids.length, ids.length);
 
+  // Fonts the person added travel with the designs that use them (a backup keeps them all).
+  const fontRefs: NonNullable<z.infer<typeof manifestSchema>['fonts']> = [];
+  for (const f of await storage.getAllFonts()) {
+    if (!backup && !families.has(f.family.toLowerCase())) continue;
+    const path = `fonts/${f.id}.${f.format}`;
+    entries.push({ name: path, data: f.blob });
+    fontRefs.push({ id: f.id, family: f.family, fileName: f.fileName, path });
+  }
+
   const manifest: z.infer<typeof manifestSchema> = {
     kind: backup ? 'stardeck-backup' : 'stardeck-project',
     version: FILE_FORMAT_VERSION,
@@ -283,6 +306,7 @@ export async function writeProjectFile(projectIds: string[] | 'all', options: Wr
     createdAt: Date.now(),
     projects: projectRefs,
     assets: written,
+    ...(fontRefs.length ? { fonts: fontRefs } : {}),
     ...(backup ? { folders, templates: templatePaths } : {}),
   };
   entries.unshift({ name: MANIFEST, data: json(manifest) });
@@ -304,6 +328,8 @@ export interface ImportReport {
   folders: number;
   templates: number;
   photos: { added: number; reused: number };
+  /** Fonts added to this device from the file. */
+  fonts: number;
   /** Parts of the file that were damaged and skipped. */
   skipped: number;
 }
@@ -374,6 +400,7 @@ export async function importProjectFile(
     folders: 0,
     templates: 0,
     photos: { added: 0, reused: 0 },
+    fonts: 0,
     skipped: 0,
   };
   const total = manifest.assets.length + manifest.projects.length + (manifest.templates?.length ?? 0);
@@ -428,6 +455,21 @@ export async function importProjectFile(
       await storage.putAsset(record, { original: blobs.original, preview: blobs.preview, thumb: blobs.thumb });
       assetMap.set(assetId, newId);
       report.photos.added++;
+    }
+
+    // 1b · Fonts the designs use (a family already on this device is kept as it is).
+    if (manifest.fonts?.length) {
+      step('Adding fonts…');
+      const found: { family: string; fileName: string; blob: Blob }[] = [];
+      for (const f of manifest.fonts) {
+        try {
+          const bytes = await zip.bytes(`fonts/${f.path.split('/').pop()}`, MAX_FONT_BYTES);
+          found.push({ family: f.family, fileName: f.fileName, blob: new Blob([bytes]) });
+        } catch {
+          report.skipped++;
+        }
+      }
+      report.fonts = await importUserFonts(found);
     }
 
     // 2 · Folders (backups): merged by name.
