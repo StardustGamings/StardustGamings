@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Match the app's dark theme so there's no white flash while it starts. -->
+    <color name="stardeck_background">#101012</color>
+    <color name="stardeck_splash">#0A0A11</color>
+</resources>

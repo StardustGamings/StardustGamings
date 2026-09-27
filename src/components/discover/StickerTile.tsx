@@ -7,6 +7,7 @@ import { renderDocument } from '@/canvas/render';
 import { ScenePreview } from '@/canvas/ScenePreview';
 import { stickerName } from '@/stickers/library';
 import { toast } from '@/components/ui/toast-store';
+import { downloadBlob, savedToNote } from '@/utils/download';
 
 function stickerDoc(stickerId: string, size: number): DesignDocument {
   return {
@@ -27,20 +28,21 @@ async function downloadSticker(stickerId: string) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   renderDocument(ctx, stickerDoc(stickerId, size), { scale: 1 });
-  canvas.toBlob((blob) => {
+  canvas.toBlob(async (blob) => {
     if (!blob) {
       toast({ title: 'Couldn’t render that sticker', tone: 'error' });
       return;
     }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `stardeck-${stickerName(stickerId)
+    const fileName = `stardeck-${stickerName(stickerId)
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')}.png`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    toast({ title: 'Sticker saved', description: 'Transparent 512px PNG', tone: 'success' });
+    try {
+      await downloadBlob(blob, fileName);
+    } catch {
+      toast({ title: 'Couldn’t save that sticker', tone: 'error' });
+      return;
+    }
+    toast({ title: 'Sticker saved', description: `Transparent 512px PNG.${savedToNote()}`, tone: 'success' });
   }, 'image/png');
 }
 

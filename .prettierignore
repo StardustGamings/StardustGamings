@@ -13,3 +13,8 @@ src/templates/catalog.generated.json
 src/trends/bundled.generated.json
 public/trends/pack.schema.json
 server/dist
+android/app/src/main/assets
+android/app/build
+android/build
+android/.gradle
+android/capacitor-cordova-android-plugins

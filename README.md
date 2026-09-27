@@ -75,6 +75,8 @@ npm start            # serves out/ at http://127.0.0.1:3000 with production secu
 | `npm run workers`               | Bundle the photo/cut-out Web Workers with esbuild                        |
 | `npm run fonts`                 | Re-sync bundled fonts from `src/typography/font-catalog.json`            |
 | `npm run icons`                 | Re-render PWA icons from the logo                                        |
+| `npm run icons:android`         | Re-render the Android launcher icons and launch screens                  |
+| `npm run android:apk`           | Build the Android APK (JDK 21 + Android SDK; see `docs/ANDROID.md`)      |
 | `npm run templates`             | Compile the template authoring kit to JSON and re-index the library      |
 | `npm run templates:check`       | Check every template's text fits its box, measured with the real fonts   |
 | `npm run trends:check`          | Validate every trend drop strictly and check the bundled copy is in sync |
@@ -230,6 +232,7 @@ it like a native app, with its own icon and window, and it keeps working offline
 
 | Device                  | How to install                                                                                        |
 | ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| Android (APK)           | Download **Stardeck.apk** from this repo's Releases page and open it (see below).                     |
 | Android (Chrome)        | Open the site → ⋮ menu → **Install app** (or **Add to Home screen**).                                 |
 | iPhone / iPad (Safari)  | Open the site → **Share** → **Add to Home Screen**.                                                   |
 | Windows / macOS / Linux | In Chrome or Edge, click the install icon in the address bar, or open **Settings → About → Install**. |
@@ -237,9 +240,12 @@ it like a native app, with its own icon and window, and it keeps working offline
 The first visit caches the whole app (about 4 MB). After that the editor, templates and fonts all work with no
 connection. When you open it online, new versions download in the background and a **Reload** prompt appears.
 
-**Store apps:** native Android/iOS builds aren't published yet. The static export is designed to be wrapped with
-[Capacitor](https://capacitorjs.com/) (`webDir: "out"`), which is planned for a later phase. No server is required for
-any current feature.
+**Android app:** a real APK, built with [Capacitor](https://capacitorjs.com/) from the same static export, with
+everything inside it so it works offline with nothing hosted. Every push builds it and publishes it to the
+[**Stardeck for Android**](https://github.com/StardustGamings/StardustGamings/releases/tag/android-latest) release.
+Download `Stardeck.apk` on the phone, open it, and allow installs from your browser if Android asks. Newer builds
+install over it and keep your designs. Details, local builds and signing: [`docs/ANDROID.md`](docs/ANDROID.md). iOS
+store builds aren't made yet.
 
 ## Privacy & security
 

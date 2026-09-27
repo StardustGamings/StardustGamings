@@ -17,6 +17,7 @@ import {
   type ExportOptions,
 } from './plan';
 import { createZip } from './zip';
+import { isNativeApp } from '@/native/platform';
 
 /**
  * Exports a design entirely on this device: renders each region with the
@@ -152,6 +153,8 @@ export async function exportDesign(
 
 /** Can this device share these files through the system share sheet (phones, some desktops)? */
 export function canShareFiles(files: File[]): boolean {
+  // The Android app shares through its own bridge to the system share sheet.
+  if (isNativeApp()) return true;
   try {
     return typeof navigator !== 'undefined' && !!navigator.canShare && navigator.canShare({ files });
   } catch {

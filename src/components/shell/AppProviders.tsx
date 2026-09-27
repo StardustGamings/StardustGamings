@@ -13,6 +13,7 @@ import { ProjectDialogs } from '@/components/projects/ProjectDialogs';
 import { TransferStatus } from '@/components/projects/TransferStatus';
 import { Backdrop } from './Backdrop';
 import { LazyDialogs } from './LazyDialogs';
+import { NativeApp } from './NativeApp';
 import { ServiceWorker } from './ServiceWorker';
 import { ThemeController } from './ThemeController';
 
@@ -41,6 +42,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         <TransferStatus />
         <Toaster />
         <ServiceWorker />
+        <NativeApp />
       </TooltipProvider>
     </MotionConfig>
   );

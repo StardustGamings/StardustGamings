@@ -33,6 +33,7 @@ import { Switch } from '@/components/ui/Switch';
 import { toast } from '@/components/ui/toast-store';
 import { cn } from '@/utils/cn';
 import { downloadBlob } from '@/utils/download';
+import { isNativeApp, NATIVE_SAVE_FOLDER } from '@/native/platform';
 
 type Scope = 'all' | 'one' | 'strip';
 type AnyFormat = ExportFormat | MotionFormat;
@@ -83,12 +84,31 @@ function Celebration() {
 }
 
 function saveFiles(result: ExportResult) {
+  if (isNativeApp()) {
+    void saveOnPhone(result);
+    return;
+  }
   if (result.bundle) {
-    downloadBlob(result.bundle, result.bundle.name);
+    void downloadBlob(result.bundle, result.bundle.name);
     return;
   }
   // Separate files: a short gap between downloads keeps browsers happy.
-  result.files.forEach((f, i) => setTimeout(() => downloadBlob(f, f.name), i * 250));
+  result.files.forEach((f, i) => setTimeout(() => void downloadBlob(f, f.name), i * 250));
+}
+
+/** The Android app has no download bar, so say where the files went. */
+async function saveOnPhone(result: ExportResult) {
+  const files = result.bundle ? [result.bundle] : result.files;
+  try {
+    for (const f of files) await downloadBlob(f, f.name);
+    toast({
+      title: `Saved to ${NATIVE_SAVE_FOLDER}`,
+      description: files.length === 1 ? files[0]!.name : `${files.length} files`,
+      tone: 'success',
+    });
+  } catch {
+    toast({ title: 'Couldn’t save to this phone', description: 'Try Share instead, or free up some space.', tone: 'error' });
+  }
 }
 
 function Body({
@@ -208,7 +228,12 @@ function Body({
   const share = async () => {
     if (!result) return;
     try {
-      await navigator.share({ files: result.files, title: meta.name });
+      if (isNativeApp()) {
+        const { shareFiles } = await import('@/native/files');
+        await shareFiles(result.files, meta.name);
+      } else {
+        await navigator.share({ files: result.files, title: meta.name });
+      }
     } catch (e) {
       // Closing the share sheet is not an error; anything else falls back to saving.
       if ((e as Error).name === 'AbortError') return;

@@ -507,8 +507,15 @@ The brief's final checklist, item by item, is in [QUALITY.md](QUALITY.md).
   bundle budget are clean.
 - **Version 1.0.0.**
 
+## Android app ✅
+
+- The static export packed into an APK with Capacitor: fully offline, nothing hosted. CI builds it on every push and
+  publishes it as the **Stardeck for Android** release (see `docs/ANDROID.md`).
+- Save writes to Documents/Stardeck, Share opens the Android share sheet, the back button closes dialogs before going
+  back, and the status bar follows the theme. Page URLs load their own HTML (Capacitor's server would show Home).
+
 ## After 1.0
 
 - Opt-in cloud backup & sync (labelled **Soon** in Settings; nothing requires it).
-- Native wrappers (Capacitor) for the app stores.
+- Play Store and iOS builds (needs a private signing key and store listings).
 - Pairing a family's separate bold and italic files into one font.

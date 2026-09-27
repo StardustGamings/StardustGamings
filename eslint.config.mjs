@@ -16,6 +16,7 @@ export default defineConfig([
     'test-results/**',
     'playwright-report/**',
     'server/dist/**',
+    'android/**',
   ]),
   {
     rules: {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { isNativeApp } from '@/native/platform';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -26,6 +27,7 @@ if (typeof window !== 'undefined') {
 
 function detect(): InstallState {
   if (typeof window === 'undefined') return 'unavailable';
+  if (isNativeApp()) return 'installed';
   const standalone =
     window.matchMedia?.('(display-mode: standalone)').matches ||
     (navigator as Navigator & { standalone?: boolean }).standalone === true;

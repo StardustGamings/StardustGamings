@@ -5,7 +5,7 @@ import type { Template } from '@/templates/registry';
 import { useTemplateLibrary } from '@/templates/store';
 import { parseTemplateFile, serializeTemplateFile, TemplateFileError, templateFileName } from '@/templates/user';
 import { toast } from '@/components/ui/toast-store';
-import { downloadBlob } from '@/utils/download';
+import { downloadBlob, savedToNote } from '@/utils/download';
 
 /** Asset ids of the user's own stickers — kept in local templates, left out of exported files. */
 export function stickerAssetIds(): Set<string> {
@@ -21,10 +21,15 @@ export function stickerAssetIds(): Set<string> {
 export async function exportTemplate(template: Template): Promise<void> {
   await useAssets.getState().load();
   const json = serializeTemplateFile(template, { stickerAssetIds: stickerAssetIds() });
-  downloadBlob(new Blob([json], { type: 'application/json' }), templateFileName(template.name));
+  try {
+    await downloadBlob(new Blob([json], { type: 'application/json' }), templateFileName(template.name));
+  } catch {
+    toast({ title: 'Couldn’t save the template file', tone: 'error' });
+    return;
+  }
   toast({
     title: 'Template file saved',
-    description: 'Photos aren’t included — they stay on this device. Frames come through empty.',
+    description: `Photos aren’t included — they stay on this device. Frames come through empty.${savedToNote()}`,
     tone: 'success',
   });
 }

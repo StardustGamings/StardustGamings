@@ -8,7 +8,7 @@ import { getProject } from '@/projects/repository';
 import { useProjects } from '@/projects/store';
 import { importProjectFile, PROJECT_FILE_EXTENSION, ProjectFileError, writeProjectFile } from '@/storage/project-file';
 import { useTemplateLibrary } from '@/templates/store';
-import { downloadBlob } from '@/utils/download';
+import { downloadBlob, savedToNote } from '@/utils/download';
 import { formatBytes } from '@/utils/time';
 import { toast } from '@/components/ui/toast-store';
 
@@ -40,10 +40,10 @@ export async function downloadProjectFile(projectId: string, doc?: DesignDocumen
       kind: 'project',
       docs: doc ? new Map([[projectId, doc]]) : undefined,
     });
-    downloadBlob(file, file.name);
+    await downloadBlob(file, file.name);
     toast({
       title: `Saved ${file.name}`,
-      description: `${formatBytes(file.size)}${photos ? ` · includes ${plural(photos, 'photo')} — share it only with people you trust` : ''}. Open it in Stardeck on any device.`,
+      description: `${formatBytes(file.size)}${photos ? ` · includes ${plural(photos, 'photo')} — share it only with people you trust` : ''}. Open it in Stardeck on any device.${savedToNote()}`,
       tone: 'success',
     });
   } catch (e) {
@@ -66,10 +66,10 @@ export async function downloadBackup(): Promise<void> {
       kind: 'backup',
       onProgress: (done, total) => transfer.update('Backing up photos…', done, total),
     });
-    downloadBlob(file, file.name);
+    await downloadBlob(file, file.name);
     toast({
       title: 'Backup saved',
-      description: `${file.name} · ${formatBytes(file.size)} · ${plural(projects, 'design')}, ${plural(photos, 'photo')}. Keep it somewhere safe.`,
+      description: `${file.name} · ${formatBytes(file.size)} · ${plural(projects, 'design')}, ${plural(photos, 'photo')}. Keep it somewhere safe.${savedToNote()}`,
       tone: 'success',
     });
   } catch (e) {
