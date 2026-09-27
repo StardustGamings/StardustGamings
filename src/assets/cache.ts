@@ -1,4 +1,5 @@
 import type { DrawableImage } from '@/canvas/render/types';
+import { budgetBytes } from '@/utils/memory';
 import { getAssetBlob, getAssetMeta } from './repository';
 import type { AssetMeta, AssetVariant } from './types';
 
@@ -20,9 +21,7 @@ type Entry =
   | { state: 'ready'; asset: LoadedAsset; bytes: number; used: number }
   | { state: 'missing' };
 
-const deviceMemory = () =>
-  (typeof navigator !== 'undefined' && (navigator as Navigator & { deviceMemory?: number }).deviceMemory) || 4;
-const BUDGET_BYTES = (deviceMemory() >= 8 ? 320 : 160) * 1024 * 1024;
+const BUDGET_BYTES = budgetBytes({ low: 96, normal: 160, high: 320 });
 const entries = new Map<string, Entry>();
 const listeners = new Set<() => void>();
 let version = 0;

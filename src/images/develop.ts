@@ -3,6 +3,7 @@ import type { DrawableImage } from '@/canvas/render/types';
 import { createFillStyle } from '@/canvas/render/fill';
 import { markAssetsChanged, type LoadedAsset } from '@/assets/cache';
 import { createWorkerClient, type WorkerClient } from '@/utils/worker-rpc';
+import { budgetBytes } from '@/utils/memory';
 import { effectiveAdjust, effectiveEffects, effectiveLut } from '@/filters/compose';
 import { effectParams, glowRadius } from '@/effects/effects';
 import {
@@ -31,10 +32,8 @@ interface Slot {
   used: number;
 }
 
-/** Phones with little memory get a smaller cache (navigator.deviceMemory is in GB, Chromium only). */
-const deviceMemory = () =>
-  (typeof navigator !== 'undefined' && (navigator as Navigator & { deviceMemory?: number }).deviceMemory) || 4;
-const BUDGET_BYTES = (deviceMemory() >= 8 ? 256 : 128) * 1024 * 1024;
+/** Phones with little memory get a smaller cache. */
+const BUDGET_BYTES = budgetBytes({ low: 64, normal: 128, high: 256 });
 const slots = new Map<string, Slot>();
 let clock = 0;
 let totalBytes = 0;

@@ -10,8 +10,9 @@ thumbnails, collages, posters and moodboards.
 - **Works offline.** Installable PWA; the editor, templates, fonts and trend packs are all cached.
 - **Never lose work.** Autosave, version history, `.stardeck` project files and one-tap backups — all on your device.
 
-> **Status: Phase 11 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
-> templates, filters & effects, export, offline storage, animations & video, the trend system and optional AI tools. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
+> **Status: Phase 12 of 13 complete** — app shell, design system, canvas editor, photo editing, carousel tools,
+> templates, filters & effects, export, offline storage, animations & video, the trend system, optional AI tools and a
+> performance pass. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for exactly what works today and what lands
 > next. Features that aren't built yet are marked **Soon** in the UI; there are no fake buttons.
 
 ---
@@ -76,6 +77,7 @@ npm start            # serves out/ at http://127.0.0.1:3000 with production secu
 | `npm run templates`             | Compile the template authoring kit to JSON and re-index the library      |
 | `npm run templates:check`       | Check every template's text fits its box, measured with the real fonts   |
 | `npm run trends:check`          | Validate every trend drop strictly and check the bundled copy is in sync |
+| `npm run perf:budget`           | Check each page's up-front JavaScript against its budget (after a build) |
 | `npm run ai-proxy`              | Build and start the optional AI server (see `docs/AI.md`)                |
 
 End-to-end tests run against the production build: `npm run build && npm run test:e2e`.
@@ -159,6 +161,10 @@ Key decisions:
   zoom, straighten and flips are layout maths in the renderer; adjustments, curves, perspective and cut-outs run through
   a cached WebGL "develop" pipeline (a Web Worker does the same maths where WebGL is missing). The vignette is drawn per
   frame so it follows the crop.
+- **Fast on phones.** Pages load only what's on screen; dialogs and editor tools load on first use (and in the
+  background when idle). Photo import, filter thumbnails and export encoding run in workers; previews draw in short
+  slices and only when their slide changed; a drag redraws just the moving elements over cached layers. Caches are
+  sized by device memory. See [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md).
 - **Workers outside the bundler.** `scripts/build-workers.mjs` bundles the Web Workers with esbuild into plain files the
   static site serves from its own origin — deterministic in dev and production, and CSP-friendly.
 - **Local-first storage.** Project metadata, documents, thumbnails, photos, versions and folders live in separate

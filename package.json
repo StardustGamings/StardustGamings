@@ -1,6 +1,6 @@
 {
   "name": "stardeck",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "description": "Stardeck — a free, local-first social design & carousel studio. Create. Swipe. Flex.",
   "scripts": {
@@ -22,6 +22,7 @@
     "templates:check": "node scripts/check-templates.mjs",
     "trends": "node scripts/build-trends.mjs",
     "trends:check": "node scripts/build-trends.mjs --check",
+    "perf:budget": "node scripts/check-bundle.mjs",
     "ai-proxy:build": "node scripts/build-ai-proxy.mjs",
     "ai-proxy": "node scripts/build-ai-proxy.mjs && node server/dist/ai-proxy.mjs"
   },

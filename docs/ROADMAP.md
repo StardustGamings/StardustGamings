@@ -16,8 +16,8 @@ end-to-end tests before the next one starts. Anything not yet built is labelled 
 | 9   | Animations & video         | ✅ Done |
 | 10  | Trend system               | ✅ Done |
 | 11  | Optional AI integrations   | ✅ Done |
-| 12  | Performance                | ⏭️ Next |
-| 13  | Testing & hardening        | Planned |
+| 12  | Performance                | ✅ Done |
+| 13  | Testing & hardening        | ⏭️ Next |
 
 ## Phase 1 — App shell & design system ✅
 
@@ -421,7 +421,51 @@ Known limits:
 - AI Background makes concepts from fills and shapes. It doesn't generate images.
 - The AI server's rate limit is in memory, per process or isolate. Add the host's own limits for stricter control.
 
+## Phase 12 — Performance ✅
+
+Measured first (bundle analysis, CPU profiles and traces of the production build with source maps), then fixed what
+the numbers showed. Details and numbers are in [PERFORMANCE.md](PERFORMANCE.md).
+
+- **Less JavaScript up front:**
+  - App-wide dialogs load on first use, prefetched when the page is idle: new design, photo flows, template preview,
+    save template, export, command palette and onboarding.
+  - So do the editor's tool panels and dialogs.
+  - zod is imported so unused parts drop out.
+  - Home went from 521 to 402 KB gzipped, the editor from 592 to 479 KB. `npm run perf:budget` (also in CI) keeps it
+    that way.
+- **Big photos never freeze the page:**
+  - The import worker reads, hashes and scales the file itself.
+  - Filter thumbnails develop in a worker, with no GPU read-backs on the page.
+  - The worst stall importing a 24 MP photo went from 234 ms to about 55 ms.
+- **Drawing only what changed:**
+  - Mid-gesture, the editor caches what's below and above the moving elements as two layers.
+  - Previews draw in short slices, only near the viewport, and only when their own slide changed. The slide strip no
+    longer redraws every thumbnail on every drag move.
+  - Discover's off-screen sections skip layout.
+  - The top bar and rails no longer force a layout on render.
+- **Memory:** photo and develop caches are sized by device memory (96/64 MB on 2 GB phones), and gesture layers and
+  export canvases are freed as soon as they're done.
+- **Export:** High and Maximum snapshot each slide to an encode worker. A 5-slide Maximum export went from 6.1 s to
+  1.7 s.
+- **Fixed along the way:**
+  - The GL pipeline could sample the texture it was drawing into (a stale sampler binding), blanking a cut-out. Every
+    pass now clears its texture units.
+  - The new-design dialog, mounted on first use, ignored the format it was opened for.
+- **Quality:** 315 unit/component tests and 139 Playwright runs across desktop, phone and no-WebGL.
+  - A video test recorded its clip against the wall clock and could come out short on a busy machine; it now aims for
+    the middle of the expected range.
+  - New `e2e/performance.spec.ts` checks:
+    - lazily loaded dialogs open for what was asked;
+    - a 24-megapixel photo imports with no main-thread stall over 150 ms;
+    - dragging in a carousel stays under that too.
+
+Known limits:
+
+- Motion (~45 KB gzipped) still loads with every page. Its lazy mode would hide elements that animate in until an
+  extra chunk arrives.
+- Export slides still render on the page, but encoding doesn't.
+
 ## Later phases (summary)
 
-- **12–13 · Performance & hardening:** worker rendering, memory budgets for large images, accessibility audit, visual
-  regression tests.
+- **13 · Testing & hardening:** an accessibility audit, filling test gaps (large images, touch, responsive), a pass over
+  every button and console message, and the brief's final quality checklist.

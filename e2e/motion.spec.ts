@@ -236,7 +236,9 @@ test.describe('motion (desktop)', () => {
 
   test('video clips: add one, trim and speed, sound on or off in the exported MP4', async ({ app: page }) => {
     await newPost(page);
-    const clip = await recordClip(page, 2);
+    // Recorded against the wall clock: a busy machine can drop the last frames, so aim for the
+    // middle of the "2.x seconds" range the checks below expect.
+    const clip = await recordClip(page, 2.4);
     await page.getByTestId('photo-input').setInputFiles({ name: 'clip.webm', mimeType: 'video/webm', buffer: clip });
     await expect(page.getByTestId('selection-frame')).toBeVisible({ timeout: 20_000 });
     const length = page.getByTestId('clip-length');

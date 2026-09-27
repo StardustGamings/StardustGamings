@@ -31,6 +31,7 @@ await build({
   entryPoints: {
     process: path.join(root, 'src/assets/process.worker.ts'),
     develop: path.join(root, 'src/images/develop.worker.ts'),
+    encode: path.join(root, 'src/export/encode.worker.ts'),
   },
   outdir: out,
 });
@@ -53,4 +54,4 @@ await copyFile(
   path.join(ortDir, 'ort-wasm-simd-threaded.wasm'),
 );
 
-console.log('workers: built process, develop, cutout · ONNX Runtime wasm copied');
+console.log('workers: built process, develop, encode, cutout · ONNX Runtime wasm copied');
