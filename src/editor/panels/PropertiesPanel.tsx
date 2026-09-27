@@ -34,7 +34,7 @@ import { Switch } from '@/components/ui/Switch';
 import { Slider } from '@/components/ui/Slider';
 import * as actions from '../actions';
 import { TEXT_PRESETS } from '../core/factory';
-import { elementLabel, fitTextHeight, scaleElementContent } from '../core/ops';
+import { elementLabel, fitTextHeight, reorderElements, scaleElementContent } from '../core/ops';
 import { selectDoc, useEditor } from '../store';
 import { ActionButton, FillField, IconToggle, NumberField, Row, Section } from './fields';
 import { FontPicker } from './FontPicker';
@@ -53,6 +53,11 @@ function Header({ els }: { els: DesignElement[] }) {
   const allLocked = els.every((e) => e.locked);
   const allHidden = els.every((e) => e.hidden);
   const grouped = els.some((e) => e.groupId);
+  const doc = useEditor(selectDoc);
+  // Already at the top (or bottom) of the stack: the button would do nothing, so it's disabled.
+  const ids = els.map((e) => e.id);
+  const canRaise = !!doc && reorderElements(doc, ids, 'forward') !== doc;
+  const canLower = !!doc && reorderElements(doc, ids, 'backward') !== doc;
   return (
     <Section title={single ? 'Selected' : `${els.length} selected`}>
       {single && (
@@ -65,10 +70,10 @@ function Header({ els }: { els: DesignElement[] }) {
         <ActionButton label="Duplicate" onClick={actions.duplicateSelection}>
           <Copy />
         </ActionButton>
-        <ActionButton label="Bring forward" onClick={() => actions.reorder('forward')}>
+        <ActionButton label="Bring forward" disabled={!canRaise} onClick={() => actions.reorder('forward')}>
           <ArrowUp />
         </ActionButton>
-        <ActionButton label="Send backward" onClick={() => actions.reorder('backward')}>
+        <ActionButton label="Send backward" disabled={!canLower} onClick={() => actions.reorder('backward')}>
           <ArrowDown />
         </ActionButton>
         {els.length > 1 && !grouped && (
@@ -282,8 +287,10 @@ function TextSection({ el }: { el: TextElement }) {
           </select>
           <IconToggle
             label="Italic"
+            title={hasItalic || el.fontStyle === 'italic' ? 'Italic' : `${el.fontFamily} has no italic`}
             pressed={el.fontStyle === 'italic'}
-            onClick={() => hasItalic && set('italic', { fontStyle: el.fontStyle === 'italic' ? 'normal' : 'italic' })}
+            disabled={!hasItalic && el.fontStyle !== 'italic'}
+            onClick={() => set('italic', { fontStyle: el.fontStyle === 'italic' ? 'normal' : 'italic' })}
           >
             <Italic />
           </IconToggle>

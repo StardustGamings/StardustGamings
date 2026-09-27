@@ -211,12 +211,17 @@ export function FillField({
 
 export function IconToggle({
   label,
+  title,
   pressed,
+  disabled,
   onClick,
   children,
 }: {
   label: string;
+  /** Tooltip, when it should say more than the label (e.g. why it's disabled). */
+  title?: string;
   pressed: boolean;
+  disabled?: boolean;
   onClick: () => void;
   children: ReactNode;
 }) {
@@ -224,11 +229,12 @@ export function IconToggle({
     <button
       type="button"
       aria-label={label}
-      title={label}
+      title={title ?? label}
       aria-pressed={pressed}
+      disabled={disabled}
       onClick={onClick}
       className={cn(
-        'flex h-9 min-w-9 items-center justify-center rounded-[10px] border px-2 text-[12px] font-semibold transition-colors [&_svg]:size-4',
+        'flex h-9 min-w-9 items-center justify-center rounded-[10px] border px-2 text-[12px] font-semibold transition-colors disabled:opacity-35 [&_svg]:size-4',
         pressed ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
       )}
     >

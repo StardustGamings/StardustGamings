@@ -188,6 +188,30 @@ test.describe('canvas editor (desktop)', () => {
     await expect(page.getByText('Locked items can’t be moved or edited.')).toBeVisible();
   });
 
+  test('buttons that would do nothing are disabled: stacking order, italic without an italic face', async ({ app: page }) => {
+    await newPost(page);
+    await addRectangle(page);
+    const raise = page.getByRole('button', { name: 'Bring forward' });
+    const lower = page.getByRole('button', { name: 'Send backward' });
+    // The only element: nowhere to go.
+    await expect(raise).toBeDisabled();
+    await expect(lower).toBeDisabled();
+    await addRectangle(page);
+    await expect(raise).toBeDisabled(); // the new one is on top
+    await expect(lower).toBeEnabled();
+    await lower.click();
+    await expect(raise).toBeEnabled();
+    await expect(lower).toBeDisabled();
+
+    await page.getByRole('button', { name: 'Text', exact: true }).first().click();
+    await page.getByTestId('text-panel').getByRole('button', { name: 'Add a heading' }).click();
+    await page.getByRole('button', { name: /^Font: / }).click();
+    await page.getByRole('textbox', { name: 'Search fonts' }).fill('Anton');
+    await page.getByRole('dialog', { name: 'Choose a font' }).getByRole('button', { name: /^Anton/ }).click();
+    await expect(page.getByRole('button', { name: 'Italic' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Italic' })).toHaveAttribute('title', 'Anton has no italic');
+  });
+
   test('pans and zooms the canvas; rulers create guides', async ({ app: page }) => {
     await newPost(page);
     const zoom = page.getByTestId('zoom-menu');
