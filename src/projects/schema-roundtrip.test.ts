@@ -65,6 +65,7 @@ const full: DesignDocument = {
       lineHeight: 1.1,
       letterSpacing: -0.02,
       textTransform: 'uppercase',
+      warp: { style: 'arc', amount: -35 },
       stroke: { color: '#000000', width: 2 },
       highlight: { fill: { type: 'solid', color: '#C6FF3D' }, padding: 8, radius: 6 },
       animation: {

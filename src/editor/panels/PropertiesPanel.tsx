@@ -25,7 +25,8 @@ import {
   Ungroup,
   Unlock,
 } from 'lucide-react';
-import type { DesignElement, ShapeElement, TextElement } from '@/types/document';
+import type { DesignElement, ShapeElement, TextElement, TextWarpStyle } from '@/types/document';
+import { cn } from '@/utils/cn';
 import { slideIndexOf } from '@/projects/document';
 import { findBundledFont, supportedWeight } from '@/typography/fonts';
 import { useTrends } from '@/trends/store';
@@ -476,7 +477,62 @@ function TextSection({ el }: { el: TextElement }) {
           </>
         )}
       </Section>
+      <WarpSection el={el} set={set} />
     </>
+  );
+}
+
+const WARPS: { style: TextWarpStyle | null; label: string; hint: string }[] = [
+  { style: null, label: 'None', hint: 'Straight text' },
+  { style: 'arc', label: 'Arc', hint: 'Lines follow a circle' },
+  { style: 'wave', label: 'Wave', hint: 'A wave across the text' },
+  { style: 'bulge', label: 'Bulge', hint: 'Bigger in the middle' },
+  { style: 'rise', label: 'Rise', hint: 'Grows from one side to the other' },
+];
+
+/** Curved text (arc) and warps. The renderer draws them glyph by glyph; editing shows the text straight. */
+function WarpSection({ el, set }: { el: TextElement; set: (key: string, patch: Partial<TextElement>) => void }) {
+  const current = el.warp?.style ?? null;
+  const amount = Math.round(el.warp?.amount ?? 0);
+  return (
+    <Section title="Curve & warp">
+      <div role="radiogroup" aria-label="Text warp" className="flex flex-wrap gap-1.5">
+        {WARPS.map((w) => (
+          <button
+            key={w.label}
+            type="button"
+            role="radio"
+            aria-checked={current === w.style}
+            title={w.hint}
+            onClick={() =>
+              set('warp-style', {
+                warp: w.style ? { style: w.style, amount: el.warp?.amount || (w.style === 'arc' ? 40 : 50) } : undefined,
+              })
+            }
+            className={cn(
+              'h-8 rounded-full border px-3 text-[12px] font-semibold transition-colors',
+              current === w.style ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+            )}
+          >
+            {w.label}
+          </button>
+        ))}
+      </div>
+      {el.warp && (
+        <div>
+          <p className="mb-2 text-[13px] text-fg-muted">
+            {el.warp.style === 'arc' ? 'Bend' : 'Strength'} · {amount > 0 ? `+${amount}` : amount}
+          </p>
+          <Slider
+            aria-label={el.warp.style === 'arc' ? 'Curve bend' : 'Warp strength'}
+            min={-100}
+            max={100}
+            value={amount}
+            onChange={(v) => set('warp-amount', { warp: { ...el.warp!, amount: v } })}
+          />
+        </div>
+      )}
+    </Section>
   );
 }
 

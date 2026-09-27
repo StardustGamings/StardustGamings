@@ -85,8 +85,17 @@ export interface TextElement extends ElementBase {
   letterSpacing: number;
   textTransform?: 'none' | 'uppercase' | 'lowercase';
   stroke?: Stroke;
-  /** Per-line highlight behind the text (the "caption pill" look). */
+  /** Per-line highlight behind the text (the "caption pill" look). Not drawn on warped text. */
   highlight?: { fill: Fill; padding: number; radius: number };
+  /** Curved or warped text. `amount` runs from −100 to 100 (0 is straight). */
+  warp?: TextWarp;
+}
+
+export type TextWarpStyle = 'arc' | 'wave' | 'bulge' | 'rise';
+
+export interface TextWarp {
+  style: TextWarpStyle;
+  amount: number;
 }
 
 export type ShapeKind = 'rect' | 'ellipse' | 'triangle' | 'star' | 'polygon' | 'line' | 'arrow';

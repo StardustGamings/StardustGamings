@@ -3,7 +3,7 @@ import type { DesignDocument, TextElement } from '@/types/document';
 import { createDocument } from '@/projects/document';
 import { createFillStyle, fillToCss } from './fill';
 import { renderDocument, elementBounds, slideRegion } from './renderer';
-import { layoutText, wrapText } from './text';
+import { isWarped, layoutText, warpedGlyphs, wrapText } from './text';
 import type { Ctx2D } from './types';
 
 interface Call {
@@ -272,5 +272,63 @@ describe('image elements', () => {
     });
     expect(calls.some((c) => c.name === 'createRadialGradient')).toBe(true);
     expect(calls.some((c) => c.name === 'fillRect' && c.args.join() === '-1,-1,2,2')).toBe(true);
+  });
+});
+
+describe('curved & warped text', () => {
+  const glyphsOf = (over: Partial<TextElement>) => {
+    const { ctx } = recordingContext();
+    const el = text({ text: 'CURVED TEXT', width: 400, align: 'center', ...over });
+    return warpedGlyphs(ctx, el, layoutText(ctx, el));
+  };
+
+  it('arcs lines around a circle: up for positive, down for negative', () => {
+    const up = glyphsOf({ warp: { style: 'arc', amount: 60 } });
+    const ys = up.glyphs.map((g) => g.y);
+    const mid = Math.floor(ys.length / 2);
+    expect(ys[0]!).toBeGreaterThan(ys[mid]!); // the ends droop below the middle
+    expect(ys[ys.length - 1]!).toBeGreaterThan(ys[mid]!);
+    expect(up.glyphs[0]!.angle).toBeLessThan(0); // left end leans left, right end right
+    expect(up.glyphs[up.glyphs.length - 1]!.angle).toBeGreaterThan(0);
+    expect(up.above).toBe(0);
+    expect(up.below).toBeGreaterThan(0);
+
+    const down = glyphsOf({ warp: { style: 'arc', amount: -60 } });
+    const dys = down.glyphs.map((g) => g.y);
+    expect(dys[0]!).toBeLessThan(dys[mid]!); // a smile: the ends rise
+    expect(down.above).toBeGreaterThan(0);
+    // A stronger bend reaches further.
+    expect(glyphsOf({ warp: { style: 'arc', amount: 100 } }).below).toBeGreaterThan(up.below);
+  });
+
+  it('waves, bulges and rises', () => {
+    const wave = glyphsOf({ warp: { style: 'wave', amount: 80 } });
+    const straight = layoutText(recordingContext().ctx, text({ text: 'CURVED TEXT', width: 400 }));
+    const baseline = straight.lineHeight / 2 + (straight.ascent - straight.descent) / 2;
+    expect(wave.glyphs.some((g) => g.y < baseline - 1)).toBe(true);
+    expect(wave.glyphs.some((g) => g.y > baseline + 1)).toBe(true);
+    expect(wave.above).toBeGreaterThan(0);
+    expect(wave.below).toBeGreaterThan(0);
+
+    const bulge = glyphsOf({ warp: { style: 'bulge', amount: 100 } }).glyphs;
+    const middle = bulge[Math.floor(bulge.length / 2)]!;
+    expect(middle.scaleY).toBeGreaterThan(bulge[0]!.scaleY);
+
+    const rise = glyphsOf({ warp: { style: 'rise', amount: 100 } }).glyphs;
+    expect(rise[rise.length - 1]!.scaleY).toBeGreaterThan(rise[0]!.scaleY);
+    const fall = glyphsOf({ warp: { style: 'rise', amount: -100 } }).glyphs;
+    expect(fall[0]!.scaleY).toBeGreaterThan(fall[fall.length - 1]!.scaleY);
+  });
+
+  it('draws each glyph on its own, and straight text is unchanged', () => {
+    const { ctx, calls } = recordingContext();
+    const doc = createDocument({ width: 400, height: 400 });
+    doc.elements = [text({ text: 'HI', width: 300, warp: { style: 'arc', amount: 50 } })];
+    renderDocument(ctx, doc, { scale: 1 });
+    const fills = calls.filter((c) => c.name === 'fillText');
+    expect(fills.map((c) => c.args[0])).toEqual(['H', 'I']);
+    expect(calls.some((c) => c.name === 'rotate')).toBe(true);
+    expect(isWarped({ warp: { style: 'arc', amount: 0 } })).toBe(false);
+    expect(isWarped({})).toBe(false);
   });
 });

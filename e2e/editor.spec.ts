@@ -218,6 +218,42 @@ test.describe('canvas editor (desktop)', () => {
   });
 });
 
+test.describe('curved text (desktop)', () => {
+  test.skip(({ isMobile }) => isMobile, 'Properties panel on desktop');
+
+  test('arc, wave, bulge and rise; the box grows to hold the curve; undo straightens it', async ({ app: page }) => {
+    await newPost(page);
+    await page.getByRole('button', { name: 'Text', exact: true }).first().click();
+    await page.getByRole('button', { name: 'Add a heading' }).click();
+    const frame = page.getByTestId('selection-frame');
+    const straight = (await frame.boundingBox())!.height;
+    const warps = page.getByRole('radiogroup', { name: 'Text warp' });
+    await expect(warps.getByRole('radio', { name: 'None' })).toHaveAttribute('aria-checked', 'true');
+
+    await warps.getByRole('radio', { name: 'Arc' }).click();
+    await expect.poll(async () => (await frame.boundingBox())!.height).toBeGreaterThan(straight * 1.2);
+    const bend = page.getByRole('slider', { name: 'Curve bend' });
+    await bend.focus();
+    await page.keyboard.press('End');
+    await expect(page.getByText('Bend · +100')).toBeVisible();
+    const arched = (await frame.boundingBox())!.height;
+    expect(arched).toBeGreaterThan(straight * 1.5);
+
+    for (const style of ['Wave', 'Bulge', 'Rise']) {
+      await warps.getByRole('radio', { name: style }).click();
+      await expect(warps.getByRole('radio', { name: style })).toHaveAttribute('aria-checked', 'true');
+      await expect(page.getByRole('slider', { name: 'Warp strength' })).toBeVisible();
+    }
+    await warps.getByRole('radio', { name: 'None' }).click();
+    await expect.poll(async () => (await frame.boundingBox())!.height).toBeLessThan(straight * 1.05);
+
+    // Undo brings the curve back (quick changes to the same control are one undo step).
+    await page.keyboard.press('ControlOrMeta+z');
+    await expect(warps.getByRole('radio', { name: 'None' })).toHaveAttribute('aria-checked', 'false');
+    await expect.poll(async () => (await frame.boundingBox())!.height).toBeGreaterThan(straight * 1.05);
+  });
+});
+
 test.describe('canvas editor (phone)', () => {
   test.skip(({ isMobile }) => !isMobile, 'Touch layout only');
 

@@ -113,6 +113,7 @@ const textElement = z.object({
   textTransform: z.enum(['none', 'uppercase', 'lowercase']).optional(),
   stroke: stroke.optional(),
   highlight: z.object({ fill: fillSchema, padding: size.max(500), radius: size.max(1000) }).optional(),
+  warp: z.object({ style: z.enum(['arc', 'wave', 'bulge', 'rise']), amount: finite.min(-100).max(100) }).optional(),
 });
 
 const shapeElement = z.object({
