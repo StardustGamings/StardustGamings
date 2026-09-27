@@ -1,0 +1,77 @@
+name: Windows app
+
+# Builds the Windows desktop app (the static export in an Electron window), smoke-tests it,
+# and publishes the installer as the "Stardeck for Windows" release.
+
+on:
+  push:
+    branches: [main, claude/next-gen-social-design-app-ngcznj]
+  workflow_dispatch:
+
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write # publish the installer as a release
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-export
+          path: out
+          include-hidden-files: true
+          retention-days: 1
+
+  windows:
+    needs: web
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-export
+          path: out
+      - name: Smoke-test the app
+        run: npm run desktop:smoke
+      - name: Build the installer
+        run: npm run desktop:dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Stardeck-Setup
+          path: dist-desktop/Stardeck-Setup.exe
+          retention-days: 30
+
+      - name: Publish the release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: desktop-latest
+        run: |
+          version=$(node -p "require('./package.json').version")
+          notes="Stardeck $version for Windows 10 and 11, build ${{ github.run_number }} from ${GITHUB_SHA::7}.
+
+          **Install:** download **Stardeck-Setup.exe** below and open it. It installs for your Windows user (no admin needed) and adds Stardeck to the Start menu and desktop. Windows may say \"Windows protected your PC\" because the installer isn't code-signed: click **More info → Run anyway**.
+
+          Everything runs on your PC: no account, no watermark, works offline. Exports save to your Downloads folder. Installing a newer build keeps your designs."
+          gh release delete "$TAG" --yes --cleanup-tag || true
+          gh release create "$TAG" dist-desktop/Stardeck-Setup.exe --target "$GITHUB_SHA" --title "Stardeck for Windows" --notes "$notes" --latest=false

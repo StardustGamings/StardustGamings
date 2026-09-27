@@ -1,0 +1,120 @@
+{
+  "id": "tried-it",
+  "name": "I Tried It",
+  "format": "thumbnail",
+  "sizeId": "yt-thumbnail",
+  "style": "playful",
+  "description": "Loud yellow, a huge claim and an arrow pointing at your face.",
+  "tags": [
+    "challenge",
+    "reaction",
+    "youtube",
+    "experiment",
+    "yellow"
+  ],
+  "palette": [
+    "#FFD400",
+    "#111111",
+    "#FFFFFF",
+    "#FF3B3B"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1280,
+    "slideHeight": 720,
+    "background": {
+      "type": "solid",
+      "color": "#FFD400"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ti0",
+        "x": 720,
+        "y": 40,
+        "width": 520,
+        "height": 640,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 36,
+        "stroke": {
+          "color": "#111111",
+          "width": 10
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F2B800"
+          }
+        }
+      },
+      {
+        "id": "ti1",
+        "x": 50,
+        "y": 50,
+        "width": 640,
+        "height": 558,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "I tried it\nfor 30\ndays",
+        "fontFamily": "Anton",
+        "fontSize": 150,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#111111"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "ti2",
+        "x": 520,
+        "y": 470,
+        "width": 200,
+        "height": 200,
+        "rotation": -20,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:arrow-bold",
+        "tint": "#FF3B3B"
+      },
+      {
+        "id": "ti3",
+        "x": 50,
+        "y": 610,
+        "width": 640,
+        "height": 49,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "(it changed everything)",
+        "fontFamily": "Permanent Marker",
+        "fontSize": 40,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FF3B3B"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

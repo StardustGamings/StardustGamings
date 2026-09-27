@@ -1,0 +1,162 @@
+{
+  "id": "rate-my",
+  "name": "Rate My…",
+  "format": "story",
+  "sizeId": "story",
+  "style": "playful",
+  "description": "A story that asks for a score out of ten — outfit, desk, dinner, anything.",
+  "tags": [
+    "social format",
+    "story",
+    "rate",
+    "poll",
+    "interactive"
+  ],
+  "palette": [
+    "#FFE3F1",
+    "#0B0A12",
+    "#FF5EA8",
+    "#FFFFFF",
+    "#F2C6DB"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#FFE3F1"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "rm0",
+        "x": 90,
+        "y": 150,
+        "width": 900,
+        "height": 1150,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 48,
+        "placeholder": {
+          "label": "The fit",
+          "fill": {
+            "type": "solid",
+            "color": "#F2C6DB"
+          }
+        }
+      },
+      {
+        "id": "rm1",
+        "x": 90,
+        "y": 1340,
+        "width": 900,
+        "height": 159,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "rate my fit",
+        "fontFamily": "Pacifico",
+        "fontSize": 120,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FF5EA8"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.2,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rm2",
+        "x": 90,
+        "y": 1560,
+        "width": 900,
+        "height": 130,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(11,10,18,0.18)",
+          "blur": 24,
+          "x": 0,
+          "y": 8
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "cornerRadius": 65
+      },
+      {
+        "id": "rm3",
+        "x": 90,
+        "y": 1560,
+        "width": 900,
+        "height": 130,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "1 2 3 4 5 6 7 8 9 10",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 48,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rm4",
+        "x": 90,
+        "y": 1730,
+        "width": 900,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "reply with a number ✦",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#A04A77"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "rm5",
+        "x": 850,
+        "y": 100,
+        "width": 170,
+        "height": 170,
+        "rotation": 14,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:heart",
+        "tint": "#FF5EA8"
+      }
+    ]
+  }
+}

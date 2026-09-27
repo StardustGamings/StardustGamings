@@ -1,0 +1,744 @@
+{
+  "$schema": "../pack.schema.json",
+  "version": 2,
+  "id": "2026-09",
+  "title": "September Drop",
+  "subtitle": "Back-to-everything season: loud type, soft edits, film everything.",
+  "publishedAt": "2026-09-01",
+  "accent": ["#C6FF3D", "#A06BFF"],
+  "templates": [
+    {
+      "templateId": "big-type-drop",
+      "label": "Giant type is back",
+      "heat": 98
+    },
+    {
+      "templateId": "scrapbook-dump",
+      "label": "Scrapbook photo dumps",
+      "heat": 95
+    },
+    {
+      "templateId": "y2k-chrome",
+      "label": "Chrome everything",
+      "heat": 91
+    },
+    {
+      "templateId": "soft-editorial",
+      "label": "Slow-living editorial",
+      "heat": 87
+    },
+    {
+      "templateId": "cyber-grid",
+      "label": "Neon hook thumbnails",
+      "heat": 84
+    },
+    {
+      "templateId": "quiet-luxury",
+      "label": "Quiet luxury",
+      "heat": 80
+    },
+    {
+      "templateId": "reel-cover-pop",
+      "label": "Outline cover type",
+      "heat": 78
+    }
+  ],
+  "layouts": [
+    {
+      "id": "seamless-film",
+      "name": "Seamless film roll",
+      "templateId": "film-strip",
+      "description": "One strip of film that keeps going when you swipe.",
+      "heat": 93
+    },
+    {
+      "id": "stat-punch",
+      "name": "Stat punch",
+      "templateId": "brutal-stats",
+      "description": "One giant number per slide inside a heavy frame.",
+      "heat": 86
+    },
+    {
+      "id": "front-page",
+      "name": "Front page",
+      "templateId": "newsprint",
+      "description": "Masthead, columns and a headline that reads like breaking news.",
+      "heat": 82
+    },
+    {
+      "id": "bento-board",
+      "name": "Bento board",
+      "templateId": "moodboard-bento",
+      "description": "Rounded tiles of different sizes with a title block.",
+      "heat": 79
+    },
+    {
+      "id": "diagonal-band",
+      "name": "Diagonal band",
+      "templateId": "split-collage",
+      "description": "A rotated title band slicing a four-photo grid.",
+      "heat": 74
+    },
+    {
+      "id": "circle-crop",
+      "name": "Circle crop story",
+      "templateId": "dreamy-story",
+      "description": "Soft gradient, circle photo, pill tags underneath.",
+      "heat": 71
+    }
+  ],
+  "typography": [
+    {
+      "id": "chrome-wide",
+      "name": "Chrome Wide",
+      "vibe": "Y2K",
+      "sample": "SUMMER.EXE",
+      "heading": {
+        "family": "Unbounded",
+        "weight": 900,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "JetBrains Mono",
+        "weight": 500
+      },
+      "heat": 94
+    },
+    {
+      "id": "soft-serif",
+      "name": "Soft Serif",
+      "vibe": "Editorial",
+      "sample": "doing less",
+      "heading": {
+        "family": "Instrument Serif",
+        "weight": 400,
+        "style": "italic"
+      },
+      "body": {
+        "family": "Manrope",
+        "weight": 600
+      },
+      "heat": 90
+    },
+    {
+      "id": "poster-stack",
+      "name": "Poster Stack",
+      "vibe": "Streetwear",
+      "sample": "NEW DROP",
+      "heading": {
+        "family": "Anton",
+        "weight": 400,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "Bricolage Grotesque",
+        "weight": 600
+      },
+      "heat": 88
+    },
+    {
+      "id": "gothic-news",
+      "name": "Gothic News",
+      "vibe": "Newspaper",
+      "sample": "The Daily Scroll",
+      "heading": {
+        "family": "UnifrakturMaguntia",
+        "weight": 400
+      },
+      "body": {
+        "family": "DM Serif Display",
+        "weight": 400
+      },
+      "heat": 81
+    },
+    {
+      "id": "pixel-party",
+      "name": "Pixel Party",
+      "vibe": "Gaming",
+      "sample": "PLAYER 2",
+      "heading": {
+        "family": "Silkscreen",
+        "weight": 700,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "weight": 500
+      },
+      "heat": 77
+    },
+    {
+      "id": "diary-hand",
+      "name": "Diary Hand",
+      "vibe": "Scrapbook",
+      "sample": "best night ever",
+      "heading": {
+        "family": "Caveat",
+        "weight": 700
+      },
+      "body": {
+        "family": "Fraunces",
+        "weight": 400
+      },
+      "heat": 76
+    },
+    {
+      "id": "maison",
+      "name": "Maison",
+      "vibe": "Luxury",
+      "sample": "The Quiet Edit",
+      "heading": {
+        "family": "Playfair Display",
+        "weight": 400,
+        "style": "italic"
+      },
+      "body": {
+        "family": "Manrope",
+        "weight": 500,
+        "transform": "uppercase"
+      },
+      "heat": 72
+    },
+    {
+      "id": "arcade-mono",
+      "name": "Arcade Mono",
+      "vibe": "Retro",
+      "sample": "AFTER HOURS",
+      "heading": {
+        "family": "Rubik Mono One",
+        "weight": 400,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "weight": 600
+      },
+      "heat": 69
+    }
+  ],
+  "palettes": [
+    {
+      "id": "acid-mint",
+      "name": "Acid Mint",
+      "mood": "Loud",
+      "colors": ["#C6FF3D", "#3CF0C8", "#0B0A12", "#F4F1EA", "#7A5CFF"],
+      "heat": 96
+    },
+    {
+      "id": "chrome-dream",
+      "name": "Chrome Dream",
+      "mood": "Y2K",
+      "colors": ["#FFC2F2", "#A06BFF", "#2A1470", "#3CF0FF", "#F4F0FF"],
+      "heat": 90
+    },
+    {
+      "id": "terracotta-paper",
+      "name": "Terracotta Paper",
+      "mood": "Editorial",
+      "colors": ["#F3EEE6", "#DCCFBE", "#B5553A", "#5B4636", "#1D1A17"],
+      "heat": 86
+    },
+    {
+      "id": "night-arcade",
+      "name": "Night Arcade",
+      "mood": "Neon",
+      "colors": ["#0A0716", "#6B1FA8", "#FF3DDB", "#3CF0FF", "#FFD23D"],
+      "heat": 84
+    },
+    {
+      "id": "sunday-haze",
+      "name": "Sunday Haze",
+      "mood": "Pastel",
+      "colors": ["#E9DFFF", "#FFE3D3", "#FFF4E0", "#F3D6E8", "#5B3E86"],
+      "heat": 81
+    },
+    {
+      "id": "old-money",
+      "name": "Old Money",
+      "mood": "Dark luxury",
+      "colors": ["#0F0E0D", "#2A2622", "#C9A96E", "#EFE8DA", "#6E5B3E"],
+      "heat": 79
+    },
+    {
+      "id": "citrus-pop",
+      "name": "Citrus Pop",
+      "mood": "Summer",
+      "colors": ["#FF6B2C", "#FFD23D", "#FFF1E0", "#1A0B05", "#3CC8FF"],
+      "heat": 77
+    },
+    {
+      "id": "moss-and-clay",
+      "name": "Moss & Clay",
+      "mood": "Autumn",
+      "colors": ["#EFEAE2", "#C8A27A", "#8C5A3C", "#5B6B4F", "#2F2A26"],
+      "heat": 74
+    }
+  ],
+  "effects": [
+    {
+      "id": "film-grain",
+      "name": "Film Grain",
+      "description": "Soft contrast and fine grain like a disposable camera.",
+      "css": "contrast(1.08) saturate(0.85) sepia(0.12)",
+      "overlay": "grain",
+      "look": "film",
+      "intensity": 90,
+      "heat": 92
+    },
+    {
+      "id": "chrome-glow",
+      "name": "Chrome Glow",
+      "description": "Cool highlights, lifted blacks and a dreamy bloom.",
+      "css": "brightness(1.08) saturate(1.25) hue-rotate(-12deg)",
+      "overlay": "bloom",
+      "look": "y2k",
+      "intensity": 85,
+      "heat": 88
+    },
+    {
+      "id": "vhs-bleed",
+      "name": "VHS Bleed",
+      "description": "Scanlines, colour bleed and a tape-worn tint.",
+      "css": "saturate(1.4) contrast(1.15) hue-rotate(8deg)",
+      "overlay": "scanlines",
+      "look": "vhs",
+      "intensity": 80,
+      "heat": 83
+    },
+    {
+      "id": "light-leak",
+      "name": "Light Leak",
+      "description": "Warm orange flare creeping in from the edge.",
+      "css": "brightness(1.05) saturate(1.1)",
+      "overlay": "leak",
+      "look": "disposable",
+      "intensity": 90,
+      "heat": 80
+    },
+    {
+      "id": "mono-noir",
+      "name": "Mono Noir",
+      "description": "High-contrast black and white with deep shadows.",
+      "css": "grayscale(1) contrast(1.35) brightness(0.95)",
+      "overlay": "vignette",
+      "look": "monochrome",
+      "intensity": 100,
+      "heat": 77
+    },
+    {
+      "id": "faded-polaroid",
+      "name": "Faded Polaroid",
+      "description": "Washed-out pastels and a creamy white point.",
+      "css": "sepia(0.25) saturate(0.8) brightness(1.1) contrast(0.9)",
+      "overlay": "fade",
+      "look": "polaroid",
+      "intensity": 90,
+      "heat": 75
+    },
+    {
+      "id": "honey-hour",
+      "name": "Honey Hour",
+      "description": "The month's own filter: warm, hazy golden hour on anything.",
+      "css": "sepia(0.25) saturate(1.15) brightness(1.05)",
+      "overlay": "bloom",
+      "look": "sep-honey-hour",
+      "intensity": 90,
+      "heat": 95
+    }
+  ],
+  "stickers": [
+    "art:paper-plane",
+    "art:school-apple",
+    "art:pencil-doodle",
+    "vector:sparkle",
+    "emoji:🫶",
+    "vector:y2k-star",
+    "vector:arrow-loop",
+    "emoji:💀",
+    "vector:heart",
+    "vector:tape",
+    "vector:daisy",
+    "emoji:✨",
+    "vector:pixel-heart",
+    "vector:burst",
+    "vector:scribble-circle",
+    "emoji:🦋",
+    "vector:lightning",
+    "vector:smiley",
+    "vector:crown"
+  ],
+  "formats": [
+    {
+      "id": "photo-dump",
+      "name": "Photo dump",
+      "kind": "carousel style",
+      "description": "10 slides, zero context, maximum vibes.",
+      "templateId": "scrapbook-dump",
+      "category": "carousel"
+    },
+    {
+      "id": "caption-meme",
+      "name": "Caption meme",
+      "kind": "meme format",
+      "description": "White bar, relatable caption, reaction pic.",
+      "templateId": "meme-caption",
+      "category": "meme"
+    },
+    {
+      "id": "news-parody",
+      "name": "Breaking news",
+      "kind": "meme format",
+      "description": "Treat a tiny win like front-page news.",
+      "templateId": "newsprint",
+      "category": "meme"
+    },
+    {
+      "id": "event-flyer",
+      "name": "Event flyer",
+      "kind": "social format",
+      "description": "Ticket-stub poster for the group chat.",
+      "templateId": "night-out-poster",
+      "category": "social"
+    },
+    {
+      "id": "nah-yeah",
+      "name": "Nah / Yeah",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "The thing you should do vs the thing you do.",
+      "templateId": "nah-yeah",
+      "heat": 93
+    },
+    {
+      "id": "tier-list",
+      "name": "Tier list",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "Rank snacks, songs or your friends’ exes.",
+      "templateId": "tier-list",
+      "heat": 90
+    },
+    {
+      "id": "pov",
+      "name": "POV",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "A giant POV over the scene. Story-sized.",
+      "templateId": "pov-caption",
+      "heat": 86
+    },
+    {
+      "id": "thread",
+      "name": "Thread",
+      "kind": "social format",
+      "category": "social",
+      "description": "Hook, three points, save-this ending.",
+      "templateId": "thread-carousel",
+      "heat": 91
+    },
+    {
+      "id": "hot-take",
+      "name": "Hot take",
+      "kind": "social format",
+      "category": "social",
+      "description": "One opinion, one poll, zero chill.",
+      "templateId": "hot-take",
+      "heat": 84
+    },
+    {
+      "id": "text-card",
+      "name": "Text post card",
+      "kind": "social format",
+      "category": "social",
+      "description": "A short take on a clean card.",
+      "templateId": "text-post",
+      "heat": 80
+    }
+  ],
+  "cover": {
+    "headline": "back to everything",
+    "typography": "poster-stack",
+    "palette": "acid-mint",
+    "stickers": ["art:paper-plane", "vector:sparkle"]
+  },
+  "looks": [
+    {
+      "id": "sep-honey-hour",
+      "name": "Honey Hour",
+      "description": "Late-September sun: warm mids, soft highlights, a little haze.",
+      "swatch": ["#F2B45A", "#FFE9C2"],
+      "adjust": {
+        "temperature": 24,
+        "highlights": -18,
+        "shadows": 10,
+        "fade": 14,
+        "saturation": 6,
+        "vignette": 14
+      },
+      "curves": {
+        "r": [
+          {
+            "x": 0,
+            "y": 0.02
+          },
+          {
+            "x": 0.5,
+            "y": 0.54
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "b": [
+          {
+            "x": 0,
+            "y": 0.06
+          },
+          {
+            "x": 1,
+            "y": 0.9
+          }
+        ]
+      },
+      "effects": {
+        "glow": 18
+      },
+      "heat": 94
+    },
+    {
+      "id": "sep-schoolyard",
+      "name": "Schoolyard",
+      "description": "Cool, crisp and a touch faded — like a first-day photo.",
+      "swatch": ["#5C7C9E", "#E6ECF2"],
+      "adjust": {
+        "temperature": -16,
+        "contrast": 14,
+        "fade": 18,
+        "saturation": -12,
+        "grain": 14
+      },
+      "curves": {
+        "rgb": [
+          {
+            "x": 0,
+            "y": 0.05
+          },
+          {
+            "x": 0.3,
+            "y": 0.26
+          },
+          {
+            "x": 0.7,
+            "y": 0.74
+          },
+          {
+            "x": 1,
+            "y": 0.97
+          }
+        ]
+      },
+      "heat": 83
+    }
+  ],
+  "stickerArt": [
+    {
+      "id": "paper-plane",
+      "name": "Paper Plane",
+      "defaultTint": "#C6FF3D",
+      "layers": [
+        {
+          "d": "M6 52 L94 12 L62 92 L46 60 Z",
+          "fill": "tint"
+        },
+        {
+          "d": "M46 60 L94 12",
+          "stroke": "#0B0A12",
+          "strokeWidth": 4
+        },
+        {
+          "d": "M6 52 L94 12 L62 92 L46 60 Z",
+          "stroke": "#0B0A12",
+          "strokeWidth": 4
+        }
+      ]
+    },
+    {
+      "id": "school-apple",
+      "name": "Apple",
+      "defaultTint": "#FF4D4D",
+      "layers": [
+        {
+          "d": "M50 32 C30 18 6 30 10 58 C14 84 36 98 50 88 C64 98 86 84 90 58 C94 30 70 18 50 32 Z",
+          "fill": "tint"
+        },
+        {
+          "d": "M52 30 C54 16 64 8 78 8 C76 22 64 30 52 30 Z",
+          "fill": "#5BB65B"
+        },
+        {
+          "d": "M50 32 L47 14",
+          "stroke": "#0B0A12",
+          "strokeWidth": 5
+        },
+        {
+          "d": "M28 46 C24 54 24 62 28 70",
+          "stroke": "#FFFFFF",
+          "strokeWidth": 5
+        }
+      ]
+    },
+    {
+      "id": "pencil-doodle",
+      "name": "Pencil",
+      "defaultTint": "#FFD23D",
+      "layers": [
+        {
+          "d": "M22 72 L68 26 L80 38 L34 84 Z",
+          "fill": "tint"
+        },
+        {
+          "d": "M68 26 L76 18 C79 15 84 15 87 18 L88 19 C91 22 91 27 88 30 L80 38 Z",
+          "fill": "#FF8FB8"
+        },
+        {
+          "d": "M22 72 L34 84 L14 92 Z",
+          "fill": "#F3D9B1"
+        },
+        {
+          "d": "M14 92 L18 82 L24 88 Z",
+          "fill": "#0B0A12"
+        },
+        {
+          "d": "M22 72 L68 26 L80 38 L34 84 Z",
+          "stroke": "#0B0A12",
+          "strokeWidth": 3
+        }
+      ]
+    }
+  ],
+  "layoutRules": [
+    {
+      "id": "notebook-dump",
+      "name": "Notebook Dump",
+      "emoji": "📓",
+      "blurb": "Taped photos on lined-paper tones, handwritten title.",
+      "heat": 92,
+      "rule": {
+        "background": {
+          "type": "solid",
+          "color": "#F6F1E4"
+        },
+        "cover": "collage",
+        "perSlide": [3, 4, 3],
+        "collage": {
+          "family": "scrapbook",
+          "chaos": 0.6,
+          "gutter": 0.02,
+          "decor": true
+        },
+        "margin": 0.05,
+        "title": {
+          "preset": "handwritten",
+          "text": "september notes",
+          "placement": "top"
+        },
+        "caption": {
+          "preset": "caption",
+          "kind": "counter"
+        },
+        "stickers": ["art:pencil-doodle", "art:paper-plane", "vector:arrow-loop", "emoji:📚"],
+        "coverStickers": 3,
+        "adjust": {
+          "temperature": 10,
+          "fade": 10
+        }
+      }
+    },
+    {
+      "id": "honey-film",
+      "name": "Honey Film",
+      "emoji": "🍯",
+      "blurb": "Full-bleed frames in golden-hour tones with slim captions.",
+      "heat": 88,
+      "rule": {
+        "background": "palette-dark",
+        "cover": "full-bleed",
+        "perSlide": [1, 2, 1, 3],
+        "collage": {
+          "family": "filmstrip",
+          "chaos": 0.12,
+          "gutter": 0.02
+        },
+        "margin": 0.06,
+        "title": {
+          "preset": "editorial",
+          "text": "golden hour, all month",
+          "placement": "bottom"
+        },
+        "stickers": ["vector:sparkle"],
+        "coverStickers": 1,
+        "adjust": {
+          "temperature": 18,
+          "highlights": -10,
+          "fade": 8
+        },
+        "letterbox": true
+      }
+    }
+  ],
+  "styles": [
+    {
+      "id": "acid-poster",
+      "name": "Acid Poster",
+      "vibe": "Loud",
+      "description": "Acid mint on ink, poster-stack type, a honey-hour glow and playful motion.",
+      "palette": "acid-mint",
+      "typography": "poster-stack",
+      "look": "sep-honey-hour",
+      "lookIntensity": 70,
+      "stickers": ["art:paper-plane", "vector:sparkle"],
+      "animate": "playful",
+      "heat": 95
+    },
+    {
+      "id": "soft-journal",
+      "name": "Soft Journal",
+      "vibe": "Editorial",
+      "description": "Terracotta paper, a soft serif and film grain — slow and considered.",
+      "palette": "terracotta-paper",
+      "typography": "soft-serif",
+      "look": "film",
+      "lookIntensity": 80,
+      "stickers": ["art:pencil-doodle"],
+      "animate": "smooth",
+      "heat": 89
+    },
+    {
+      "id": "chrome-y2k",
+      "name": "Chrome Y2K",
+      "vibe": "Y2K",
+      "description": "Chrome dream colours, wide chrome type and glitchy entrances.",
+      "palette": "chrome-dream",
+      "typography": "chrome-wide",
+      "look": "y2k",
+      "lookIntensity": 75,
+      "stickers": ["vector:y2k-star", "vector:sparkle"],
+      "animate": "glitchy",
+      "heat": 87
+    },
+    {
+      "id": "old-money",
+      "name": "Old Money",
+      "vibe": "Luxury",
+      "description": "Black, cream and gold with a Didone headline. Quietly expensive.",
+      "palette": "old-money",
+      "typography": "maison",
+      "look": "luxury",
+      "lookIntensity": 70,
+      "stickers": [],
+      "animate": "smooth",
+      "heat": 78
+    }
+  ]
+}

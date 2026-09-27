@@ -1,0 +1,610 @@
+{
+  "id": "soft-editorial",
+  "name": "Soft Editorial",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "editorial",
+  "description": "Serif italics, hairline rules and calm cream paper — magazine energy.",
+  "tags": [
+    "editorial",
+    "magazine",
+    "minimal",
+    "soft"
+  ],
+  "palette": [
+    "#F3EEE6",
+    "#1D1A17",
+    "#B5553A",
+    "#DCCFBE"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#F3EEE6"
+    },
+    "slides": [
+      {
+        "id": "s6",
+        "fill": null
+      },
+      {
+        "id": "s7",
+        "fill": null
+      },
+      {
+        "id": "s8",
+        "fill": null
+      },
+      {
+        "id": "s9",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "eq",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 80,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "ISSUE N°12",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "er",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 500,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "01 / 04",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "es",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "x": 80,
+        "y": 128,
+        "width": 920,
+        "height": 2
+      },
+      {
+        "id": "et",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "x": 80,
+        "y": 170,
+        "width": 920,
+        "height": 160,
+        "text": "The art of",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 160
+      },
+      {
+        "id": "eu",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#B5553A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "x": 80,
+        "y": 320,
+        "width": 920,
+        "height": 160,
+        "text": "doing less",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 160
+      },
+      {
+        "id": "ev",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DCCFBE"
+          }
+        },
+        "x": 80,
+        "y": 530,
+        "width": 920,
+        "height": 620
+      },
+      {
+        "id": "ew",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 80,
+        "y": 1195,
+        "width": 760,
+        "height": 44,
+        "text": "A slow-living guide in four pages",
+        "fontFamily": "Manrope",
+        "fontSize": 32
+      },
+      {
+        "id": "ex",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 840,
+        "y": 1188,
+        "width": 160,
+        "height": 56,
+        "text": "→",
+        "fontFamily": "Manrope",
+        "fontSize": 48
+      },
+      {
+        "id": "ey",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 1160,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "ISSUE N°12",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "ez",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 1580,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "02 / 04",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "e10",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "x": 1160,
+        "y": 128,
+        "width": 920,
+        "height": 2
+      },
+      {
+        "id": "e11",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#B5553A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 1160,
+        "y": 150,
+        "width": 300,
+        "height": 156,
+        "text": "01",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 140
+      },
+      {
+        "id": "e12",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D5C4AF"
+          }
+        },
+        "x": 1160,
+        "y": 320,
+        "width": 440,
+        "height": 580
+      },
+      {
+        "id": "e13",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E3D6C4"
+          }
+        },
+        "x": 1640,
+        "y": 200,
+        "width": 440,
+        "height": 580
+      },
+      {
+        "id": "e14",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.05,
+        "letterSpacing": 0,
+        "x": 1160,
+        "y": 960,
+        "width": 920,
+        "height": 260,
+        "text": "Clear the surfaces. Keep one object you love where you can see it.",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 72
+      },
+      {
+        "id": "e15",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 2240,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "ISSUE N°12",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "e16",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 2660,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "03 / 04",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "e17",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "x": 2240,
+        "y": 128,
+        "width": 920,
+        "height": 2
+      },
+      {
+        "id": "e18",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#B5553A"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0,
+        "x": 2240,
+        "y": 380,
+        "width": 920,
+        "height": 420,
+        "text": "Less,\nbut better.",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 200
+      },
+      {
+        "id": "e19",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "x": 2650,
+        "y": 880,
+        "width": 100,
+        "height": 2
+      },
+      {
+        "id": "e1a",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.08,
+        "x": 2240,
+        "y": 920,
+        "width": 920,
+        "height": 40,
+        "text": "a note to self",
+        "fontFamily": "Manrope",
+        "fontSize": 30
+      },
+      {
+        "id": "e1b",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 3320,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "ISSUE N°12",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "e1c",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "x": 3740,
+        "y": 80,
+        "width": 500,
+        "height": 36,
+        "text": "04 / 04",
+        "fontFamily": "Manrope",
+        "fontSize": 26
+      },
+      {
+        "id": "e1d",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "x": 3320,
+        "y": 128,
+        "width": 920,
+        "height": 2
+      },
+      {
+        "id": "e1e",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9CAB6"
+          }
+        },
+        "x": 3320,
+        "y": 170,
+        "width": 920,
+        "height": 700
+      },
+      {
+        "id": "e1f",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1D1A17"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "x": 3320,
+        "y": 910,
+        "width": 920,
+        "height": 210,
+        "text": "Save this for a\nslow Sunday.",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 100
+      },
+      {
+        "id": "e1g",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#B5553A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 3320,
+        "y": 1200,
+        "width": 920,
+        "height": 40,
+        "text": "@studio.slow",
+        "fontFamily": "Manrope",
+        "fontSize": 30
+      }
+    ]
+  }
+}

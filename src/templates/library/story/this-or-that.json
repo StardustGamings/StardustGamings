@@ -1,0 +1,228 @@
+{
+  "id": "this-or-that",
+  "name": "This or That",
+  "format": "story",
+  "sizeId": "story",
+  "style": "playful",
+  "description": "Two photos, one choice. Built for polls and hot takes.",
+  "tags": [
+    "this or that",
+    "poll",
+    "story",
+    "interactive",
+    "fun"
+  ],
+  "palette": [
+    "#7B61FF",
+    "#FFFFFF",
+    "#FFE14D",
+    "#1A1233"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#7B61FF"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "tot0",
+        "x": 60,
+        "y": 150,
+        "width": 960,
+        "height": 147,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "pick one",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 120,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tot1",
+        "x": 90,
+        "y": 330,
+        "width": 900,
+        "height": 640,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 48,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#9C88FF"
+          }
+        }
+      },
+      {
+        "id": "tot2",
+        "x": 90,
+        "y": 1030,
+        "width": 900,
+        "height": 640,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 48,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#9C88FF"
+          }
+        }
+      },
+      {
+        "id": "tot3",
+        "x": 130,
+        "y": 880,
+        "width": 400,
+        "height": 54,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "This",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 44,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1233"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 16,
+          "radius": 28
+        }
+      },
+      {
+        "id": "tot4",
+        "x": 130,
+        "y": 1580,
+        "width": 400,
+        "height": 54,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "That",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 44,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1233"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 16,
+          "radius": 28
+        }
+      },
+      {
+        "id": "tot5",
+        "x": 440,
+        "y": 900,
+        "width": 200,
+        "height": 200,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#FFE14D"
+        },
+        "stroke": {
+          "color": "#7B61FF",
+          "width": 12
+        }
+      },
+      {
+        "id": "tot6",
+        "x": 440,
+        "y": 900,
+        "width": 200,
+        "height": 200,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "or",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 80,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1A1233"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tot7",
+        "x": 60,
+        "y": 1740,
+        "width": 960,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "reply with your pick",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

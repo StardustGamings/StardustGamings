@@ -1,0 +1,208 @@
+{
+  "id": "swiss-poster",
+  "name": "Swiss Poster",
+  "format": "poster",
+  "sizeId": "poster",
+  "style": "brutalist",
+  "description": "A strict grid, a red circle and stacked grotesk type — international style, remixed.",
+  "tags": [
+    "swiss",
+    "poster",
+    "grid",
+    "typography",
+    "event"
+  ],
+  "palette": [
+    "#E9E4DA",
+    "#111111",
+    "#E63A26",
+    "#BDB6A8"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1240,
+    "slideHeight": 1754,
+    "background": {
+      "type": "solid",
+      "color": "#E9E4DA"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "sp0",
+        "x": 520,
+        "y": 180,
+        "width": 640,
+        "height": 640,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#E63A26"
+        }
+      },
+      {
+        "id": "sp1",
+        "x": 640,
+        "y": 300,
+        "width": 400,
+        "height": 400,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "filter": {
+          "id": "monochrome",
+          "intensity": 85
+        },
+        "clip": "ellipse",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C94A38"
+          }
+        }
+      },
+      {
+        "id": "sp2",
+        "x": 60,
+        "y": 820,
+        "width": 1120,
+        "height": 573,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Form\nfollows\nfeed",
+        "fontFamily": "Archivo",
+        "fontSize": 212,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.86,
+        "letterSpacing": -0.03,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "sp3",
+        "x": 60,
+        "y": 1560,
+        "width": 1120,
+        "height": 4,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#111111"
+        }
+      },
+      {
+        "id": "sp4",
+        "x": 60,
+        "y": 1590,
+        "width": 360,
+        "height": 112,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Talks\nWorkshops\nParty",
+        "fontFamily": "Archivo",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.2,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp5",
+        "x": 440,
+        "y": 1590,
+        "width": 360,
+        "height": 112,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Hall 4\nFri 17 Oct\n19:00",
+        "fontFamily": "Archivo",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.2,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp6",
+        "x": 820,
+        "y": 1590,
+        "width": 360,
+        "height": 76,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Free\nentry",
+        "fontFamily": "Archivo",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#E63A26"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.2,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sp7",
+        "x": 60,
+        "y": 80,
+        "width": 460,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Design week 26",
+        "fontFamily": "Archivo",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

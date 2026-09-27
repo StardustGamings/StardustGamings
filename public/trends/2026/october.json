@@ -1,0 +1,459 @@
+{
+  "$schema": "../pack.schema.json",
+  "version": 2,
+  "id": "2026-10",
+  "title": "October Drop",
+  "subtitle": "Soft spooky: candlelit edits, ghost stickers and velvet type.",
+  "publishedAt": "2026-10-01",
+  "accent": ["#FF7A1A", "#7A5CFF"],
+  "cover": {
+    "headline": "soft spooky season",
+    "typography": "velvet",
+    "palette": "candlelit",
+    "stickers": ["art:little-ghost", "art:crescent"]
+  },
+  "templates": [
+    {
+      "templateId": "cinema-frames",
+      "label": "Horror-movie frames",
+      "heat": 95
+    },
+    {
+      "templateId": "main-character",
+      "label": "Main character energy",
+      "heat": 90
+    },
+    {
+      "templateId": "layers-of-us",
+      "label": "Layered collages",
+      "heat": 84
+    },
+    {
+      "templateId": "loud-hours",
+      "label": "Party posters",
+      "heat": 82
+    }
+  ],
+  "layouts": [
+    {
+      "id": "film-stills",
+      "name": "Film stills",
+      "templateId": "film-strip",
+      "description": "Frames from a movie that doesn’t exist.",
+      "heat": 90
+    },
+    {
+      "id": "torn",
+      "name": "Torn notes",
+      "templateId": "torn-notes",
+      "description": "Ripped paper and a secret.",
+      "heat": 83
+    }
+  ],
+  "typography": [
+    {
+      "id": "velvet",
+      "name": "Velvet",
+      "vibe": "Gothic",
+      "sample": "after dark",
+      "heading": {
+        "family": "Playfair Display",
+        "weight": 900,
+        "style": "italic"
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "weight": 500
+      },
+      "heat": 93
+    },
+    {
+      "id": "blackletter-club",
+      "name": "Blackletter Club",
+      "vibe": "Gothic",
+      "sample": "Night Shift",
+      "heading": {
+        "family": "UnifrakturMaguntia",
+        "weight": 400
+      },
+      "body": {
+        "family": "Manrope",
+        "weight": 600
+      },
+      "heat": 88
+    },
+    {
+      "id": "haunted-mono",
+      "name": "Haunted Mono",
+      "vibe": "Cyber",
+      "sample": "LOADING_FEAR",
+      "heading": {
+        "family": "Rubik Mono One",
+        "weight": 400,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "JetBrains Mono",
+        "weight": 500
+      },
+      "heat": 81
+    }
+  ],
+  "palettes": [
+    {
+      "id": "candlelit",
+      "name": "Candlelit",
+      "mood": "Cosy",
+      "colors": ["#1A1110", "#FF7A1A", "#FFD9A0", "#5C2E1A", "#F7EDE2"],
+      "heat": 95
+    },
+    {
+      "id": "violet-hour",
+      "name": "Violet Hour",
+      "mood": "Spooky",
+      "colors": ["#12091F", "#7A5CFF", "#C8B6FF", "#FF5EA8", "#F4F0FF"],
+      "heat": 89
+    },
+    {
+      "id": "fog-bank",
+      "name": "Fog Bank",
+      "mood": "Moody",
+      "colors": ["#D9D9D4", "#8C8E8A", "#3D403C", "#16181A", "#F2F2EE"],
+      "heat": 80
+    }
+  ],
+  "looks": [
+    {
+      "id": "oct-candlelit",
+      "name": "Candlelit",
+      "description": "Deep shadows and a warm flicker, like one candle in a dark room.",
+      "swatch": ["#1A1110", "#FF7A1A"],
+      "adjust": {
+        "exposure": -8,
+        "temperature": 34,
+        "contrast": 20,
+        "shadows": -16,
+        "vignette": 42,
+        "grain": 20
+      },
+      "effects": {
+        "glow": 24
+      },
+      "heat": 94
+    },
+    {
+      "id": "oct-fog",
+      "name": "Fog",
+      "description": "Lifted blacks, cool greys and a soft haze.",
+      "swatch": ["#8C8E8A", "#F2F2EE"],
+      "adjust": {
+        "fade": 36,
+        "saturation": -40,
+        "temperature": -10,
+        "contrast": -12,
+        "blur": 6
+      },
+      "heat": 86
+    },
+    {
+      "id": "oct-violet",
+      "name": "Violet Hour",
+      "description": "Purple shadows and magenta highlights.",
+      "swatch": ["#12091F", "#FF5EA8"],
+      "adjust": {
+        "tint": 30,
+        "temperature": -18,
+        "contrast": 16,
+        "saturation": 10
+      },
+      "curves": {
+        "b": [
+          {
+            "x": 0,
+            "y": 0.16
+          },
+          {
+            "x": 0.5,
+            "y": 0.58
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "r": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0.6,
+            "y": 0.62
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      "effects": {
+        "rgbSplit": 10
+      },
+      "heat": 84
+    }
+  ],
+  "effects": [
+    {
+      "id": "candle-fx",
+      "name": "Candlelit",
+      "description": "The drop's filter: one warm candle, deep vignette.",
+      "css": "sepia(0.35) contrast(1.2) brightness(0.9)",
+      "overlay": "vignette",
+      "look": "oct-candlelit",
+      "intensity": 90,
+      "heat": 94
+    },
+    {
+      "id": "vhs-horror",
+      "name": "Found Footage",
+      "description": "Scanlines, colour bleed and a timestamp feeling.",
+      "css": "contrast(1.15) saturate(0.8) hue-rotate(-8deg)",
+      "overlay": "scanlines",
+      "look": "vhs",
+      "intensity": 90,
+      "heat": 88
+    }
+  ],
+  "stickers": [
+    "art:little-ghost",
+    "art:crescent",
+    "art:bat",
+    "emoji:🎃",
+    "emoji:🕯️",
+    "vector:skull",
+    "vector:lightning",
+    "emoji:🦇"
+  ],
+  "stickerArt": [
+    {
+      "id": "little-ghost",
+      "name": "Little Ghost",
+      "defaultTint": "#F7EDE2",
+      "layers": [
+        {
+          "d": "M18 92 L18 46 C18 12 82 12 82 46 L82 92 L71 82 L60 92 L50 82 L40 92 L29 82 Z",
+          "fill": "tint"
+        },
+        {
+          "d": "M18 92 L18 46 C18 12 82 12 82 46 L82 92 L71 82 L60 92 L50 82 L40 92 L29 82 Z",
+          "stroke": "#0B0A12",
+          "strokeWidth": 3.5
+        },
+        {
+          "d": "M33 46 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0 Z M57 46 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0 Z",
+          "fill": "#0B0A12"
+        },
+        {
+          "d": "M44 60 C47 64 53 64 56 60",
+          "stroke": "#0B0A12",
+          "strokeWidth": 3
+        }
+      ]
+    },
+    {
+      "id": "crescent",
+      "name": "Crescent",
+      "defaultTint": "#FFD9A0",
+      "layers": [
+        {
+          "d": "M62 6 A44 44 0 1 0 94 70 A34 34 0 1 1 62 6 Z",
+          "fill": "tint"
+        }
+      ]
+    },
+    {
+      "id": "bat",
+      "name": "Bat",
+      "defaultTint": "#12091F",
+      "layers": [
+        {
+          "d": "M50 38 C46 30 42 30 40 36 C34 28 20 26 4 34 C14 38 18 46 16 56 C24 50 32 52 36 60 C40 52 44 50 50 56 C56 50 60 52 64 60 C68 52 76 50 84 56 C82 46 86 38 96 34 C80 26 66 28 60 36 C58 30 54 30 50 38 Z",
+          "fill": "tint"
+        }
+      ]
+    }
+  ],
+  "layoutRules": [
+    {
+      "id": "after-dark",
+      "name": "After Dark",
+      "emoji": "🕯️",
+      "blurb": "Dark slides, candlelit photos and a gothic title.",
+      "heat": 92,
+      "rule": {
+        "background": {
+          "type": "solid",
+          "color": "#140E0C"
+        },
+        "cover": "full-bleed",
+        "perSlide": [2, 1, 3],
+        "collage": {
+          "family": "editorial",
+          "chaos": 0.08,
+          "gutter": 0.015
+        },
+        "margin": 0.06,
+        "title": {
+          "preset": "newspaper",
+          "text": "after dark",
+          "placement": "center"
+        },
+        "caption": {
+          "preset": "caption",
+          "kind": "text",
+          "text": "from the vault"
+        },
+        "stickers": ["art:little-ghost", "art:crescent", "art:bat"],
+        "coverStickers": 2,
+        "adjust": {
+          "exposure": -6,
+          "temperature": 20,
+          "vignette": 30
+        },
+        "letterbox": true
+      }
+    },
+    {
+      "id": "ghost-scrapbook",
+      "name": "Ghost Scrapbook",
+      "emoji": "👻",
+      "blurb": "Messy, taped and haunted by tiny ghosts.",
+      "heat": 85,
+      "rule": {
+        "background": "palette-dark",
+        "cover": "collage",
+        "perSlide": [3, 4],
+        "collage": {
+          "family": "scrapbook",
+          "chaos": 0.75,
+          "gutter": 0.02,
+          "decor": true
+        },
+        "margin": 0.05,
+        "title": {
+          "preset": "meme",
+          "text": "spooky season 👻",
+          "placement": "top"
+        },
+        "stickers": ["art:little-ghost", "art:bat", "emoji:🎃"],
+        "coverStickers": 3
+      }
+    }
+  ],
+  "formats": [
+    {
+      "id": "pov",
+      "name": "POV",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "POV: you heard a noise downstairs.",
+      "templateId": "pov-caption",
+      "heat": 92
+    },
+    {
+      "id": "vibe-chart",
+      "name": "Vibe chart",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "Sort your friends from cosy to cursed.",
+      "templateId": "vibe-chart",
+      "heat": 88
+    },
+    {
+      "id": "level-up",
+      "name": "Level up",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "Each costume more committed than the last.",
+      "templateId": "level-up",
+      "heat": 84
+    },
+    {
+      "id": "starter-pack",
+      "name": "Starter pack",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "The spooky-season starter pack.",
+      "templateId": "starter-pack",
+      "heat": 82
+    },
+    {
+      "id": "rate-my",
+      "name": "Rate my costume",
+      "kind": "social format",
+      "category": "social",
+      "description": "A story that asks for a score.",
+      "templateId": "rate-my",
+      "heat": 90
+    },
+    {
+      "id": "party",
+      "name": "Party flyer",
+      "kind": "social format",
+      "category": "social",
+      "description": "A poster for the group chat.",
+      "templateId": "night-out-poster",
+      "heat": 86
+    },
+    {
+      "id": "cinema",
+      "name": "Movie night",
+      "kind": "carousel style",
+      "category": "carousel",
+      "description": "Your week as film stills.",
+      "templateId": "cinema-frames",
+      "heat": 89
+    }
+  ],
+  "styles": [
+    {
+      "id": "candlelit",
+      "name": "Candlelit",
+      "vibe": "Cosy",
+      "description": "Warm dark tones, a velvet italic serif and a candlelit look.",
+      "palette": "candlelit",
+      "typography": "velvet",
+      "look": "oct-candlelit",
+      "lookIntensity": 80,
+      "stickers": ["art:crescent"],
+      "animate": "smooth",
+      "heat": 94
+    },
+    {
+      "id": "violet-hour",
+      "name": "Violet Hour",
+      "vibe": "Spooky",
+      "description": "Violet and pink, haunted mono type and glitchy motion.",
+      "palette": "violet-hour",
+      "typography": "haunted-mono",
+      "look": "oct-violet",
+      "lookIntensity": 75,
+      "stickers": ["art:bat", "art:little-ghost"],
+      "animate": "glitchy",
+      "heat": 88
+    },
+    {
+      "id": "fog-club",
+      "name": "Fog Club",
+      "vibe": "Moody",
+      "description": "Grey fog, blackletter headlines and slow fades.",
+      "palette": "fog-bank",
+      "typography": "blackletter-club",
+      "look": "oct-fog",
+      "lookIntensity": 80,
+      "stickers": [],
+      "animate": "smooth",
+      "heat": 80
+    }
+  ]
+}

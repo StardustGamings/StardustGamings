@@ -1,0 +1,187 @@
+{
+  "id": "quote-card",
+  "name": "Quote Card",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "minimal",
+  "description": "An oversized quote mark and a serif line worth screenshotting.",
+  "tags": [
+    "quote",
+    "minimal",
+    "text post",
+    "motivation",
+    "animated"
+  ],
+  "palette": [
+    "#F2EFE9",
+    "#1B1916",
+    "#E0573C",
+    "#CFC8BC"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#F2EFE9"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null,
+        "duration": 3000
+      }
+    ],
+    "elements": [
+      {
+        "id": "qc0",
+        "x": 60,
+        "y": 0,
+        "width": 400,
+        "height": 450,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 150,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "“",
+        "fontFamily": "Playfair Display",
+        "fontSize": 480,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#E0573C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0
+      },
+      {
+        "id": "qc1",
+        "x": 90,
+        "y": 380,
+        "width": 900,
+        "height": 552,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 330,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Make the thing you wish existed. Then post it before you talk yourself out of it.",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 100,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1B1916"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.08,
+        "letterSpacing": 0
+      },
+      {
+        "id": "qc2",
+        "x": 90,
+        "y": 1060,
+        "width": 120,
+        "height": 4,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E0573C"
+        }
+      },
+      {
+        "id": "qc3",
+        "x": 90,
+        "y": 1100,
+        "width": 600,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Note to self",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1B1916"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.16,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "qc4",
+        "x": 90,
+        "y": 1150,
+        "width": 600,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "@yourhandle",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8C857A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ],
+    "motion": {
+      "transition": "swipe",
+      "transitionDuration": 500
+    }
+  }
+}

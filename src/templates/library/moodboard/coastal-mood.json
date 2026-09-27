@@ -1,0 +1,435 @@
+{
+  "id": "coastal-mood",
+  "name": "Coastal Mood",
+  "format": "moodboard",
+  "sizeId": "moodboard",
+  "style": "editorial",
+  "description": "An asymmetric board with photos, colour swatches with HEX codes and a type pairing.",
+  "tags": [
+    "moodboard",
+    "palette",
+    "branding",
+    "coastal",
+    "editorial"
+  ],
+  "palette": [
+    "#F4F1EC",
+    "#1F2A30",
+    "#8FB3C2",
+    "#D9C6A8",
+    "#C46A4E"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1600,
+    "slideHeight": 1200,
+    "background": {
+      "type": "solid",
+      "color": "#F4F1EC"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "cm0",
+        "x": 60,
+        "y": 50,
+        "width": 900,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Moodboard — Coastal autumn",
+        "fontFamily": "Playfair Display",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cm1",
+        "x": 60,
+        "y": 120,
+        "width": 520,
+        "height": 680,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#CAD8DE"
+          }
+        }
+      },
+      {
+        "id": "cm2",
+        "x": 600,
+        "y": 120,
+        "width": 440,
+        "height": 330,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E3D6C1"
+          }
+        }
+      },
+      {
+        "id": "cm3",
+        "x": 600,
+        "y": 470,
+        "width": 210,
+        "height": 330,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D3B8A9"
+          }
+        }
+      },
+      {
+        "id": "cm4",
+        "x": 830,
+        "y": 470,
+        "width": 210,
+        "height": 330,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#BFD0D6"
+          }
+        }
+      },
+      {
+        "id": "cm5",
+        "x": 1060,
+        "y": 120,
+        "width": 480,
+        "height": 560,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9C6A8"
+          }
+        }
+      },
+      {
+        "id": "cm6",
+        "x": 60,
+        "y": 850,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 4
+        }
+      },
+      {
+        "id": "cm7",
+        "x": 50,
+        "y": 990,
+        "width": 140,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "#1F2A30",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cm8",
+        "x": 210,
+        "y": 850,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#8FB3C2"
+        },
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 4
+        }
+      },
+      {
+        "id": "cm9",
+        "x": 200,
+        "y": 990,
+        "width": 140,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "#8FB3C2",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cma",
+        "x": 360,
+        "y": 850,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#D9C6A8"
+        },
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 4
+        }
+      },
+      {
+        "id": "cmb",
+        "x": 350,
+        "y": 990,
+        "width": 140,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "#D9C6A8",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cmc",
+        "x": 510,
+        "y": 850,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "ellipse",
+        "fill": {
+          "type": "solid",
+          "color": "#C46A4E"
+        },
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 4
+        }
+      },
+      {
+        "id": "cmd",
+        "x": 500,
+        "y": 990,
+        "width": 140,
+        "height": 25,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "#C46A4E",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 20,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cme",
+        "x": 700,
+        "y": 820,
+        "width": 220,
+        "height": 191,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Aa",
+        "fontFamily": "Playfair Display",
+        "fontSize": 170,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cmf",
+        "x": 700,
+        "y": 1030,
+        "width": 300,
+        "height": 60,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Playfair Display\nitalic headlines",
+        "fontFamily": "Manrope",
+        "fontSize": 22,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#5B6870"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.3,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cmg",
+        "x": 1060,
+        "y": 820,
+        "width": 220,
+        "height": 191,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Aa",
+        "fontFamily": "Manrope",
+        "fontSize": 170,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C46A4E"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cmh",
+        "x": 1060,
+        "y": 1030,
+        "width": 300,
+        "height": 60,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Manrope\nfor everything else",
+        "fontFamily": "Manrope",
+        "fontSize": 22,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#5B6870"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.3,
+        "letterSpacing": 0
+      },
+      {
+        "id": "cmi",
+        "x": 1060,
+        "y": 700,
+        "width": 480,
+        "height": 54,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "salt · linen · rust",
+        "fontFamily": "Caveat",
+        "fontSize": 44,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1F2A30"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

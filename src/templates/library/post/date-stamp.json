@@ -1,0 +1,154 @@
+{
+  "id": "date-stamp",
+  "name": "Date Stamp",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "retro",
+  "description": "One big instant print on peach, with an orange film-camera date stamp.",
+  "tags": [
+    "polaroid",
+    "film",
+    "retro",
+    "nostalgia",
+    "date"
+  ],
+  "palette": [
+    "#F5C8A8",
+    "#2B2530",
+    "#FF7A1A",
+    "#FBFAF7"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#F5C8A8"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ds0",
+        "x": 190,
+        "y": 240,
+        "width": 700,
+        "height": 840,
+        "rotation": -3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 35,
+          "x": 0,
+          "y": 14
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 8.4
+      },
+      {
+        "id": "ds1",
+        "x": 228.33648306299392,
+        "y": 282.09593256717983,
+        "width": 616,
+        "height": 616,
+        "rotation": -3,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E7B797"
+          }
+        }
+      },
+      {
+        "id": "ds2",
+        "x": 249.21852960392857,
+        "y": 910.1491169342548,
+        "width": 616,
+        "height": 156.79999999999998,
+        "rotation": -3,
+        "opacity": 1,
+        "type": "text",
+        "text": "the one that got away",
+        "fontFamily": "Caveat",
+        "fontSize": 59.50000000000001,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ds3",
+        "x": 620,
+        "y": 760,
+        "width": 260,
+        "height": 42,
+        "rotation": -3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(255,122,26,0.6)",
+          "blur": 8,
+          "x": 0,
+          "y": 0
+        },
+        "type": "text",
+        "text": "’26 09 26",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FF7A1A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ds4",
+        "x": 820,
+        "y": 90,
+        "width": 170,
+        "height": 170,
+        "rotation": 12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:daisy",
+        "tint": "#FBFAF7"
+      },
+      {
+        "id": "ds5",
+        "x": 90,
+        "y": 1140,
+        "width": 140,
+        "height": 140,
+        "rotation": -10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:heart",
+        "tint": "#FF7A1A"
+      }
+    ]
+  }
+}

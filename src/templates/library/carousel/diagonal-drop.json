@@ -1,0 +1,287 @@
+{
+  "id": "diagonal-drop",
+  "name": "Diagonal Drop",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "streetwear",
+  "description": "An acid-lime band cuts diagonally through three slides of a streetwear lookbook.",
+  "tags": [
+    "streetwear",
+    "diagonal",
+    "lookbook",
+    "fashion",
+    "seamless"
+  ],
+  "palette": [
+    "#101010",
+    "#D7FF3A",
+    "#F5F5F0",
+    "#2A2A2A"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#101010"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "dd0",
+        "x": 540,
+        "y": 60,
+        "width": 480,
+        "height": 540,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2A2A"
+          }
+        }
+      },
+      {
+        "id": "dd1",
+        "x": 60,
+        "y": 50,
+        "width": 440,
+        "height": 404,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Drop\n04",
+        "fontFamily": "Anton",
+        "fontSize": 210,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#F5F5F0"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "dd2",
+        "x": 1160,
+        "y": 60,
+        "width": 540,
+        "height": 420,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#333333"
+          }
+        }
+      },
+      {
+        "id": "dd3",
+        "x": 1740,
+        "y": 70,
+        "width": 360,
+        "height": 286,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Built\nfor the\nblock.",
+        "fontFamily": "Anton",
+        "fontSize": 96,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#F5F5F0"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0
+      },
+      {
+        "id": "dd4",
+        "x": 1520,
+        "y": 840,
+        "width": 580,
+        "height": 450,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#333333"
+          }
+        }
+      },
+      {
+        "id": "dd5",
+        "x": 2220,
+        "y": 700,
+        "width": 580,
+        "height": 590,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2A2A"
+          }
+        }
+      },
+      {
+        "id": "dd6",
+        "x": 2840,
+        "y": 690,
+        "width": 360,
+        "height": 423,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Shop\nthe\ndrop",
+        "fontFamily": "Anton",
+        "fontSize": 150,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#D7FF3A"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "dd7",
+        "x": 2860,
+        "y": 1170,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:arrow-bold",
+        "tint": "#D7FF3A"
+      },
+      {
+        "id": "dd8",
+        "x": -200,
+        "y": 520,
+        "width": 3640,
+        "height": 260,
+        "rotation": -8,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#D7FF3A"
+        }
+      },
+      {
+        "id": "dd9",
+        "x": -200,
+        "y": 555,
+        "width": 3640,
+        "height": 190,
+        "rotation": -8,
+        "opacity": 1,
+        "type": "text",
+        "text": "No days off — no days off — no days off",
+        "fontFamily": "Anton",
+        "fontSize": 170,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#101010"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "dda",
+        "x": 60,
+        "y": 1150,
+        "width": 700,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Fall / winter capsule",
+        "fontFamily": "Manrope",
+        "fontSize": 26,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#F5F5F0"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.3,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "ddb",
+        "x": 60,
+        "y": 1200,
+        "width": 700,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Swipe for the lookbook →",
+        "fontFamily": "Manrope",
+        "fontSize": 26,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#9A9A94"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

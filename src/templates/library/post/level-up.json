@@ -1,0 +1,520 @@
+{
+  "id": "level-up",
+  "name": "Level Up",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "y2k",
+  "description": "Four escalating levels, each one glowing a little more unhinged than the last.",
+  "tags": [
+    "meme",
+    "meme format",
+    "escalating",
+    "levels",
+    "y2k",
+    "glow",
+    "animated"
+  ],
+  "palette": [
+    "#16131F",
+    "#2C2640",
+    "#7A5CFF",
+    "#3CF0C8",
+    "#C6FF3D",
+    "#FFFFFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#16131F"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null,
+        "duration": 5000
+      }
+    ],
+    "elements": [
+      {
+        "id": "lu0",
+        "x": 0,
+        "y": 0,
+        "width": 640,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#2C2640"
+        }
+      },
+      {
+        "id": "lu1",
+        "x": 40,
+        "y": 34,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 0.8,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "LV.1",
+        "fontFamily": "Silkscreen",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#B8B2CC"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lu2",
+        "x": 40,
+        "y": 100,
+        "width": 560,
+        "height": 63,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
+        "type": "text",
+        "text": "coffee",
+        "fontFamily": "Unbounded",
+        "fontSize": 52,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#B8B2CC"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.08,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lu3",
+        "x": 640,
+        "y": 0,
+        "width": 440,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 270,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Level 1",
+          "fill": {
+            "type": "solid",
+            "color": "#3A3350"
+          }
+        }
+      },
+      {
+        "id": "lu4",
+        "x": 0,
+        "y": 337.5,
+        "width": 640,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "linear",
+          "angle": 90,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#2C2640"
+            },
+            {
+              "offset": 1,
+              "color": "#4B3A8C"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lu5",
+        "x": 40,
+        "y": 371.5,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 0.8,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1020,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "LV.2",
+        "fontFamily": "Silkscreen",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lu6",
+        "x": 40,
+        "y": 437.5,
+        "width": 560,
+        "height": 63,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1170,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "iced coffee",
+        "fontFamily": "Unbounded",
+        "fontSize": 52,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.08,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lu7",
+        "x": 640,
+        "y": 337.5,
+        "width": 440,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 870,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Level 2",
+          "fill": {
+            "type": "solid",
+            "color": "#4A3F6B"
+          }
+        }
+      },
+      {
+        "id": "lu8",
+        "x": 0,
+        "y": 675,
+        "width": 640,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "linear",
+          "angle": 90,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#4B3A8C"
+            },
+            {
+              "offset": 1,
+              "color": "#7A5CFF"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lu9",
+        "x": 40,
+        "y": 709,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 0.8,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1620,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "LV.3",
+        "fontFamily": "Silkscreen",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lua",
+        "x": 40,
+        "y": 775,
+        "width": 560,
+        "height": 175,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1770,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "iced oat latte, extra shot, no ice",
+        "fontFamily": "Unbounded",
+        "fontSize": 52,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.08,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lub",
+        "x": 640,
+        "y": 675,
+        "width": 440,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 1470,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Level 3",
+          "fill": {
+            "type": "solid",
+            "color": "#6A55B8"
+          }
+        }
+      },
+      {
+        "id": "luc",
+        "x": 0,
+        "y": 1012.5,
+        "width": 640,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1920,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "linear",
+          "angle": 90,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "#7A5CFF"
+            },
+            {
+              "offset": 0.5,
+              "color": "#3CF0C8"
+            },
+            {
+              "offset": 1,
+              "color": "#C6FF3D"
+            }
+          ]
+        }
+      },
+      {
+        "id": "lud",
+        "x": 40,
+        "y": 1046.5,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 0.8,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2220,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "LV.4",
+        "fontFamily": "Silkscreen",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "lue",
+        "x": 40,
+        "y": 1112.5,
+        "width": 560,
+        "height": 148,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2370,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "a drink with a longer name than this caption",
+        "fontFamily": "Unbounded",
+        "fontSize": 44,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.08,
+        "letterSpacing": 0
+      },
+      {
+        "id": "luf",
+        "x": 640,
+        "y": 1012.5,
+        "width": 440,
+        "height": 337.5,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2070,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Level 4",
+          "fill": {
+            "type": "solid",
+            "color": "#8FE8D0"
+          }
+        }
+      }
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
+  }
+}

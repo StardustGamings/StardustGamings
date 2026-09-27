@@ -1,0 +1,216 @@
+{
+  "id": "nah-yeah",
+  "name": "Nah / Yeah",
+  "format": "post",
+  "sizeId": "ig-square",
+  "style": "playful",
+  "description": "Two reaction pics: the thing you’re meant to do, and the thing you actually do.",
+  "tags": [
+    "meme",
+    "meme format",
+    "reaction",
+    "two panel",
+    "funny"
+  ],
+  "palette": [
+    "#FFF8E7",
+    "#0B0A12",
+    "#E8432E",
+    "#C6FF3D",
+    "#E7DDC8"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#FFF8E7"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ny0",
+        "x": 0,
+        "y": 0,
+        "width": 520,
+        "height": 540,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Reaction pic",
+          "fill": {
+            "type": "solid",
+            "color": "#E7DDC8"
+          }
+        }
+      },
+      {
+        "id": "ny1",
+        "x": 28,
+        "y": 28,
+        "width": 150,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E8432E"
+        },
+        "cornerRadius": 32
+      },
+      {
+        "id": "ny2",
+        "x": 28,
+        "y": 28,
+        "width": 150,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "NAH",
+        "fontFamily": "Anton",
+        "fontSize": 40,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ny3",
+        "x": 570,
+        "y": 150,
+        "width": 460,
+        "height": 240,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "sleeping eight hours like a well-adjusted person",
+        "fontFamily": "Manrope",
+        "fontSize": 52,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.12,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ny4",
+        "x": 0,
+        "y": 540,
+        "width": 520,
+        "height": 540,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "Reaction pic",
+          "fill": {
+            "type": "solid",
+            "color": "#E7DDC8"
+          }
+        }
+      },
+      {
+        "id": "ny5",
+        "x": 28,
+        "y": 568,
+        "width": 150,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "cornerRadius": 32
+      },
+      {
+        "id": "ny6",
+        "x": 28,
+        "y": 568,
+        "width": 150,
+        "height": 64,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "YEAH",
+        "fontFamily": "Anton",
+        "fontSize": 40,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ny7",
+        "x": 570,
+        "y": 690,
+        "width": 460,
+        "height": 240,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "one more episode, then one more swipe, then sunrise",
+        "fontFamily": "Manrope",
+        "fontSize": 52,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.12,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ny8",
+        "x": 0,
+        "y": 536,
+        "width": 1080,
+        "height": 8,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        }
+      }
+    ]
+  }
+}

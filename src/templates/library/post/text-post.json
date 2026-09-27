@@ -1,0 +1,265 @@
+{
+  "id": "text-post",
+  "name": "Text Post Card",
+  "format": "post",
+  "sizeId": "ig-square",
+  "style": "minimal",
+  "description": "A short opinion on a clean card — avatar, name, the take and a row of reactions.",
+  "tags": [
+    "social format",
+    "text post",
+    "opinion",
+    "card",
+    "minimal"
+  ],
+  "palette": [
+    "#C6FF3D",
+    "#3CF0C8",
+    "#FFFFFF",
+    "#0B0A12",
+    "#8E8A9C"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "linear",
+      "angle": 135,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#C6FF3D"
+        },
+        {
+          "offset": 1,
+          "color": "#3CF0C8"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "tp0",
+        "x": 90,
+        "y": 230,
+        "width": 900,
+        "height": 620,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(11,10,18,0.18)",
+          "blur": 24,
+          "x": 0,
+          "y": 8
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "cornerRadius": 40
+      },
+      {
+        "id": "tp1",
+        "x": 140,
+        "y": 280,
+        "width": 110,
+        "height": 110,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "ellipse",
+        "placeholder": {
+          "label": "You",
+          "fill": {
+            "type": "solid",
+            "color": "#D9D4E4"
+          }
+        }
+      },
+      {
+        "id": "tp2",
+        "x": 275,
+        "y": 290,
+        "width": 660,
+        "height": 49,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Your Name",
+        "fontFamily": "Manrope",
+        "fontSize": 40,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tp3",
+        "x": 275,
+        "y": 345,
+        "width": 660,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "@yourhandle · 2h",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8E8A9C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tp4",
+        "x": 140,
+        "y": 440,
+        "width": 800,
+        "height": 188,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "hot take: the best camera is the one you actually take out of your pocket",
+        "fontFamily": "Manrope",
+        "fontSize": 52,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.16,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tp5",
+        "x": 140,
+        "y": 752,
+        "width": 50,
+        "height": 50,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:comment",
+        "tint": "#8E8A9C"
+      },
+      {
+        "id": "tp6",
+        "x": 200,
+        "y": 758,
+        "width": 140,
+        "height": 40,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "48",
+        "fontFamily": "Manrope",
+        "fontSize": 32,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8E8A9C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tp7",
+        "x": 370,
+        "y": 752,
+        "width": 50,
+        "height": 50,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:share",
+        "tint": "#8E8A9C"
+      },
+      {
+        "id": "tp8",
+        "x": 430,
+        "y": 758,
+        "width": 140,
+        "height": 40,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "112",
+        "fontFamily": "Manrope",
+        "fontSize": 32,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8E8A9C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tp9",
+        "x": 600,
+        "y": 752,
+        "width": 50,
+        "height": 50,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:like",
+        "tint": "#8E8A9C"
+      },
+      {
+        "id": "tpa",
+        "x": 660,
+        "y": 758,
+        "width": 140,
+        "height": 40,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "2.4k",
+        "fontFamily": "Manrope",
+        "fontSize": 32,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#8E8A9C"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

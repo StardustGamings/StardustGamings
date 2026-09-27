@@ -1,0 +1,140 @@
+{
+  "id": "gilded-frame",
+  "name": "Gilded Frame",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "luxury",
+  "description": "A portrait in an arch, framed with a fine gold rule and quiet serif type.",
+  "tags": [
+    "luxury",
+    "frame",
+    "portrait",
+    "elegant",
+    "dark"
+  ],
+  "palette": [
+    "#1E1A17",
+    "#C9A86A",
+    "#F3EBDD",
+    "#3A332D"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#1E1A17"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "gf0",
+        "x": 40,
+        "y": 40,
+        "width": 1000,
+        "height": 1270,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "stroke": {
+          "color": "#C9A86A",
+          "width": 3
+        }
+      },
+      {
+        "id": "gf1",
+        "x": 58,
+        "y": 58,
+        "width": 964,
+        "height": 1234,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "stroke": {
+          "color": "#C9A86A",
+          "width": 1
+        }
+      },
+      {
+        "id": "gf2",
+        "x": 240,
+        "y": 150,
+        "width": 600,
+        "height": 780,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "filter": {
+          "id": "luxury",
+          "intensity": 85
+        },
+        "clip": "arch",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#3A332D"
+          }
+        }
+      },
+      {
+        "id": "gf3",
+        "x": 90,
+        "y": 970,
+        "width": 900,
+        "height": 179,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Portrait of\na Sunday",
+        "fontFamily": "Playfair Display",
+        "fontSize": 84,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#F3EBDD"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "gf4",
+        "x": 90,
+        "y": 1190,
+        "width": 900,
+        "height": 27,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Collection no. 12",
+        "fontFamily": "Manrope",
+        "fontSize": 22,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C9A86A"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.4,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

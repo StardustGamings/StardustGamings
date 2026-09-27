@@ -1,0 +1,350 @@
+{
+  "id": "brutal-stats",
+  "name": "Brutal Stats",
+  "format": "carousel",
+  "sizeId": "ig-square",
+  "style": "brutalist",
+  "description": "Thick frames, huge numbers, zero fluff. Data that hits.",
+  "tags": [
+    "brutalist",
+    "business",
+    "infographic"
+  ],
+  "palette": [
+    "#F2F0EB",
+    "#0B0A12",
+    "#FF3D2E"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#F2F0EB"
+    },
+    "slides": [
+      {
+        "id": "sj",
+        "fill": null
+      },
+      {
+        "id": "sk",
+        "fill": null
+      },
+      {
+        "id": "sl",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e60",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "x": 40,
+        "y": 40,
+        "width": 1000,
+        "height": 1000,
+        "stroke": {
+          "color": "#0B0A12",
+          "width": 12
+        }
+      },
+      {
+        "id": "e61",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.92,
+        "letterSpacing": -0.03,
+        "x": 90,
+        "y": 90,
+        "width": 900,
+        "height": 400,
+        "text": "STATE OF\nCONTENT\n2026",
+        "fontFamily": "Archivo",
+        "fontSize": 136
+      },
+      {
+        "id": "e62",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FF3D2E"
+        },
+        "x": 90,
+        "y": 760,
+        "width": 230,
+        "height": 230
+      },
+      {
+        "id": "e63",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 360,
+        "y": 950,
+        "width": 640,
+        "height": 40,
+        "text": "A DATA DUMP IN 3 SLIDES →",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 28
+      },
+      {
+        "id": "e64",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "x": 1120,
+        "y": 40,
+        "width": 1000,
+        "height": 1000,
+        "stroke": {
+          "color": "#0B0A12",
+          "width": 12
+        }
+      },
+      {
+        "id": "e65",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FF3D2E"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": -0.05,
+        "x": 1150,
+        "y": 110,
+        "width": 940,
+        "height": 420,
+        "text": "87%",
+        "fontFamily": "Archivo",
+        "fontSize": 400
+      },
+      {
+        "id": "e66",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": -0.02,
+        "x": 1170,
+        "y": 580,
+        "width": 880,
+        "height": 300,
+        "text": "of people swipe past slide one if it’s boring.",
+        "fontFamily": "Archivo",
+        "fontSize": 70
+      },
+      {
+        "id": "e67",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "x": 1170,
+        "y": 930,
+        "width": 900,
+        "height": 18
+      },
+      {
+        "id": "e68",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": null,
+        "x": 2200,
+        "y": 40,
+        "width": 1000,
+        "height": 1000,
+        "stroke": {
+          "color": "#0B0A12",
+          "width": 12
+        }
+      },
+      {
+        "id": "e69",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": -0.03,
+        "x": 2250,
+        "y": 90,
+        "width": 900,
+        "height": 120,
+        "text": "SAVES ↑",
+        "fontFamily": "Archivo",
+        "fontSize": 110
+      },
+      {
+        "id": "e6a",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "x": 2300,
+        "y": 600,
+        "width": 200,
+        "height": 300
+      },
+      {
+        "id": "e6b",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2300,
+        "y": 920,
+        "width": 200,
+        "height": 40,
+        "text": "2024",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      },
+      {
+        "id": "e6c",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "x": 2600,
+        "y": 420,
+        "width": 200,
+        "height": 480
+      },
+      {
+        "id": "e6d",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2600,
+        "y": 920,
+        "width": 200,
+        "height": 40,
+        "text": "2025",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      },
+      {
+        "id": "e6e",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FF3D2E"
+        },
+        "x": 2900,
+        "y": 240,
+        "width": 200,
+        "height": 660
+      },
+      {
+        "id": "e6f",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 2900,
+        "y": 920,
+        "width": 200,
+        "height": 40,
+        "text": "2026",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30
+      }
+    ]
+  }
+}
