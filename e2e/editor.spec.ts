@@ -256,6 +256,58 @@ test.describe('canvas editor (phone)', () => {
     await expect(page.getByTestId('selection-frame')).toBeVisible();
   });
 
+  test('double-tap edits text; a corner handle resizes by touch; two fingers pan', async ({ app: page }) => {
+    await newPost(page);
+    const cdp = await page.context().newCDPSession(page);
+    const touch = (type: string, points: { x: number; y: number }[]) =>
+      cdp.send('Input.dispatchTouchEvent', { type, touchPoints: points.map((p, id) => ({ ...p, id })) });
+
+    // A heading: double-tap opens it for editing.
+    await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Text', exact: true }).click();
+    await page.getByTestId('mobile-sheet').getByRole('button', { name: 'Add a heading' }).click();
+    await page.getByRole('navigation', { name: 'Selection actions' }).getByRole('button', { name: 'Done' }).click();
+    await expect(page.getByTestId('selection-frame')).toBeHidden();
+    const vp = (await page.getByTestId('canvas-viewport').boundingBox())!;
+    const text = { x: vp.x + vp.width / 2, y: vp.y + vp.height / 2 };
+    await page.waitForTimeout(400);
+    await page.touchscreen.tap(text.x, text.y);
+    await page.touchscreen.tap(text.x, text.y);
+    await expect(page.getByRole('textbox', { name: 'Edit text' })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Escape');
+
+    // A rectangle: drag its bottom-right handle outwards.
+    await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Shapes', exact: true }).click();
+    await page.getByRole('button', { name: 'Add Rectangle' }).click();
+    await page.getByRole('button', { name: 'Close panel' }).click();
+    await expect(page.getByTestId('mobile-sheet')).toBeHidden();
+    const box = (await page.getByTestId('selection-frame').boundingBox())!;
+    const corner = { x: box.x + box.width, y: box.y + box.height };
+    await touch('touchStart', [corner]);
+    for (let i = 1; i <= 6; i++) await touch('touchMove', [{ x: corner.x + i * 6, y: corner.y + i * 6 }]);
+    await touch('touchEnd', []);
+    await expect
+      .poll(async () => (await page.getByTestId('selection-frame').boundingBox())!.width)
+      .toBeGreaterThan(box.width + 20);
+
+    // Two fingers moving together pan the view: the frame moves on screen but keeps its size.
+    const before = (await page.getByTestId('selection-frame').boundingBox())!;
+    const mid = { x: vp.x + vp.width / 2, y: vp.y + vp.height - 80 };
+    await touch('touchStart', [
+      { x: mid.x - 40, y: mid.y },
+      { x: mid.x + 40, y: mid.y },
+    ]);
+    for (let i = 1; i <= 6; i++)
+      await touch('touchMove', [
+        { x: mid.x - 40 + i * 10, y: mid.y - i * 5 },
+        { x: mid.x + 40 + i * 10, y: mid.y - i * 5 },
+      ]);
+    await touch('touchEnd', []);
+    await expect.poll(async () => (await page.getByTestId('selection-frame').boundingBox())!.x).toBeGreaterThan(before.x + 30);
+    const after = (await page.getByTestId('selection-frame').boundingBox())!;
+    expect(Math.abs(after.width - before.width)).toBeLessThan(before.width * 0.05);
+  });
+
   test('one-finger drag moves; two-finger pinch zooms', async ({ app: page }) => {
     await newPost(page);
     await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Shapes', exact: true }).click();
