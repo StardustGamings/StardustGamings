@@ -240,6 +240,47 @@ test.describe('export (desktop)', () => {
     expect(pixels.every(grey), JSON.stringify(pixels)).toBe(true);
   });
 
+  test('photo-filled text exports with its photo', async ({ app: page }) => {
+    await open(page, '/');
+    await page.getByRole('button', { name: /^New Post:/ }).click();
+    await page.getByTestId('create-project').click();
+    await expect(page.getByTestId('canvas-viewport')).toBeVisible();
+    const photo = await page.evaluate(() => {
+      const c = document.createElement('canvas');
+      c.width = 800;
+      c.height = 600;
+      const x = c.getContext('2d')!;
+      x.fillStyle = '#2F6BD8';
+      x.fillRect(0, 0, 800, 600);
+      return c.toDataURL('image/png').split(',')[1]!;
+    });
+    await page
+      .getByTestId('photo-input')
+      .setInputFiles({ name: 'sky.png', mimeType: 'image/png', buffer: Buffer.from(photo, 'base64') });
+    await expect(page.getByTestId('selection-frame')).toBeVisible();
+    await page.keyboard.press('Delete');
+    await page.getByRole('button', { name: 'Text', exact: true }).first().click();
+    await page.getByRole('button', { name: 'Add a heading' }).click();
+    await page.getByRole('switch', { name: 'Photo fill' }).click();
+    await expect(page.getByRole('switch', { name: 'Photo fill' })).toHaveAttribute('aria-checked', 'true');
+
+    const dialog = await openExport(page);
+    await pick(dialog, 'PNG', 'High');
+    const png = await exportOne(page, dialog);
+    const bluePixels = await page.evaluate(async (base64) => {
+      const bitmap = await createImageBitmap(new Blob([Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))]));
+      const ctx = new OffscreenCanvas(bitmap.width, bitmap.height).getContext('2d')!;
+      ctx.drawImage(bitmap, 0, 0);
+      const d = ctx.getImageData(0, 0, bitmap.width, bitmap.height).data;
+      let n = 0;
+      for (let i = 0; i < d.length; i += 4) if (d[i + 2]! > d[i]! + 100) n++;
+      return n;
+    }, png.bytes.toString('base64'));
+    // The letters (and only they) show the blue photo.
+    expect(bluePixels).toBeGreaterThan(5000);
+    expect(bluePixels).toBeLessThan(2160 * 2700 * 0.2);
+  });
+
   test('export straight from a project card on the home screen', async ({ app: page }) => {
     await createCarousel(page, 2);
     await page.getByRole('link', { name: 'Back to home' }).click();

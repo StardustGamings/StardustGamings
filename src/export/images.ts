@@ -3,6 +3,7 @@
 import type { DesignDocument, ImageElement } from '@/types/document';
 import type { DrawableImage, ImageResolver, Rect, ResolvedImage } from '@/canvas/render/types';
 import { elementBounds } from '@/canvas/render/renderer';
+import { textPhotoFrame } from '@/canvas/render/text-photo';
 import { loadAsset, type LoadedAsset } from '@/assets/cache';
 import { getAssetBlob, getAssetMeta } from '@/assets/repository';
 import { PREVIEW_MAX } from '@/assets/types';
@@ -76,9 +77,10 @@ export async function prepareRegionImages(
   const owned: DrawableImage[] = [];
   let missing = 0;
 
-  const images = doc.elements.filter(
-    (e): e is ImageElement => e.type === 'image' && !!e.assetId && !e.hidden && intersects(elementBounds(e), region),
-  );
+  // Photos, and the photos showing through photo-filled text.
+  const images = doc.elements
+    .map((e) => (e.type === 'text' ? (e.hidden ? null : textPhotoFrame(e)) : e))
+    .filter((e): e is ImageElement => e?.type === 'image' && !!e.assetId && !e.hidden && intersects(elementBounds(e), region));
   for (const el of images) {
     signal?.throwIfAborted();
     const needed = Math.max(el.width, el.height) * scale * Math.max(1, el.zoom ?? 1);

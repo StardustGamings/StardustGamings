@@ -2,7 +2,8 @@ import { deflateRawSync } from 'node:zlib';
 import { beforeEach, describe, expect, it } from 'vitest';
 import type { AssetMeta } from '@/assets/types';
 import { sha256Hex } from '@/assets/process-core';
-import type { DesignDocument } from '@/types/document';
+import type { DesignDocument, TextElement } from '@/types/document';
+import { documentAssetIds } from '@/assets/repository';
 import { crc32, createZip, createZipBlob } from '@/export/zip';
 import * as folders from '@/projects/folders';
 import * as repo from '@/projects/repository';
@@ -287,16 +288,20 @@ describe('project files', () => {
     );
     const el = doc.elements[0] as Extract<DesignDocument['elements'][number], { type: 'image' }>;
     el.cutout = { maskAssetId: 'm', feather: 0, backdrop: { type: 'image', assetId: 'b' } };
+    doc.elements.push({ ...createText(doc, { x: 5, y: 5 }), photoFill: { assetId: 'p', zoom: 2 } });
+    expect([...documentAssetIds(doc)].sort()).toEqual(['a', 'b', 'm', 'p']);
     const out = remapAssets(
       doc,
       new Map([
         ['a', 'A'],
         ['m', 'M'],
         ['b', 'B'],
+        ['p', 'P'],
       ]),
     );
     const next = out.elements[0] as typeof el;
     expect([next.assetId, next.cutout!.maskAssetId, next.cutout!.backdrop]).toEqual(['A', 'M', { type: 'image', assetId: 'B' }]);
+    expect((out.elements[1] as TextElement).photoFill).toEqual({ assetId: 'P', zoom: 2 });
     expect((doc.elements[0] as typeof el).assetId).toBe('a');
   });
 });

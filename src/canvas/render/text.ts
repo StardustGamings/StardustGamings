@@ -296,12 +296,21 @@ function revealLines(ctx: Ctx2D, lines: TextLine[], reveal: number, spacing: num
 /**
  * Draws a text element into its local box (0,0,width,height). `reveal` < 1
  * shows only the first part of the text (typewriter); lines keep the position
- * they have when complete, so the text types out in place.
+ * they have when complete, so the text types out in place. `paint`, when
+ * given, paints the letters instead of `el.fill`: it draws into the text's box
+ * (a photo, for photo-filled text) and shows only through the glyphs.
  */
-export function drawText(ctx: Ctx2D, el: TextElement, shadow: () => void, clearShadow: () => void, reveal = 1): void {
+export function drawText(
+  ctx: Ctx2D,
+  el: TextElement,
+  shadow: () => void,
+  clearShadow: () => void,
+  reveal = 1,
+  paint?: (ctx: Ctx2D) => void,
+): void {
   const layout = layoutText(ctx, el);
   if (isWarped(el)) {
-    drawWarpedText(ctx, el, layout, shadow, clearShadow, reveal);
+    drawWarpedText(ctx, el, layout, shadow, clearShadow, reveal, paint);
     return;
   }
   const { lineHeight, ascent, descent, spacing, blockHeight } = layout;
@@ -353,9 +362,13 @@ export function drawText(ctx: Ctx2D, el: TextElement, shadow: () => void, clearS
     for (const p of positioned) drawLine(ctx, p.line, p.x, p.baseline, spacing, 'stroke');
   }
 
+  const glyphs = (c: Ctx2D) => {
+    for (const p of positioned) drawLine(c, p.line, p.x, p.baseline, spacing, 'fill');
+  };
+  if (paint && fillThrough(ctx, el, layout.font, 0, glyphs, paint, withShadowOnce)) return;
   ctx.fillStyle = createFillStyle(ctx, el.fill, 0, 0, el.width, el.height);
   withShadowOnce();
-  for (const p of positioned) drawLine(ctx, p.line, p.x, p.baseline, spacing, 'fill');
+  glyphs(ctx);
 }
 
 /** Warped text: each glyph placed and turned on its own (see `warpedGlyphs`). */
@@ -366,6 +379,7 @@ function drawWarpedText(
   shadow: () => void,
   clearShadow: () => void,
   reveal: number,
+  paint: ((ctx: Ctx2D) => void) | undefined,
 ): void {
   const { glyphs, above, below } = warpedGlyphs(ctx, el, layout);
   const total = layout.blockHeight + above + below;
@@ -395,47 +409,78 @@ function drawWarpedText(
     drawGlyphs(ctx, shown, dy, pivotUp, 'stroke');
   }
 
-  if (el.fill.type === 'solid') {
+  const fill = (c: Ctx2D) => drawGlyphs(c, shown, dy, pivotUp, 'fill');
+  if (!paint && el.fill.type === 'solid') {
     ctx.fillStyle = el.fill.color;
     withShadowOnce();
-    drawGlyphs(ctx, shown, dy, pivotUp, 'fill');
+    fill(ctx);
     return;
   }
-  // A gradient stays put in the box while the glyphs turn: draw the glyphs as a mask, then fill through it.
+  // A gradient or photo stays put in the box while the glyphs turn: draw the glyphs as a mask, then fill through it.
+  const gradient = (c: Ctx2D) => {
+    c.fillStyle = createFillStyle(c, el.fill, 0, 0, el.width, el.height);
+    c.fillRect(-el.fontSize, -el.fontSize, el.width + el.fontSize * 2, el.height + above + below + el.fontSize * 2);
+  };
+  if (fillThrough(ctx, el, layout.font, above + below, fill, paint ?? gradient, withShadowOnce)) return;
+  ctx.fillStyle = createFillStyle(ctx, el.fill, 0, 0, el.width, el.height);
+  withShadowOnce();
+  fill(ctx);
+}
+
+/**
+ * Draws the glyphs as a mask on a scratch layer (at the current pixel scale), paints through it, and draws
+ * the result into the box. False when no layer is available (too large, or no canvas), so the caller falls back.
+ */
+function fillThrough(
+  ctx: Ctx2D,
+  el: TextElement,
+  font: string,
+  extra: number,
+  glyphs: (ctx: Ctx2D) => void,
+  paint: (ctx: Ctx2D) => void,
+  withShadowOnce: () => void,
+): boolean {
   const t = ctx.getTransform();
-  const scale = Math.max(0.01, Math.hypot(t.a, t.b));
   const pad = el.fontSize;
-  const w = Math.ceil((el.width + pad * 2) * scale);
-  const h = Math.ceil((el.height + above + below + pad * 2) * scale);
+  const boxW = el.width + pad * 2;
+  const boxH = el.height + extra + pad * 2;
+  // Device pixels per unit, capped so the layer stays ≤ 4096 px a side (softer only when zoomed right in).
+  const scale = Math.max(0.01, Math.min(Math.hypot(t.a, t.b), MAX_LAYER / boxW, MAX_LAYER / boxH));
+  const w = Math.ceil(boxW * scale);
+  const h = Math.ceil(boxH * scale);
   const layer = scratch(w, h);
   const lctx = layer?.getContext('2d') as Ctx2D | null | undefined;
-  if (!layer || !lctx) {
-    ctx.fillStyle = createFillStyle(ctx, el.fill, 0, 0, el.width, el.height);
-    withShadowOnce();
-    drawGlyphs(ctx, shown, dy, pivotUp, 'fill');
-    return;
-  }
+  if (!layer || !lctx) return false;
   lctx.setTransform(1, 0, 0, 1, 0, 0);
+  lctx.globalCompositeOperation = 'source-over';
   lctx.clearRect(0, 0, w, h);
   lctx.setTransform(scale, 0, 0, scale, pad * scale, pad * scale);
-  lctx.font = layout.font;
+  lctx.font = font;
   lctx.textAlign = 'left';
   lctx.textBaseline = 'alphabetic';
   lctx.fillStyle = '#000';
-  drawGlyphs(lctx, shown, dy, pivotUp, 'fill');
+  glyphs(lctx);
   lctx.globalCompositeOperation = 'source-in';
-  lctx.fillStyle = createFillStyle(lctx, el.fill, 0, 0, el.width, el.height);
-  lctx.fillRect(-pad, -pad, el.width + pad * 2, el.height + above + below + pad * 2);
+  lctx.save();
+  paint(lctx);
+  lctx.restore();
   lctx.globalCompositeOperation = 'source-over';
   withShadowOnce();
-  ctx.drawImage(layer, -pad, -pad, w / scale, h / scale);
+  // Only the part of the (reused, possibly larger) scratch canvas this text drew.
+  ctx.drawImage(layer, 0, 0, w, h, -pad, -pad, w / scale, h / scale);
+  // Don't keep a huge layer around after an export-sized draw.
+  if (layer.width * layer.height > KEEP_LAYER_PIXELS) scratchCanvas = null;
+  return true;
 }
+
+const MAX_LAYER = 4096;
+const KEEP_LAYER_PIXELS = 2048 * 2048;
 
 let scratchCanvas: HTMLCanvasElement | OffscreenCanvas | null = null;
 
-/** A reusable offscreen canvas for gradient-filled warped text. */
+/** A reusable offscreen canvas for text drawn through a mask (gradient on warped text, photo fills). */
 function scratch(w: number, h: number): HTMLCanvasElement | OffscreenCanvas | null {
-  if (w > 8192 || h > 8192) return null;
+  if (w > MAX_LAYER || h > MAX_LAYER) return null;
   if (!scratchCanvas) {
     if (typeof OffscreenCanvas !== 'undefined') scratchCanvas = new OffscreenCanvas(w, h);
     else if (typeof document !== 'undefined') scratchCanvas = document.createElement('canvas');

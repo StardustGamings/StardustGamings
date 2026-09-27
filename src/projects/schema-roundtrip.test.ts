@@ -66,6 +66,7 @@ const full: DesignDocument = {
       letterSpacing: -0.02,
       textTransform: 'uppercase',
       warp: { style: 'arc', amount: -35 },
+      photoFill: { assetId: 'ast_sky', focusX: 0.3, focusY: 0.6, zoom: 1.5 },
       stroke: { color: '#000000', width: 2 },
       highlight: { fill: { type: 'solid', color: '#C6FF3D' }, padding: 8, radius: 6 },
       animation: {

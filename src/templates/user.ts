@@ -34,6 +34,12 @@ export function stripPhotos(doc: DesignDocument, options: { keep?: Set<string>; 
   const elements: DesignElement[] = [];
   const broken = new Set<string>();
   for (const el of doc.elements) {
+    if (el.type === 'text' && el.photoFill && !options.keep?.has(el.photoFill.assetId)) {
+      // Photo-filled text keeps its colour fill.
+      const { photoFill: _photo, ...text } = el;
+      elements.push(text);
+      continue;
+    }
     if (el.type !== 'image' || !el.assetId || options.keep?.has(el.assetId)) {
       elements.push(el);
       continue;

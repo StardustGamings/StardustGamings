@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { DesignDocument, TextElement } from '@/types/document';
 import { createDocument } from '@/projects/document';
 import { createFillStyle, fillToCss } from './fill';
@@ -330,5 +330,86 @@ describe('curved & warped text', () => {
     expect(calls.some((c) => c.name === 'rotate')).toBe(true);
     expect(isWarped({ warp: { style: 'arc', amount: 0 } })).toBe(false);
     expect(isWarped({})).toBe(false);
+  });
+});
+
+describe('photo-filled text (text masks)', () => {
+  const source = { width: 400, height: 200 } as unknown as CanvasImageSource & { width: number; height: number };
+
+  /** A fresh renderer whose scratch layer is a recording canvas (jsdom has no canvas pixels). */
+  async function withLayer() {
+    const layers: ReturnType<typeof recordingContext>[] = [];
+    class FakeCanvas {
+      width: number;
+      height: number;
+      private layer = recordingContext();
+      constructor(w: number, h: number) {
+        this.width = w;
+        this.height = h;
+        layers.push(this.layer);
+      }
+      getContext() {
+        return this.layer.ctx;
+      }
+    }
+    vi.resetModules();
+    vi.stubGlobal('OffscreenCanvas', FakeCanvas);
+    const mod = await import('./renderer');
+    return { renderDocument: mod.renderDocument, layers };
+  }
+
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('shows the photo through the letters, covering the text box', async () => {
+    const { renderDocument: render, layers } = await withLayer();
+    const doc = createDocument({ width: 400, height: 400 });
+    doc.elements = [text({ text: 'HI', photoFill: { assetId: 'as_1', zoom: 1 } })];
+    const asked: string[] = [];
+    const { ctx, calls } = recordingContext();
+    render(ctx, doc, {
+      scale: 1,
+      images: (el) => {
+        asked.push(`${el.id}:${el.assetId}:${el.width}x${el.height}`);
+        return { source, width: 400, height: 200, alpha: false };
+      },
+    });
+    expect(asked).toEqual(['t~photo:as_1:200x100']);
+    const layer = layers[0]!.calls;
+    // Glyphs first, then the photo drawn "source-in" so it only lands on them.
+    const glyph = layer.findIndex((c) => c.name === 'fillText');
+    const through = layer.findIndex((c) => c.name === 'set:globalCompositeOperation' && c.args[0] === 'source-in');
+    const photo = layer.findIndex((c) => c.name === 'drawImage' && c.args[0] === source);
+    expect(glyph).toBeGreaterThanOrEqual(0);
+    expect(through).toBeGreaterThan(glyph);
+    expect(photo).toBeGreaterThan(through);
+    // 400×200 covering 200×100: drawn 200×100 around the box's centre.
+    expect(layer[photo]!.args.slice(1)).toEqual([-100, -50, 200, 100]);
+    // Only the part of the layer this text used is drawn back (2× pixels, a font-size margin).
+    const back = calls.find((c) => c.name === 'drawImage')!;
+    expect(back.args.slice(1)).toEqual([0, 0, 480, 280, -20, -20, 240, 140]);
+    expect(calls.some((c) => c.name === 'fillText')).toBe(false);
+  });
+
+  it('uses the text colour while the photo loads or when it is missing', async () => {
+    const { renderDocument: render } = await withLayer();
+    const doc = createDocument({ width: 400, height: 400 });
+    doc.elements = [text({ text: 'HI', photoFill: { assetId: 'as_1' } })];
+    for (const answer of [undefined, null]) {
+      const { ctx, calls } = recordingContext();
+      render(ctx, doc, { scale: 1, images: () => answer });
+      expect(calls.filter((c) => c.name === 'fillText').map((c) => c.args[0])).toEqual(['HI']);
+      expect(calls.some((c) => c.name === 'drawImage')).toBe(false);
+    }
+  });
+
+  it('works on warped text too', async () => {
+    const { renderDocument: render, layers } = await withLayer();
+    const doc = createDocument({ width: 400, height: 400 });
+    doc.elements = [text({ text: 'HI', width: 300, warp: { style: 'arc', amount: 50 }, photoFill: { assetId: 'as_1' } })];
+    const { ctx } = recordingContext();
+    render(ctx, doc, { scale: 1, images: () => ({ source, width: 400, height: 200, alpha: false }) });
+    const layer = layers[0]!.calls;
+    expect(layer.filter((c) => c.name === 'fillText').map((c) => c.args[0])).toEqual(['H', 'I']);
+    expect(layer.some((c) => c.name === 'drawImage' && c.args[0] === source)).toBe(true);
   });
 });

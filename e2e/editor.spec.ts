@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Page } from '@playwright/test';
-import { expect, open, test } from './fixtures';
+import { expect, makePng, open, test } from './fixtures';
 
 /** Opens a new single-slide post in the editor. */
 async function newPost(page: Page) {
@@ -299,6 +299,69 @@ test.describe('fonts from this device (desktop)', () => {
     await page.getByRole('button', { name: 'Remove', exact: true }).click();
     await expect(page.getByText('Headline Font removed')).toBeVisible();
     await expect(page.getByText('Fonts you add show up here.')).toBeVisible();
+  });
+});
+
+test.describe('photo-filled text (desktop)', () => {
+  test.skip(({ isMobile }) => isMobile, 'Properties panel on desktop');
+
+  /** Strongly coloured pixels of the scene inside the selected element's frame (the test photo is vivid; text is dark). */
+  async function vividPixels(page: Page): Promise<number> {
+    const f = (await page.getByTestId('selection-frame').boundingBox())!;
+    return page.evaluate((f) => {
+      const c = document.querySelector<HTMLCanvasElement>('[data-testid="scene-canvas"]')!;
+      const r = c.getBoundingClientRect();
+      const dpr = c.width / r.width;
+      const d = c
+        .getContext('2d')!
+        .getImageData(
+          Math.round((f.x - r.left) * dpr),
+          Math.round((f.y - r.top) * dpr),
+          Math.round(f.width * dpr),
+          Math.round(f.height * dpr),
+        ).data;
+      let n = 0;
+      for (let i = 0; i < d.length; i += 4)
+        if (Math.max(d[i]!, d[i + 1]!, d[i + 2]!) - Math.min(d[i]!, d[i + 1]!, d[i + 2]!) > 120) n++;
+      return n;
+    }, f);
+  }
+
+  test('a photo shows through the letters, and can be moved, zoomed and switched off', async ({ app: page }) => {
+    await newPost(page);
+    // A photo in the library (not on the slide).
+    await page
+      .getByTestId('photo-input')
+      .setInputFiles({ name: 'sunset.png', mimeType: 'image/png', buffer: await makePng(page, 'gradient', 900, 600) });
+    await expect(page.getByTestId('selection-frame')).toBeVisible();
+    await page.keyboard.press('Delete');
+    await expect(page.getByTestId('selection-frame')).toBeHidden();
+
+    await page.getByRole('button', { name: 'Text', exact: true }).first().click();
+    await page.getByRole('button', { name: 'Add a heading' }).click();
+    await settle(page, 'selection-frame');
+    expect(await vividPixels(page)).toBe(0);
+
+    const toggle = page.getByRole('switch', { name: 'Photo fill' });
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-checked', 'true');
+    await expect(page.getByRole('button', { name: 'Fill the text with this photo' })).toHaveAttribute('aria-pressed', 'true');
+    await expect.poll(() => vividPixels(page), { timeout: 10_000 }).toBeGreaterThan(200);
+
+    const zoom = page.getByRole('slider', { name: 'Photo zoom' });
+    await zoom.focus();
+    await page.keyboard.press('End');
+    await expect(page.getByText('Zoom · 400%')).toBeVisible();
+    await page.getByRole('slider', { name: 'Photo position across' }).focus();
+    await page.keyboard.press('Home');
+    await expect(page.getByText('Across · 0%')).toBeVisible();
+    await expect.poll(() => vividPixels(page)).toBeGreaterThan(200);
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-checked', 'false');
+    await expect.poll(() => vividPixels(page)).toBe(0);
+    await page.keyboard.press('ControlOrMeta+z');
+    await expect(toggle).toHaveAttribute('aria-checked', 'true');
   });
 });
 

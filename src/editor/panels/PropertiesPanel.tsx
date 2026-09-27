@@ -38,6 +38,7 @@ import { elementLabel, fitTextHeight, scaleElementContent } from '../core/ops';
 import { selectDoc, useEditor } from '../store';
 import { ActionButton, FillField, IconToggle, NumberField, Row, Section } from './fields';
 import { FontPicker } from './FontPicker';
+import { PhotoFillSection } from './PhotoFillSection';
 import { ElementIcon } from './ElementIcon';
 import { ImageSections } from './ImagePanels';
 import { CutoutSection } from './CutoutSection';
@@ -477,6 +478,7 @@ function TextSection({ el }: { el: TextElement }) {
           </>
         )}
       </Section>
+      <PhotoFillSection el={el} set={set} />
       <WarpSection el={el} set={set} />
     </>
   );

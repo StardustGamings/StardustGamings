@@ -28,6 +28,10 @@ export const fillSchema = z.discriminatedUnion('type', [
 ]);
 
 const shadow = z.object({ color, blur: size.max(500), x: coord, y: coord });
+const assetId = z
+  .string()
+  .max(64)
+  .regex(/^[\w-]+$/u, 'Invalid asset id');
 const stroke = z.object({ color, width: size.max(500) });
 /** Font family names are interpolated into CSS font strings, so keep them boring. */
 export const fontFamilySchema = z
@@ -114,6 +118,14 @@ const textElement = z.object({
   stroke: stroke.optional(),
   highlight: z.object({ fill: fillSchema, padding: size.max(500), radius: size.max(1000) }).optional(),
   warp: z.object({ style: z.enum(['arc', 'wave', 'bulge', 'rise']), amount: finite.min(-100).max(100) }).optional(),
+  photoFill: z
+    .object({
+      assetId,
+      focusX: finite.min(0).max(1).optional(),
+      focusY: finite.min(0).max(1).optional(),
+      zoom: finite.min(1).max(20).optional(),
+    })
+    .optional(),
 });
 
 const shapeElement = z.object({
@@ -128,10 +140,6 @@ const shapeElement = z.object({
   dash: z.array(size.max(1000)).max(8).optional(),
 });
 
-const assetId = z
-  .string()
-  .max(64)
-  .regex(/^[\w-]+$/u, 'Invalid asset id');
 const bipolar = finite.min(-100).max(100).optional();
 const unipolar = finite.min(0).max(100).optional();
 

@@ -7,6 +7,7 @@ import { effectiveVignette } from '@/filters/compose';
 import { createFillStyle, fillPrimaryColor } from './fill';
 import { roundRectPath, traceClip, traceShape } from './shapes';
 import { drawText } from './text';
+import { textPhotoFrame } from './text-photo';
 import type { Ctx2D, ImageResolver, Rect, ResolvedImage } from './types';
 import { noise, poseAt, REST, type Pose } from '@/animations/engine';
 import { homeSlide, slideDuration } from '@/animations/sequence';
@@ -328,9 +329,15 @@ function drawElement(
 
   const body = () => {
     switch (el.type) {
-      case 'text':
-        drawText(ctx, el, applyShadow, clearShadow, pose.reveal);
+      case 'text': {
+        // Photo-filled text: the photo shows through the letters once it's loaded; `fill` stands in until then.
+        const frame = el.photoFill && opts.images ? textPhotoFrame(el) : null;
+        const photo = frame ? opts.images!(frame, pixelScale, time) : null;
+        const paint =
+          frame && photo && photo.width > 0 && photo.height > 0 ? (c: Ctx2D) => drawPhoto(c, frame, photo) : undefined;
+        drawText(ctx, el, applyShadow, clearShadow, pose.reveal, paint);
         break;
+      }
       case 'shape':
         applyShadow();
         drawShape(ctx, el);

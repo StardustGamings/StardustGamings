@@ -222,7 +222,10 @@ export function elementAssetIds(el: ImageElement): string[] {
 
 export function documentAssetIds(doc: DesignDocument): Set<string> {
   const ids = new Set<string>();
-  for (const el of doc.elements) if (el.type === 'image') elementAssetIds(el).forEach((id) => ids.add(id));
+  for (const el of doc.elements) {
+    if (el.type === 'image') elementAssetIds(el).forEach((id) => ids.add(id));
+    else if (el.type === 'text' && el.photoFill) ids.add(el.photoFill.assetId);
+  }
   return ids;
 }
 

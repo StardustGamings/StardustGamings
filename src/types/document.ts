@@ -89,6 +89,17 @@ export interface TextElement extends ElementBase {
   highlight?: { fill: Fill; padding: number; radius: number };
   /** Curved or warped text. `amount` runs from −100 to 100 (0 is straight). */
   warp?: TextWarp;
+  /** A photo showing through the letters (a text mask). `fill` stands in while it loads or if it's missing. */
+  photoFill?: TextPhotoFill;
+}
+
+export interface TextPhotoFill {
+  assetId: Id;
+  /** Which point of the photo lines up with the same point of the box, 0..1 (like CSS `object-position`). */
+  focusX?: number;
+  focusY?: number;
+  /** Extra scale on top of covering the box, ≥ 1. */
+  zoom?: number;
 }
 
 export type TextWarpStyle = 'arc' | 'wave' | 'bulge' | 'rise';

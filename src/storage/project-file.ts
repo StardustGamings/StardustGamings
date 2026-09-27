@@ -145,6 +145,8 @@ export function remapAssets(doc: DesignDocument, map: Map<string, string>): Desi
   return {
     ...doc,
     elements: doc.elements.map((el) => {
+      if (el.type === 'text' && el.photoFill)
+        return { ...el, photoFill: { ...el.photoFill, assetId: swap(el.photoFill.assetId) } };
       if (el.type !== 'image') return el;
       const next: ImageElement = { ...el, assetId: el.assetId ? swap(el.assetId) : null };
       if (el.cutout) {

@@ -245,6 +245,14 @@ describe('saving your own templates', () => {
     expect((out.elements.find((e) => e.id === 'mysticker') as ImageElement).assetId).toBe('ast_sticker');
   });
 
+  it('drops the photo from photo-filled text, which keeps its colour', () => {
+    const d = photoDoc();
+    d.elements = d.elements.map((e) => (e.type === 'text' ? { ...e, photoFill: { assetId: 'ast_1', zoom: 2 } } : e));
+    const t = stripPhotos(d).elements.find((e) => e.type === 'text') as TextElement;
+    expect(t.photoFill).toBeUndefined();
+    expect(t.fill).toEqual((d.elements.find((e) => e.type === 'text') as TextElement).fill);
+  });
+
   it('builds a validated template with a derived palette and clean tags', () => {
     const t = buildUserTemplate({
       name: '  My   dump  ',
