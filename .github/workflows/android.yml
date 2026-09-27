@@ -1,8 +1,8 @@
 name: Android APK
 
-# Builds the Android app (the static export packed into an APK with Capacitor) and
-# publishes it as the "Stardeck for Android" release, so it can be downloaded
-# straight onto a phone from the repo's Releases page.
+# Builds the Android app (the static export packed into an APK with Capacitor), tests it on
+# an Android emulator, and only then publishes it as the "Stardeck for Android" release,
+# so it can be downloaded straight onto a phone from the repo's Releases page.
 
 on:
   push:
@@ -53,30 +53,78 @@ jobs:
             } >> "$GITHUB_ENV"
           fi
 
-      - name: Build the APK
+      # The debug build is the same app with WebView debugging on, so the test can drive it.
+      - name: Build the APKs
         working-directory: android
         env:
           STARDECK_VERSION_CODE: ${{ github.run_number }}
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        run: ./gradlew assembleRelease assembleDebug --no-daemon --stacktrace
 
-      - run: cp android/app/build/outputs/apk/release/app-release.apk Stardeck.apk
-
+      - run: |
+          mkdir apks
+          cp android/app/build/outputs/apk/release/app-release.apk apks/Stardeck.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk apks/Stardeck-debug.apk
       - uses: actions/upload-artifact@v4
         with:
           name: Stardeck-apk
-          path: Stardeck.apk
+          path: apks
           retention-days: 30
 
+  device-test:
+    needs: apk
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: Stardeck-apk
+          path: apks
+      - name: Enable KVM for the emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Test on an Android 14 emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: node scripts/android-smoke.mjs apks/Stardeck.apk apks/Stardeck-debug.apk
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-screenshots
+          path: android-screenshots
+          retention-days: 14
+
+  publish:
+    needs: [apk, device-test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: Stardeck-apk
+          path: apks
       - name: Publish the release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: android-latest
         run: |
           version=$(node -p "require('./package.json').version")
-          notes="Stardeck $version for Android, build ${{ github.run_number }} from ${GITHUB_SHA::7}.
+          notes="Stardeck $version for Android, build ${{ github.run_number }} from ${GITHUB_SHA::7}. Tested on an Android 14 emulator before release.
 
-          **Install:** download **Stardeck.apk** below on your Android phone, open it, and allow installs from your browser or Files app if Android asks. New builds install over the old one and keep your designs.
+          **Install:** download **Stardeck.apk** below on your Android phone and open it. If Android asks, allow installs from your browser or Files app. If Google Play Protect warns about an unknown app, tap **More details → Install anyway**. New builds install over the old one and keep your designs.
 
           Everything runs on your phone: no account, no watermark, works offline."
           gh release delete "$TAG" --yes --cleanup-tag || true
-          gh release create "$TAG" Stardeck.apk --target "$GITHUB_SHA" --title "Stardeck for Android" --notes "$notes" --latest
+          gh release create "$TAG" apks/Stardeck.apk --target "$GITHUB_SHA" --title "Stardeck for Android" --notes "$notes" --latest
