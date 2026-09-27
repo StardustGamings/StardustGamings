@@ -65,8 +65,8 @@ function Chips<T extends string>({
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
           className={cn(
-            'h-7 rounded-full border px-2.5 text-[11.5px] font-semibold transition-colors',
-            value === o.value ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+            'h-7 rounded-sm border px-2.5 text-[11.5px] font-semibold transition-colors',
+            value === o.value ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
           )}
         >
           {o.label}
@@ -140,7 +140,7 @@ function CaptionSection({ doc, format }: { doc: DesignDocument; format: string }
         )}
       </div>
       {answer?.result.captions.map((c, i) => (
-        <div key={`${i}-${c.text}`} className="rounded-[12px] border border-line bg-surface p-3" data-testid="caption-card">
+        <div key={`${i}-${c.text}`} className="rounded-lg border border-line bg-surface p-3" data-testid="caption-card">
           <p className="text-[13px] leading-snug whitespace-pre-wrap">{c.text}</p>
           {c.hashtags.length > 0 && <p className="mt-1.5 text-[12px] leading-snug text-accent-text">{c.hashtags.join(' ')}</p>}
           <div className="mt-2 flex items-center gap-1.5">
@@ -194,7 +194,7 @@ function PaletteSection({ doc }: { doc: DesignDocument }) {
     <Section title="Colour palette">
       <div className="flex items-center gap-2">
         <label
-          className="relative size-9 shrink-0 cursor-pointer overflow-hidden rounded-[10px] border border-line-strong"
+          className="relative size-9 shrink-0 cursor-pointer overflow-hidden rounded-md border border-line-strong"
           style={{ background: baseColor }}
         >
           <span className="sr-only">Base colour</span>
@@ -220,7 +220,7 @@ function PaletteSection({ doc }: { doc: DesignDocument }) {
               aria-label={`Recolour with ${p.name}`}
               title={p.description}
             >
-              <span className="flex h-7 overflow-hidden rounded-[8px] border border-line transition-transform group-hover:scale-[1.02]">
+              <span className="flex h-7 overflow-hidden rounded-md border border-line transition-transform group-hover:scale-[1.02]">
                 {p.colors.map((c, i) => (
                   <span key={`${c}-${i}`} className="flex-1" style={{ background: c }} />
                 ))}
@@ -231,7 +231,7 @@ function PaletteSection({ doc }: { doc: DesignDocument }) {
               type="button"
               aria-label={`Copy ${p.name} HEX codes`}
               onClick={() => void copy(p.colors.join(', '), `${p.name} colours`)}
-              className="flex size-8 items-center justify-center rounded-[8px] text-fg-subtle hover:bg-surface-hover hover:text-fg"
+              className="flex size-8 items-center justify-center rounded-md text-fg-subtle hover:bg-surface-hover hover:text-fg"
             >
               <Copy className="size-3.5" />
             </button>
@@ -270,7 +270,7 @@ function PairingRow({ p, sample }: { p: FontPairing; sample: string }) {
     <button
       type="button"
       onClick={() => void ai.applyPairing(p)}
-      className="flex flex-col gap-1 rounded-[12px] border border-line px-3 py-2 text-left transition-colors hover:border-line-strong"
+      className="flex flex-col gap-1 rounded-lg border border-line px-3 py-2 text-left transition-colors hover:border-line-strong"
       aria-label={`Use ${p.heading} with ${p.body}`}
       data-testid="pairing-row"
     >
@@ -334,7 +334,7 @@ function ConceptCard({ concept, doc }: { concept: BackgroundConcept; doc: Design
   return (
     <div className="flex flex-col gap-1.5" data-testid="concept-card">
       <div
-        className="overflow-hidden rounded-[10px] border border-line"
+        className="overflow-hidden rounded-md border border-line"
         style={{ aspectRatio: `${doc.slideWidth} / ${doc.slideHeight}` }}
       >
         <ScenePreview doc={preview} slide={0} maxDpr={1.5} label={concept.name} />
@@ -445,7 +445,7 @@ export function MagicPanel() {
     <div data-testid="magic-panel">
       <div className="flex items-start gap-2 px-4 pt-4 text-[12px] text-fg-muted" data-testid="ai-privacy-note">
         {server ? (
-          <Server className="mt-0.5 size-4 shrink-0 text-violet" />
+          <Server className="mt-0.5 size-4 shrink-0 text-fg-subtle" />
         ) : (
           <Check className="mt-0.5 size-4 shrink-0 text-success" />
         )}

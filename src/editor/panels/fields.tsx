@@ -11,12 +11,12 @@ import { useDocColors } from './useSelection';
 
 export function Section({ title, children, action }: { title: string; children: ReactNode; action?: ReactNode }) {
   return (
-    <section className="border-b border-line px-4 py-4 last:border-b-0">
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <h3 className="font-sans text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{title}</h3>
+    <section className="border-b border-line px-4 py-3.5 last:border-b-0">
+      <div className="mb-2.5 flex min-h-6 items-center justify-between gap-2">
+        <h3 className="font-sans text-[12.5px] font-semibold tracking-normal text-fg">{title}</h3>
         {action}
       </div>
-      <div className="flex flex-col gap-3">{children}</div>
+      <div className="flex flex-col gap-2.5">{children}</div>
     </section>
   );
 }
@@ -82,7 +82,7 @@ export function NumberField({
   return (
     <div
       className={cn(
-        'flex h-9 min-w-0 items-center rounded-[10px] border border-line bg-bg-sunken/70 focus-within:border-ring',
+        'flex h-8 min-w-0 items-center rounded-md border border-line bg-bg-sunken transition-colors focus-within:border-ring hover:border-line-strong',
         disabled && 'opacity-50',
         className,
       )}
@@ -159,10 +159,10 @@ export function FillField({
         <button
           type="button"
           aria-label={`${label}: change colour`}
-          className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-[10px] border border-line bg-bg-sunken/70 px-2 text-left text-[12.5px] transition-colors hover:border-line-strong"
+          className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-md border border-line bg-bg-sunken px-2 text-left text-[12.5px] transition-colors hover:border-line-strong"
         >
           <span
-            className={cn('size-5 shrink-0 rounded-[6px] border border-line-strong', !value && 'checkerboard')}
+            className={cn('size-5 shrink-0 rounded-sm border border-line-strong', !value && 'checkerboard')}
             style={value ? { background: fillToCss(value) } : undefined}
           />
           <span className="truncate font-mono text-fg-muted">
@@ -182,15 +182,15 @@ export function FillField({
           align="start"
           sideOffset={10}
           collisionPadding={12}
-          className="z-[70] w-[276px] animate-[pop-in_140ms_var(--ease-out-expo)] rounded-[18px] p-4 shadow-[var(--shadow-float)] glass-strong"
+          className="z-[70] w-[276px] animate-[pop-in_120ms_var(--ease-standard)] rounded-lg border border-line-strong bg-bg-elevated p-3.5 shadow-[var(--shadow-float)]"
         >
           <div className="mb-3 flex items-center justify-between">
-            <p className="text-sm font-bold">{label}</p>
+            <p className="text-[13px] font-semibold">{label}</p>
             {allowNone && (
               <button
                 type="button"
                 onClick={() => onChange(null)}
-                className="rounded-full border border-line px-2.5 py-1 text-[11px] font-semibold text-fg-muted hover:text-fg"
+                className="rounded-sm border border-line px-2.5 py-1 text-[11px] font-semibold text-fg-muted hover:text-fg"
               >
                 No fill
               </button>
@@ -234,8 +234,10 @@ export function IconToggle({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'flex h-9 min-w-9 items-center justify-center rounded-[10px] border px-2 text-[12px] font-semibold transition-colors disabled:opacity-35 [&_svg]:size-4',
-        pressed ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
+        'flex h-8 min-w-8 items-center justify-center rounded-md border px-2 text-[12px] font-medium transition-colors disabled:opacity-35 [&_svg]:size-4',
+        pressed
+          ? 'border-line-strong bg-surface-active text-fg'
+          : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
       )}
     >
       {children}
@@ -261,7 +263,7 @@ export function ActionButton({
       title={label}
       disabled={disabled}
       onClick={onClick}
-      className="flex h-9 flex-1 items-center justify-center rounded-[10px] border border-line text-fg-muted transition-colors hover:border-line-strong hover:bg-surface-hover hover:text-fg disabled:opacity-35 [&_svg]:size-4"
+      className="flex h-8 flex-1 items-center justify-center rounded-md border border-line text-fg-muted transition-colors hover:border-line-strong hover:bg-surface-hover hover:text-fg disabled:opacity-35 [&_svg]:size-4"
     >
       {children}
     </button>

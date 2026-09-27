@@ -92,7 +92,7 @@ export function VideoSection({ el }: { el: ImageElement }) {
             const d = selectDoc(useEditor.getState());
             if (d) usePlayback.getState().play(homeSlide(d, el), true);
           }}
-          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-fg text-[13px] font-semibold text-bg hover:opacity-90"
+          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-md border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:bg-surface-hover"
         >
           <Play className="size-4" /> Play
         </button>
@@ -103,7 +103,7 @@ export function VideoSection({ el }: { el: ImageElement }) {
             const d = selectDoc(useEditor.getState());
             if (d) setSlideDuration(homeSlide(d, el), plays * 1000, 'fit-clip');
           }}
-          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12.5px] font-semibold text-fg-muted hover:border-line-strong hover:text-fg"
+          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-md border border-line text-[12.5px] font-semibold text-fg-muted hover:border-line-strong hover:text-fg"
         >
           <Timer className="size-4" /> Fit slide
         </button>

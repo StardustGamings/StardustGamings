@@ -40,15 +40,15 @@ function ToastCard({ toast }: { toast: Toast }) {
   return (
     <motion.li
       layout
-      initial={{ opacity: 0, y: 24, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.16 } }}
-      transition={{ type: 'spring', stiffness: 460, damping: 32 }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, transition: { duration: 0.14 } }}
+      transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      className="pointer-events-auto flex w-full items-start gap-3 rounded-[18px] p-3.5 pr-2.5 shadow-[var(--shadow-float)] glass-strong sm:w-[380px]"
+      className="pointer-events-auto flex w-full items-start gap-3 rounded-lg border border-line-strong bg-bg-elevated p-3 pr-2 shadow-[var(--shadow-float)] sm:w-[360px]"
     >
       <Icon className={cn('mt-0.5 size-[18px] shrink-0', ICON_TONES[toast.tone])} aria-hidden />
       {/* The list is a polite live region; errors interrupt. */}
@@ -63,7 +63,7 @@ function ToastCard({ toast }: { toast: Toast }) {
             toast.action!.onClick();
             dismiss(toast.id);
           }}
-          className="shrink-0 rounded-[10px] bg-surface-active px-3 py-1.5 text-[13px] font-semibold text-fg transition-colors hover:bg-accent hover:text-accent-fg"
+          className="shrink-0 rounded-md bg-surface-active px-3 py-1.5 text-[13px] font-semibold text-fg transition-colors hover:bg-accent hover:text-accent-fg"
         >
           {toast.action.label}
         </button>
@@ -72,7 +72,7 @@ function ToastCard({ toast }: { toast: Toast }) {
         type="button"
         aria-label="Dismiss notification"
         onClick={() => dismiss(toast.id)}
-        className="shrink-0 rounded-[8px] p-1 text-fg-subtle transition-colors hover:bg-surface-hover hover:text-fg"
+        className="shrink-0 rounded-md p-1 text-fg-subtle transition-colors hover:bg-surface-hover hover:text-fg"
       >
         <X className="size-4" />
       </button>
@@ -86,7 +86,7 @@ export function Toaster() {
     <ol
       aria-live="polite"
       aria-label="Notifications"
-      className="pointer-events-none fixed inset-x-3 bottom-[calc(88px+env(safe-area-inset-bottom))] z-[90] flex flex-col items-center gap-2 lg:inset-x-auto lg:right-6 lg:bottom-6 lg:items-end"
+      className="pointer-events-none fixed inset-x-3 bottom-[calc(72px+env(safe-area-inset-bottom))] z-[90] flex flex-col items-center gap-2 lg:inset-x-auto lg:right-6 lg:bottom-6 lg:items-end"
     >
       <AnimatePresence initial={false}>
         {toasts.map((t) => (

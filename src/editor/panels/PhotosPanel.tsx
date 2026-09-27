@@ -87,7 +87,7 @@ function AssetTile({
         {...dragProps({ kind: 'photo', assetId: asset.id })}
         onClick={onAdd}
         className={cn(
-          'block aspect-square w-full overflow-hidden rounded-[12px] border border-line transition-transform hover:scale-[1.03] hover:border-line-strong',
+          'block aspect-square w-full overflow-hidden rounded-lg border border-line transition-transform hover:scale-[1.03] hover:border-line-strong',
           asset.hasAlpha ? 'checkerboard' : 'bg-surface',
         )}
       >
@@ -104,7 +104,7 @@ function AssetTile({
         )}
       </button>
       {asset.kind === 'video' && (
-        <span className="pointer-events-none absolute right-1.5 bottom-1.5 flex items-center gap-0.5 rounded-full bg-ink/75 px-1.5 py-0.5 text-[10px] font-bold text-white">
+        <span className="pointer-events-none absolute right-1.5 bottom-1.5 flex items-center gap-0.5 rounded-sm bg-ink/75 px-1.5 py-0.5 text-[10px] font-semibold text-white">
           <Film className="size-3" aria-hidden />
           {Math.round(asset.duration ?? 0)}s
         </span>
@@ -228,7 +228,7 @@ export function PhotosPanel() {
         )}
       </div>
 
-      <h3 className="px-4 pt-1 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Frames</h3>
+      <h3 className="px-4 pt-1 text-label">Frames</h3>
       <p className="px-4 pt-1 text-[12px] text-fg-subtle">Add a frame, then drop a photo into it.</p>
       <div className="grid grid-cols-5 gap-2 p-4">
         {FRAME_PRESETS.map((f) => (
@@ -239,14 +239,14 @@ export function PhotosPanel() {
             title={`${f.name} frame`}
             {...dragProps({ kind: 'frame', presetId: f.id })}
             onClick={() => addFrame(f)}
-            className="flex aspect-square items-center justify-center rounded-[12px] border border-line bg-surface p-1.5 text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+            className="flex aspect-square items-center justify-center rounded-lg border border-line bg-surface p-1.5 text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             <ClipGlyph clip={f.clip} ratio={f.ratio} radius={f.radius} className="size-full fill-current/25 stroke-current" />
           </button>
         ))}
       </div>
 
-      <h3 className="px-4 pt-1 pb-3 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Your photos & videos</h3>
+      <h3 className="px-4 pt-1 pb-3 text-label">Your photos & videos</h3>
       <AssetLibrary kind="photo" emptyText="No photos yet. Add some from your device — they never leave it." />
     </div>
   );

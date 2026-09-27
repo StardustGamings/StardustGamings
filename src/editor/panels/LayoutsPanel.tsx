@@ -86,9 +86,9 @@ export function LayoutsPanel() {
         <button
           type="button"
           onClick={() => openFlow('dump', 'current')}
-          className="flex items-start gap-3 rounded-[16px] border border-line bg-surface p-3 text-left transition-colors hover:border-accent"
+          className="flex items-start gap-3 rounded-lg border border-line bg-surface p-3 text-left transition-colors hover:border-accent"
         >
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-[11px] text-ink bg-nova">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-md text-ink bg-nova">
             <Sparkles className="size-4" />
           </span>
           <span>
@@ -99,9 +99,9 @@ export function LayoutsPanel() {
         <button
           type="button"
           onClick={() => openFlow('seamless', 'current')}
-          className="flex items-start gap-3 rounded-[16px] border border-line bg-surface p-3 text-left transition-colors hover:border-accent"
+          className="flex items-start gap-3 rounded-lg border border-line bg-surface p-3 text-left transition-colors hover:border-accent"
         >
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-[11px] bg-accent text-accent-fg">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-accent text-accent-fg">
             <GalleryHorizontal className="size-4" />
           </span>
           <span>
@@ -112,13 +112,13 @@ export function LayoutsPanel() {
         <button
           type="button"
           onClick={() => setPreview(true)}
-          className="flex h-9 items-center justify-center gap-2 rounded-[12px] border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+          className="flex h-9 items-center justify-center gap-2 rounded-lg border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
         >
           <Eye className="size-4" /> Swipe preview
         </button>
       </div>
 
-      <h3 className="px-4 pt-1 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Collage</h3>
+      <h3 className="px-4 pt-1 text-label">Collage</h3>
       <p className="px-4 pt-1 text-[12px] text-fg-subtle" aria-live="polite">
         {fromSelection
           ? `Arrange the ${photos.length} selected photos on their slide.`
@@ -131,7 +131,7 @@ export function LayoutsPanel() {
             type="button"
             aria-label={`${FAMILY_LABELS[f]} collage`}
             onClick={() => (fromSelection ? makeCollage(f) : openFlow('collage', 'current', f))}
-            className="flex flex-col items-center gap-1.5 rounded-[14px] border border-line bg-surface p-2.5 text-fg-muted transition-colors hover:border-accent hover:text-fg"
+            className="flex flex-col items-center gap-1.5 rounded-lg border border-line bg-surface p-2.5 text-fg-muted transition-colors hover:border-accent hover:text-fg"
           >
             <FamilyGlyph family={f} className="size-11" />
             <span className="text-[11.5px] font-semibold">{FAMILY_LABELS[f]}</span>

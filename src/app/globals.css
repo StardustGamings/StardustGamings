@@ -32,82 +32,81 @@
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* ───────────────────────── Design tokens ───────────────────────── */
+/* ───────────────────────── Design tokens ─────────────────────────
+   Neutral graphite surfaces, one accent (lime), hairline borders. Depth comes from surface steps
+   and borders; shadows are reserved for things that float (menus, dialogs, toasts). */
 :root,
 [data-theme='dark'] {
-  --bg: #0a0a11;
-  --bg-elevated: #15151f;
-  --bg-sunken: #07070c;
-  --surface: rgb(255 255 255 / 0.045);
-  --surface-strong: rgb(22 22 32 / 0.84);
-  --surface-hover: rgb(255 255 255 / 0.08);
-  --surface-active: rgb(255 255 255 / 0.12);
+  --bg: #101012;
+  --bg-elevated: #18181b;
+  --bg-sunken: #0b0b0d;
+  --surface: #161619;
+  --surface-strong: #18181b;
+  --surface-hover: rgb(255 255 255 / 0.05);
+  --surface-active: rgb(255 255 255 / 0.09);
   --border: rgb(255 255 255 / 0.08);
-  --border-strong: rgb(255 255 255 / 0.16);
-  --fg: #f5f4ff;
-  --fg-muted: #a8a6c1;
-  --fg-subtle: #9391ab;
+  --border-strong: rgb(255 255 255 / 0.15);
+  --fg: #ededea;
+  --fg-muted: #a6a6a1;
+  --fg-subtle: #9a9a94;
   --accent: #c6ff3d;
-  --accent-hover: #d4ff6b;
-  --accent-fg: #0b0a12;
-  --accent-text: #d4ff6b;
+  --accent-hover: #d3ff69;
+  --accent-fg: #101012;
+  --accent-text: #c6ff3d;
   --ring: #c6ff3d;
   --selection: #7b61ff;
-  --danger: #ff5c7a;
-  --success: #3cf0c8;
-  --warning: #ffd23d;
-  --info: #7cc4ff;
-  --canvas-bg: #0d0d15;
+  --danger: #ff6b6b;
+  --success: #5ad48b;
+  --warning: #f2c94c;
+  --info: #7fb2ff;
+  --canvas-bg: #0c0c0e;
   --shadow-rgb: 0 0 0;
-  --shadow-strength: 0.5;
-  --aurora-opacity: 0.55;
-  --grain-opacity: 0.05;
+  --shadow-strength: 0.55;
+  --texture-opacity: 0.035;
   color-scheme: dark;
 }
 
 [data-theme='oled'] {
   --bg: #000000;
-  --bg-elevated: #0c0c10;
+  --bg-elevated: #0e0e10;
   --bg-sunken: #000000;
-  --surface: rgb(255 255 255 / 0.035);
-  --surface-strong: rgb(8 8 12 / 0.9);
-  --surface-hover: rgb(255 255 255 / 0.07);
-  --surface-active: rgb(255 255 255 / 0.11);
-  --border: rgb(255 255 255 / 0.075);
-  --border-strong: rgb(255 255 255 / 0.15);
-  --canvas-bg: #050507;
-  --aurora-opacity: 0.22;
-  --grain-opacity: 0.03;
+  --surface: #0b0b0d;
+  --surface-strong: #0e0e10;
+  --surface-hover: rgb(255 255 255 / 0.06);
+  --surface-active: rgb(255 255 255 / 0.1);
+  --border: rgb(255 255 255 / 0.09);
+  --border-strong: rgb(255 255 255 / 0.16);
+  --canvas-bg: #050506;
+  --texture-opacity: 0;
   color-scheme: dark;
 }
 
 [data-theme='light'] {
-  --bg: #f5f3fa;
+  --bg: #f4f4f1;
   --bg-elevated: #ffffff;
-  --bg-sunken: #ebe8f3;
-  --surface: rgb(255 255 255 / 0.62);
-  --surface-strong: rgb(255 255 255 / 0.88);
-  --surface-hover: rgb(20 16 40 / 0.05);
-  --surface-active: rgb(20 16 40 / 0.09);
-  --border: rgb(20 16 40 / 0.09);
-  --border-strong: rgb(20 16 40 / 0.18);
-  --fg: #13111c;
-  --fg-muted: #57546b;
-  --fg-subtle: #66637c;
+  --bg-sunken: #ebebe7;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-hover: rgb(0 0 0 / 0.04);
+  --surface-active: rgb(0 0 0 / 0.075);
+  --border: rgb(0 0 0 / 0.09);
+  --border-strong: rgb(0 0 0 / 0.17);
+  --fg: #161616;
+  --fg-muted: #55554f;
+  --fg-subtle: #686862;
   --accent: #c6ff3d;
-  --accent-hover: #b8f526;
-  --accent-fg: #0b0a12;
-  --accent-text: #4b2fd6;
-  --ring: #6b4dff;
-  --danger: #b8173a;
-  --success: #07735a;
-  --warning: #7d5c00;
-  --info: #255ab0;
-  --canvas-bg: #e9e6f1;
-  --shadow-rgb: 40 30 80;
+  --accent-hover: #b8f22a;
+  --accent-fg: #161616;
+  --accent-text: #3d6600;
+  --ring: #3d6600;
+  --danger: #c02f2f;
+  --success: #17783d;
+  --warning: #7f5a00;
+  --info: #235cb5;
+  --canvas-bg: #e6e6e2;
+  --shadow-rgb: 20 20 16;
   --shadow-strength: 0.16;
-  --aurora-opacity: 0.5;
-  --grain-opacity: 0.035;
+  --texture-opacity: 0.025;
   color-scheme: light;
 }
 
@@ -116,14 +115,7 @@
   --border-strong: color-mix(in srgb, var(--fg) 55%, transparent);
   --fg-muted: color-mix(in srgb, var(--fg) 88%, var(--bg));
   --fg-subtle: color-mix(in srgb, var(--fg) 72%, var(--bg));
-  --surface: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
-  --aurora-opacity: 0.15;
-  --grain-opacity: 0;
-}
-
-[data-glass='off'] {
-  --surface: var(--bg-elevated);
-  --surface-strong: var(--bg-elevated);
+  --texture-opacity: 0;
 }
 
 @theme inline {
@@ -162,24 +154,26 @@
   --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --radius-xs: 8px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 26px;
-  --radius-2xl: 34px;
+  /* Radii: controls sm/md, cards and panels lg, dialogs and sheets xl. */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
 
-  --shadow-soft:
-    0 1px 1px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.4)),
-    0 8px 24px -8px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.8));
+  --shadow-soft: 0 1px 2px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.5));
   --shadow-lift:
-    0 2px 4px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.4)),
-    0 24px 48px -16px rgb(var(--shadow-rgb) / var(--shadow-strength));
-  --shadow-float: 0 1px 0 rgb(255 255 255 / 0.06) inset, 0 30px 80px -20px rgb(var(--shadow-rgb) / var(--shadow-strength));
-  --shadow-glow: 0 0 0 1px rgb(198 255 61 / 0.4), 0 8px 30px -6px rgb(198 255 61 / 0.45);
+    0 1px 2px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.4)),
+    0 8px 20px -10px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.9));
+  --shadow-float:
+    0 2px 6px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.35)),
+    0 18px 44px -14px rgb(var(--shadow-rgb) / var(--shadow-strength));
+  --shadow-glow: 0 0 0 0 transparent;
 
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 
   --animate-drift: drift 28s ease-in-out infinite alternate;
   --animate-drift-slow: drift 40s ease-in-out infinite alternate-reverse;
@@ -252,7 +246,6 @@
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
-    border-radius: 6px;
   }
   button:not(:disabled),
   [role='button']:not([aria-disabled='true']) {
@@ -262,7 +255,7 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.015em;
     text-wrap: balance;
   }
   * {
@@ -272,42 +265,87 @@
 }
 
 /* ───────────────────────── Utilities ───────────────────────── */
+/* Panels and floating layers: solid surfaces with a hairline border. (Kept under their old names so
+   every panel picks the change up; nothing is translucent or blurred.) */
 @utility glass {
   background: var(--surface);
   border: 1px solid var(--border);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
-  backdrop-filter: blur(22px) saturate(150%);
-  [data-glass='off'] & {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
 }
 
 @utility glass-strong {
   background: var(--surface-strong);
   border: 1px solid var(--border);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
-  backdrop-filter: blur(28px) saturate(160%);
-  [data-glass='off'] & {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+}
+
+/* Dims the page behind a dialog; "Frosted glass" (Settings → Performance) also blurs it. */
+@utility scrim {
+  background: rgb(6 6 8 / 0.62);
+  [data-theme='light'] & {
+    background: rgb(22 22 18 / 0.32);
+  }
+  [data-glass='on'] & {
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
   }
 }
 
+/* Former gradient text and fills: plain, so the brand reads through type and the one accent. */
 @utility text-nova {
-  background: linear-gradient(100deg, #c6ff3d 0%, #3cf0c8 30%, #a06bff 65%, #ff5caa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  [data-theme='light'] & {
-    background: linear-gradient(100deg, #5a9e00 0%, #0e9f7e 30%, #6b3df5 65%, #e0247a 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
+  color: var(--accent-text);
 }
 
 @utility bg-nova {
-  background: linear-gradient(120deg, #c6ff3d 0%, #3cf0c8 35%, #a06bff 70%, #ff5caa 100%);
+  background: var(--accent);
+}
+
+/* ───────────── Type scale ─────────────
+   display: page titles · heading: sections · subheading: groups · caption: supporting text ·
+   meta: small labels, counts and timestamps. */
+@utility text-display {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  @media (min-width: 640px) {
+    font-size: 32px;
+  }
+}
+
+@utility text-heading {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 620;
+  letter-spacing: -0.015em;
+}
+
+@utility text-subheading {
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+@utility text-caption {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+
+@utility text-label {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+
+@utility text-meta {
+  font-size: 11.5px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--fg-subtle);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Long pages: a section off screen skips style, layout and paint until it's near the viewport
@@ -325,7 +363,7 @@
 }
 
 @utility skeleton {
-  background: linear-gradient(90deg, var(--surface) 0%, var(--surface-hover) 50%, var(--surface) 100%);
+  background: linear-gradient(90deg, var(--surface-hover) 0%, var(--surface-active) 50%, var(--surface-hover) 100%);
   background-size: 200% 100%;
   animation: var(--animate-shimmer);
 }

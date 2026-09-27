@@ -132,7 +132,7 @@ export function TrendsSection() {
             </div>
             {problems && problems.length > 0 && (
               <ul
-                className="max-h-48 list-inside list-disc overflow-y-auto rounded-[12px] border border-warning/30 bg-warning/8 p-3 font-mono text-[11.5px] text-fg-muted"
+                className="max-h-48 list-inside list-disc overflow-y-auto rounded-lg border border-warning/30 bg-warning/8 p-3 font-mono text-[11.5px] text-fg-muted"
                 data-testid="pack-problems"
               >
                 {problems.slice(0, 50).map((p) => (

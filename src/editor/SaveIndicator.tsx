@@ -30,7 +30,7 @@ export function SaveIndicator() {
       type="button"
       onClick={() => void save()}
       aria-live="polite"
-      className="hidden h-8 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg sm:inline-flex"
+      className="hidden h-8 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg sm:inline-flex"
       title="Saved on this device. Click to save now."
       data-testid="save-indicator"
       data-state={saveState}

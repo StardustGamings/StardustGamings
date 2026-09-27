@@ -41,42 +41,42 @@ const ALL_LABELS: Record<AnyFormat, string> = { ...FORMAT_LABELS, mp4: 'MP4', gi
 const secs = (ms: number) => `${(ms / 1000).toFixed(1)} s`;
 
 function Label({ children }: { children: ReactNode }) {
-  return <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{children}</p>;
+  return <p className="mb-1.5 text-label">{children}</p>;
 }
 
 const formatBytes = (n: number) =>
   n < 1024 * 1024 ? `${Math.max(1, Math.round(n / 1024))} KB` : `${(n / 1024 / 1024).toFixed(1)} MB`;
 
-/** A burst of sparkles for a finished export (skipped when motion is off). */
+/** A short burst around the check mark for a finished export (skipped when motion is off). */
 function Celebration() {
-  const bits = Array.from({ length: 12 }, (_, i) => {
-    const angle = (i / 12) * Math.PI * 2;
+  const bits = Array.from({ length: 8 }, (_, i) => {
+    const angle = (i / 8) * Math.PI * 2 + Math.PI / 8;
     return {
-      x: Math.cos(angle) * 70,
-      y: Math.sin(angle) * 70,
-      rotate: i * 30,
-      color: ['#C6FF3D', '#FF5CAA', '#A06BFF', '#3CF0FF'][i % 4]!,
+      x: Math.cos(angle) * 44,
+      y: Math.sin(angle) * 44,
+      rotate: 0,
+      color: i % 2 ? 'var(--accent)' : 'var(--fg-subtle)',
     };
   });
   return (
-    <div className="relative flex size-28 items-center justify-center" aria-hidden>
+    <div className="relative flex size-24 items-center justify-center" aria-hidden>
       {bits.map((b, i) => (
         <motion.span
           key={i}
-          className="motion-decorative absolute size-2.5 rounded-[3px]"
+          className="motion-decorative absolute size-1.5 rounded-full"
           style={{ background: b.color }}
-          initial={{ x: 0, y: 0, opacity: 1, scale: 0.4, rotate: 0 }}
-          animate={{ x: b.x, y: b.y, opacity: 0, scale: 1, rotate: b.rotate }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          initial={{ x: 0, y: 0, opacity: 1 }}
+          animate={{ x: b.x, y: b.y, opacity: 0 }}
+          transition={{ duration: 0.6, ease: [0.2, 0, 0, 1], delay: 0.08 }}
         />
       ))}
       <motion.span
-        className="flex size-16 items-center justify-center rounded-full bg-accent text-accent-fg shadow-[var(--shadow-glow)]"
-        initial={{ scale: 0, rotate: -40 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: 'spring', stiffness: 420, damping: 16 }}
+        className="flex size-12 items-center justify-center rounded-full bg-accent text-accent-fg"
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
       >
-        <Check className="size-8" strokeWidth={3} />
+        <Check className="size-6" strokeWidth={2.75} />
       </motion.span>
     </div>
   );
@@ -249,7 +249,7 @@ function Body({
       >
         <div className="flex flex-col items-center gap-3 py-2 text-center" data-testid="export-done">
           <Celebration />
-          <p className="text-xl font-extrabold">
+          <p className="text-heading">
             {motionInfo
               ? chosen === 'gif'
                 ? 'Your GIF is ready'
@@ -332,7 +332,7 @@ function Body({
         <div className="flex flex-col gap-5" data-testid="export-options">
           {error && (
             <p
-              className="flex items-start gap-2 rounded-[12px] border border-danger/30 bg-danger/10 p-3 text-[13px] text-danger"
+              className="flex items-start gap-2 rounded-lg border border-danger/30 bg-danger/10 p-3 text-[13px] text-danger"
               role="alert"
             >
               <AlertTriangle className="mt-0.5 size-4 shrink-0" /> {error}
@@ -359,8 +359,8 @@ function Body({
                     }
                     onClick={() => setFormat(f)}
                     className={cn(
-                      'flex h-9 min-w-16 items-center justify-center gap-1.5 rounded-[12px] border px-3 text-[13px] font-bold transition-colors disabled:opacity-40',
-                      chosen === f ? 'border-transparent bg-fg text-bg' : 'border-line hover:border-line-strong',
+                      'flex h-9 min-w-16 items-center justify-center gap-1.5 rounded-lg border px-3 text-[13px] font-bold transition-colors disabled:opacity-40',
+                      chosen === f ? 'border-line-strong bg-surface-active text-fg' : 'border-line hover:border-line-strong',
                     )}
                   >
                     {f === 'mp4' && <Film className="size-4" />}
@@ -419,12 +419,12 @@ function Body({
                       aria-label={`Slide ${i + 1}`}
                       onClick={() => setSlide(i)}
                       className={cn(
-                        'relative w-16 shrink-0 overflow-hidden rounded-[10px] border-2 transition-colors',
+                        'relative w-16 shrink-0 overflow-hidden rounded-md border-2 transition-colors',
                         slide === i ? 'border-accent' : 'border-transparent hover:border-line-strong',
                       )}
                     >
                       <ScenePreview doc={doc} slide={i} maxDpr={1} />
-                      <span className="absolute right-1 bottom-1 rounded-full bg-ink/70 px-1.5 text-[10px] font-bold text-white">
+                      <span className="absolute right-1 bottom-1 rounded-md bg-ink/70 px-1.5 text-[10px] font-semibold text-white">
                         {i + 1}
                       </span>
                     </button>

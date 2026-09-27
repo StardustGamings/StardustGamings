@@ -68,13 +68,13 @@ function Body({ start, onClose }: { start: string | null; onClose: () => void })
                 aria-checked={target === id}
                 onClick={() => setTarget(id)}
                 className={cn(
-                  'flex items-center gap-2 rounded-[12px] border px-3 py-2 text-left text-[12.5px] font-semibold transition-colors',
+                  'flex items-center gap-2 rounded-lg border px-3 py-2 text-left text-[12.5px] font-semibold transition-colors',
                   target === id ? 'border-accent bg-accent/10' : 'border-line hover:border-line-strong',
                 )}
               >
                 <span
                   aria-hidden
-                  className="inline-block rounded-[3px] border-2 border-current opacity-70"
+                  className="inline-block rounded-xs border-2 border-current opacity-70"
                   style={{ width: 18 * Math.min(1, p.width / p.height), height: 18 * Math.min(1, p.height / p.width) }}
                 />
                 <span>
@@ -90,7 +90,7 @@ function Body({ start, onClose }: { start: string | null; onClose: () => void })
           <figure className="flex flex-col items-center gap-1.5">
             <div className="flex h-56 w-full items-center justify-center">
               <div
-                className="overflow-hidden rounded-[10px] border border-line shadow-[var(--shadow-soft)]"
+                className="overflow-hidden rounded-md border border-line shadow-[var(--shadow-soft)]"
                 style={{
                   aspectRatio: `${doc.slideWidth} / ${doc.slideHeight}`,
                   height: doc.slideHeight >= doc.slideWidth ? '100%' : undefined,
@@ -108,7 +108,7 @@ function Body({ start, onClose }: { start: string | null; onClose: () => void })
           <figure className="flex flex-col items-center gap-1.5" data-testid="resize-preview">
             <div className="flex h-56 w-full items-center justify-center">
               <div
-                className="overflow-hidden rounded-[10px] border border-accent/60 shadow-[var(--shadow-soft)]"
+                className="overflow-hidden rounded-md border border-accent/60 shadow-[var(--shadow-soft)]"
                 style={{
                   aspectRatio: `${preset.width} / ${preset.height}`,
                   height: preset.height >= preset.width ? '100%' : undefined,

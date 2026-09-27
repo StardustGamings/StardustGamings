@@ -17,8 +17,8 @@ async function copy(text: string, label: string) {
 
 export function PaletteCard({ palette }: { palette: TrendPalette }) {
   return (
-    <div className="rounded-[20px] border border-line bg-surface p-2">
-      <div className="flex h-36 overflow-hidden rounded-[14px]">
+    <div className="overflow-hidden rounded-lg border border-line bg-surface">
+      <div className="flex h-32 overflow-hidden">
         {palette.colors.map((c) => (
           <button
             key={c}
@@ -34,10 +34,10 @@ export function PaletteCard({ palette }: { palette: TrendPalette }) {
           </button>
         ))}
       </div>
-      <div className="flex items-center gap-2 px-1.5 pt-2.5 pb-0.5">
+      <div className="flex items-center gap-2 p-3">
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-bold">{palette.name}</p>
-          <p className="text-xs text-fg-subtle">{palette.mood}</p>
+          <p className="truncate text-subheading">{palette.name}</p>
+          <p className="text-meta">{palette.mood}</p>
         </div>
         <IconButton
           label="Copy all HEX codes"

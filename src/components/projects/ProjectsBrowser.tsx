@@ -64,14 +64,16 @@ function FolderChip({
         onDropProject(id);
       }}
       className={cn(
-        'flex h-10 shrink-0 items-center gap-2 rounded-[14px] border px-3 text-[13px] font-semibold transition-all',
-        active ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
-        over && 'scale-105 border-accent bg-accent/15 text-fg',
+        'flex h-8 shrink-0 items-center gap-2 rounded-md border px-2.5 text-[13px] font-medium transition-colors',
+        active
+          ? 'border-line-strong bg-surface-active text-fg'
+          : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
+        over && 'border-accent bg-accent/12 text-fg',
       )}
     >
       {color && <FolderIcon className="size-4 shrink-0" style={{ color }} fill={color} fillOpacity={0.3} aria-hidden />}
       <span className="max-w-[160px] truncate">{label}</span>
-      <span className={cn('text-[11px] font-medium', active ? 'text-bg/70' : 'text-fg-subtle')}>{count}</span>
+      <span className={cn('text-[11px] font-medium', active ? 'text-fg-muted' : 'text-fg-subtle')}>{count}</span>
     </button>
   );
 }
@@ -197,7 +199,7 @@ export function ProjectsBrowser() {
         title="No designs yet 👀"
         description="Your first masterpiece is literally one tap away."
         action={
-          <Button variant="primary" magnetic onClick={() => openNewProject(defaultFormat)}>
+          <Button variant="primary" onClick={() => openNewProject(defaultFormat)}>
             Create Something
           </Button>
         }
@@ -234,8 +236,8 @@ export function ProjectsBrowser() {
       }}
     >
       {droppingFiles && (
-        <div className="pointer-events-none absolute -inset-3 z-30 flex items-center justify-center rounded-[28px] border-2 border-dashed border-accent bg-accent/10 backdrop-blur-sm">
-          <p className="flex items-center gap-2 rounded-full px-4 py-2 font-semibold glass-strong">
+        <div className="pointer-events-none absolute -inset-3 z-30 flex items-center justify-center rounded-xl border-2 border-dashed border-accent bg-bg/85">
+          <p className="flex items-center gap-2 rounded-md border border-line bg-bg-elevated px-4 py-2 font-semibold">
             <FileUp className="size-5 text-accent-text" /> Drop a .stardeck file to import it
           </p>
         </div>
@@ -253,7 +255,7 @@ export function ProjectsBrowser() {
         }}
       />
       <StorageNotice />
-      <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center">
+      <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center">
         <Segmented
           value={view}
           onChange={changeView}
@@ -292,7 +294,7 @@ export function ProjectsBrowser() {
             id="sort"
             value={sort}
             onChange={(e) => setSort(e.target.value as Sort)}
-            className="h-11 rounded-[13px] border border-line bg-bg-sunken/70 px-3 text-sm text-fg outline-none focus:border-ring"
+            className="h-9 rounded-md border border-line bg-bg-sunken px-2.5 text-sm text-fg outline-none focus:border-ring"
           >
             <option value="updated">Last edited</option>
             <option value="created">Newest</option>
@@ -341,7 +343,7 @@ export function ProjectsBrowser() {
             <button
               type="button"
               onClick={() => openFolderDialog({ mode: 'create' })}
-              className="flex h-10 shrink-0 items-center gap-1.5 rounded-[14px] border border-dashed border-line-strong px-3 text-[13px] font-semibold text-fg-muted transition-colors hover:border-fg-muted hover:text-fg"
+              className="flex h-8 shrink-0 items-center gap-1.5 rounded-md border border-dashed border-line-strong px-2.5 text-[13px] font-medium text-fg-muted transition-colors hover:border-fg-muted hover:text-fg"
             >
               <FolderPlus className="size-4" /> New folder
             </button>
@@ -355,7 +357,7 @@ export function ProjectsBrowser() {
                 fillOpacity={0.3}
                 aria-hidden
               />
-              <h2 className="truncate font-display text-lg font-bold">{activeFolder.name}</h2>
+              <h2 className="truncate text-heading">{activeFolder.name}</h2>
               <IconButton
                 label="Edit folder"
                 icon={<PenLine />}
@@ -385,8 +387,8 @@ export function ProjectsBrowser() {
             aria-pressed={format === f}
             onClick={() => setFormat(f)}
             className={cn(
-              'h-8 shrink-0 rounded-full border px-3 text-xs font-semibold transition-colors',
-              format === f ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+              'h-7 shrink-0 rounded-sm border px-2.5 text-xs font-medium transition-colors',
+              format === f ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
             )}
           >
             {f === 'any' ? 'All formats' : FORMATS[f].label}
@@ -397,7 +399,7 @@ export function ProjectsBrowser() {
       {/* Cards are h3s; in a folder the folder's name is the h2, otherwise this one is. */}
       {!activeFolder && <h2 className="sr-only">{view === 'trash' ? 'Trash' : 'Designs'}</h2>}
       {loading ? (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {Array.from({ length: 5 }, (_, i) => (
             <ProjectCardSkeleton key={i} />
           ))}
@@ -405,7 +407,7 @@ export function ProjectsBrowser() {
       ) : visible.length === 0 ? (
         empty()
       ) : (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {visible.map((p) => (
               <ProjectCard

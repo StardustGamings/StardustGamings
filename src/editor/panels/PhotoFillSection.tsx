@@ -20,7 +20,7 @@ function PhotoChoice({ id, selected, onPick }: { id: string; selected: boolean; 
       aria-pressed={selected}
       aria-label="Fill the text with this photo"
       className={cn(
-        'aspect-square overflow-hidden rounded-[10px] border-2 transition-colors',
+        'aspect-square overflow-hidden rounded-md border-2 transition-colors',
         selected ? 'border-accent' : 'border-transparent hover:border-line-strong',
       )}
     >
@@ -108,7 +108,7 @@ export function PhotoFillSection({ el, set }: { el: TextElement; set: (key: stri
           <button
             type="button"
             onClick={() => setPanel('photos')}
-            className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
+            className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
           >
             <ImagePlus className="size-3.5" /> Photos
           </button>

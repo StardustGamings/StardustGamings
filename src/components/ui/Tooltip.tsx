@@ -28,7 +28,7 @@ export function Tooltip({ content, shortcut, side = 'top', children, disabled }:
           side={side}
           sideOffset={8}
           collisionPadding={12}
-          className="z-[80] flex animate-[pop-in_160ms_var(--ease-out-expo)] items-center gap-2 rounded-[10px] border border-line bg-bg-elevated px-2.5 py-1.5 text-xs font-medium text-fg shadow-[var(--shadow-lift)]"
+          className="z-[80] flex animate-[pop-in_120ms_var(--ease-standard)] items-center gap-2 rounded-sm border border-line-strong bg-bg-elevated px-2 py-1 text-xs font-medium text-fg shadow-[var(--shadow-lift)]"
         >
           {content}
           {shortcut && <Kbd>{shortcut}</Kbd>}

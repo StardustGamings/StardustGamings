@@ -30,7 +30,7 @@ export function AiSection() {
       icon={<Bot />}
       description="Optional helpers in the editor’s Magic tool (M). Stardeck works fully without them."
     >
-      <div className="rounded-[18px] border border-success/25 bg-success/8 p-4">
+      <div className="rounded-lg border border-success/25 bg-success/8 p-4">
         <p className="flex items-center gap-2 text-sm font-bold text-success">
           <Cpu className="size-4" /> On your device — always available, nothing uploaded
         </p>

@@ -43,29 +43,29 @@ export function TopBar() {
     () => false,
   );
 
-  const initial = (displayName.trim()[0] ?? '✦').toUpperCase();
+  const initial = (displayName.trim()[0] ?? 'S').toUpperCase();
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 transition-[background-color,border-color,backdrop-filter] duration-300',
-        scrolled ? 'border-x-0 border-t-0 glass-strong' : 'border-b border-transparent',
+        'sticky top-0 z-30 border-b bg-bg transition-colors duration-200',
+        scrolled ? 'border-line' : 'border-transparent',
       )}
     >
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-3 px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto flex h-14 max-w-[1320px] items-center gap-3 px-4 sm:px-6 lg:px-10">
         <Link href="/" className="md:hidden" aria-label="Stardeck home">
           <Logo />
         </Link>
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
-          className="group hidden h-11 w-full max-w-md items-center gap-3 rounded-[14px] border border-line bg-surface px-3.5 text-sm text-fg-subtle transition-colors hover:border-line-strong hover:text-fg-muted md:flex"
+          className="group hidden h-9 w-full max-w-sm items-center gap-2.5 rounded-md border border-line bg-bg-sunken px-3 text-[13px] text-fg-subtle transition-colors hover:border-line-strong hover:text-fg-muted md:flex"
         >
           <Search className="size-4" aria-hidden />
           <span className="flex-1 text-left">Search templates, actions, projects…</span>
           <Kbd>{mod} K</Kbd>
         </button>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1.5">
           <OfflineIndicator />
           <IconButton
             label="Search"
@@ -77,7 +77,7 @@ export function TopBar() {
           <Link
             href="/settings/"
             aria-label="Your local profile and settings"
-            className="flex size-10 items-center justify-center rounded-full font-display text-sm font-extrabold text-ink ring-2 ring-transparent transition bg-nova hover:ring-line-strong"
+            className="flex size-8 items-center justify-center rounded-full border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:border-fg-subtle"
           >
             {initial}
           </Link>

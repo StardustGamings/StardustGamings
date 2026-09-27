@@ -37,7 +37,7 @@ function LayerRow({
   return (
     <div
       className={cn(
-        'group flex h-10 items-center gap-2 rounded-[10px] pr-1.5 pl-1 text-[13px] transition-colors',
+        'group flex h-10 items-center gap-2 rounded-md pr-1.5 pl-1 text-[13px] transition-colors',
         selected ? 'bg-accent/15 text-fg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
         el.hidden && 'opacity-50',
       )}
@@ -47,7 +47,7 @@ function LayerRow({
         <span
           aria-hidden
           className={cn(
-            '-ml-1 w-1 self-stretch rounded-full bg-violet/60',
+            '-ml-1 w-0.5 self-stretch rounded-full bg-selection/70',
             groupEdge === 'start' && 'mt-2',
             groupEdge === 'end' && 'mb-2',
           )}
@@ -70,7 +70,7 @@ function LayerRow({
             if (e.key === 'Enter') e.currentTarget.blur();
             if (e.key === 'Escape') setRenaming(false);
           }}
-          className="h-7 min-w-0 flex-1 rounded-[6px] border border-ring bg-bg-sunken px-1.5 text-[13px] outline-none"
+          className="h-7 min-w-0 flex-1 rounded-sm border border-ring bg-bg-sunken px-1.5 text-[13px] outline-none"
         />
       ) : (
         <button
@@ -90,7 +90,7 @@ function LayerRow({
         aria-pressed={Boolean(el.locked)}
         onClick={() => apply((d) => setLocked(d, [el.id], !el.locked))}
         className={cn(
-          'flex size-7 shrink-0 items-center justify-center rounded-[7px] hover:bg-surface-active',
+          'flex size-7 shrink-0 items-center justify-center rounded-sm hover:bg-surface-active',
           !el.locked && 'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
         )}
       >
@@ -102,7 +102,7 @@ function LayerRow({
         aria-pressed={Boolean(el.hidden)}
         onClick={() => apply((d) => setHidden(d, [el.id], !el.hidden))}
         className={cn(
-          'flex size-7 shrink-0 items-center justify-center rounded-[7px] hover:bg-surface-active',
+          'flex size-7 shrink-0 items-center justify-center rounded-sm hover:bg-surface-active',
           !el.hidden && 'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
         )}
       >
@@ -134,14 +134,12 @@ export function LayersPanel() {
   if (!doc) return null;
   const filter = doc.slides.length > 1 && (
     <div className="flex items-center justify-between gap-2 px-2 pb-1">
-      <span className="text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">
-        {onlySlide ? `Slide ${activeSlide + 1}` : 'All slides'}
-      </span>
+      <span className="text-label">{onlySlide ? `Slide ${activeSlide + 1}` : 'All slides'}</span>
       <button
         type="button"
         aria-pressed={onlySlide}
         onClick={() => setOnlySlide((v) => !v)}
-        className="h-7 rounded-full border border-line px-2.5 text-[11.5px] font-semibold text-fg-muted transition-colors hover:text-fg aria-pressed:border-transparent aria-pressed:bg-fg aria-pressed:text-bg"
+        className="h-7 rounded-sm border border-line px-2.5 text-[11.5px] font-semibold text-fg-muted transition-colors hover:text-fg aria-pressed:border-transparent aria-pressed:bg-fg aria-pressed:text-bg"
       >
         Only this slide
       </button>

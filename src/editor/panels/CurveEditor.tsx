@@ -72,7 +72,7 @@ export function CurveEditor({
             onClick={() => setChannel(c.id)}
             className={cn(
               'flex h-7 flex-1 items-center justify-center gap-1.5 rounded-full text-[11.5px] font-semibold transition-colors',
-              channel === c.id ? 'bg-fg text-bg' : 'text-fg-muted hover:bg-surface-hover',
+              channel === c.id ? 'bg-surface-active text-fg' : 'text-fg-muted hover:bg-surface-hover',
             )}
           >
             <span className="size-2 rounded-full" style={{ background: c.color }} />
@@ -84,7 +84,7 @@ export function CurveEditor({
       <svg
         ref={svgRef}
         viewBox={`0 0 ${SIZE} ${SIZE}`}
-        className="aspect-square w-full touch-none rounded-[12px] border border-line bg-bg-sunken/70"
+        className="aspect-square w-full touch-none rounded-lg border border-line bg-bg-sunken"
         data-testid="curve-editor"
         onPointerDown={(e) => {
           if ((e.target as Element).closest('[data-curve-point]')) return;

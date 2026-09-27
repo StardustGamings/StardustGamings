@@ -49,12 +49,7 @@ export function Dialog({
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
       <D.Portal>
-        <D.Overlay
-          className={cn(
-            'anim-overlay fixed inset-0 z-[60] bg-[rgb(5_5_10/0.55)] backdrop-blur-[6px]',
-            instant && 'data-[state=closed]:animate-none!',
-          )}
-        />
+        <D.Overlay className={cn('anim-overlay fixed inset-0 z-[60] scrim', instant && 'data-[state=closed]:animate-none!')} />
         {/* Centred with inset + auto margins (not transforms) so the CSS enter/exit
             animations are free to use transform. */}
         <D.Content
@@ -67,7 +62,7 @@ export function Dialog({
         >
           <motion.div
             className={cn(
-              'relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-[28px] shadow-[var(--shadow-float)] glass-strong sm:rounded-[28px]',
+              'relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-xl border border-line bg-bg-elevated shadow-[var(--shadow-float)] sm:rounded-xl',
               className,
             )}
             drag={phone ? 'y' : false}
@@ -77,20 +72,20 @@ export function Dialog({
               if (info.offset.y > 120 || info.velocity.y > 600) onOpenChange(false);
             }}
           >
-            {phone && <div aria-hidden className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-line-strong" />}
-            <div className={cn('flex items-start gap-4 px-6 pt-5', hideTitle && 'sr-only')}>
+            {phone && <div aria-hidden className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-line-strong" />}
+            <div className={cn('flex items-start gap-4 px-5 pt-4 sm:px-6 sm:pt-5', hideTitle && 'sr-only')}>
               <div className="min-w-0 flex-1">
-                <D.Title className="font-display text-xl font-bold tracking-tight">{title}</D.Title>
-                {description && <D.Description className="mt-1 text-sm text-fg-muted">{description}</D.Description>}
+                <D.Title className="text-heading">{title}</D.Title>
+                {description && <D.Description className="mt-1 text-caption">{description}</D.Description>}
               </div>
               <D.Close asChild>
                 <IconButton label="Close" icon={<X />} size="sm" tooltip={false} className="-mt-1 -mr-2" />
               </D.Close>
             </div>
             {!description && <D.Description className="sr-only">{typeof title === 'string' ? title : 'Dialog'}</D.Description>}
-            <div className={cn('min-h-0 flex-1 overflow-y-auto px-6 pt-4 pb-6', bodyClassName)}>{children}</div>
+            <div className={cn('min-h-0 flex-1 overflow-y-auto px-5 pt-4 pb-5 sm:px-6 sm:pb-6', bodyClassName)}>{children}</div>
             {footer && (
-              <div className="flex flex-col-reverse gap-2 border-t border-line px-6 py-4 safe-bottom sm:flex-row sm:justify-end">
+              <div className="flex flex-col-reverse gap-2 border-t border-line bg-bg-elevated px-5 py-3.5 safe-bottom sm:flex-row sm:justify-end sm:px-6">
                 {footer}
               </div>
             )}

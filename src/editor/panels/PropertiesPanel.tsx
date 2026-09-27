@@ -248,7 +248,7 @@ function TextSection({ el }: { el: TextElement }) {
               });
             });
           }}
-          className="h-10 w-full rounded-[10px] border border-line bg-bg-sunken/70 px-2.5 text-[13px] outline-none focus:border-ring"
+          className="h-10 w-full rounded-md border border-line bg-bg-sunken px-2.5 text-[13px] outline-none focus:border-ring"
         >
           <option value="">Apply a style…</option>
           {TEXT_PRESETS.map((p) => (
@@ -277,7 +277,7 @@ function TextSection({ el }: { el: TextElement }) {
             aria-label="Font weight"
             value={el.fontWeight}
             onChange={(e) => set('weight', { fontWeight: Number(e.target.value) })}
-            className="h-9 min-w-0 flex-1 rounded-[10px] border border-line bg-bg-sunken/70 px-2 text-[13px] outline-none focus:border-ring"
+            className="h-9 min-w-0 flex-1 rounded-md border border-line bg-bg-sunken px-2 text-[13px] outline-none focus:border-ring"
           >
             {weightOptions(el.fontFamily).map((w) => (
               <option key={w} value={w}>
@@ -396,7 +396,7 @@ function TextSection({ el }: { el: TextElement }) {
                     );
                     return added;
                   }}
-                  className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line px-3 text-[12px] transition-colors hover:border-accent"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line px-3 text-[12px] transition-colors hover:border-accent"
                   title={`Add a text box in ${p.family}`}
                 >
                   <Plus className="size-3" />
@@ -519,8 +519,8 @@ function WarpSection({ el, set }: { el: TextElement; set: (key: string, patch: P
               })
             }
             className={cn(
-              'h-8 rounded-full border px-3 text-[12px] font-semibold transition-colors',
-              current === w.style ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+              'h-8 rounded-md border px-3 text-[12px] font-semibold transition-colors',
+              current === w.style ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
             )}
           >
             {w.label}

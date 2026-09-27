@@ -39,8 +39,8 @@ function Chip({ onClick, children, active }: { onClick: () => void; children: Re
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        'h-8 rounded-full border px-3 text-[12px] font-semibold transition-colors',
-        active ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:border-accent hover:text-fg',
+        'h-8 rounded-md border px-3 text-[12px] font-semibold transition-colors',
+        active ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:border-accent hover:text-fg',
       )}
     >
       {children}
@@ -60,14 +60,14 @@ export function LayoutSection({ spec, els }: { spec: LayoutSpec; els: DesignElem
       <button
         type="button"
         onClick={() => selectLayoutMembers(spec.id)}
-        className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+        className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md border border-line text-[12px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
       >
         <MousePointerSquareDashed className="size-3.5" /> Select all
       </button>
       <button
         type="button"
         onClick={() => detachLayout(spec.id)}
-        className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+        className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md border border-line text-[12px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
         title="Keep the photos but stop treating them as one layout"
       >
         <Unlink className="size-3.5" /> Detach
@@ -85,14 +85,14 @@ export function LayoutSection({ spec, els }: { spec: LayoutSpec; els: DesignElem
           <button
             type="button"
             onClick={shuffleLayout}
-            className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-fg text-[13px] font-bold text-bg transition-opacity hover:opacity-90"
+            className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-md border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:bg-surface-hover"
           >
             <Dices className="size-4" /> Shuffle order
           </button>
           <button
             type="button"
             onClick={() => openPreview(true)}
-            className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[13px] font-semibold transition-colors hover:border-accent"
+            className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-md border border-line text-[13px] font-semibold transition-colors hover:border-accent"
           >
             <Eye className="size-4" /> Preview swipe
           </button>
@@ -152,7 +152,7 @@ export function LayoutSection({ spec, els }: { spec: LayoutSpec; els: DesignElem
       <button
         type="button"
         onClick={shuffleLayout}
-        className="flex h-10 items-center justify-center gap-2 rounded-[12px] bg-fg text-[13.5px] font-bold text-bg transition-opacity hover:opacity-90"
+        className="flex h-9 items-center justify-center gap-2 rounded-md border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:bg-surface-hover"
       >
         <Dices className="size-4" /> Shuffle
       </button>
@@ -162,7 +162,7 @@ export function LayoutSection({ spec, els }: { spec: LayoutSpec; els: DesignElem
           aria-pressed={locked}
           onClick={() => toggleLayoutLock(single!.id)}
           className={cn(
-            'flex h-9 items-center justify-center gap-1.5 rounded-[10px] border text-[12.5px] font-semibold transition-colors',
+            'flex h-9 items-center justify-center gap-1.5 rounded-md border text-[12.5px] font-semibold transition-colors',
             locked ? 'border-accent bg-accent/10 text-fg' : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
           )}
         >

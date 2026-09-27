@@ -17,10 +17,7 @@ export function StorageNotice() {
 
   if (kind === 'memory') {
     return (
-      <div
-        role="status"
-        className="mb-6 flex items-start gap-3 rounded-[18px] border border-warning/40 bg-warning/10 p-4 text-sm"
-      >
+      <div role="status" className="mb-6 flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/10 p-4 text-sm">
         <ShieldAlert className="mt-0.5 size-5 shrink-0 text-warning" aria-hidden />
         <p>
           <strong className="font-semibold">Your browser is blocking local storage</strong> (often private browsing). You can keep
@@ -31,7 +28,7 @@ export function StorageNotice() {
   }
   if (!low) return null;
   return (
-    <div role="status" className="mb-6 flex items-start gap-3 rounded-[18px] border border-warning/40 bg-warning/10 p-4 text-sm">
+    <div role="status" className="mb-6 flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/10 p-4 text-sm">
       <HardDrive className="mt-0.5 size-5 shrink-0 text-warning" aria-hidden />
       <p>
         <strong className="font-semibold">Your device is running low on space.</strong> Saving may stop working soon.{' '}

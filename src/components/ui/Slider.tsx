@@ -27,7 +27,7 @@ export function Slider({ value, onChange, min, max, step = 1, valueText, classNa
       step={step}
       className={cn('relative flex h-6 w-full touch-none items-center select-none', className)}
     >
-      <S.Track className="relative h-1.5 grow overflow-hidden rounded-full bg-surface-active">
+      <S.Track className="relative h-1 grow overflow-hidden rounded-full bg-surface-active">
         {origin === undefined ? (
           <S.Range className="absolute h-full rounded-full bg-accent" />
         ) : (
@@ -41,7 +41,7 @@ export function Slider({ value, onChange, min, max, step = 1, valueText, classNa
       <S.Thumb
         {...aria}
         aria-valuetext={valueText}
-        className="block size-5 rounded-full border-2 border-accent bg-bg-elevated shadow-[var(--shadow-soft)] transition-transform hover:scale-110 focus-visible:scale-110"
+        className="block size-4 rounded-full border-2 border-accent bg-bg-elevated shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-150 hover:scale-110 focus-visible:scale-110"
       />
     </S.Root>
   );

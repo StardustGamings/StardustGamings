@@ -57,11 +57,11 @@ function Row({
       onClick={onSelect}
       data-testid={testId}
       className={cn(
-        'flex w-full items-center gap-3 rounded-[14px] p-2 text-left transition-colors',
+        'flex w-full items-center gap-3 rounded-lg p-2 text-left transition-colors',
         selected ? 'bg-surface-active ring-1 ring-ring' : 'hover:bg-surface-hover',
       )}
     >
-      <span className="w-11 shrink-0 overflow-hidden rounded-[8px] border border-line bg-bg-sunken">{preview}</span>
+      <span className="w-11 shrink-0 overflow-hidden rounded-md border border-line bg-bg-sunken">{preview}</span>
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-1.5 truncate text-[13.5px] font-semibold">
           <span className="truncate">{title}</span>
@@ -224,9 +224,7 @@ function Body({ onClose }: { onClose: () => void }) {
             )}
             {groups.map((group) => (
               <div key={group.label} className="flex flex-col gap-1">
-                <p className="px-2 pt-3 pb-1 text-[11px] font-semibold tracking-[0.08em] text-fg-subtle uppercase">
-                  {group.label}
-                </p>
+                <p className="px-2 pt-3 pb-1 text-label">{group.label}</p>
                 {group.items.map((v) => (
                   <Row
                     key={v.id}
@@ -299,12 +297,12 @@ function Body({ onClose }: { onClose: () => void }) {
             )}
           </div>
 
-          <div className="hide-scrollbar flex gap-2 overflow-x-auto rounded-[18px] bg-bg-sunken/60 p-2">
+          <div className="hide-scrollbar flex gap-2 overflow-x-auto rounded-lg bg-bg-sunken p-2">
             {previewDoc.slides.map((slide, i) => (
               <div
                 key={slide.id}
                 className={cn(
-                  'shrink-0 overflow-hidden rounded-[10px] border border-line',
+                  'shrink-0 overflow-hidden rounded-md border border-line',
                   previewDoc.slides.length === 1 ? 'w-36 sm:w-full sm:max-w-[320px]' : 'w-28 sm:w-48',
                 )}
               >

@@ -31,7 +31,7 @@ function UserFontRow({ font, selected, onPick }: { font: UserFont; selected: boo
         type="button"
         aria-pressed={selected}
         onClick={onPick}
-        className="flex min-w-0 flex-1 items-center gap-2 rounded-[10px] px-2.5 py-2 text-left transition-colors hover:bg-surface-hover"
+        className="flex min-w-0 flex-1 items-center gap-2 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-surface-hover"
       >
         <span className="min-w-0 flex-1">
           <span className="block truncate text-[17px] leading-tight" style={{ fontFamily: fontStack(font.family) }}>
@@ -54,7 +54,7 @@ function UserFontRow({ font, selected, onPick }: { font: UserFont; selected: boo
             );
           }}
           onBlur={() => setConfirming(false)}
-          className="h-8 shrink-0 rounded-full bg-danger px-2.5 text-[11px] font-bold text-white"
+          className="h-8 shrink-0 rounded-md bg-danger px-2.5 text-[11px] font-semibold text-white"
         >
           Remove
         </button>
@@ -63,7 +63,7 @@ function UserFontRow({ font, selected, onPick }: { font: UserFont; selected: boo
           type="button"
           aria-label={`Remove ${font.family} from this device`}
           onClick={() => setConfirming(true)}
-          className="flex size-8 shrink-0 items-center justify-center rounded-[8px] text-fg-subtle hover:bg-surface-hover hover:text-danger"
+          className="flex size-8 shrink-0 items-center justify-center rounded-md text-fg-subtle hover:bg-surface-hover hover:text-danger"
         >
           <Trash2 className="size-3.5" />
         </button>
@@ -142,7 +142,7 @@ export function FontPicker({ value, onChange }: { value: string; onChange: (fami
         <button
           type="button"
           aria-label={`Font: ${value}`}
-          className="flex h-10 w-full items-center gap-2 rounded-[10px] border border-line bg-bg-sunken/70 px-3 text-left transition-colors hover:border-line-strong"
+          className="flex h-10 w-full items-center gap-2 rounded-md border border-line bg-bg-sunken px-3 text-left transition-colors hover:border-line-strong"
         >
           <span className="min-w-0 flex-1 truncate text-[15px]" style={{ fontFamily: fontStack(value) }}>
             {value}
@@ -157,10 +157,10 @@ export function FontPicker({ value, onChange }: { value: string; onChange: (fami
           sideOffset={10}
           collisionPadding={12}
           aria-label="Choose a font"
-          className="z-[70] flex max-h-[min(560px,80dvh)] w-[300px] animate-[pop-in_140ms_var(--ease-out-expo)] flex-col rounded-[18px] shadow-[var(--shadow-float)] glass-strong"
+          className="z-[70] flex max-h-[min(560px,80dvh)] w-[300px] animate-[pop-in_120ms_var(--ease-standard)] flex-col rounded-lg border border-line-strong bg-bg-elevated shadow-[var(--shadow-float)]"
         >
           <div className="border-b border-line p-3">
-            <div className="flex h-9 items-center gap-2 rounded-[10px] border border-line bg-bg-sunken/70 px-2.5 focus-within:border-ring">
+            <div className="flex h-9 items-center gap-2 rounded-md border border-line bg-bg-sunken px-2.5 focus-within:border-ring">
               <Search className="size-4 text-fg-subtle" />
               <input
                 autoFocus
@@ -179,8 +179,8 @@ export function FontPicker({ value, onChange }: { value: string; onChange: (fami
                   aria-pressed={category === c.id}
                   onClick={() => setCategory(c.id)}
                   className={cn(
-                    'h-7 shrink-0 rounded-full px-2.5 text-[11.5px] font-semibold transition-colors',
-                    category === c.id ? 'bg-fg text-bg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
+                    'h-7 shrink-0 rounded-sm px-2.5 text-[11.5px] font-semibold transition-colors',
+                    category === c.id ? 'bg-surface-active text-fg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
                   )}
                 >
                   {c.label}
@@ -209,7 +209,7 @@ export function FontPicker({ value, onChange }: { value: string; onChange: (fami
                     onChange(f.family);
                     setOpen(false);
                   }}
-                  className="flex w-full items-center gap-2 rounded-[10px] px-2.5 py-2 text-left transition-colors hover:bg-surface-hover"
+                  className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-surface-hover"
                 >
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[17px] leading-tight" style={{ fontFamily: fontStack(f.family) }}>
@@ -230,7 +230,7 @@ export function FontPicker({ value, onChange }: { value: string; onChange: (fami
           <div className="flex flex-col gap-2 border-t border-line px-3 py-2.5">
             <label
               className={cn(
-                'flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12.5px] font-semibold transition-colors focus-within:border-ring hover:border-line-strong',
+                'flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-line text-[12.5px] font-semibold transition-colors focus-within:border-ring hover:border-line-strong',
                 adding && 'pointer-events-none opacity-60',
               )}
             >

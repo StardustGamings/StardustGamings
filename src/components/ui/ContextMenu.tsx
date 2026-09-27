@@ -13,7 +13,7 @@ export function ContextMenuContent({ children }: { children: ReactNode }) {
     <C.Portal>
       <C.Content
         collisionPadding={12}
-        className="z-[70] min-w-[220px] animate-[pop-in_120ms_var(--ease-out-expo)] rounded-[16px] p-1.5 shadow-[var(--shadow-float)] glass-strong"
+        className="z-[70] min-w-[220px] animate-[pop-in_120ms_var(--ease-standard)] rounded-md border border-line-strong bg-bg-elevated p-1 shadow-[var(--shadow-float)]"
       >
         {children}
       </C.Content>
@@ -41,7 +41,7 @@ export function ContextMenuItem({
       disabled={disabled}
       onSelect={onSelect}
       className={cn(
-        'flex h-8 cursor-pointer items-center gap-2.5 rounded-[9px] px-2.5 text-[13px] font-medium outline-none select-none [&_svg]:size-4',
+        'flex h-8 cursor-pointer items-center gap-2.5 rounded-sm px-2 text-[13px] outline-none select-none [&_svg]:size-4',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-40',
         destructive
           ? 'text-danger data-[highlighted]:bg-danger/12'

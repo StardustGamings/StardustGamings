@@ -141,11 +141,11 @@ function Flyout() {
           animate={{ width: 300, opacity: 1 }}
           exit={{ width: 0, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 420, damping: 40 }}
-          className="z-10 hidden shrink-0 overflow-hidden border-y-0 border-l-0 glass-strong lg:block"
+          className="z-10 hidden shrink-0 overflow-hidden border-r border-line bg-bg-elevated lg:block"
         >
-          <div className="flex h-full w-[300px] flex-col">
-            <div className="flex h-12 shrink-0 items-center justify-between border-b border-line pr-2 pl-4">
-              <h2 className="font-sans text-sm font-bold tracking-normal">{PANEL_TITLES[panel]}</h2>
+          <div className="flex h-full w-[288px] flex-col">
+            <div className="flex h-11 shrink-0 items-center justify-between border-b border-line pr-1.5 pl-4">
+              <h2 className="font-sans text-[13px] font-semibold tracking-normal">{PANEL_TITLES[panel]}</h2>
               <IconButton label="Close panel" icon={<X />} size="sm" tooltip={false} onClick={() => setPanel(null)} />
             </div>
             <div className="min-h-0 flex-1 overflow-y-auto">
@@ -174,8 +174,8 @@ function Inspector() {
     { id: 'layers' as const, label: 'Layers' },
   ];
   return (
-    <aside aria-label="Inspector" className="z-10 hidden w-[300px] shrink-0 flex-col border-y-0 border-r-0 glass-strong lg:flex">
-      <div role="tablist" aria-label="Inspector" className="flex h-12 shrink-0 items-center gap-1 border-b border-line px-2">
+    <aside aria-label="Inspector" className="z-10 hidden w-[280px] shrink-0 flex-col border-l border-line bg-bg-elevated lg:flex">
+      <div role="tablist" aria-label="Inspector" className="flex h-11 shrink-0 items-stretch gap-4 border-b border-line px-4">
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -187,8 +187,8 @@ function Inspector() {
               if (t.id === 'design' && panel === 'layers') setPanel(null);
             }}
             className={cn(
-              'h-8 rounded-[10px] px-3 text-[13px] font-semibold transition-colors',
-              tab === t.id ? 'bg-surface-active text-fg' : 'text-fg-muted hover:text-fg',
+              'relative -mb-px border-b-2 text-[13px] font-medium transition-colors',
+              tab === t.id ? 'border-fg text-fg' : 'border-transparent text-fg-muted hover:text-fg',
             )}
           >
             {t.label}
@@ -220,8 +220,8 @@ function MobileAction({
       aria-label={label}
       aria-pressed={active}
       className={cn(
-        'flex h-14 w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-[14px] text-[10px] font-semibold transition-colors [&_svg]:size-5',
-        active ? 'bg-accent text-accent-fg' : 'text-fg-muted active:bg-surface-active',
+        'flex h-14 w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-md text-[10.5px] font-medium transition-colors [&_svg]:size-5',
+        active ? 'bg-surface-active text-fg [&_svg]:text-accent-text' : 'text-fg-muted active:bg-surface-active',
       )}
     >
       {icon}
@@ -243,7 +243,7 @@ function MobileToolbar() {
     const single = selected.length === 1 ? selected[0]! : null;
     const locked = selected.every((e) => e.locked);
     return (
-      <nav aria-label="Selection actions" className="z-10 shrink-0 border-x-0 border-b-0 safe-bottom glass-strong lg:hidden">
+      <nav aria-label="Selection actions" className="z-10 shrink-0 border-t border-line bg-bg-elevated safe-bottom lg:hidden">
         <div className="hide-scrollbar flex gap-1 overflow-x-auto px-2 py-1.5">
           <MobileAction
             label="Edit"
@@ -281,7 +281,7 @@ function MobileToolbar() {
   }
 
   return (
-    <nav aria-label="Tools" className="z-10 shrink-0 border-x-0 border-b-0 safe-bottom glass-strong lg:hidden">
+    <nav aria-label="Tools" className="z-10 shrink-0 border-t border-line bg-bg-elevated safe-bottom lg:hidden">
       <div className="hide-scrollbar flex gap-1 overflow-x-auto px-2 py-1.5">
         {PANEL_TOOLS.map((t) => (
           <ToolButton
@@ -317,12 +317,12 @@ function MobileSheet() {
           animate={{ height: 'auto' }}
           exit={{ height: 0 }}
           transition={{ type: 'spring', stiffness: 420, damping: 42 }}
-          className="z-10 shrink-0 overflow-hidden border-x-0 border-b-0 glass-strong lg:hidden"
+          className="z-10 shrink-0 overflow-hidden border-t border-line bg-bg-elevated lg:hidden"
           data-testid="mobile-sheet"
         >
           <div className="flex max-h-[44dvh] flex-col">
             <div className="flex h-11 shrink-0 items-center justify-between border-b border-line pr-1.5 pl-4">
-              <h2 className="font-sans text-sm font-bold tracking-normal">{PANEL_TITLES[panel!]}</h2>
+              <h2 className="font-sans text-[13px] font-semibold tracking-normal">{PANEL_TITLES[panel!]}</h2>
               <IconButton label="Close panel" icon={<X />} size="sm" tooltip={false} onClick={() => setPanel(null)} />
             </div>
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
@@ -433,7 +433,7 @@ function Editor() {
             <EditorAlerts />
             <CropBar layout="floating" />
             {tool === 'text' && (
-              <div className="pointer-events-none absolute top-3 left-1/2 z-20 -translate-x-1/2 rounded-full bg-ink/80 px-3 py-1.5 text-xs font-semibold text-white">
+              <div className="pointer-events-none absolute top-3 left-1/2 z-20 -translate-x-1/2 rounded-md border border-line bg-bg-elevated px-3 py-1.5 text-xs font-medium text-fg-muted shadow-[var(--shadow-soft)]">
                 <Type className="mr-1 inline size-3.5" /> Click anywhere to add text · Esc to cancel
               </div>
             )}

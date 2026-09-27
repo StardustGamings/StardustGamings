@@ -50,7 +50,7 @@ export function CarouselPreview({
   return (
     <div
       className={cn(
-        'flex w-full flex-col gap-3 rounded-[28px] border border-line bg-bg-elevated p-3 shadow-[var(--shadow-lift)]',
+        'flex w-full flex-col gap-3 rounded-xl border border-line bg-bg-elevated p-3 shadow-[var(--shadow-lift)]',
         className,
       )}
       style={style}
@@ -60,14 +60,14 @@ export function CarouselPreview({
         <span aria-hidden className="size-7 rounded-full bg-nova" />
         <span className="text-[13px] font-bold">{handle}</span>
         <span
-          className="ml-auto rounded-full bg-surface-active px-2 py-0.5 font-mono text-[11px] font-semibold tabular-nums"
+          className="ml-auto rounded-sm bg-surface-active px-2 py-0.5 font-mono text-[11px] font-semibold tabular-nums"
           aria-live="polite"
         >
           {current + 1} / {n}
         </span>
       </div>
       <div
-        className="group relative overflow-hidden rounded-[14px] bg-bg-sunken"
+        className="group relative overflow-hidden rounded-lg bg-bg-sunken"
         style={{ aspectRatio: `${doc.slideWidth} / ${doc.slideHeight}` }}
       >
         <div

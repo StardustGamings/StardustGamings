@@ -73,7 +73,10 @@ function SizeGlyph({ width, height, active }: { width: number; height: number; a
   return (
     <span className="flex size-10 items-center justify-center" aria-hidden>
       <span
-        className={cn('rounded-[4px] border-2 transition-colors', active ? 'border-accent bg-accent/25' : 'border-fg-subtle')}
+        className={cn(
+          'rounded-xs border-[1.5px] transition-colors',
+          active ? 'border-accent-text bg-accent/15' : 'border-fg-subtle',
+        )}
         style={{ width: width * s, height: height * s }}
       />
     </span>
@@ -163,7 +166,7 @@ export function NewProjectDialog() {
           </Button>
           <Button
             variant="primary"
-            magnetic
+
             loading={busy}
             disabled={customInvalid}
             onClick={submit}
@@ -182,7 +185,7 @@ export function NewProjectDialog() {
         }}
       >
         <fieldset>
-          <legend className="mb-2.5 text-[13px] font-semibold">Format</legend>
+          <legend className="mb-2 text-label">Format</legend>
           <div className="-mx-6 hide-scrollbar flex gap-2 overflow-x-auto px-6 pb-1" role="radiogroup" aria-label="Format">
             {FORMAT_ORDER.map((id) => {
               const active = id === format;
@@ -194,17 +197,17 @@ export function NewProjectDialog() {
                   aria-checked={active}
                   onClick={() => selectFormat(id)}
                   className={cn(
-                    'relative flex h-10 shrink-0 items-center gap-2 rounded-full border px-3.5 text-[13px] font-semibold transition-colors',
+                    'relative flex h-9 shrink-0 items-center gap-2 rounded-md border px-3 text-[13px] font-medium transition-colors',
                     active
-                      ? 'border-transparent text-accent-fg'
+                      ? 'border-line-strong text-fg [&>svg]:text-accent-text'
                       : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
                   )}
                 >
                   {active && (
                     <motion.span
                       layoutId="format-pill"
-                      className="absolute inset-0 -z-0 rounded-full bg-accent"
-                      transition={{ type: 'spring', stiffness: 500, damping: 36 }}
+                      className="absolute inset-0 -z-0 rounded-md bg-surface-active"
+                      transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
                     />
                   )}
                   <FormatIcon format={id} className="relative size-4" />
@@ -216,7 +219,7 @@ export function NewProjectDialog() {
         </fieldset>
 
         <fieldset>
-          <legend className="mb-2.5 text-[13px] font-semibold">Size</legend>
+          <legend className="mb-2 text-label">Size</legend>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Canvas size">
             {[...def.sizes, 'custom' as const].map((id) => {
               const active = id === sizeId;
@@ -229,8 +232,8 @@ export function NewProjectDialog() {
                   aria-checked={active}
                   onClick={() => setSizeId(id)}
                   className={cn(
-                    'flex items-center gap-2 rounded-[16px] border p-2 pr-3 text-left transition-colors',
-                    active ? 'border-accent bg-accent/8' : 'border-line hover:border-line-strong hover:bg-surface-hover',
+                    'flex items-center gap-2 rounded-md border p-2 pr-3 text-left transition-colors',
+                    active ? 'border-accent bg-surface-active' : 'border-line hover:border-line-strong hover:bg-surface-hover',
                   )}
                 >
                   {preset ? (
@@ -274,7 +277,7 @@ export function NewProjectDialog() {
         <div className="grid gap-6 sm:grid-cols-2">
           {def.multiSlide && (
             <div>
-              <p id="slides-label" className="mb-2.5 text-[13px] font-semibold">
+              <p id="slides-label" className="mb-2 text-label">
                 Slides
               </p>
               <div className="flex items-center gap-3">
@@ -288,7 +291,7 @@ export function NewProjectDialog() {
                 <output
                   aria-labelledby="slides-label"
                   aria-live="polite"
-                  className="w-10 text-center font-display text-2xl font-bold tabular-nums"
+                  className="w-10 text-center font-display text-xl font-semibold tabular-nums"
                 >
                   {slides}
                 </output>
@@ -303,10 +306,10 @@ export function NewProjectDialog() {
                   {Array.from({ length: Math.min(slides, 12) }, (_, i) => (
                     <motion.span
                       key={i}
-                      layout
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="h-5 w-4 rounded-[4px] bg-gradient-to-b from-accent to-mint"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.12 }}
+                      className="h-5 w-3.5 rounded-[2px] border border-line-strong bg-surface-active"
                     />
                   ))}
                   {slides > 12 && <span className="text-xs text-fg-subtle">+{slides - 12}</span>}
@@ -315,7 +318,7 @@ export function NewProjectDialog() {
             </div>
           )}
           <div className={cn(!def.multiSlide && 'sm:col-span-2')}>
-            <p className="mb-2.5 text-[13px] font-semibold">Background</p>
+            <p className="mb-2 text-label">Background</p>
             <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Background">
               {BACKGROUNDS.map((b) => (
                 <button
@@ -327,7 +330,7 @@ export function NewProjectDialog() {
                   title={b.label}
                   onClick={() => setBackground(b.id)}
                   className={cn(
-                    'size-9 rounded-full border border-line-strong transition-transform hover:scale-110',
+                    'size-8 rounded-full border border-line-strong transition-shadow',
                     background === b.id && 'ring-2 ring-ring ring-offset-2 ring-offset-bg-elevated',
                   )}
                   style={{ background: fillToCss(b.fill) }}
@@ -348,7 +351,7 @@ export function NewProjectDialog() {
 
         {templates.length > 0 && (
           <div>
-            <p className="mb-2.5 text-[13px] font-semibold">Or start from a template</p>
+            <p className="mb-2 text-label">Or start from a template</p>
             <div className="-mx-6 hide-scrollbar flex gap-3 overflow-x-auto px-6 pb-1">
               {templates.map((t) => (
                 <button
@@ -362,7 +365,7 @@ export function NewProjectDialog() {
                   }}
                   className="group w-32 shrink-0 text-left"
                 >
-                  <span className="block overflow-hidden rounded-[14px] border border-line transition-transform duration-300 group-hover:-translate-y-1">
+                  <span className="block overflow-hidden rounded-md border border-line transition-colors duration-150 group-hover:border-line-strong">
                     <ScenePreview doc={t.doc} slide={0} maxDpr={1.5} />
                   </span>
                   <span className="mt-1.5 block truncate text-xs font-semibold">{t.name}</span>

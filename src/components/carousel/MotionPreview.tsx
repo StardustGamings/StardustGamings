@@ -92,7 +92,7 @@ export function MotionPreview({ doc, autoPlay = true }: { doc: DesignDocument; a
 
   return (
     <div className="flex flex-col gap-3" data-testid="motion-preview">
-      <div ref={boxRef} className="overflow-hidden rounded-[18px] bg-black shadow-[var(--shadow-lift)]">
+      <div ref={boxRef} className="overflow-hidden rounded-lg bg-black shadow-[var(--shadow-lift)]">
         <canvas
           ref={canvasRef}
           className="block w-full"
@@ -134,7 +134,7 @@ export function MotionPreview({ doc, autoPlay = true }: { doc: DesignDocument; a
           aria-pressed={loop}
           onClick={() => setLoop(!loop)}
           className={cn(
-            'flex size-8 shrink-0 items-center justify-center rounded-[10px] [&_svg]:size-4',
+            'flex size-8 shrink-0 items-center justify-center rounded-md [&_svg]:size-4',
             loop ? 'bg-surface-active text-fg' : 'text-fg-muted hover:bg-surface-hover',
           )}
         >

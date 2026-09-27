@@ -60,10 +60,10 @@ export function EffectCard({ effect }: { effect: TrendEffect }) {
   const overlay = look ? null : OVERLAYS[effect.overlay];
 
   return (
-    <div className="rounded-[20px] border border-line bg-surface p-2">
+    <div className="overflow-hidden rounded-lg border border-line bg-surface">
       <button
         type="button"
-        className="relative block aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-bg-sunken select-none"
+        className="relative block aspect-[4/3] w-full overflow-hidden bg-bg-sunken select-none"
         aria-label={`Hold to compare ${effect.name} with the original`}
         onPointerDown={() => setComparing(true)}
         onPointerUp={() => setComparing(false)}
@@ -83,16 +83,16 @@ export function EffectCard({ effect }: { effect: TrendEffect }) {
         )}
         {src && look && <LookRender look={look} intensity={effect.intensity ?? 100} hidden={comparing} />}
         {overlay && !comparing && <span aria-hidden className="absolute inset-0" style={overlay} />}
-        <span className="absolute bottom-2 left-2 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] font-semibold text-white">
+        <span className="absolute bottom-2 left-2 rounded-xs bg-ink/70 px-1.5 py-0.5 text-[10.5px] font-medium text-white">
           {comparing ? 'Original' : 'Hold to compare'}
         </span>
       </button>
-      <div className="px-1.5 pt-2.5 pb-0.5">
+      <div className="p-3">
         <div className="flex items-center gap-2">
-          <p className="flex-1 truncate text-sm font-bold">{effect.name}</p>
+          <p className="flex-1 truncate text-subheading">{effect.name}</p>
           {look ? <Badge tone="accent">Filter · {look.name}</Badge> : <Badge>Preview</Badge>}
         </div>
-        <p className="mt-0.5 line-clamp-2 text-xs text-fg-subtle">{effect.description}</p>
+        <p className="mt-1 line-clamp-2 text-[12.5px] leading-snug text-fg-muted">{effect.description}</p>
       </div>
     </div>
   );
@@ -102,14 +102,14 @@ export function EffectCard({ effect }: { effect: TrendEffect }) {
  * A filter from the trend pack (a look defined as data), on the sample photo
  * through the real pipeline. Hold to compare.
  */
-export function FilterCard({ look, heat }: { look: LookDefinition; heat: number }) {
+export function FilterCard({ look }: { look: LookDefinition }) {
   const src = useClientValue(samplePhoto, null);
   const [comparing, setComparing] = useState(false);
   return (
-    <div className="rounded-[20px] border border-line bg-surface p-2" data-testid="filter-card">
+    <div className="overflow-hidden rounded-lg border border-line bg-surface" data-testid="filter-card">
       <button
         type="button"
-        className="relative block aspect-[4/3] w-full overflow-hidden rounded-[14px] bg-bg-sunken select-none"
+        className="relative block aspect-[4/3] w-full overflow-hidden bg-bg-sunken select-none"
         aria-label={`Hold to compare ${look.name} with the original`}
         onPointerDown={() => setComparing(true)}
         onPointerUp={() => setComparing(false)}
@@ -122,19 +122,16 @@ export function FilterCard({ look, heat }: { look: LookDefinition; heat: number 
           <img src={src} alt="" draggable={false} className="size-full object-cover" />
         )}
         {src && <LookRender look={look} intensity={100} hidden={comparing} />}
-        <span className="absolute bottom-2 left-2 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] font-semibold text-white">
+        <span className="absolute bottom-2 left-2 rounded-xs bg-ink/70 px-1.5 py-0.5 text-[10.5px] font-medium text-white">
           {comparing ? 'Original' : 'Hold to compare'}
         </span>
-        <span className="absolute top-2 right-2 rounded-full bg-ink/80 px-2 py-0.5 text-[10px] font-bold text-lime">
-          🔥 {heat}
-        </span>
       </button>
-      <div className="px-1.5 pt-2.5 pb-0.5">
+      <div className="p-3">
         <div className="flex items-center gap-2">
-          <p className="flex-1 truncate text-sm font-bold">{look.name}</p>
-          <Badge tone="violet">New filter</Badge>
+          <p className="flex-1 truncate text-subheading">{look.name}</p>
+          <Badge>New filter</Badge>
         </div>
-        <p className="mt-0.5 line-clamp-2 text-xs text-fg-subtle">{look.description}</p>
+        <p className="mt-1 line-clamp-2 text-[12.5px] leading-snug text-fg-muted">{look.description}</p>
       </div>
     </div>
   );

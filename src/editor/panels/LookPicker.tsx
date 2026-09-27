@@ -65,7 +65,7 @@ function LookTile({
     >
       <span
         className={cn(
-          'block aspect-square overflow-hidden rounded-[12px] border-2 transition-colors',
+          'block aspect-square overflow-hidden rounded-lg border-2 transition-colors',
           checked ? 'border-accent' : 'border-transparent group-hover:border-line-strong',
         )}
       >
@@ -105,7 +105,7 @@ export function LookPicker({
       >
         <span
           className={cn(
-            'flex aspect-square items-center justify-center overflow-hidden rounded-[12px] border-2 bg-surface transition-colors',
+            'flex aspect-square items-center justify-center overflow-hidden rounded-lg border-2 bg-surface transition-colors',
             value === null ? 'border-accent' : 'border-line group-hover:border-line-strong',
           )}
         >
@@ -118,11 +118,8 @@ export function LookPicker({
       ))}
       {extra.length > 0 && (
         <>
-          <p
-            className="col-span-3 mt-1 flex items-center gap-1.5 text-[11px] font-bold tracking-[0.1em] text-fg-subtle uppercase"
-            data-testid="trend-looks-label"
-          >
-            <Flame className="size-3.5 text-lime" aria-hidden /> {extraLabel}
+          <p className="col-span-3 mt-1 flex items-center gap-1.5 text-label" data-testid="trend-looks-label">
+            <Flame className="size-3.5 text-accent-text" aria-hidden /> {extraLabel}
           </p>
           {extra.map((look) => (
             <LookTile key={`x-${look.id}`} look={look} assetId={assetId} checked={value === look.id} onPick={onPick} />

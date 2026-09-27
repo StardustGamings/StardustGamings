@@ -20,7 +20,7 @@ function Tile({ asset, order, onToggle }: { asset: AssetMeta; order: number; onT
       aria-label={`${asset.name}${selected ? `, selected ${order}` : ''}`}
       onClick={onToggle}
       className={cn(
-        'relative aspect-square overflow-hidden rounded-[12px] border-2 bg-surface transition-[transform,border-color]',
+        'relative aspect-square overflow-hidden rounded-lg border-2 bg-surface transition-[transform,border-color]',
         selected ? 'scale-[0.94] border-accent' : 'border-transparent hover:border-line-strong',
       )}
     >
@@ -111,10 +111,8 @@ export function PhotoChooser({
         <ShieldCheck className="size-3.5 text-success" /> Everything happens on this device — nothing is uploaded.
       </p>
       {photos.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 rounded-[18px] border border-dashed border-line-strong px-6 py-10 text-center">
-          <span className="text-3xl" aria-hidden>
-            📸
-          </span>
+        <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed border-line-strong px-6 py-10 text-center">
+          <ImagePlus className="size-6 text-fg-subtle" aria-hidden />
           <p className="text-sm font-semibold">No photos yet</p>
           <p className="max-w-xs text-[12.5px] text-fg-muted">Add a few from your device to get started.</p>
         </div>

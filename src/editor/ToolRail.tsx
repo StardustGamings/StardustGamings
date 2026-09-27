@@ -78,10 +78,10 @@ export function ToolButton({
         aria-pressed={tool.soon ? undefined : active}
         aria-label={tool.soon ? `${tool.label} (coming soon)` : tool.label}
         className={cn(
-          'relative flex shrink-0 flex-col items-center justify-center gap-1 rounded-[14px] text-[10px] font-semibold transition-colors [&_svg]:size-5',
-          orientation === 'vertical' ? 'h-14 w-[66px]' : 'h-14 w-16',
+          'relative flex shrink-0 flex-col items-center justify-center gap-1 rounded-md text-[10.5px] font-medium transition-colors duration-150 [&_svg]:size-5',
+          orientation === 'vertical' ? 'h-[52px] w-14' : 'h-14 w-16',
           active
-            ? 'bg-accent text-accent-fg'
+            ? 'bg-surface-active text-fg [&_svg]:text-accent-text'
             : tool.soon
               ? 'cursor-not-allowed text-fg-subtle/60'
               : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
@@ -104,12 +104,12 @@ export function ToolRail() {
   return (
     <nav
       aria-label="Tools"
-      className="z-10 hidden w-[80px] shrink-0 flex-col items-center gap-1 overflow-y-auto border-y-0 border-l-0 py-3 glass-strong lg:flex"
+      className="z-10 hidden w-[68px] shrink-0 flex-col items-center gap-0.5 overflow-y-auto border-r border-line bg-bg-elevated py-2 lg:flex"
     >
       {MODE_TOOLS.map((t) => (
         <ToolButton key={t.id} tool={t} orientation="vertical" active={tool === t.tool} onClick={() => setTool(t.tool!)} />
       ))}
-      <span className="my-1 h-px w-10 bg-line" aria-hidden />
+      <span className="my-1.5 h-px w-8 bg-line" aria-hidden />
       {PANEL_TOOLS.filter((t) => t.panel !== 'layers').map((t) => (
         <ToolButton
           key={t.id}

@@ -106,7 +106,7 @@ function FolderForm({ request, onClose }: { request: FolderDialogRequest; onClos
                 aria-label={COLOR_NAMES[i] ?? c}
                 onClick={() => setColor(c)}
                 className={cn(
-                  'flex size-9 items-center justify-center rounded-full border-2 transition-transform hover:scale-105',
+                  'flex size-9 items-center justify-center rounded-full border-2 transition-colors',
                   color === c ? 'border-fg' : 'border-transparent',
                 )}
                 style={{ background: c }}
@@ -170,7 +170,7 @@ function MoveForm({ ids, onClose }: { ids: string[]; onClose: () => void }) {
             aria-checked={target === f.id}
             onClick={() => setTarget(f.id)}
             className={cn(
-              'flex h-11 items-center gap-3 rounded-[12px] px-3 text-left text-sm font-semibold transition-colors',
+              'flex h-11 items-center gap-3 rounded-lg px-3 text-left text-sm font-semibold transition-colors',
               target === f.id ? 'bg-surface-active ring-1 ring-ring' : 'hover:bg-surface-hover',
             )}
           >

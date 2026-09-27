@@ -46,10 +46,10 @@ export function InspirationFeed({ limit }: { limit?: number }) {
   const createFromTemplate = useCreateFromTemplate();
 
   return (
-    <div className="columns-2 gap-4 md:columns-3 xl:columns-4 [&>*]:mb-4">
+    <div className="columns-2 gap-3 md:columns-3 xl:columns-4 [&>*]:mb-3">
       {ideas.map((idea) => (
         <figure key={idea.key} className="group relative break-inside-avoid">
-          <div className="overflow-hidden rounded-[20px] border border-line shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-lift)]">
+          <div className="overflow-hidden rounded-lg border border-line transition-colors duration-150 group-hover:border-line-strong">
             <ScenePreview
               doc={idea.remixed.doc}
               slide={0}
@@ -57,10 +57,10 @@ export function InspirationFeed({ limit }: { limit?: number }) {
               label={`${idea.template.name} remixed with ${idea.palette?.name ?? 'its original colours'}`}
             />
           </div>
-          <figcaption className="flex items-center gap-2 px-1 pt-2">
+          <figcaption className="flex items-center gap-2 pt-2">
             <span className="min-w-0 flex-1">
-              <span className="block truncate text-[13px] font-bold">{idea.template.name}</span>
-              <span className="block truncate text-[11.5px] text-fg-subtle">
+              <span className="block truncate text-[13px] font-semibold">{idea.template.name}</span>
+              <span className="block truncate text-meta">
                 {FORMATS[idea.template.format].label}
                 {idea.palette && ` × ${idea.palette.name}`}
               </span>
@@ -68,7 +68,7 @@ export function InspirationFeed({ limit }: { limit?: number }) {
             <button
               type="button"
               onClick={() => void createFromTemplate(idea.remixed, { name: `${idea.template.name} remix` })}
-              className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-line px-3 text-xs font-semibold transition-colors hover:border-transparent hover:bg-accent hover:text-accent-fg"
+              className="inline-flex h-7 shrink-0 items-center gap-1.5 rounded-md border border-line px-2.5 text-xs font-medium transition-colors hover:border-line-strong hover:bg-surface-hover"
               aria-label={`Remix ${idea.template.name}${idea.palette ? ` in ${idea.palette.name}` : ''}`}
             >
               <Wand2 className="size-3.5" /> Remix

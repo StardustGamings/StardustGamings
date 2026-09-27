@@ -73,25 +73,19 @@ export function DropHeader() {
   const list = drops.length ? drops : [{ id: pack.id, title: pack.title, publishedAt: pack.publishedAt, url: '' }];
 
   return (
-    <header
-      className="relative mb-8 overflow-hidden rounded-[32px] border border-line"
-      style={{
-        background: `linear-gradient(120deg, ${pack.accent[0]}33, transparent 45%), linear-gradient(300deg, ${pack.accent[1]}40, transparent 50%)`,
-      }}
-      data-testid="drop-header"
-    >
-      <div className="grid gap-6 p-6 sm:p-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+    <header className="mb-6 border-b border-line pb-8" data-testid="drop-header">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-end">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <Badge tone="accent">Trend drop · {monthLabel(pack.publishedAt)}</Badge>
-            {pack.id === latestId && source !== 'file' && <Badge tone="success">Latest</Badge>}
-            {source === 'file' && <Badge tone="violet">Pack file preview</Badge>}
+            {pack.id === latestId && source !== 'file' && <Badge>Latest</Badge>}
+            {source === 'file' && <Badge>Pack file preview</Badge>}
           </div>
-          <h1 className="mt-4 text-4xl font-extrabold sm:text-6xl">What’s trending</h1>
-          <p className="mt-2 text-xl font-bold text-fg-muted" data-testid="drop-title">
+          <h1 className="mt-3 text-display">What’s trending</h1>
+          <p className="mt-2 text-heading text-fg-muted" data-testid="drop-title">
             {pack.title}
           </p>
-          <p className="mt-2 max-w-xl text-fg-muted">{pack.subtitle}</p>
+          <p className="mt-1 max-w-xl text-caption">{pack.subtitle}</p>
           {source === 'file' ? (
             <Button className="mt-5" size="sm" icon={<FileJson className="size-4" />} onClick={() => endPreview()}>
               End preview
@@ -99,7 +93,7 @@ export function DropHeader() {
           ) : (
             list.length > 1 && (
               <div className="mt-5" role="radiogroup" aria-label="Trend drops" data-testid="drop-switcher">
-                <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Drops</p>
+                <p className="mb-1.5 text-label">Drops</p>
                 <div className="flex flex-wrap gap-1.5">
                   {list.map((d) => (
                     <button
@@ -112,14 +106,14 @@ export function DropHeader() {
                         if (!(await selectDrop(d.id))) toast({ title: 'That drop isn’t available offline', tone: 'info' });
                       }}
                       className={cn(
-                        'h-8 rounded-full border px-3 text-[12.5px] font-semibold transition-colors',
+                        'h-8 rounded-md border px-3 text-[13px] font-medium transition-colors',
                         pack.id === d.id
-                          ? 'border-transparent bg-fg text-bg'
+                          ? 'border-line-strong bg-surface-active text-fg'
                           : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
                       )}
                     >
                       {d.title ?? d.id}
-                      {d.id === latestId && <span className="ml-1.5 text-[10px] opacity-70">NEW</span>}
+                      {d.id === latestId && <span className="ml-1.5 text-[11px] text-accent-text">New</span>}
                     </button>
                   ))}
                 </div>
@@ -128,7 +122,7 @@ export function DropHeader() {
           )}
           <SourceLine />
         </div>
-        <div className="overflow-hidden rounded-[22px] border border-line shadow-[var(--shadow-lift)]">
+        <div className="hidden overflow-hidden rounded-lg border border-line sm:block">
           <ScenePreview doc={cover} slide={0} maxDpr={1.5} label={`${pack.title} cover`} />
         </div>
       </div>

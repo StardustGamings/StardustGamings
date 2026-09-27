@@ -37,7 +37,7 @@ export function SlideStrip() {
 
   return (
     <div
-      className="z-10 flex shrink-0 items-center gap-2 border-x-0 border-b-0 px-2 py-2 glass-strong sm:px-3"
+      className="z-10 flex shrink-0 items-center gap-2 border-t border-line bg-bg-elevated px-2 py-1.5 sm:px-3"
       data-testid="slide-strip"
     >
       <div className="flex shrink-0 items-center">
@@ -89,7 +89,7 @@ export function SlideStrip() {
                 aria-label={`Slide ${index + 1}`}
                 aria-current={index === active ? 'true' : undefined}
                 className={cn(
-                  'block overflow-hidden rounded-[8px] ring-offset-2 ring-offset-bg-elevated transition-shadow',
+                  'block overflow-hidden rounded-sm ring-offset-2 ring-offset-bg-elevated transition-shadow duration-150',
                   index === active ? 'ring-2 ring-accent' : 'ring-1 ring-line hover:ring-line-strong',
                 )}
                 style={{ width: thumbW, height: thumbH }}
@@ -104,7 +104,7 @@ export function SlideStrip() {
                   style={{ width: thumbW, height: thumbH }}
                 />
               </button>
-              <span className="pointer-events-none absolute bottom-1 left-1 rounded-[5px] bg-ink/75 px-1 font-mono text-[9px] font-bold text-white">
+              <span className="pointer-events-none absolute bottom-1 left-1 rounded-xs bg-ink/70 px-1 font-mono text-[9.5px] font-medium text-white">
                 {index + 1}
               </span>
             </Reorder.Item>
@@ -116,7 +116,7 @@ export function SlideStrip() {
             onClick={addSlide}
             disabled={count >= MAX_SLIDES}
             aria-label="Add slide"
-            className="flex items-center justify-center rounded-[8px] border-2 border-dashed border-line-strong text-fg-muted transition-colors hover:border-accent hover:text-accent-text disabled:opacity-40"
+            className="flex items-center justify-center rounded-sm border border-dashed border-line-strong text-fg-muted transition-colors hover:border-fg-subtle hover:text-fg disabled:opacity-40"
             style={{ width: thumbW, height: thumbH }}
           >
             <Plus className="size-5" />

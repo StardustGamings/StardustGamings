@@ -6,20 +6,20 @@ import { useSettings } from '@/settings/store';
 import { cn } from '@/utils/cn';
 
 const THEMES: { value: ThemePreference; label: string; bg: string; panel: string; text: string; accent: string }[] = [
-  { value: 'dark', label: 'Dark', bg: '#0A0A11', panel: '#1B1B26', text: '#F5F4FF', accent: '#C6FF3D' },
-  { value: 'light', label: 'Light', bg: '#F5F3FA', panel: '#FFFFFF', text: '#13111C', accent: '#C6FF3D' },
-  { value: 'oled', label: 'OLED', bg: '#000000', panel: '#0E0E12', text: '#F5F4FF', accent: '#C6FF3D' },
+  { value: 'dark', label: 'Dark', bg: '#101012', panel: '#1E1E22', text: '#EDEDEA', accent: '#C6FF3D' },
+  { value: 'light', label: 'Light', bg: '#F4F4F1', panel: '#FFFFFF', text: '#161616', accent: '#C6FF3D' },
+  { value: 'oled', label: 'OLED', bg: '#000000', panel: '#141416', text: '#EDEDEA', accent: '#C6FF3D' },
 ];
 
 function Swatch({ t }: { t: (typeof THEMES)[number] }) {
   return (
     <span className="block h-full w-full p-2.5" style={{ background: t.bg }}>
       <span className="flex h-full gap-1.5">
-        <span className="w-3 rounded-[4px]" style={{ background: t.panel }} />
+        <span className="w-3 rounded-xs" style={{ background: t.panel }} />
         <span className="flex flex-1 flex-col gap-1.5">
           <span className="h-2 w-2/3 rounded-full" style={{ background: t.text, opacity: 0.9 }} />
           <span className="h-1.5 w-1/2 rounded-full" style={{ background: t.text, opacity: 0.35 }} />
-          <span className="mt-auto h-4 w-10 rounded-[5px]" style={{ background: t.accent }} />
+          <span className="mt-auto h-4 w-10 rounded-xs" style={{ background: t.accent }} />
         </span>
       </span>
     </span>
@@ -35,7 +35,7 @@ export function ThemePicker({ labelId }: { labelId: string }) {
   ];
 
   return (
-    <div role="radiogroup" aria-labelledby={labelId} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div role="radiogroup" aria-labelledby={labelId} className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
       {options.map((t) => {
         const active = theme === t.value;
         return (
@@ -49,8 +49,8 @@ export function ThemePicker({ labelId }: { labelId: string }) {
           >
             <span
               className={cn(
-                'relative block h-20 overflow-hidden rounded-[16px] border-2 transition-[border-color,transform] group-hover:-translate-y-0.5',
-                active ? 'border-accent' : 'border-line',
+                'relative block h-16 overflow-hidden rounded-md border-2 transition-[border-color] duration-150',
+                active ? 'border-accent' : 'border-line group-hover:border-line-strong',
               )}
             >
               {t.system ? (
@@ -71,7 +71,7 @@ export function ThemePicker({ labelId }: { labelId: string }) {
                 </span>
               )}
             </span>
-            <span className="mt-1.5 block text-[13px] font-semibold">{t.label}</span>
+            <span className="mt-1.5 block text-[13px] font-medium">{t.label}</span>
           </button>
         );
       })}

@@ -46,7 +46,7 @@ function BackdropPhoto({ id, selected, onPick }: { id: string; selected: boolean
       aria-pressed={selected}
       aria-label="Use this photo as the background"
       className={cn(
-        'aspect-square overflow-hidden rounded-[10px] border-2 transition-colors',
+        'aspect-square overflow-hidden rounded-md border-2 transition-colors',
         selected ? 'border-accent' : 'border-transparent hover:border-line-strong',
       )}
     >
@@ -144,7 +144,7 @@ export function CutoutSection({ el }: { el: ImageElement }) {
   return (
     <Section title="Remove background">
       {mine && job && (
-        <div role="status" className="flex flex-col gap-2 rounded-[12px] border border-line p-3">
+        <div role="status" className="flex flex-col gap-2 rounded-lg border border-line p-3">
           <p className="flex items-center gap-2 text-[13px] font-semibold">
             <Spinner className="size-4 text-accent-text" label="" /> {stageText(job.stage, job.progress)}
           </p>
@@ -181,7 +181,7 @@ export function CutoutSection({ el }: { el: ImageElement }) {
             <button
               type="button"
               onClick={restoreBackground}
-              className="h-9 flex-1 rounded-[10px] border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+              className="h-9 flex-1 rounded-md border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
             >
               Restore original
             </button>
@@ -205,7 +205,7 @@ export function CutoutSection({ el }: { el: ImageElement }) {
                   disabled={!p.available || busy}
                   onClick={() => setMethod(p.id)}
                   className={cn(
-                    'flex items-start gap-2.5 rounded-[12px] border p-2.5 text-left transition-colors disabled:opacity-45',
+                    'flex items-start gap-2.5 rounded-lg border p-2.5 text-left transition-colors disabled:opacity-45',
                     checked ? 'border-accent bg-accent/8' : 'border-line hover:border-line-strong',
                   )}
                 >
@@ -231,7 +231,7 @@ export function CutoutSection({ el }: { el: ImageElement }) {
             type="button"
             disabled={!current || busy}
             onClick={run}
-            className="h-10 rounded-[12px] bg-fg text-[13.5px] font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-40"
+            className="h-9 rounded-md border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:bg-surface-hover disabled:opacity-40"
           >
             {el.cutout ? 'Remove again' : 'Remove background'}
           </button>

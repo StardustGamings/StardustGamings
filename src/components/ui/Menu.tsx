@@ -24,7 +24,7 @@ export function MenuContent({
         sideOffset={6}
         collisionPadding={12}
         className={cn(
-          'z-[70] min-w-[200px] animate-[pop-in_140ms_var(--ease-out-expo)] rounded-[16px] p-1.5 shadow-[var(--shadow-float)] glass-strong',
+          'z-[70] min-w-[200px] animate-[pop-in_120ms_var(--ease-standard)] rounded-md border border-line-strong bg-bg-elevated p-1 shadow-[var(--shadow-float)]',
           className,
         )}
       >
@@ -54,7 +54,7 @@ export function MenuItem({
       onSelect={onSelect}
       disabled={disabled}
       className={cn(
-        'flex h-9 cursor-pointer items-center gap-2.5 rounded-[10px] px-2.5 text-[13px] font-medium transition-colors outline-none select-none',
+        'flex h-8 cursor-pointer items-center gap-2.5 rounded-sm px-2 text-[13px] transition-colors outline-none select-none',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-40 [&_svg]:size-4',
         destructive
           ? 'text-danger data-[highlighted]:bg-danger/12'
@@ -71,7 +71,5 @@ export function MenuItem({
 export const MenuSeparator = () => <M.Separator className="mx-1 my-1 h-px bg-line" />;
 
 export const MenuLabel = ({ children }: { children: ReactNode }) => (
-  <M.Label className="px-2.5 pt-1.5 pb-1 text-[11px] font-semibold tracking-[0.08em] text-fg-subtle uppercase">
-    {children}
-  </M.Label>
+  <M.Label className="px-2 pt-1.5 pb-1 text-meta">{children}</M.Label>
 );

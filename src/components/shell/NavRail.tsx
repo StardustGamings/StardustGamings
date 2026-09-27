@@ -12,7 +12,7 @@ import { cn } from '@/utils/cn';
 import { NAV_ITEMS } from './nav';
 import { NewDropDot } from './NewDropDot';
 
-/** Desktop / tablet navigation: a floating glass rail. */
+/** Desktop / tablet navigation: a slim rail flush with the left edge. */
 export function NavRail() {
   const pathname = usePathname();
   const openNewProject = useUi((s) => s.openNewProject);
@@ -21,27 +21,26 @@ export function NavRail() {
   return (
     <nav
       aria-label="Main"
-      className="fixed top-4 bottom-4 left-4 z-40 hidden w-[84px] flex-col items-center rounded-[28px] py-5 shadow-[var(--shadow-lift)] glass md:flex"
+      className="fixed inset-y-0 left-0 z-40 hidden w-[76px] flex-col items-center border-r border-line bg-bg md:flex"
     >
-      <Link href="/" aria-label="Stardeck home" className="rounded-2xl p-1 transition-transform hover:scale-105">
-        <LogoMark className="size-10" />
+      <Link href="/" aria-label="Stardeck home" className="mt-3 flex size-10 items-center justify-center rounded-md">
+        <LogoMark className="size-8" />
       </Link>
 
       <Tooltip content="New design" side="right">
         <motion.button
           type="button"
           onClick={() => openNewProject(defaultFormat)}
-          whileHover={{ rotate: 90 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+          whileTap={{ scale: 0.94 }}
+          transition={{ duration: 0.1 }}
           aria-label="New design"
-          className="mt-6 flex size-12 items-center justify-center rounded-[18px] bg-accent text-accent-fg shadow-[var(--shadow-glow)]"
+          className="mt-5 flex size-10 items-center justify-center rounded-md bg-accent text-accent-fg transition-colors hover:bg-accent-hover"
         >
-          <Plus className="size-6" strokeWidth={2.5} />
+          <Plus className="size-5" strokeWidth={2.25} />
         </motion.button>
       </Tooltip>
 
-      <ul className="mt-6 flex flex-1 flex-col items-center gap-1.5">
+      <ul className="mt-5 flex flex-1 flex-col items-center gap-1">
         {NAV_ITEMS.map((item) => {
           const active = item.match(pathname);
           return (
@@ -50,32 +49,25 @@ export function NavRail() {
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'group relative flex w-[68px] flex-col items-center gap-1 rounded-[18px] py-2.5 text-[11px] font-semibold transition-colors',
-                  active ? 'text-fg' : 'text-fg-subtle hover:text-fg',
+                  'relative flex w-[60px] flex-col items-center gap-1 rounded-md py-2 text-[11px] font-medium transition-colors',
+                  active ? 'text-fg' : 'text-fg-subtle hover:bg-surface-hover hover:text-fg',
                 )}
               >
                 {active && (
                   <motion.span
                     layoutId="rail-active"
-                    className="absolute inset-0 -z-10 rounded-[18px] bg-surface-active"
-                    transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+                    className="absolute inset-0 -z-10 rounded-md bg-surface-active"
+                    transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
                   />
                 )}
-                <item.icon
-                  className={cn('size-[22px] transition-transform group-hover:scale-110', active && 'text-accent-text')}
-                />
+                <item.icon className="size-5" strokeWidth={active ? 2.1 : 1.8} />
                 {item.label}
-                {item.trendDot && <NewDropDot />}
+                {item.trendDot && <NewDropDot className="top-1.5 right-3.5" />}
               </Link>
             </li>
           );
         })}
       </ul>
-      <p className="px-2 text-center text-[9.5px] leading-tight font-semibold tracking-[0.12em] text-fg-subtle uppercase">
-        Free
-        <br />
-        forever
-      </p>
     </nav>
   );
 }

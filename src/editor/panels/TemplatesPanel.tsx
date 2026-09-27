@@ -24,10 +24,10 @@ function Tile({ template }: { template: Template }) {
       aria-label={`Template ${template.name}`}
       className="group flex min-w-0 flex-col text-left"
     >
-      <span className="relative block overflow-hidden rounded-[12px] border border-line transition-[border-color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:border-accent">
+      <span className="relative block overflow-hidden rounded-md border border-line transition-colors duration-150 group-hover:border-line-strong">
         <ScenePreview doc={template.doc} slide={0} maxDpr={1.5} />
         {slides > 1 && (
-          <span className="absolute top-1.5 left-1.5 inline-flex h-5 items-center gap-0.5 rounded-full px-1.5 text-[10px] font-bold glass-strong">
+          <span className="absolute top-1.5 left-1.5 inline-flex h-5 items-center gap-0.5 rounded-sm px-1.5 text-[10px] font-semibold glass-strong">
             <Layers className="size-2.5" /> {slides}
           </span>
         )}
@@ -111,7 +111,7 @@ export function TemplatesPanel() {
         <>
           {yours.length > 0 && (
             <>
-              <h3 className="px-4 pt-1 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Yours</h3>
+              <h3 className="px-4 pt-1 text-label">Yours</h3>
               <div className="grid grid-cols-2 gap-3 p-4">
                 {yours.map((t) => (
                   <Tile key={t.id} template={t} />
@@ -121,7 +121,7 @@ export function TemplatesPanel() {
           )}
           {ours.length > 0 && (
             <>
-              <h3 className="px-4 pt-1 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Stardeck</h3>
+              <h3 className="px-4 pt-1 text-label">Stardeck</h3>
               <div className="grid grid-cols-2 gap-3 p-4">
                 {ours.map((t) => (
                   <Tile key={t.id} template={t} />

@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: 'Discover' };
 
 export default function DiscoverPage() {
   return (
-    <div className="pt-4">
+    <div>
       <DiscoverView />
     </div>
   );

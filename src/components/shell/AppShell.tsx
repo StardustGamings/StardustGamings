@@ -15,7 +15,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <>
       <a
         href="#main"
-        className="fixed top-4 left-4 z-[100] -translate-y-20 rounded-xl bg-accent px-4 py-2 font-semibold text-accent-fg transition-transform focus:translate-y-0"
+        className="fixed top-3 left-3 z-[100] -translate-y-20 rounded-md bg-accent px-3 py-2 text-sm font-semibold text-accent-fg transition-transform focus:translate-y-0"
       >
         Skip to content
       </a>
@@ -24,9 +24,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       ) : (
         <>
           <NavRail />
-          <div className="md:pl-[100px]">
+          <div className="md:pl-[76px]">
             <TopBar />
-            <main id="main" className="mx-auto w-full max-w-[1400px] px-4 pt-2 pb-32 sm:px-6 md:pb-16 lg:px-10">
+            <main id="main" className="mx-auto w-full max-w-[1320px] px-4 pt-4 pb-28 sm:px-6 md:pb-16 lg:px-10">
               {children}
             </main>
           </div>

@@ -62,8 +62,8 @@ function KitRow({
   const [busy, setBusy] = useState(false);
   const aspect = doc.slideWidth / doc.slideHeight;
   return (
-    <div className="flex gap-3 rounded-[14px] border border-line p-2" data-testid="kit-row">
-      <div className="w-20 shrink-0 overflow-hidden rounded-[10px] bg-bg-sunken" style={{ aspectRatio: aspect }}>
+    <div className="flex gap-3 rounded-lg border border-line p-2" data-testid="kit-row">
+      <div className="w-20 shrink-0 overflow-hidden rounded-md bg-bg-sunken" style={{ aspectRatio: aspect }}>
         {preview && <ScenePreview doc={preview} slide={slide} maxDpr={1.5} label={`This design as ${style.name}`} />}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
@@ -125,8 +125,8 @@ function SuggestionCard({ s }: { s: Suggestion }) {
   };
   const label = s.kind === 'dump' ? 'Pick photos' : s.kind === 'format' ? 'Preview' : 'Apply';
   return (
-    <div className="flex items-start gap-2.5 rounded-[14px] border border-line bg-surface p-3" data-testid="trend-suggestion">
-      <Lightbulb className="mt-0.5 size-4 shrink-0 text-lime" aria-hidden />
+    <div className="flex items-start gap-2.5 rounded-lg border border-line bg-surface p-3" data-testid="trend-suggestion">
+      <Lightbulb className="mt-0.5 size-4 shrink-0 text-accent-text" aria-hidden />
       <div className="min-w-0 flex-1">
         <p className="text-[13px] font-bold">{s.title}</p>
         <p className="mt-0.5 text-[11.5px] leading-snug text-fg-subtle">{s.detail}</p>
@@ -165,7 +165,7 @@ export function TrendsPanel() {
   return (
     <div data-testid="trends-panel">
       <div className="flex items-center gap-2 px-4 pt-4">
-        <Flame className="size-4 text-lime" aria-hidden />
+        <Flame className="size-4 text-accent-text" aria-hidden />
         <p className="min-w-0 flex-1 truncate text-[13px] font-bold">{pack.title}</p>
         <Link href="/discover/" className="inline-flex items-center gap-1 text-[12px] font-semibold text-fg-muted hover:text-fg">
           Discover <ArrowRight className="size-3.5" />
@@ -190,8 +190,8 @@ export function TrendsPanel() {
                 aria-pressed={parts[p.key]}
                 onClick={() => setParts((cur) => ({ ...cur, [p.key]: !cur[p.key] }))}
                 className={cn(
-                  'h-7 rounded-full border px-2.5 text-[11.5px] font-semibold transition-colors',
-                  parts[p.key] ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+                  'h-7 rounded-sm border px-2.5 text-[11.5px] font-semibold transition-colors',
+                  parts[p.key] ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
                 )}
               >
                 {p.label}
@@ -214,7 +214,7 @@ export function TrendsPanel() {
               className="group flex flex-col gap-1 text-left"
               aria-label={`Recolour with ${p.name}`}
             >
-              <span className="flex h-8 overflow-hidden rounded-[8px] border border-line transition-transform group-hover:scale-[1.03]">
+              <span className="flex h-8 overflow-hidden rounded-md border border-line transition-transform group-hover:scale-[1.03]">
                 {p.colors.map((c) => (
                   <span key={c} className="flex-1" style={{ background: c }} />
                 ))}
@@ -231,7 +231,7 @@ export function TrendsPanel() {
             key={t.id}
             type="button"
             onClick={() => void trend.applyTrendFonts(t)}
-            className="flex items-baseline justify-between gap-3 rounded-[12px] border border-line px-3 py-2 text-left transition-colors hover:border-line-strong"
+            className="flex items-baseline justify-between gap-3 rounded-lg border border-line px-3 py-2 text-left transition-colors hover:border-line-strong"
             aria-label={`Set text in ${t.name}: ${t.heading.family} and ${t.body.family}`}
           >
             <span className="truncate text-[22px] leading-tight" style={specStyle(t.heading)}>
@@ -253,7 +253,7 @@ export function TrendsPanel() {
                 key={l.id}
                 type="button"
                 onClick={() => trend.applyTrendLook(l)}
-                className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
+                className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
               >
                 <span
                   className="size-3 rounded-full"
@@ -275,7 +275,7 @@ export function TrendsPanel() {
                 type="button"
                 aria-label={`Add ${stickerName(ref)} sticker`}
                 onClick={() => trend.addTrendSticker(ref)}
-                className="flex aspect-square items-center justify-center rounded-[12px] border border-line bg-[#8f8ba3] p-2 transition-transform hover:scale-105"
+                className="flex aspect-square items-center justify-center rounded-lg border border-line bg-[#8f8ba3] p-2 transition-colors hover:border-fg-subtle"
               >
                 <ScenePreview doc={stickerDocs.get(ref)!} className="w-full" maxDpr={2} />
               </button>

@@ -18,7 +18,7 @@ export function TransferStatus() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
-          className="fixed bottom-24 left-1/2 z-[80] flex -translate-x-1/2 items-center gap-3 rounded-full px-4 py-2.5 text-[13px] font-semibold shadow-[var(--shadow-float)] glass-strong md:bottom-6"
+          className="fixed bottom-24 left-1/2 z-[80] flex -translate-x-1/2 items-center gap-3 rounded-md px-4 py-2.5 text-[13px] font-semibold shadow-[var(--shadow-float)] glass-strong md:bottom-6"
         >
           <Spinner className="size-4 text-accent-text" label="" />
           <span>{label}</span>

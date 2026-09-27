@@ -80,7 +80,7 @@ export function TypePreviewDialog({
         </>
       }
     >
-      <div className="flex min-h-56 flex-col items-center justify-center gap-4 rounded-[20px] bg-[#F4F1EA] px-6 py-10 text-center text-ink">
+      <div className="flex min-h-56 flex-col items-center justify-center gap-4 rounded-lg bg-[#F4F1EA] px-6 py-10 text-center text-ink">
         <p className="text-5xl leading-none break-words sm:text-6xl" style={specStyle(typo.heading)}>
           {heading || typo.sample}
         </p>
@@ -104,14 +104,13 @@ export function TypeCard({ typo }: { typo: TrendTypography }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group flex h-full w-full flex-col rounded-[20px] border border-line bg-surface p-4 text-left transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[var(--shadow-lift)]"
+        className="group flex h-full w-full flex-col rounded-lg border border-line bg-surface p-4 text-left transition-[border-color,background-color] duration-150 hover:border-line-strong hover:bg-surface-hover"
       >
         <div className="flex items-center justify-between gap-2">
-          <Badge tone="violet">{typo.vibe}</Badge>
-          <span className="text-[11px] font-semibold text-fg-subtle">🔥 {typo.heat}</span>
+          <Badge>{typo.vibe}</Badge>
         </div>
         <p
-          className="mt-5 min-h-[76px] text-[34px] leading-[1.05] break-words transition-opacity duration-300"
+          className="mt-4 min-h-[68px] text-[30px] leading-[1.05] break-words transition-opacity duration-300"
           // Slightly dimmed (still readable) in the fallback font until the real one arrives.
           style={{ ...specStyle(typo.heading), opacity: ready ? 1 : 0.7 }}
         >
@@ -120,7 +119,7 @@ export function TypeCard({ typo }: { typo: TrendTypography }) {
         <p className="mt-2 line-clamp-2 text-sm text-fg-muted" style={specStyle(typo.body)}>
           The quick brown fox swipes over the lazy feed.
         </p>
-        <p className="mt-auto pt-4 text-xs font-semibold text-fg-subtle">
+        <p className="mt-auto pt-4 text-meta">
           {typo.heading.family} <span className="text-fg-muted">+</span> {typo.body.family}
         </p>
       </button>

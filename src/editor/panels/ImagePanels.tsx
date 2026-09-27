@@ -76,7 +76,7 @@ function Disclosure({
           onClick={() => setOpen(!open)}
           className="flex h-12 min-w-0 flex-1 items-center gap-2 text-left"
         >
-          <h3 className="font-sans text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{title}</h3>
+          <h3 className="text-label">{title}</h3>
           {badge}
           <ChevronDown className={cn('ml-auto size-4 text-fg-subtle transition-transform', open && 'rotate-180')} />
         </button>
@@ -124,7 +124,7 @@ function PhotoSection({ el }: { el: ImageElement }) {
         <button
           type="button"
           onClick={() => openPhotoPicker({ targetId: el.id, single: true })}
-          className="flex h-24 flex-col items-center justify-center gap-1.5 rounded-[14px] border border-dashed border-line-strong text-[13px] font-semibold text-fg-muted transition-colors hover:border-accent hover:text-fg"
+          className="flex h-24 flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-line-strong text-[13px] font-semibold text-fg-muted transition-colors hover:border-accent hover:text-fg"
         >
           <ImagePlus className="size-5" />
           Add a photo to this frame
@@ -137,7 +137,7 @@ function PhotoSection({ el }: { el: ImageElement }) {
   return (
     <Section title={el.video ? 'Video' : 'Photo'}>
       <div className="flex items-center gap-3">
-        <div className={cn('size-14 shrink-0 overflow-hidden rounded-[10px] border border-line', 'checkerboard')}>
+        <div className={cn('size-14 shrink-0 overflow-hidden rounded-md border border-line', 'checkerboard')}>
           {/* eslint-disable-next-line @next/next/no-img-element -- local blob URL */}
           {url && <img src={url} alt="" className="size-full object-cover" />}
         </div>
@@ -145,14 +145,14 @@ function PhotoSection({ el }: { el: ImageElement }) {
           <button
             type="button"
             onClick={() => enterCrop()}
-            className="flex h-9 items-center justify-center gap-2 rounded-[10px] bg-fg text-[13px] font-semibold text-bg transition-opacity hover:opacity-90"
+            className="flex h-9 items-center justify-center gap-2 rounded-md border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:bg-surface-hover"
           >
             <Crop className="size-4" /> Crop & position
           </button>
           <button
             type="button"
             onClick={() => openPhotoPicker({ targetId: el.id, single: true })}
-            className="h-8 rounded-[10px] border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+            className="h-8 rounded-md border border-line text-[12.5px] font-semibold text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             Replace {kind}
           </button>
@@ -200,8 +200,10 @@ function FrameSection({ el }: { el: ImageElement }) {
             title={c.label}
             onClick={() => setImage('clip', { clip: c.id === 'rect' ? undefined : c.id })}
             className={cn(
-              'flex h-9 flex-1 items-center justify-center rounded-[10px] border p-1 transition-colors',
-              clip === c.id ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:border-line-strong',
+              'flex h-9 flex-1 items-center justify-center rounded-md border p-1 transition-colors',
+              clip === c.id
+                ? 'border-line-strong bg-surface-active text-fg'
+                : 'border-line text-fg-muted hover:border-line-strong',
             )}
           >
             <ClipGlyph clip={c.id} className="size-5 fill-current/30 stroke-current stroke-[3]" />
@@ -267,7 +269,7 @@ function AdjustSection({ el }: { el: ImageElement }) {
         <button
           type="button"
           onClick={() => void autoEnhance()}
-          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12.5px] font-semibold transition-colors hover:border-accent"
+          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-md border border-line text-[12.5px] font-semibold transition-colors hover:border-accent"
         >
           <WandSparkles className="size-4 text-accent-text" /> Auto
         </button>
@@ -281,7 +283,7 @@ function AdjustSection({ el }: { el: ImageElement }) {
           onKeyDown={(e) => (e.key === ' ' || e.key === 'Enter') && setCompare(el.id)}
           onKeyUp={() => setCompare(null)}
           onBlur={() => setCompare(null)}
-          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12.5px] font-semibold transition-colors select-none hover:border-line-strong disabled:opacity-40"
+          className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-md border border-line text-[12.5px] font-semibold transition-colors select-none hover:border-line-strong disabled:opacity-40"
           title="Hold to see the original"
         >
           <Eye className="size-4" /> Hold to compare

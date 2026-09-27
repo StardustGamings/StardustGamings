@@ -22,11 +22,10 @@ export default function HomePage() {
       <PhotoMagic />
       <RecentProjects />
       <Trending />
-      <section aria-labelledby="inspiration" className="mt-14">
+      <section aria-labelledby="inspiration" className="mt-10">
         <SectionHeader
           id="inspiration"
-          eyebrow="Inspiration"
-          title="Steal this energy"
+          title="Inspiration"
           description="Remixes of our templates in this month’s palettes. Tap Remix to make one yours."
           action={
             <Link

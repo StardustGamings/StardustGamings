@@ -39,11 +39,7 @@ export function Segmented<T extends string>({
       value={value}
       onValueChange={(v) => v && onChange(v as T)}
       {...aria}
-      className={cn(
-        'relative inline-flex rounded-[14px] border border-line bg-bg-sunken/60 p-1',
-        block && 'flex w-full',
-        className,
-      )}
+      className={cn('relative inline-flex rounded-md border border-line bg-bg-sunken p-0.5', block && 'flex w-full', className)}
     >
       {options.map((opt) => {
         const active = opt.value === value;
@@ -53,16 +49,16 @@ export function Segmented<T extends string>({
             value={opt.value}
             disabled={opt.disabled}
             className={cn(
-              'relative z-0 inline-flex flex-1 items-center justify-center gap-1.5 rounded-[10px] font-medium whitespace-nowrap transition-colors duration-150 disabled:opacity-40',
-              size === 'sm' ? 'h-7 px-2.5 text-xs' : 'h-8 px-3.5 text-[13px]',
+              'relative z-0 inline-flex flex-1 items-center justify-center gap-1.5 rounded-sm font-medium whitespace-nowrap transition-colors duration-150 disabled:opacity-40',
+              size === 'sm' ? 'h-7 px-2.5 text-xs' : 'h-8 px-3 text-[13px]',
               active ? 'text-fg' : 'text-fg-muted hover:text-fg',
             )}
           >
             {active && (
               <motion.span
                 layoutId={layoutId}
-                className="absolute inset-0 -z-10 rounded-[10px] border border-line-strong bg-bg-elevated shadow-[var(--shadow-soft)]"
-                transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+                className="absolute inset-0 -z-10 rounded-sm border border-line bg-bg-elevated shadow-[var(--shadow-soft)]"
+                transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
               />
             )}
             {opt.icon}

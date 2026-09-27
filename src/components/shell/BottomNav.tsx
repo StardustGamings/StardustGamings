@@ -10,7 +10,7 @@ import { cn } from '@/utils/cn';
 import { NAV_ITEMS } from './nav';
 import { NewDropDot } from './NewDropDot';
 
-/** Phone navigation: floating tab bar with a centre create button. */
+/** Phone navigation: a tab bar docked to the bottom edge, with Create in the middle. */
 export function BottomNav() {
   const pathname = usePathname();
   const openNewProject = useUi((s) => s.openNewProject);
@@ -26,19 +26,19 @@ export function BottomNav() {
           href={item.href}
           aria-current={active ? 'page' : undefined}
           className={cn(
-            'relative flex h-14 flex-col items-center justify-center gap-0.5 text-[10.5px] font-semibold transition-colors',
+            'relative flex h-14 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors',
             active ? 'text-fg' : 'text-fg-subtle',
           )}
         >
+          <item.icon className="size-[22px]" strokeWidth={active ? 2.1 : 1.8} />
+          {item.label}
           {active && (
             <motion.span
               layoutId="bottom-active"
-              className="absolute top-1.5 h-1 w-5 rounded-full bg-accent"
-              transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+              className="absolute top-0 h-0.5 w-6 rounded-full bg-accent"
+              transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
             />
           )}
-          <item.icon className="size-[22px]" />
-          {item.label}
           {item.trendDot && <NewDropDot className="top-2 right-[calc(50%-18px)]" />}
         </Link>
       </li>
@@ -46,18 +46,19 @@ export function BottomNav() {
   };
 
   return (
-    <nav aria-label="Main" className="fixed inset-x-3 bottom-[max(12px,env(safe-area-inset-bottom))] z-40 md:hidden">
-      <ul className="flex items-center rounded-[26px] px-2 shadow-[var(--shadow-float)] glass-strong">
+    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg-elevated safe-bottom md:hidden">
+      <ul className="flex items-center px-1">
         {left.map(renderItem)}
         <li className="flex w-16 justify-center">
           <motion.button
             type="button"
             aria-label="New design"
             onClick={() => openNewProject(defaultFormat)}
-            whileTap={{ scale: 0.88, rotate: 90 }}
-            className="-mt-6 flex size-14 items-center justify-center rounded-[20px] bg-accent text-accent-fg shadow-[var(--shadow-glow)]"
+            whileTap={{ scale: 0.94 }}
+            transition={{ duration: 0.1 }}
+            className="flex size-11 items-center justify-center rounded-lg bg-accent text-accent-fg"
           >
-            <Plus className="size-7" strokeWidth={2.5} />
+            <Plus className="size-6" strokeWidth={2.25} />
           </motion.button>
         </li>
         {right.map(renderItem)}

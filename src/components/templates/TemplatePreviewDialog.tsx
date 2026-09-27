@@ -29,7 +29,7 @@ import { cn } from '@/utils/cn';
 import { exportTemplate } from './template-files';
 
 function Label({ children }: { children: ReactNode }) {
-  return <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{children}</p>;
+  return <p className="mb-1.5 text-label">{children}</p>;
 }
 
 function Swatches({ colors, className }: { colors: string[]; className?: string }) {
@@ -49,7 +49,7 @@ export function TemplatePreview({ doc, className }: { doc: Template['doc']; clas
     <CarouselPreview doc={doc} handle={handle} className={className} />
   ) : (
     <div
-      className={cn('overflow-hidden rounded-[18px] border border-line shadow-[var(--shadow-lift)]', className)}
+      className={cn('overflow-hidden rounded-lg border border-line shadow-[var(--shadow-lift)]', className)}
       data-testid="template-preview"
     >
       <ScenePreview doc={doc} slide={0} eager label="Template preview" />
@@ -232,7 +232,7 @@ function Body({ request, template, onClose }: { request: TemplatePreviewRequest;
             </div>
 
             {mine && (
-              <div className="flex flex-col gap-2 rounded-[16px] border border-line p-3">
+              <div className="flex flex-col gap-2 rounded-lg border border-line p-3">
                 {renaming ? (
                   <form
                     className="flex items-end gap-2"
@@ -304,7 +304,7 @@ function Body({ request, template, onClose }: { request: TemplatePreviewRequest;
                       aria-checked={paletteId === p.id}
                       onClick={() => setPaletteId(p.id)}
                       className={cn(
-                        'flex flex-col gap-1.5 rounded-[12px] border p-2 text-left transition-colors',
+                        'flex flex-col gap-1.5 rounded-lg border p-2 text-left transition-colors',
                         paletteId === p.id ? 'border-accent bg-accent/10' : 'border-line hover:border-line-strong',
                       )}
                     >

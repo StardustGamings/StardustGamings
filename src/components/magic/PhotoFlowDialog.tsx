@@ -67,7 +67,7 @@ const MOODS: { id: CollageMood; label: string }[] = [
 const dumpName = (style: string) => (/\bdump$/i.test(style) ? style : `${style} dump`);
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <p className="mb-1.5 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{children}</p>;
+  return <p className="mb-1.5 text-label">{children}</p>;
 }
 
 function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => void }) {
@@ -228,7 +228,7 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
             {preview &&
               (mode === 'collage' ? (
                 <div
-                  className="overflow-hidden rounded-[18px] border border-line shadow-[var(--shadow-lift)]"
+                  className="overflow-hidden rounded-lg border border-line shadow-[var(--shadow-lift)]"
                   data-testid="collage-preview"
                 >
                   <ScenePreview doc={preview} slide={0} eager label="Collage preview" />
@@ -240,7 +240,7 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
           <div className="flex min-w-0 flex-col gap-5">
             {mode === 'dump' && (
               <>
-                <div className="rounded-[14px] border border-line bg-surface p-3" data-testid="dump-auto">
+                <div className="rounded-lg border border-line bg-surface p-3" data-testid="dump-auto">
                   <div className="flex items-center gap-2">
                     <Button
                       size="sm"
@@ -269,18 +269,14 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Photo dump style">
                     {[...DUMP_STYLES, ...trendStyles].map((s, i) => (
                       <Fragment key={s.id}>
-                        {i === DUMP_STYLES.length && (
-                          <p className="col-span-full mt-1 text-[11px] font-bold tracking-[0.1em] text-fg-subtle uppercase">
-                            ✦ From {dropTitle}
-                          </p>
-                        )}
+                        {i === DUMP_STYLES.length && <p className="col-span-full mt-1 text-label">✦ From {dropTitle}</p>}
                         <button
                           type="button"
                           role="radio"
                           aria-checked={styleId === s.id}
                           onClick={() => setStyleId(s.id)}
                           className={cn(
-                            'flex items-start gap-2 rounded-[14px] border p-2.5 text-left transition-colors',
+                            'flex items-start gap-2 rounded-lg border p-2.5 text-left transition-colors',
                             styleId === s.id ? 'border-accent bg-accent/10' : 'border-line hover:border-line-strong',
                           )}
                         >
@@ -379,9 +375,9 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
                           setCollage(defaultCollageParams(f, 0));
                         }}
                         className={cn(
-                          'h-8 rounded-full border px-3 text-[12px] font-semibold transition-colors',
+                          'h-8 rounded-md border px-3 text-[12px] font-semibold transition-colors',
                           family === f
-                            ? 'border-transparent bg-fg text-bg'
+                            ? 'border-line-strong bg-surface-active text-fg'
                             : 'border-line text-fg-muted hover:border-accent hover:text-fg',
                         )}
                       >
@@ -403,7 +399,7 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
                           setCollage({ ...collage, ...next });
                           setSeed(newSeed());
                         }}
-                        className="h-8 rounded-full border border-line px-3 text-[12px] font-semibold text-fg-muted transition-colors hover:border-accent hover:text-fg"
+                        className="h-8 rounded-md border border-line px-3 text-[12px] font-semibold text-fg-muted transition-colors hover:border-accent hover:text-fg"
                       >
                         {m.label}
                       </button>

@@ -46,12 +46,13 @@ function useBreakdown() {
 }
 
 const SEGMENTS = [
+  // One accent, then a neutral ramp: the bar reads by size, the legend by name.
   { key: 'projects', label: 'Designs', className: 'bg-accent' },
-  { key: 'photos', label: 'Photos & cut-outs', className: 'bg-nova' },
-  { key: 'videos', label: 'Videos', className: 'bg-success' },
-  { key: 'stickers', label: 'Stickers', className: 'bg-pink' },
-  { key: 'versions', label: 'Version history', className: 'bg-violet' },
-  { key: 'templates', label: 'Saved templates', className: 'bg-warning' },
+  { key: 'photos', label: 'Photos & cut-outs', className: 'bg-fg/75' },
+  { key: 'videos', label: 'Videos', className: 'bg-fg/55' },
+  { key: 'stickers', label: 'Stickers', className: 'bg-fg/40' },
+  { key: 'versions', label: 'Version history', className: 'bg-fg/28' },
+  { key: 'templates', label: 'Saved templates', className: 'bg-fg/18' },
 ] as const;
 
 function segmentBytes(b: StorageBreakdown, key: (typeof SEGMENTS)[number]['key']): number {
@@ -101,7 +102,7 @@ function UsageBar({
         </ul>
       )}
       {low && (
-        <p role="alert" className="mt-3 rounded-[12px] border border-warning/40 bg-warning/10 p-3 text-[13px]">
+        <p role="alert" className="mt-3 rounded-lg border border-warning/40 bg-warning/10 p-3 text-[13px]">
           <strong className="font-semibold">Your device is running low on space.</strong> Make a backup, then clear version
           history or photos you don’t use so saving keeps working.
         </p>

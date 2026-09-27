@@ -43,7 +43,7 @@ export function Trending() {
             {pack.templates.map((t) => {
               const template = templates.get(t.templateId);
               return template ? (
-                <TemplateCard key={t.templateId} template={template} subtitle={t.label} heat={t.heat} />
+                <TemplateCard key={t.templateId} template={template} subtitle={t.label} />
               ) : (
                 <TemplateCardSkeleton key={t.templateId} />
               );
@@ -56,7 +56,7 @@ export function Trending() {
             {pack.layouts.map((l) => {
               const template = templates.get(l.templateId);
               return template ? (
-                <TemplateCard key={l.id} template={template} title={l.name} subtitle={l.description} heat={l.heat} />
+                <TemplateCard key={l.id} template={template} title={l.name} subtitle={l.description} />
               ) : (
                 <TemplateCardSkeleton key={l.id} />
               );
@@ -75,9 +75,7 @@ export function Trending() {
         return (
           <Rail label="Trending effects" itemClassName="w-[260px]">
             {[
-              ...looks.map((l) => (
-                <FilterCard key={`look-${l.id}`} look={l} heat={pack.looks.find((x) => x.id === l.id)?.heat ?? 0} />
-              )),
+              ...looks.map((l) => <FilterCard key={`look-${l.id}`} look={l} />),
               ...pack.effects.map((e) => <EffectCard key={e.id} effect={e} />),
             ]}
           </Rail>
@@ -96,13 +94,7 @@ export function Trending() {
             {pack.formats.map((f) => {
               const template = templates.get(f.templateId);
               return template ? (
-                <TemplateCard
-                  key={f.id}
-                  template={template}
-                  title={f.name}
-                  subtitle={`${f.kind} — ${f.description}`}
-                  heat={f.heat}
-                />
+                <TemplateCard key={f.id} template={template} title={f.name} subtitle={`${f.kind} — ${f.description}`} />
               ) : (
                 <TemplateCardSkeleton key={f.id} />
               );
@@ -121,7 +113,7 @@ export function Trending() {
   };
 
   return (
-    <section aria-labelledby="trending" className="mt-14">
+    <section aria-labelledby="trending" className="mt-10">
       <SectionHeader
         id="trending"
         eyebrow={newDrop ? `New drop · ${pack.title}` : `Trending · ${pack.title}`}

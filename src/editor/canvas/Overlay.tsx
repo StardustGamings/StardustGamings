@@ -312,7 +312,7 @@ export function Overlay() {
               return (
                 <foreignObject x={bottom.x - 70} y={bottom.y + 10} width="140" height="24">
                   <div className="flex justify-center">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-selection px-2 py-0.5 font-mono text-[10px] font-semibold text-white">
+                    <span className="inline-flex items-center gap-1 rounded-sm bg-selection px-2 py-0.5 font-mono text-[10px] font-semibold text-white">
                       {frame.locked && <Lock className="size-2.5" />}
                       {Math.round(frame.box.width)} × {Math.round(frame.box.height)}
                     </span>
@@ -358,7 +358,7 @@ export function Readout() {
   if (!readout) return null;
   return (
     <div
-      className="pointer-events-none absolute z-20 rounded-full bg-ink/85 px-2 py-0.5 font-mono text-[11px] font-semibold text-white shadow-[var(--shadow-soft)]"
+      className="pointer-events-none absolute z-20 rounded-sm bg-ink/85 px-2 py-0.5 font-mono text-[11px] font-semibold text-white shadow-[var(--shadow-soft)]"
       style={{ left: readout.x + 14, top: readout.y + 14 }}
     >
       {readout.text}

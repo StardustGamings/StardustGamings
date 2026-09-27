@@ -25,8 +25,8 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        'h-8 shrink-0 rounded-full border px-3 text-xs font-semibold transition-colors',
-        active ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+        'h-7 shrink-0 rounded-sm border px-2.5 text-xs font-medium transition-colors',
+        active ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
       )}
     >
       {children}
@@ -127,7 +127,7 @@ export function TemplateBrowser() {
       {source.length > 0 && (
         <div className="mb-6 flex flex-col gap-2">
           <div
-            className="-mx-4 hide-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+            className="-mx-4 hide-scrollbar flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:px-0"
             role="group"
             aria-label="Filter by format"
           >
@@ -146,7 +146,7 @@ export function TemplateBrowser() {
             ))}
           </div>
           <div
-            className="-mx-4 hide-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+            className="-mx-4 hide-scrollbar flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:px-0"
             role="group"
             aria-label="Filter by style"
           >
@@ -178,7 +178,7 @@ export function TemplateBrowser() {
             }
           />
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {Array.from({ length: 10 }, (_, i) => (
               <TemplateCardSkeleton key={i} />
             ))}
@@ -208,7 +208,7 @@ export function TemplateBrowser() {
           }
         />
       ) : (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {results.map((t) => (
             <TemplateCard key={t.id} template={t} />
           ))}

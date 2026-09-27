@@ -35,7 +35,7 @@ export function ToolSection({
           onClick={() => setOpen(!open)}
           className="flex h-12 min-w-0 flex-1 items-center gap-2 text-left"
         >
-          <h3 className="font-sans text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">{title}</h3>
+          <h3 className="text-label">{title}</h3>
           {edited && <span className="size-1.5 rounded-full bg-accent" aria-label="edited" />}
           <ChevronDown className={cn('ml-auto size-4 text-fg-subtle transition-transform', open && 'rotate-180')} />
         </button>
@@ -90,7 +90,7 @@ export function FiltersSection({ el }: { el: ImageElement }) {
                   duration: 2400,
                 });
               }}
-              className="flex h-9 items-center justify-center gap-1.5 rounded-[10px] border border-line text-[12.5px] font-semibold transition-colors hover:border-accent"
+              className="flex h-9 items-center justify-center gap-1.5 rounded-md border border-line text-[12.5px] font-semibold transition-colors hover:border-accent"
             >
               <Copy className="size-4" /> Apply to all {others + 1} photos
             </button>

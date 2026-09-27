@@ -65,15 +65,15 @@ function CategoryNav({ items }: { items: { id: string; label: string }[] }) {
   return (
     <nav
       aria-label="Trend categories"
-      className="sticky top-[72px] z-20 -mx-4 mb-10 hide-scrollbar overflow-x-auto bg-bg/80 px-4 py-2 glass-strong sm:mx-0 sm:rounded-full sm:px-2"
+      className="sticky top-14 z-20 -mx-4 mb-8 hide-scrollbar overflow-x-auto border-b border-line bg-bg px-4 sm:mx-0 sm:px-0"
       data-testid="trend-categories"
     >
-      <ul className="flex gap-1">
+      <ul className="flex gap-5">
         {items.map((c) => (
           <li key={c.id}>
             <a
               href={`#${c.id}`}
-              className="inline-flex h-8 items-center rounded-full px-3 text-[12.5px] font-semibold whitespace-nowrap text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
+              className="-mb-px inline-flex h-10 items-center border-b-2 border-transparent text-[13px] font-medium whitespace-nowrap text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
             >
               {c.label}
             </a>
@@ -99,7 +99,7 @@ export function DiscoverView() {
     if (newDrop) markSeen();
   }, [newDrop, markSeen]);
 
-  const section = 'mb-14 scroll-mt-40 defer-render';
+  const section = 'mb-10 scroll-mt-32 defer-render';
 
   return (
     <>
@@ -110,7 +110,6 @@ export function DiscoverView() {
         <section aria-labelledby="kits-title" id="kits" className={section}>
           <SectionHeader
             id="kits-title"
-            eyebrow="Trend kits"
             title="Restyle anything in one tap"
             description="A palette, a type pairing, a filter and motion that belong together. In the editor, the Trends tool (R) puts a kit on your own design."
           />
@@ -125,7 +124,6 @@ export function DiscoverView() {
       <section aria-labelledby="templates-title" id="templates" className={section}>
         <SectionHeader
           id="templates-title"
-          eyebrow="Templates"
           title="Trending templates"
           description="Every template is fully original and yours to remix."
           action={
@@ -138,7 +136,7 @@ export function DiscoverView() {
           {byHeat(pack.templates).map((t) => {
             const template = templates.get(t.templateId);
             return template ? (
-              <TemplateCard key={t.templateId} template={template} subtitle={t.label} heat={t.heat} />
+              <TemplateCard key={t.templateId} template={template} subtitle={t.label} />
             ) : (
               <TemplateCardSkeleton key={t.templateId} />
             );
@@ -149,7 +147,6 @@ export function DiscoverView() {
       <section aria-labelledby="layouts-title" id="layouts" className={section}>
         <SectionHeader
           id="layouts-title"
-          eyebrow="Layouts"
           title="Trending layouts"
           description="Layout rules run on your own photos, on this device — no upload, no AI service."
         />
@@ -164,7 +161,7 @@ export function DiscoverView() {
           {byHeat(pack.layouts).map((l) => {
             const template = templates.get(l.templateId);
             return template ? (
-              <TemplateCard key={l.id} template={template} title={l.name} subtitle={l.description} heat={l.heat} />
+              <TemplateCard key={l.id} template={template} title={l.name} subtitle={l.description} />
             ) : (
               <TemplateCardSkeleton key={l.id} />
             );
@@ -175,7 +172,6 @@ export function DiscoverView() {
       <section aria-labelledby="fonts-title" id="fonts" className={section}>
         <SectionHeader
           id="fonts-title"
-          eyebrow="Fonts"
           title="Font pairings people are saving"
           description="Tap one to type your own words and start a post with it."
         />
@@ -187,7 +183,7 @@ export function DiscoverView() {
       </section>
 
       <section aria-labelledby="colours-title" id="colours" className={section}>
-        <SectionHeader id="colours-title" eyebrow="Colours" title="Palettes" description="Tap a swatch to copy its HEX code." />
+        <SectionHeader id="colours-title" title="Palettes" description="Tap a swatch to copy its HEX code." />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {byHeat(pack.palettes).map((p) => (
             <PaletteCard key={p.id} palette={p} />
@@ -199,13 +195,12 @@ export function DiscoverView() {
         <section aria-labelledby="filters-title" id="filters" className={section}>
           <SectionHeader
             id="filters-title"
-            eyebrow="Filters"
             title="New filters in this drop"
             description="Delivered as data and run by the editor’s own pipeline. Select a photo and open Filters (F) — they’re under Trending."
           />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {looks.map((l) => (
-              <FilterCard key={l.id} look={l} heat={pack.looks.find((x) => x.id === l.id)?.heat ?? 0} />
+              <FilterCard key={l.id} look={l} />
             ))}
           </div>
         </section>
@@ -214,7 +209,6 @@ export function DiscoverView() {
       <section aria-labelledby="effects-title" id="effects" className={section}>
         <SectionHeader
           id="effects-title"
-          eyebrow="Effects"
           title="Looks of the month"
           description="Rendered with the editor’s own filters. Select a photo and open Filters (F) to use them — hold a card to compare."
         />
@@ -228,7 +222,6 @@ export function DiscoverView() {
       <section aria-labelledby="stickers-title" id="stickers" className={section}>
         <SectionHeader
           id="stickers-title"
-          eyebrow="Stickers"
           title="Sticker drop"
           description="Tap to save a transparent PNG. In the editor they’re in Stickers, under this drop’s tab."
         />
@@ -244,12 +237,12 @@ export function DiscoverView() {
         if (!list.length) return null;
         return (
           <section key={s.id} aria-labelledby={`${s.id}-title`} id={s.id} className={section}>
-            <SectionHeader id={`${s.id}-title`} eyebrow={s.eyebrow} title={s.title} description={s.description} />
+            <SectionHeader id={`${s.id}-title`} title={s.title} description={s.description} />
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
               {list.map((f) => {
                 const template = templates.get(f.templateId);
                 return template ? (
-                  <TemplateCard key={f.id} template={template} title={f.name} subtitle={f.description} heat={f.heat} />
+                  <TemplateCard key={f.id} template={template} title={f.name} subtitle={f.description} />
                 ) : (
                   <TemplateCardSkeleton key={f.id} />
                 );
@@ -259,10 +252,9 @@ export function DiscoverView() {
         );
       })}
 
-      <section aria-labelledby="inspiration-title" id="inspiration" className="scroll-mt-40">
+      <section aria-labelledby="inspiration-title" id="inspiration" className="scroll-mt-32">
         <SectionHeader
           id="inspiration-title"
-          eyebrow="Inspiration"
           title="Remix feed"
           description="Our templates re-coloured with this drop’s palettes."
         />

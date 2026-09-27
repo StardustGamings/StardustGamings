@@ -104,7 +104,7 @@ export function Timeline() {
     <section
       aria-label="Timeline"
       data-testid="timeline"
-      className="z-10 hidden shrink-0 border-x-0 border-b-0 glass-strong lg:block"
+      className="z-10 hidden shrink-0 border-t border-line bg-bg-elevated lg:block"
       onPointerMove={move}
       onPointerUp={end}
       onPointerCancel={end}
@@ -185,7 +185,7 @@ export function Timeline() {
             const a = el.animation;
             const selected = selection.includes(el.id);
             return (
-              <div key={el.id} className={cn('flex h-7 items-center rounded-[8px]', selected && 'bg-surface-active/60')}>
+              <div key={el.id} className={cn('flex h-7 items-center rounded-md', selected && 'bg-surface-active/60')}>
                 <button
                   type="button"
                   onClick={() => useEditor.getState().select([el.id])}
@@ -199,7 +199,7 @@ export function Timeline() {
                   <span className="absolute inset-x-0 top-1/2 h-px bg-line" />
                   {a?.loop && (
                     <span
-                      className="absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-[repeating-linear-gradient(90deg,var(--color-violet)_0_6px,transparent_6px_10px)] opacity-70"
+                      className="absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-[repeating-linear-gradient(90deg,var(--color-fg-subtle)_0_6px,transparent_6px_10px)] opacity-70"
                       style={{ left: 0, width: x(duration) }}
                       title={`${LOOP_PRESETS[a.loop.preset].label} loop`}
                     />
@@ -213,7 +213,7 @@ export function Timeline() {
                       onKeyDown={(e) => keyBar(e, el)}
                       onPointerDown={(e) => begin(e, { kind: 'move', id: el.id, startX: e.clientX, delay: a.enter!.delay })}
                       className={cn(
-                        'absolute top-1 bottom-1 flex cursor-grab items-center overflow-hidden rounded-[6px] bg-accent pl-1.5 text-[10px] font-bold text-accent-fg active:cursor-grabbing',
+                        'absolute top-1 bottom-1 flex cursor-grab items-center overflow-hidden rounded-xs bg-accent pl-1.5 text-[10px] font-semibold text-accent-fg active:cursor-grabbing',
                         selected && 'ring-2 ring-fg/60',
                       )}
                       style={{ left: x(a.enter.delay), width: Math.max(10, x(a.enter.duration)) }}
@@ -231,7 +231,7 @@ export function Timeline() {
                   )}
                   {a?.exit && (
                     <span
-                      className="absolute top-1 bottom-1 flex items-center overflow-hidden rounded-[6px] bg-pink pr-1.5 text-[10px] font-bold text-ink"
+                      className="absolute top-1 bottom-1 flex items-center overflow-hidden rounded-xs border border-line-strong bg-surface-active pr-1.5 text-[10px] font-semibold text-fg"
                       style={{ left: x(duration - a.exit.duration), width: Math.max(10, x(a.exit.duration)) }}
                       title={`${EXIT_PRESETS[a.exit.preset].label} exit`}
                     >

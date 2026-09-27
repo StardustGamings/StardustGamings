@@ -84,7 +84,7 @@ export function TextPanel() {
             type="button"
             {...dragProps({ kind: 'text', presetId: p.id })}
             onClick={() => actions.addText(p, undefined, { edit: false })}
-            className="rounded-[14px] border border-line bg-surface px-4 py-3 text-left transition-colors hover:border-line-strong hover:bg-surface-hover"
+            className="rounded-lg border border-line bg-surface px-4 py-3 text-left transition-colors hover:border-line-strong hover:bg-surface-hover"
           >
             <span className={cn('block truncate', i === 0 ? 'text-2xl' : i === 1 ? 'text-lg' : 'text-sm')} style={presetCss(p)}>
               {p.sample}
@@ -92,7 +92,7 @@ export function TextPanel() {
           </button>
         ))}
       </div>
-      <h3 className="px-4 pt-2 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Styles</h3>
+      <h3 className="px-4 pt-2 text-label">Styles</h3>
       <div className="grid grid-cols-2 gap-2 p-4">
         {styles.map((p) => (
           <button
@@ -102,7 +102,7 @@ export function TextPanel() {
             {...dragProps({ kind: 'text', presetId: p.id })}
             onClick={() => actions.addText(p)}
             className={cn(
-              'flex h-20 flex-col items-center justify-center gap-1 overflow-hidden rounded-[14px] border border-line px-2 transition-colors hover:border-line-strong',
+              'flex h-20 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-line px-2 transition-colors hover:border-line-strong',
               p.fixedColors ? 'bg-[#15131f]' : 'bg-surface',
             )}
           >
@@ -113,7 +113,7 @@ export function TextPanel() {
           </button>
         ))}
       </div>
-      <h3 className="px-4 pt-2 text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Trending pairings</h3>
+      <h3 className="px-4 pt-2 text-label">Trending pairings</h3>
       <div className="flex flex-col gap-2 p-4">
         {pairings.map((pair) => (
           <button
@@ -153,7 +153,7 @@ export function TextPanel() {
               const b = actions.addText(body, { x: cx, y: d.slideHeight * 0.45 + (h?.height ?? 0) / 2 + d.slideWidth * 0.06 });
               if (h && b) useEditor.getState().select([h.id, b.id]);
             }}
-            className="rounded-[14px] border border-line bg-surface px-4 py-3 text-left transition-colors hover:border-line-strong"
+            className="rounded-lg border border-line bg-surface px-4 py-3 text-left transition-colors hover:border-line-strong"
           >
             <span
               className="block truncate text-xl leading-tight"
@@ -239,7 +239,7 @@ export function ShapesPanel() {
             aria-label={`Add ${p.name}`}
             {...dragProps({ kind: 'shape', presetId: p.id })}
             onClick={() => actions.addShape(p)}
-            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-[14px] border border-line bg-surface text-fg transition-colors hover:border-line-strong hover:text-accent-text"
+            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-lg border border-line bg-surface text-fg transition-colors hover:border-line-strong hover:text-accent-text"
           >
             <svg viewBox="0 0 48 48" className="size-10" aria-hidden>
               <ShapeGlyph id={p.id} />
@@ -308,7 +308,7 @@ export function StickersPanel() {
   return (
     <div data-testid="stickers-panel">
       <div className="p-4 pb-0">
-        <div className="flex h-9 items-center gap-2 rounded-[10px] border border-line bg-bg-sunken/70 px-2.5 focus-within:border-ring">
+        <div className="flex h-9 items-center gap-2 rounded-md border border-line bg-bg-sunken px-2.5 focus-within:border-ring">
           <Search className="size-4 text-fg-subtle" />
           <input
             aria-label="Search stickers"
@@ -326,8 +326,8 @@ export function StickersPanel() {
               aria-pressed={tab === t.id}
               onClick={() => setTab(t.id)}
               className={cn(
-                'h-7 shrink-0 rounded-full px-2.5 text-[11.5px] font-semibold transition-colors',
-                tab === t.id ? 'bg-fg text-bg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
+                'h-7 shrink-0 rounded-sm px-2.5 text-[11.5px] font-semibold transition-colors',
+                tab === t.id ? 'bg-surface-active text-fg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
               )}
             >
               {t.label}
@@ -345,7 +345,7 @@ export function StickersPanel() {
             title={s.name}
             {...dragProps({ kind: 'sticker', stickerId: s.id })}
             onClick={() => actions.addSticker(s.id)}
-            className="flex aspect-square items-center justify-center rounded-[12px] border border-line bg-[#8f8ba3] p-2 transition-transform hover:scale-105 hover:border-line-strong"
+            className="flex aspect-square items-center justify-center rounded-lg border border-line bg-[#8f8ba3] p-2 transition-colors hover:border-line-strong"
           >
             <ScenePreview doc={docs.get(s.id)!} className="w-full" maxDpr={2} />
           </button>
@@ -354,11 +354,11 @@ export function StickersPanel() {
       </div>
       <div className="border-t border-line">
         <div className="flex items-center justify-between gap-2 px-4 pt-4 pb-3">
-          <h3 className="text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">Your stickers</h3>
+          <h3 className="text-label">Your stickers</h3>
           <button
             type="button"
             onClick={() => openPhotoPicker({ kind: 'sticker' })}
-            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
+            className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line px-3 text-[12px] font-semibold transition-colors hover:border-accent"
           >
             <Upload className="size-3.5" /> Upload PNG / SVG
           </button>

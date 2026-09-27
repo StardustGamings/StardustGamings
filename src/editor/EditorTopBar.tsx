@@ -63,7 +63,7 @@ function NameInput() {
   return (
     <div className="flex min-w-0 items-center gap-2">
       <span
-        className="hidden size-7 shrink-0 items-center justify-center rounded-[9px] bg-surface-active text-fg-muted sm:flex"
+        className="hidden size-7 shrink-0 items-center justify-center rounded-sm text-fg-subtle sm:flex"
         title={FORMATS[meta.format].label}
       >
         <FormatIcon format={meta.format} className="size-4" />
@@ -84,7 +84,7 @@ function NameInput() {
             e.currentTarget.blur();
           }
         }}
-        className="h-9 max-w-[40vw] min-w-0 truncate rounded-[10px] bg-transparent px-2 font-display text-[15px] font-bold transition-colors outline-none hover:bg-surface-hover focus:bg-surface-hover sm:max-w-[320px]"
+        className="h-9 max-w-[40vw] min-w-0 truncate rounded-md bg-transparent px-2 text-[14px] font-semibold transition-colors outline-none hover:bg-surface-hover focus:bg-surface-hover sm:max-w-[320px]"
       />
     </div>
   );
@@ -158,7 +158,7 @@ function ZoomMenu() {
       <MenuTrigger asChild>
         <button
           type="button"
-          className="flex h-8 items-center gap-1 rounded-[10px] px-2 font-mono text-xs font-semibold text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active"
+          className="flex h-8 items-center gap-1 rounded-md px-2 font-mono text-xs font-semibold text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active"
           aria-label={`Zoom ${Math.round(zoom * 100)} percent — view options`}
           data-testid="zoom-menu"
         >
@@ -213,15 +213,15 @@ export function EditorTopBar() {
   const mod = useClientValue(modKey, 'Ctrl');
 
   return (
-    <header className="relative z-20 flex h-14 shrink-0 items-center gap-1 border-x-0 border-t-0 px-2 glass-strong sm:gap-2 sm:px-3">
+    <header className="relative z-20 flex h-12 shrink-0 items-center gap-1 border-b border-line bg-bg-elevated px-2 sm:gap-2 sm:px-3">
       <Tooltip content="Back to home" side="bottom">
         <Link
           href="/"
           aria-label="Back to home"
-          className="flex h-10 items-center gap-1 rounded-[12px] pr-2 pl-1 text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
+          className="flex h-9 items-center gap-1 rounded-md pr-1.5 pl-1 text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
         >
           <ChevronLeft className="size-5" />
-          <LogoMark className="size-7" />
+          <LogoMark className="size-6" />
         </Link>
       </Tooltip>
       <NameField />

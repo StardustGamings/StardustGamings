@@ -25,7 +25,7 @@ import { TemplatePreview } from './TemplatePreviewDialog';
 
 function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
   return (
-    <label htmlFor={htmlFor} className="mb-1.5 block text-[11px] font-bold tracking-[0.12em] text-fg-subtle uppercase">
+    <label htmlFor={htmlFor} className="mb-1.5 block text-label">
       {children}
     </label>
   );
@@ -132,9 +132,9 @@ function Form({ meta, doc, onClose }: { meta: ProjectMeta; doc: DesignDocument; 
                   aria-checked={style === s}
                   onClick={() => setStyle(s)}
                   className={cn(
-                    'h-8 rounded-full border px-3 text-[12px] font-semibold transition-colors',
+                    'h-8 rounded-md border px-3 text-[12px] font-semibold transition-colors',
                     style === s
-                      ? 'border-transparent bg-fg text-bg'
+                      ? 'border-line-strong bg-surface-active text-fg'
                       : 'border-line text-fg-muted hover:border-accent hover:text-fg',
                   )}
                 >
@@ -159,7 +159,7 @@ function Form({ meta, doc, onClose }: { meta: ProjectMeta; doc: DesignDocument; 
             onChange={(e) => setDescription(e.target.value)}
           />
           {photoCount > 0 && (
-            <div className="flex items-start gap-3 rounded-[16px] border border-line p-3">
+            <div className="flex items-start gap-3 rounded-lg border border-line p-3">
               <Switch id="keep-photos" checked={keepPhotos} onCheckedChange={setKeepPhotos} aria-describedby="keep-photos-hint" />
               <div>
                 <label htmlFor="keep-photos" className="text-[13.5px] font-semibold">

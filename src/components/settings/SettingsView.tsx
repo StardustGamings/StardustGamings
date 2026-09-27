@@ -68,13 +68,13 @@ const MOTION_OPTIONS = [
 
 function SectionNav() {
   return (
-    <nav aria-label="Settings sections" className="min-w-0 lg:sticky lg:top-24 lg:self-start">
+    <nav aria-label="Settings sections" className="min-w-0 lg:sticky lg:top-20 lg:self-start">
       <ul className="-mx-4 hide-scrollbar flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-col lg:gap-0.5 lg:px-0">
         {SECTIONS.map(({ id, label, icon: Icon }) => (
           <li key={id}>
             <a
               href={`#${id}`}
-              className="flex h-9 shrink-0 items-center gap-2.5 rounded-full border border-line px-3 text-[13px] font-semibold whitespace-nowrap text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg lg:rounded-[12px] lg:border-transparent"
+              className="flex h-8 shrink-0 items-center gap-2 rounded-md border border-line px-2.5 text-[13px] font-medium whitespace-nowrap text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg lg:border-transparent"
             >
               <Icon className="size-4" aria-hidden />
               {label}
@@ -142,7 +142,7 @@ function AppearanceSection() {
       />
       <SettingRow
         title="Background effects"
-        description="Aurora glow and twinkling stardust behind the app."
+        description="A faint paper grain behind the app."
         control={({ labelId, descriptionId }) => (
           <Switch
             checked={ambient}
@@ -169,7 +169,7 @@ function EditorSection() {
             aria-labelledby={labelId}
             value={editor.defaultFormat}
             onChange={(e) => updateEditor({ defaultFormat: e.target.value as FormatId })}
-            className="h-10 rounded-[12px] border border-line bg-bg-sunken/70 px-3 text-sm outline-none focus:border-ring"
+            className="h-10 rounded-lg border border-line bg-bg-sunken px-3 text-sm outline-none focus:border-ring"
           >
             {FORMAT_ORDER.map((f) => (
               <option key={f} value={f}>
@@ -317,7 +317,7 @@ function PerformanceSection() {
     <SettingsSection id="performance" title="Performance" icon={<Gauge />} description="Dial things down on older phones.">
       <SettingRow
         title="Frosted glass"
-        description="Blurred translucent panels. Turn off if scrolling feels heavy."
+        description="Blurs the page behind dialogs and the command palette. Turn off if opening them feels slow."
         control={({ descriptionId }) => (
           <Switch
             checked={glass}
@@ -329,7 +329,7 @@ function PerformanceSection() {
       />
       <SettingRow
         title="Background effects"
-        description="Particles pause automatically when the tab is hidden."
+        description="The background grain is a single static layer; turning it off saves a little work when drawing."
         control={({ descriptionId }) => (
           <Switch
             checked={ambient}
@@ -349,7 +349,7 @@ function PerformanceSection() {
               <li
                 key={c.label}
                 className={cn(
-                  'inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-xs font-semibold',
+                  'inline-flex h-8 items-center gap-1.5 rounded-md border px-3 text-xs font-semibold',
                   c.ok ? 'border-success/30 text-success' : 'border-line text-fg-subtle line-through',
                 )}
               >
@@ -369,7 +369,7 @@ function PrivacySection() {
   return (
     <SettingsSection id="privacy" title="Privacy" icon={<Lock />} description="Local-first means your work lives with you.">
       <div className="grid gap-3 py-1 sm:grid-cols-2">
-        <div className="rounded-[18px] border border-success/25 bg-success/8 p-4">
+        <div className="rounded-lg border border-success/25 bg-success/8 p-4">
           <p className="text-sm font-bold text-success">Stays on this device</p>
           <ul className="mt-2 list-inside list-disc space-y-1 text-[13px] text-fg-muted">
             <li>Every project, slide and thumbnail</li>
@@ -378,7 +378,7 @@ function PrivacySection() {
             <li>Your settings and display name</li>
           </ul>
         </div>
-        <div className="rounded-[18px] border border-line p-4">
+        <div className="rounded-lg border border-line p-4">
           <p className="text-sm font-bold">Leaves this device</p>
           <ul className="mt-2 list-inside list-disc space-y-1 text-[13px] text-fg-muted">
             <li>
@@ -595,9 +595,9 @@ function AboutSection() {
 
 export function SettingsView() {
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[200px_minmax(0,1fr)]">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[180px_minmax(0,760px)] lg:gap-12">
       <SectionNav />
-      <div className="flex min-w-0 flex-col gap-6">
+      <div className="flex min-w-0 flex-col gap-8">
         <AccountSection />
         <AppearanceSection />
         <EditorSection />

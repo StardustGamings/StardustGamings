@@ -27,7 +27,7 @@ function Tool({ label, onClick, children }: { label: string; onClick: () => void
       aria-label={label}
       title={label}
       onClick={onClick}
-      className="flex size-9 shrink-0 items-center justify-center rounded-[10px] text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg [&_svg]:size-4"
+      className="flex size-9 shrink-0 items-center justify-center rounded-md text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg [&_svg]:size-4"
     >
       {children}
     </button>
@@ -58,7 +58,7 @@ export function CropBar({ layout }: { layout: 'floating' | 'docked' }) {
       className={cn(
         'z-30 flex flex-col gap-2 glass-strong',
         layout === 'floating'
-          ? 'absolute top-3 left-1/2 hidden w-[min(640px,calc(100%-24px))] -translate-x-1/2 rounded-[18px] p-2.5 shadow-[var(--shadow-float)] lg:flex'
+          ? 'absolute top-3 left-1/2 hidden w-[min(640px,calc(100%-24px))] -translate-x-1/2 rounded-lg p-2.5 shadow-[var(--shadow-float)] lg:flex'
           : 'shrink-0 border-x-0 border-b-0 px-3 pt-2.5 pb-2 safe-bottom lg:hidden',
       )}
     >
@@ -71,8 +71,8 @@ export function CropBar({ layout }: { layout: 'floating' | 'docked' }) {
             aria-checked={activeAspect === a.id}
             onClick={() => a.ratio !== null && setCropAspect(a.ratio)}
             className={cn(
-              'h-8 shrink-0 rounded-full px-3 text-[12px] font-semibold transition-colors',
-              activeAspect === a.id ? 'bg-fg text-bg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
+              'h-8 shrink-0 rounded-md px-3 text-[12px] font-semibold transition-colors',
+              activeAspect === a.id ? 'bg-surface-active text-fg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
             )}
           >
             {a.label}
@@ -123,14 +123,14 @@ export function CropBar({ layout }: { layout: 'floating' | 'docked' }) {
         <button
           type="button"
           onClick={cancelCrop}
-          className="flex h-9 items-center gap-1.5 rounded-[10px] px-3 text-[13px] font-semibold text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
+          className="flex h-9 items-center gap-1.5 rounded-md px-3 text-[13px] font-semibold text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
         >
           <X className="size-4" /> Cancel
         </button>
         <button
           type="button"
           onClick={commitCrop}
-          className="flex h-9 items-center gap-1.5 rounded-[10px] bg-accent px-4 text-[13px] font-bold text-accent-fg transition-transform active:scale-95"
+          className="flex h-9 items-center gap-1.5 rounded-md bg-accent px-4 text-[13px] font-bold text-accent-fg transition-transform active:scale-95"
         >
           <Check className="size-4" /> Done
         </button>

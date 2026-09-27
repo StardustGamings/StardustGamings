@@ -13,60 +13,53 @@ import { LogoMark } from '@/components/ui/Logo';
 import { FormatIcon } from '@/components/home/FormatIcon';
 import { cn } from '@/utils/cn';
 
-/* ───────────── Visuals for each step (pure CSS/SVG, no image assets) ───────────── */
+/* ───────────── Visuals for each step: quiet diagrams, one accent (no image assets) ───────────── */
 
 function CreateVisual() {
   return (
-    <div className="grid grid-cols-4 gap-2.5">
-      {FORMAT_ORDER.map((id, i) => {
-        const [a, b] = FORMATS[id].accent;
-        return (
-          <motion.div
-            key={id}
-            initial={{ opacity: 0, y: 30, rotate: (i % 2 ? 1 : -1) * 12, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
-            transition={{ delay: 0.05 * i, type: 'spring', stiffness: 260, damping: 20 }}
-            className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-[18px] text-ink shadow-[var(--shadow-lift)]"
-            style={{ background: `linear-gradient(140deg, ${a}, ${b})` }}
-          >
-            <FormatIcon format={id} className="size-6" />
-            <span className="text-[10px] font-bold">{FORMATS[id].label}</span>
-          </motion.div>
-        );
-      })}
+    <div className="grid w-full max-w-[320px] grid-cols-4 gap-2">
+      {FORMAT_ORDER.map((id, i) => (
+        <motion.div
+          key={id}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.03 * i, duration: 0.24, ease: [0.2, 0, 0, 1] }}
+          className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-md border border-line bg-surface text-fg-muted"
+        >
+          <FormatIcon format={id} className={cn('size-5', i === 0 && 'text-accent-text')} />
+          <span className="text-[10.5px] font-medium">{FORMATS[id].label}</span>
+        </motion.div>
+      ))}
     </div>
   );
 }
 
 function CarouselVisual() {
-  const colors = ['#C6FF3D', '#3CF0C8', '#7CC4FF', '#A06BFF', '#FF5CAA'];
   return (
     <div className="relative mx-auto w-[220px]">
-      <div className="relative z-10 overflow-hidden rounded-[30px] border-[6px] border-ink bg-ink shadow-[var(--shadow-float)]">
+      <div className="relative overflow-hidden rounded-lg border border-line-strong bg-bg-sunken">
         <motion.div
           className="flex"
-          animate={{ x: ['0%', '0%', '-100%', '-100%', '-200%', '-200%', '-300%', '-300%', '0%'] }}
-          transition={{ duration: 7, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }}
+          animate={{ x: ['0%', '0%', '-100%', '-100%', '-200%', '-200%', '0%'] }}
+          transition={{ duration: 6, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }}
         >
-          {colors.slice(0, 4).map((c, i) => (
-            <div
-              key={c}
-              className="relative aspect-[4/5] w-full shrink-0"
-              style={{ background: `linear-gradient(90deg, ${c}, ${colors[i + 1]})` }}
-            >
-              <span className="absolute top-3 left-3 font-display text-3xl font-extrabold text-ink/80">0{i + 1}</span>
-              {i === 0 && <span className="absolute top-1/2 -right-8 size-16 -translate-y-1/2 rounded-full bg-ink" />}
-              {i === 1 && <span className="absolute top-1/2 -left-8 size-16 -translate-y-1/2 rounded-full bg-ink" />}
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="relative aspect-[4/5] w-full shrink-0 border-r border-dashed border-line-strong">
+              <span className="absolute top-3 left-3 font-mono text-[11px] text-fg-subtle">0{i + 1}</span>
+              <svg viewBox="0 0 100 125" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
+                <path
+                  d={['M0 90 C30 70 60 100 100 60', 'M0 60 C40 20 70 80 100 50', 'M0 50 C35 80 65 40 100 70'][i]}
+                  fill="none"
+                  stroke="var(--accent-text)"
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
             </div>
           ))}
         </motion.div>
       </div>
-      <div className="mt-4 flex justify-center gap-1.5">
-        {[0, 1, 2, 3].map((i) => (
-          <span key={i} className="size-1.5 rounded-full bg-fg-subtle" />
-        ))}
-      </div>
-      <p className="mt-2 text-center text-xs text-fg-muted">Designs flow across every swipe</p>
+      <p className="mt-3 text-center text-meta">One design, flowing across every swipe</p>
     </div>
   );
 }
@@ -84,69 +77,65 @@ function YoursVisual() {
   const [i, setI] = useState(0);
   useEffect(() => {
     FONT_CYCLE.forEach((f) => void loadFont(f.family, f.weight, f.style));
-    const t = window.setInterval(() => setI((n) => (n + 1) % FONT_CYCLE.length), 1100);
+    const t = window.setInterval(() => setI((n) => (n + 1) % FONT_CYCLE.length), 1400);
     return () => window.clearInterval(t);
   }, []);
   const f = FONT_CYCLE[i]!;
-  const swatches = ['#C6FF3D', '#FF5CAA', '#A06BFF', '#3CF0FF', '#FFD23D', '#F4F1EA'];
+  const swatches = ['#C6FF3D', '#EDEDEA', '#8E8E88', '#2B2B30', '#E9DCC9', '#D2583F'];
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex h-28 items-center">
+      <div className="flex h-24 items-center">
         <AnimatePresence mode="popLayout">
           <motion.span
             key={f.family}
-            initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
-            transition={{ duration: 0.35 }}
-            className="text-nova text-7xl leading-none"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22 }}
+            className="text-6xl leading-none text-fg"
             style={{ fontFamily: `"${f.family}"`, fontWeight: f.weight, fontStyle: f.style }}
           >
             yours
           </motion.span>
         </AnimatePresence>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-1.5">
         {swatches.map((c, n) => (
-          <motion.span
+          <span
             key={c}
-            className="size-9 rounded-full border-2 border-bg shadow-[var(--shadow-soft)]"
+            className={cn(
+              'size-7 rounded-sm border border-line-strong transition-shadow duration-200',
+              n === i % swatches.length && 'ring-2 ring-fg ring-offset-2 ring-offset-bg',
+            )}
             style={{ background: c }}
-            animate={{ y: n === i % swatches.length ? -8 : 0, scale: n === i % swatches.length ? 1.12 : 1 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 18 }}
           />
         ))}
       </div>
-      <p className="text-xs text-fg-muted">{f.family} · one of 18 fonts that work offline</p>
+      <p className="text-meta">{f.family} · one of 18 fonts that work offline</p>
     </div>
   );
 }
 
 function ExportVisual() {
   return (
-    <div className="flex flex-col items-center gap-5">
-      <div className="relative h-40 w-32">
+    <div className="flex flex-col items-center gap-6">
+      <div className="relative h-36 w-28">
         {[0, 1, 2].map((n) => (
           <motion.div
             key={n}
-            className="absolute inset-0 rounded-[18px] border border-line-strong shadow-[var(--shadow-lift)]"
-            style={{ background: ['#A06BFF', '#3CF0C8', '#C6FF3D'][n] }}
+            className="absolute inset-0 rounded-md border border-line-strong bg-surface"
             initial={{ rotate: 0, x: 0 }}
-            animate={{ rotate: (n - 1) * 9, x: (n - 1) * 26 }}
-            transition={{ delay: 0.15 + n * 0.08, type: 'spring', stiffness: 220, damping: 16 }}
+            animate={{ rotate: (n - 1) * 7, x: (n - 1) * 22 }}
+            transition={{ delay: 0.1 + n * 0.05, duration: 0.3, ease: [0.2, 0, 0, 1] }}
           />
         ))}
-        <motion.div
-          className="absolute -bottom-4 left-1/2 flex size-12 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-lime shadow-[var(--shadow-lift)]"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity }}
-        >
+        <div className="absolute -bottom-3 left-1/2 flex size-10 -translate-x-1/2 items-center justify-center rounded-md bg-accent text-accent-fg">
           <Download className="size-5" />
-        </motion.div>
+        </div>
       </div>
-      <div className="mt-2 flex flex-wrap justify-center gap-1.5">
+      <div className="flex flex-wrap justify-center gap-1">
         {['PNG', 'JPG', 'WebP', 'PDF', 'MP4'].map((f) => (
-          <span key={f} className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-fg-muted">
+          <span key={f} className="rounded-xs border border-line px-2 py-0.5 font-mono text-[11px] text-fg-muted">
             {f}
           </span>
         ))}
@@ -158,29 +147,20 @@ function ExportVisual() {
 function ShareVisual() {
   return (
     <div className="relative mx-auto w-[200px]">
-      <div className="overflow-hidden rounded-[26px] border border-line-strong bg-bg-elevated shadow-[var(--shadow-float)]">
-        <div className="flex items-center gap-2 p-3">
-          <LogoMark className="size-6" />
-          <span className="text-xs font-bold">you</span>
+      <div className="overflow-hidden rounded-lg border border-line-strong bg-bg-elevated">
+        <div className="flex items-center gap-2 p-2.5">
+          <LogoMark className="size-5" />
+          <span className="text-xs font-semibold">you</span>
         </div>
-        <div className="aspect-[4/5] bg-[linear-gradient(135deg,#C6FF3D,#3CF0C8_45%,#A06BFF)]" />
-        <div className="flex gap-3 p-3 text-fg">
-          <Heart className="size-5 fill-pink text-pink" />
-          <MessageCircle className="size-5" />
-          <Send className="size-5" />
+        <div className="flex aspect-[4/5] items-end bg-bg-sunken p-3">
+          <span className="h-1 w-2/3 rounded-full bg-accent" />
+        </div>
+        <div className="flex gap-3 p-2.5 text-fg-muted">
+          <Heart className="size-[18px]" />
+          <MessageCircle className="size-[18px]" />
+          <Send className="size-[18px]" />
         </div>
       </div>
-      {[0, 1, 2, 3].map((n) => (
-        <motion.span
-          key={n}
-          className="absolute right-2 bottom-16 text-pink"
-          initial={{ opacity: 0, y: 0, x: 0 }}
-          animate={{ opacity: [0, 1, 0], y: -110 - n * 14, x: (n % 2 ? 1 : -1) * (10 + n * 6) }}
-          transition={{ duration: 2.2, repeat: Infinity, delay: n * 0.45, ease: 'easeOut' }}
-        >
-          <Heart className="size-5 fill-current" />
-        </motion.span>
-      ))}
     </div>
   );
 }
@@ -257,18 +237,13 @@ export function Onboarding() {
                 className="fixed inset-0 z-[95] flex flex-col bg-bg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.22 }}
               >
-                <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-                  <div className="motion-decorative absolute -top-1/4 -left-1/4 h-[80vmax] w-[80vmax] animate-drift rounded-full bg-[radial-gradient(closest-side,rgb(160_107_255/0.35),transparent)] blur-3xl" />
-                  <div className="motion-decorative absolute -right-1/4 -bottom-1/3 h-[70vmax] w-[70vmax] animate-drift-slow rounded-full bg-[radial-gradient(closest-side,rgb(198_255_61/0.18),transparent)] blur-3xl" />
-                </div>
-
                 <header className="relative flex items-center justify-between px-5 pt-[max(20px,env(safe-area-inset-top))]">
                   <span className="flex items-center gap-2">
                     <LogoMark className="size-7" />
-                    <span className="font-display text-lg font-extrabold tracking-[-0.04em]">stardeck</span>
+                    <span className="font-display text-lg font-bold tracking-[-0.04em]">stardeck</span>
                   </span>
                   {!last && (
                     <Button variant="ghost" size="sm" onClick={finish}>
@@ -288,21 +263,19 @@ export function Onboarding() {
                     <motion.section
                       key={step}
                       custom={direction}
-                      initial={{ opacity: 0, x: direction * 60 }}
+                      initial={{ opacity: 0, x: direction * 24 }}
                       animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: direction * -60 }}
-                      transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+                      exit={{ opacity: 0, x: direction * -24 }}
+                      transition={{ duration: 0.24, ease: [0.2, 0, 0, 1] }}
                       className="flex w-full flex-col items-center text-center"
                       aria-roledescription="slide"
                       aria-label={`Step ${step + 1} of ${STEPS.length}`}
                     >
-                      <div className="flex min-h-[300px] w-full items-center justify-center">
+                      <div className="flex min-h-[280px] w-full items-center justify-center">
                         <current.Visual />
                       </div>
-                      <D.Title className="mt-8 font-display text-4xl font-extrabold tracking-[-0.04em] sm:text-5xl">
-                        {current.title}
-                      </D.Title>
-                      <D.Description className="mt-3 max-w-sm text-[15px] leading-relaxed text-fg-muted">
+                      <D.Title className="mt-8 text-display">{current.title}</D.Title>
+                      <D.Description className="mt-2 max-w-sm text-[15px] leading-relaxed text-fg-muted">
                         {current.body}
                       </D.Description>
                     </motion.section>
@@ -320,8 +293,8 @@ export function Onboarding() {
                         aria-label={`Go to step ${i + 1}: ${s.title}`}
                         onClick={() => go(i)}
                         className={cn(
-                          'h-2 rounded-full transition-all duration-300',
-                          i === step ? 'w-7 bg-accent' : 'w-2 bg-line-strong hover:bg-fg-subtle',
+                          'h-1.5 rounded-full transition-all duration-200',
+                          i === step ? 'w-6 bg-fg' : 'w-1.5 bg-line-strong hover:bg-fg-subtle',
                         )}
                       />
                     ))}
@@ -337,7 +310,7 @@ export function Onboarding() {
                       />
                     )}
                     {last ? (
-                      <Button variant="nova" size="lg" magnetic onClick={finish} iconRight={<ArrowRight className="size-4" />}>
+                      <Button variant="primary" size="lg" onClick={finish} iconRight={<ArrowRight className="size-4" />}>
                         Start Creating
                       </Button>
                     ) : (

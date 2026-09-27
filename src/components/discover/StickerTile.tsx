@@ -51,15 +51,12 @@ export function StickerTile({ stickerId }: { stickerId: string }) {
     <button
       type="button"
       onClick={() => void downloadSticker(stickerId)}
-      className="group relative flex aspect-square w-full items-center justify-center rounded-[20px] border border-line bg-surface p-4 transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-line-strong"
+      className="group relative flex aspect-square w-full items-center justify-center rounded-lg border border-line bg-surface p-4 transition-[border-color,background-color] duration-150 hover:border-line-strong hover:bg-surface-hover"
       aria-label={`Download ${name} sticker as PNG`}
       title={`${name} — download PNG`}
     >
-      <ScenePreview
-        doc={doc}
-        className="w-full transition-transform duration-500 ease-[var(--ease-spring)] group-hover:scale-110 group-hover:rotate-[-8deg]"
-      />
-      <span className="absolute right-2 bottom-2 flex size-7 items-center justify-center rounded-full bg-accent text-accent-fg opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
+      <ScenePreview doc={doc} className="w-full transition-transform duration-200 group-hover:scale-105" />
+      <span className="absolute right-2 bottom-2 flex size-6 items-center justify-center rounded-sm border border-line bg-bg-elevated text-fg-muted opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
         <Download className="size-3.5" />
       </span>
     </button>

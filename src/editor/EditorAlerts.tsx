@@ -26,7 +26,7 @@ function Alert({
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
-      className="absolute top-3 left-1/2 z-30 flex w-[min(560px,calc(100%-24px))] -translate-x-1/2 flex-col gap-3 rounded-[18px] border border-warning/40 p-4 shadow-[var(--shadow-float)] glass-strong sm:flex-row sm:items-center"
+      className="absolute top-3 left-1/2 z-30 flex w-[min(560px,calc(100%-24px))] -translate-x-1/2 flex-col gap-3 rounded-lg border border-warning/40 p-4 shadow-[var(--shadow-float)] glass-strong sm:flex-row sm:items-center"
     >
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-warning/15 text-warning">{icon}</span>
       <div className="min-w-0 flex-1">

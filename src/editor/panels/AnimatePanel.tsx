@@ -49,16 +49,16 @@ function PresetTile({
       onClick={onPick}
       data-loop={loop || undefined}
       className={cn(
-        'anim-tile flex flex-col items-center gap-1.5 rounded-[12px] border p-2 text-[11px] font-semibold transition-colors',
+        'anim-tile flex flex-col items-center gap-1.5 rounded-lg border p-2 text-[11px] font-semibold transition-colors',
         checked
           ? 'border-transparent bg-accent/15 text-fg ring-1 ring-accent'
           : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
       )}
       style={keyframes ? ({ '--anim': keyframes } as CSSProperties) : undefined}
     >
-      <span className="flex size-9 items-center justify-center overflow-hidden rounded-[9px] bg-bg-sunken">
+      <span className="flex size-9 items-center justify-center overflow-hidden rounded-md bg-bg-sunken">
         {keyframes ? (
-          <span className="anim-dot to-nova flex size-6 items-center justify-center rounded-[7px] bg-gradient-to-br from-accent font-display text-[10px] font-extrabold text-ink">
+          <span className="anim-dot flex size-6 items-center justify-center rounded-xs border border-line-strong bg-bg-elevated font-display text-[10px] font-bold text-fg [[aria-checked=true]_&]:border-transparent [[aria-checked=true]_&]:bg-accent [[aria-checked=true]_&]:text-accent-fg">
             Aa
           </span>
         ) : (
@@ -126,8 +126,8 @@ function DirectionPicker({
             aria-label={d.label}
             onClick={() => onChange(d.value)}
             className={cn(
-              'flex size-8 items-center justify-center rounded-[9px] border transition-colors',
-              value === d.value ? 'border-transparent bg-fg text-bg' : 'border-line text-fg-muted hover:text-fg',
+              'flex size-8 items-center justify-center rounded-md border transition-colors',
+              value === d.value ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
             )}
           >
             {d.icon}
@@ -165,7 +165,7 @@ function Transport() {
           title="Loop preview"
           onClick={() => usePlayback.getState().setLoop(!loop)}
           className={cn(
-            'flex size-8 items-center justify-center rounded-[10px] transition-colors [&_svg]:size-4',
+            'flex size-8 items-center justify-center rounded-md transition-colors [&_svg]:size-4',
             loop ? 'bg-surface-active text-fg' : 'text-fg-muted hover:bg-surface-hover hover:text-fg',
           )}
         >
@@ -217,7 +217,7 @@ function AutoAnimate() {
             type="button"
             title={AUTO_VIBES[vibe].hint}
             onClick={() => anim.autoAnimateSlides(multi ? scope : 'all', vibe)}
-            className="flex flex-col items-center gap-1 rounded-[12px] border border-line px-2 py-2.5 text-[12px] font-bold transition-colors hover:border-accent hover:bg-accent/10"
+            className="flex flex-col items-center gap-1 rounded-lg border border-line px-2 py-2.5 text-[12px] font-bold transition-colors hover:border-accent hover:bg-accent/10"
           >
             <Wand2 className="size-4 text-accent-text" />
             {AUTO_VIBES[vibe].label}

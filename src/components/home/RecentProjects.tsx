@@ -24,10 +24,9 @@ export function RecentProjects() {
   const loading = status === 'idle' || status === 'loading';
 
   return (
-    <section aria-labelledby="recent-projects" className="mt-14">
+    <section aria-labelledby="recent-projects" className="mt-10">
       <SectionHeader
         id="recent-projects"
-        eyebrow="Your studio"
         title="Recent projects"
         action={
           active.length > 0 && (
@@ -38,7 +37,7 @@ export function RecentProjects() {
         }
       />
       {loading ? (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {[0, 1, 2, 3, 4].map((i) => (
             <ProjectCardSkeleton key={i} />
           ))}
@@ -48,13 +47,13 @@ export function RecentProjects() {
           title="No designs yet 👀"
           description="Your first masterpiece is literally one tap away."
           action={
-            <Button variant="primary" magnetic onClick={() => openNewProject(defaultFormat)}>
+            <Button variant="primary" onClick={() => openNewProject(defaultFormat)}>
               Create Something
             </Button>
           }
         />
       ) : (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {active.slice(0, LIMIT).map((p) => (
               <ProjectCard key={p.id} project={p} />

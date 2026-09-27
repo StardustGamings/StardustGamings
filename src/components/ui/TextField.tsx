@@ -31,13 +31,13 @@ export function TextField({
   return (
     <div className={cn('flex flex-col gap-1.5', className)}>
       {label && (
-        <label htmlFor={inputId} className="text-[13px] font-semibold text-fg">
+        <label htmlFor={inputId} className="text-[13px] font-medium text-fg">
           {label}
         </label>
       )}
       <div
         className={cn(
-          'flex h-11 items-center gap-2 rounded-[13px] border bg-bg-sunken/70 px-3 transition-colors focus-within:border-ring',
+          'flex h-10 items-center gap-2 rounded-md border bg-bg-sunken px-3 transition-colors focus-within:border-ring',
           error ? 'border-danger' : 'border-line hover:border-line-strong',
         )}
       >

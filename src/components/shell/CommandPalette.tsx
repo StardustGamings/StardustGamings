@@ -218,7 +218,7 @@ export function CommandPalette() {
         label: ambient ? 'Turn off background effects' : 'Turn on background effects',
         group: 'Appearance',
         icon: <Sparkles />,
-        keywords: ['particles', 'aurora', 'performance'],
+        keywords: ['texture', 'grain', 'performance'],
         run: () => update({ ambientEffects: !ambient }),
       },
       {
@@ -290,8 +290,8 @@ export function CommandPalette() {
       }}
     >
       <D.Portal>
-        <D.Overlay className="anim-overlay fixed inset-0 z-[75] bg-[rgb(5_5_10/0.5)] backdrop-blur-[4px]" />
-        <D.Content className="anim-palette fixed inset-x-3 top-[max(12vh,env(safe-area-inset-top))] z-[76] mx-auto max-w-[640px] overflow-hidden rounded-[24px] shadow-[var(--shadow-float)] glass-strong outline-none">
+        <D.Overlay className="anim-overlay fixed inset-0 z-[75] scrim" />
+        <D.Content className="anim-palette fixed inset-x-3 top-[max(12vh,env(safe-area-inset-top))] z-[76] mx-auto max-w-[600px] overflow-hidden rounded-lg border border-line-strong bg-bg-elevated shadow-[var(--shadow-float)] outline-none">
           <D.Title className="sr-only">Command palette</D.Title>
           <D.Description className="sr-only">Search for actions, templates and projects</D.Description>
           <Cmdk label="Command palette" loop shouldFilter={false} className="flex max-h-[min(70dvh,560px)] flex-col">
@@ -302,11 +302,11 @@ export function CommandPalette() {
                 onValueChange={setSearch}
                 autoFocus
                 placeholder="Search actions, templates, projects…"
-                className="h-14 flex-1 bg-transparent text-[15px] outline-none placeholder:text-fg-subtle"
+                className="h-12 flex-1 bg-transparent text-[15px] outline-none placeholder:text-fg-subtle"
               />
               <Kbd>Esc</Kbd>
             </div>
-            <Cmdk.List className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-[11px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:tracking-[0.08em] [&_[cmdk-group-heading]]:text-fg-subtle [&_[cmdk-group-heading]]:uppercase">
+            <Cmdk.List className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-1.5 [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-[12px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-fg-subtle">
               <Cmdk.Empty className="px-4 py-10 text-center text-sm text-fg-muted">
                 Nothing matches “{search}” — try “carousel”, “y2k” or “theme”.
               </Cmdk.Empty>
@@ -317,7 +317,7 @@ export function CommandPalette() {
                       key={c.id}
                       value={c.id}
                       onSelect={() => run(c)}
-                      className="flex h-11 cursor-pointer items-center gap-3 rounded-[12px] px-3 text-sm text-fg transition-colors outline-none data-[selected=true]:bg-surface-active [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted data-[selected=true]:[&_svg]:text-fg"
+                      className="flex h-9 cursor-pointer items-center gap-3 rounded-md px-2.5 text-sm text-fg transition-colors outline-none data-[selected=true]:bg-surface-active [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted data-[selected=true]:[&_svg]:text-fg"
                     >
                       {c.icon}
                       <span className="min-w-0 flex-1 truncate">{c.label}</span>
@@ -336,7 +336,7 @@ export function CommandPalette() {
               <span className="flex items-center gap-1.5">
                 <Kbd>↵</Kbd> run
               </span>
-              <span className="ml-auto">Everything here works offline ✦</span>
+              <span className="ml-auto">Everything here works offline</span>
             </div>
           </Cmdk>
         </D.Content>

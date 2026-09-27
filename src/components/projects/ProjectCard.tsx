@@ -33,23 +33,15 @@ import { downloadProjectFile } from './project-files';
 
 function Thumb({ project }: { project: ProjectMeta }) {
   const url = useProjects((s) => s.thumbnails[project.id]);
-  const [a, b] = FORMATS[project.format].accent;
   const multi = project.slideCount > 1;
   return (
-    <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[20px] bg-bg-sunken">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-25"
-        style={{
-          background: `radial-gradient(circle at 30% 20%, ${a}, transparent 60%), radial-gradient(circle at 80% 90%, ${b}, transparent 55%)`,
-        }}
-      />
-      <div className="relative flex h-[78%] w-[80%] items-center justify-center">
+    <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-bg-sunken">
+      <div className="relative flex h-[80%] w-[80%] items-center justify-center">
         {multi && url && (
-          <>
-            <span aria-hidden className="absolute inset-y-[6%] right-[-2%] left-[12%] rounded-[10px] bg-fg/10" />
-            <span aria-hidden className="absolute inset-y-[3%] right-[-1%] left-[6%] rounded-[10px] bg-fg/15" />
-          </>
+          <span
+            aria-hidden
+            className="absolute inset-y-[4%] right-[-3%] left-[8%] rounded-sm border border-line bg-surface-hover"
+          />
         )}
         {url ? (
           // eslint-disable-next-line @next/next/no-img-element -- local object URL
@@ -57,14 +49,11 @@ function Thumb({ project }: { project: ProjectMeta }) {
             src={url}
             alt=""
             draggable={false}
-            className="relative max-h-full max-w-full rounded-[10px] object-contain shadow-[var(--shadow-lift)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+            className="relative max-h-full max-w-full rounded-sm object-contain shadow-[var(--shadow-soft)]"
           />
         ) : (
-          <span
-            className="flex size-14 items-center justify-center rounded-2xl text-ink"
-            style={{ background: `linear-gradient(135deg, ${a}, ${b})` }}
-          >
-            <FormatIcon format={project.format} className="size-6" />
+          <span className="flex size-12 items-center justify-center rounded-md border border-line-strong text-fg-subtle">
+            <FormatIcon format={project.format} className="size-5" />
           </span>
         )}
       </div>
@@ -96,15 +85,15 @@ export function ProjectCard({
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 16, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)', transition: { duration: 0.2 } }}
-      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.16 } }}
+      transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
       className="group relative"
       data-testid="project-card"
     >
       <div
-        className="rounded-[24px] border border-line bg-surface p-2 transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] group-hover:-translate-y-1 group-hover:border-line-strong group-hover:shadow-[var(--shadow-lift)]"
+        className="overflow-hidden rounded-lg border border-line bg-surface transition-[border-color] duration-150 group-hover:border-line-strong"
         onDragStart={(e) => {
           if (trashed) return;
           e.dataTransfer.setData(PROJECT_DRAG_TYPE, project.id);
@@ -112,26 +101,28 @@ export function ProjectCard({
         }}
       >
         <Thumb project={project} />
-        <div className="flex items-start gap-2 px-2 pt-3 pb-1.5">
+        <div className="flex items-start gap-2 border-t border-line px-3 pt-2.5 pb-2.5">
           <div className="min-w-0 flex-1">
-            <h3 className="truncate font-sans text-sm font-bold tracking-normal">
+            <h3 className="truncate font-sans text-sm font-semibold tracking-normal">
               {trashed ? (
                 project.name
               ) : (
                 <Link
                   href={editorHref(project.id)}
-                  className="outline-none after:absolute after:inset-0 after:rounded-[24px] focus-visible:after:outline-2 focus-visible:after:outline-ring"
+                  className="outline-none after:absolute after:inset-0 after:rounded-lg focus-visible:after:outline-2 focus-visible:after:outline-ring"
                 >
                   {project.name}
                 </Link>
               )}
             </h3>
-            <p className="mt-0.5 flex items-center gap-1.5 truncate text-xs text-fg-subtle">
+            <p className="mt-0.5 flex items-center gap-1.5 truncate text-meta">
               <FormatIcon format={project.format} className="size-3.5 shrink-0" />
-              <span>{format.label}</span>
-              {project.slideCount > 1 && <span>· {project.slideCount} slides</span>}
+              <span className="truncate">
+                {format.label}
+                {project.slideCount > 1 && ` · ${project.slideCount} slides`}
+              </span>
               <span aria-hidden>·</span>
-              <time dateTime={new Date(project.updatedAt).toISOString()} suppressHydrationWarning>
+              <time className="shrink-0" dateTime={new Date(project.updatedAt).toISOString()} suppressHydrationWarning>
                 {now === null
                   ? ''
                   : trashed && project.deletedAt
@@ -151,7 +142,7 @@ export function ProjectCard({
               <button
                 type="button"
                 aria-label={`Actions for ${project.name}`}
-                className="relative z-10 -mr-1 flex size-8 shrink-0 items-center justify-center rounded-[10px] text-fg-subtle transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active data-[state=open]:text-fg"
+                className="relative z-10 -mr-1 flex size-8 shrink-0 items-center justify-center rounded-md text-fg-subtle transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active data-[state=open]:text-fg"
               >
                 <MoreHorizontal className="size-[18px]" />
               </button>
@@ -231,11 +222,11 @@ export function ProjectCard({
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="rounded-[24px] border border-line bg-surface p-2" aria-hidden>
-      <div className="aspect-[4/5] skeleton rounded-[20px]" />
-      <div className="space-y-2 px-2 pt-3 pb-2">
-        <div className="h-3.5 w-3/4 skeleton rounded-full" />
-        <div className="h-3 w-1/2 skeleton rounded-full" />
+    <div className="overflow-hidden rounded-lg border border-line bg-surface" aria-hidden>
+      <div className="aspect-[4/5] skeleton" />
+      <div className="space-y-2 border-t border-line px-3 py-3">
+        <div className="h-3.5 w-3/4 skeleton rounded-xs" />
+        <div className="h-3 w-1/2 skeleton rounded-xs" />
       </div>
     </div>
   );

@@ -103,7 +103,7 @@ function ChannelFields({ mode, color, onChange }: { mode: 'rgb' | 'hsl'; color: 
       {CHANNELS[mode].map((c) => (
         <label
           key={c.key}
-          className="flex h-10 min-w-0 items-center gap-1 rounded-[12px] border border-line bg-bg-sunken/70 px-2 focus-within:border-ring"
+          className="flex h-10 min-w-0 items-center gap-1 rounded-lg border border-line bg-bg-sunken px-2 focus-within:border-ring"
         >
           <span aria-hidden className="font-mono text-[10.5px] font-bold text-fg-subtle uppercase">
             {c.key}
@@ -146,7 +146,7 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
     <div className="flex flex-col gap-4" role="group" aria-label={label}>
       {docColors.length > 0 && (
         <div>
-          <p className="mb-2 text-[11px] font-semibold tracking-[0.08em] text-fg-subtle uppercase">In this design</p>
+          <p className="mb-2 text-label">In this design</p>
           <div className="flex flex-wrap gap-1.5">
             {docColors.slice(0, 12).map((c) => (
               <button
@@ -154,7 +154,7 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
                 type="button"
                 aria-label={`Design colour ${c}`}
                 onClick={() => onChange({ type: 'solid', color: c })}
-                className="size-7 rounded-full border border-line-strong transition-transform hover:scale-110"
+                className="size-7 rounded-full border border-line-strong transition-shadow hover:ring-2 hover:ring-line-strong"
                 style={{ background: c }}
               />
             ))}
@@ -172,7 +172,7 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
               aria-pressed={active}
               onClick={() => onChange({ type: 'solid', color: c })}
               className={cn(
-                'aspect-square rounded-[10px] border border-line-strong transition-transform hover:scale-110',
+                'aspect-square rounded-md border border-line-strong transition-shadow hover:ring-2 hover:ring-line-strong',
                 active && 'ring-2 ring-ring ring-offset-2 ring-offset-bg-elevated',
               )}
               style={{ background: c }}
@@ -191,7 +191,7 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
               aria-pressed={active}
               onClick={() => onChange(g)}
               className={cn(
-                'h-10 rounded-[10px] border border-line-strong transition-transform hover:scale-105',
+                'h-10 rounded-md border border-line-strong transition-shadow hover:ring-2 hover:ring-line-strong',
                 active && 'ring-2 ring-ring ring-offset-2 ring-offset-bg-elevated',
               )}
               style={{ background: fillToCss(g) }}
@@ -214,7 +214,7 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
       )}
       <div className="flex items-center gap-2">
         <label
-          className="relative size-10 shrink-0 cursor-pointer overflow-hidden rounded-[12px] border border-line-strong"
+          className="relative size-10 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-line-strong"
           style={{ background: primary }}
         >
           <span className="sr-only">Pick a custom colour</span>
@@ -242,7 +242,7 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
               onKeyDown={(e) => e.key === 'Enter' && commitHex(e.currentTarget.value)}
               aria-invalid={!valid}
               className={cn(
-                'h-10 min-w-0 flex-1 rounded-[12px] border bg-bg-sunken/70 px-3 font-mono text-sm uppercase outline-none focus:border-ring',
+                'h-10 min-w-0 flex-1 rounded-lg border bg-bg-sunken px-3 font-mono text-sm uppercase outline-none focus:border-ring',
                 valid ? 'border-line' : 'border-danger',
               )}
             />
@@ -258,8 +258,8 @@ export function FillPicker({ value, onChange, label, solidOnly = false, docColor
             aria-checked={mode === m}
             onClick={() => setMode(m)}
             className={cn(
-              'h-6 rounded-full px-2 font-mono text-[10.5px] font-bold uppercase transition-colors',
-              mode === m ? 'bg-fg text-bg' : 'text-fg-subtle hover:text-fg',
+              'h-6 rounded-sm px-2 font-mono text-[10.5px] font-semibold uppercase transition-colors',
+              mode === m ? 'bg-surface-active text-fg' : 'text-fg-subtle hover:text-fg',
             )}
           >
             {m}
