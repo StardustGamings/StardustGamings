@@ -96,6 +96,9 @@ jobs:
           api-level: 34
           arch: x86_64
           target: google_apis
+          # A known-good emulator (37.1.11) instead of "latest", so a broken new emulator release
+          # can't stop the release; bump it on purpose.
+          emulator-build: 15917651
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: node scripts/android-smoke.mjs apks/Stardeck.apk apks/Stardeck-debug.apk
