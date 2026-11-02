@@ -10,8 +10,7 @@ export default function ProjectsPage() {
       <header className="pb-6">
         <h1 className="text-display">Projects</h1>
         <p className="mt-2 max-w-xl text-caption">
-          Everything autosaves locally in your browser — nothing is uploaded. Favourite the keepers, and anything you delete waits
-          in the trash for 30 days.
+          Saved on this device as you work. Deleted designs wait in the trash for 30 days.
         </p>
       </header>
       <Suspense>

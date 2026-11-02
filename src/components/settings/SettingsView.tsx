@@ -49,13 +49,13 @@ const SECTIONS = [
   { id: 'appearance', label: 'Appearance', icon: Palette },
   { id: 'editor', label: 'Editor', icon: PenTool },
   { id: 'export', label: 'Export', icon: Share2 },
-  { id: 'performance', label: 'Performance', icon: Gauge },
-  { id: 'privacy', label: 'Privacy', icon: Lock },
-  { id: 'trends', label: 'Trends', icon: Flame },
-  { id: 'ai', label: 'AI tools', icon: Bot },
   { id: 'storage', label: 'Storage', icon: HardDrive },
-  { id: 'shortcuts', label: 'Shortcuts', icon: Keyboard },
+  { id: 'privacy', label: 'Privacy', icon: Lock },
+  { id: 'ai', label: 'AI tools', icon: Bot },
+  { id: 'trends', label: 'Trends', icon: Flame },
+  { id: 'performance', label: 'Performance', icon: Gauge },
   { id: 'accessibility', label: 'Accessibility', icon: Accessibility },
+  { id: 'shortcuts', label: 'Shortcuts', icon: Keyboard },
   { id: 'about', label: 'About', icon: Info },
 ] as const;
 
@@ -74,9 +74,9 @@ function SectionNav() {
           <li key={id}>
             <a
               href={`#${id}`}
-              className="flex h-8 shrink-0 items-center gap-2 rounded-md border border-line px-2.5 text-[13px] font-medium whitespace-nowrap text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg lg:border-transparent"
+              className="flex h-9 shrink-0 items-center gap-2.5 rounded-full bg-surface-active px-3.5 text-[13px] font-medium whitespace-nowrap text-fg-muted transition-colors hover:text-fg lg:h-8 lg:rounded-md lg:bg-transparent lg:px-2.5 lg:hover:bg-surface-hover"
             >
-              <Icon className="size-4" aria-hidden />
+              <Icon className="hidden size-4 lg:block" aria-hidden />
               {label}
             </a>
           </li>
@@ -192,7 +192,7 @@ function EditorSection() {
               disabled={editor.carouselSlides <= 1}
               onClick={() => updateEditor({ carouselSlides: clamp(editor.carouselSlides - 1, 1, MAX_SLIDES) })}
             />
-            <output className="w-8 text-center font-display text-lg font-bold tabular-nums">{editor.carouselSlides}</output>
+            <output className="w-8 text-center font-mono text-[15px] font-medium tabular-nums">{editor.carouselSlides}</output>
             <IconButton
               label="More slides"
               icon={<Plus />}
@@ -564,7 +564,7 @@ function AboutSection() {
               size="sm"
               icon={<Download className="size-4" />}
               onClick={async () => {
-                if (await install()) toast({ title: 'Installed — see you on your home screen ✦', tone: 'success' });
+                if (await install()) toast({ title: 'Installed. Find Stardeck on your home screen.', tone: 'success' });
               }}
             >
               Install
@@ -595,20 +595,20 @@ function AboutSection() {
 
 export function SettingsView() {
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[180px_minmax(0,760px)] lg:gap-12">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-7 lg:grid-cols-[180px_minmax(0,720px)] lg:gap-12">
       <SectionNav />
-      <div className="flex min-w-0 flex-col gap-8">
+      <div className="flex min-w-0 flex-col gap-9">
         <AccountSection />
         <AppearanceSection />
         <EditorSection />
         <ExportSection />
-        <PerformanceSection />
-        <PrivacySection />
-        <TrendsSection />
-        <AiSection />
         <StorageSection />
-        <ShortcutsSection />
+        <PrivacySection />
+        <AiSection />
+        <TrendsSection />
+        <PerformanceSection />
         <AccessibilitySection />
+        <ShortcutsSection />
         <AboutSection />
       </div>
     </div>

@@ -48,7 +48,7 @@ export function TopBar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 border-b bg-bg transition-colors duration-200',
+        'sticky top-0 z-30 border-b bg-bg safe-top transition-colors duration-200',
         scrolled ? 'border-line' : 'border-transparent',
       )}
     >
@@ -77,7 +77,7 @@ export function TopBar() {
           <Link
             href="/settings/"
             aria-label="Your local profile and settings"
-            className="flex size-8 items-center justify-center rounded-full border border-line-strong bg-surface-active text-[13px] font-semibold text-fg transition-colors hover:border-fg-subtle"
+            className="ml-1 flex size-9 items-center justify-center rounded-full bg-surface-active font-display text-[19px] leading-none text-fg transition-colors hover:bg-surface-strong"
           >
             {initial}
           </Link>

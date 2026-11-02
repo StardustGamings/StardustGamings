@@ -15,7 +15,7 @@ export function OfflineIndicator() {
             <span
               role="status"
               tabIndex={0}
-              className="inline-flex h-7 items-center gap-1.5 rounded-sm border border-warning/35 bg-warning/10 px-2 text-xs font-semibold text-warning"
+              className="inline-flex h-7 items-center gap-1.5 rounded-full bg-warning/12 px-2.5 text-xs font-medium text-warning"
             >
               <WifiOff className="size-3.5" aria-hidden />
               Offline Mode

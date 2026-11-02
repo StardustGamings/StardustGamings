@@ -13,26 +13,11 @@ import { Button } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Segmented } from '@/components/ui/Segmented';
 import { TextField } from '@/components/ui/TextField';
-import { cn } from '@/utils/cn';
+import { Chip } from '@/components/ui/Chip';
+import { IconButton } from '@/components/ui/IconButton';
 import { importTemplateFiles } from './template-files';
 
 type Tab = 'all' | 'yours';
-
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={onClick}
-      className={cn(
-        'h-7 shrink-0 rounded-sm border px-2.5 text-xs font-medium transition-colors',
-        active ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
-      )}
-    >
-      {children}
-    </button>
-  );
-}
 
 /** The full template library: search, filter by format and style, and your own templates. */
 export function TemplateBrowser() {
@@ -69,8 +54,9 @@ export function TemplateBrowser() {
 
   return (
     <div data-testid="template-browser">
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="mb-5 flex flex-col gap-3">
         <Segmented
+          variant="underline"
           value={tab}
           onChange={(t) => {
             setTab(t);
@@ -82,29 +68,42 @@ export function TemplateBrowser() {
             { value: 'yours', label: `Yours · ${user.length}` },
           ]}
         />
-        <TextField
-          aria-label="Search templates"
-          placeholder="Search: polaroid, y2k, tips, story…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          leading={<Search />}
-          className="sm:max-w-sm sm:flex-1"
-          trailing={
-            query && (
-              <button
-                type="button"
-                aria-label="Clear search"
-                onClick={() => setQuery('')}
-                className="text-fg-subtle hover:text-fg"
-              >
-                <X className="size-4" />
-              </button>
-            )
-          }
-        />
-        <Button icon={<FileUp className="size-4" />} onClick={() => inputRef.current?.click()} className="sm:ml-auto">
-          Import template
-        </Button>
+        <div className="flex items-center gap-2">
+          <TextField
+            aria-label="Search templates"
+            placeholder="Search: polaroid, y2k, tips…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            leading={<Search />}
+            className="min-w-0 flex-1 sm:max-w-sm"
+            trailing={
+              query && (
+                <button
+                  type="button"
+                  aria-label="Clear search"
+                  onClick={() => setQuery('')}
+                  className="text-fg-subtle hover:text-fg"
+                >
+                  <X className="size-4" />
+                </button>
+              )
+            }
+          />
+          <IconButton
+            label="Import template"
+            icon={<FileUp />}
+            variant="solid"
+            onClick={() => inputRef.current?.click()}
+            className="sm:hidden"
+          />
+          <Button
+            icon={<FileUp className="size-4" />}
+            onClick={() => inputRef.current?.click()}
+            className="hidden sm:ml-auto sm:inline-flex"
+          >
+            Import template
+          </Button>
+        </div>
         <input
           ref={inputRef}
           type="file"
@@ -127,7 +126,7 @@ export function TemplateBrowser() {
       {source.length > 0 && (
         <div className="mb-6 flex flex-col gap-2">
           <div
-            className="-mx-4 hide-scrollbar flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+            className="-mx-4 hide-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"
             role="group"
             aria-label="Filter by format"
           >
@@ -136,7 +135,7 @@ export function TemplateBrowser() {
             </Chip>
             {hasAnimated && (
               <Chip active={animatedOnly} onClick={() => setAnimatedOnly(!animatedOnly)}>
-                ✦ Animated
+                Animated
               </Chip>
             )}
             {formats.map((f) => (
@@ -146,7 +145,7 @@ export function TemplateBrowser() {
             ))}
           </div>
           <div
-            className="-mx-4 hide-scrollbar flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+            className="-mx-4 hide-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0"
             role="group"
             aria-label="Filter by style"
           >

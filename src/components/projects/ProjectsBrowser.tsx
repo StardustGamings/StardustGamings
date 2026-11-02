@@ -17,6 +17,7 @@ import { IconButton } from '@/components/ui/IconButton';
 import { Segmented } from '@/components/ui/Segmented';
 import { TextField } from '@/components/ui/TextField';
 import { toast } from '@/components/ui/toast-store';
+import { Chip, chipClasses } from '@/components/ui/Chip';
 import { cn } from '@/utils/cn';
 import { moveWithToast } from './FolderDialogs';
 import { importFiles, isProjectFile, PROJECT_FILE_ACCEPT } from './project-files';
@@ -63,17 +64,11 @@ function FolderChip({
         e.preventDefault();
         onDropProject(id);
       }}
-      className={cn(
-        'flex h-8 shrink-0 items-center gap-2 rounded-md border px-2.5 text-[13px] font-medium transition-colors',
-        active
-          ? 'border-line-strong bg-surface-active text-fg'
-          : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
-        over && 'border-accent bg-accent/12 text-fg',
-      )}
+      className={cn(chipClasses(active), over && 'bg-accent-soft text-fg ring-2 ring-accent')}
     >
       {color && <FolderIcon className="size-4 shrink-0" style={{ color }} fill={color} fillOpacity={0.3} aria-hidden />}
       <span className="max-w-[160px] truncate">{label}</span>
-      <span className={cn('text-[11px] font-medium', active ? 'text-fg-muted' : 'text-fg-subtle')}>{count}</span>
+      <span className="text-[11.5px] font-medium tabular-nums opacity-65">{count}</span>
     </button>
   );
 }
@@ -163,7 +158,7 @@ export function ProjectsBrowser() {
     if (filtered)
       return (
         <EmptyState
-          title="Nothing matches that 🔍"
+          title="Nothing matches that."
           description="Try a different name, or clear the filters."
           action={
             <Button
@@ -181,26 +176,26 @@ export function ProjectsBrowser() {
     if (activeFolder && view !== 'trash')
       return (
         <EmptyState
-          title={`${activeFolder.name} is empty 📂`}
+          title={`${activeFolder.name} is empty.`}
           description="Drag designs onto the folder, or use “Move to folder…” in a project’s menu."
         />
       );
     if (view === 'favorites')
-      return <EmptyState title="No favourites yet ⭐" description="Tap the star on any project to pin it here." />;
+      return <EmptyState title="No favourites yet." description="Tap the star on any project to pin it here." />;
     if (view === 'trash')
       return (
         <EmptyState
-          title="Trash is empty ✨"
+          title="Trash is empty."
           description={`Deleted projects wait here for ${TRASH_RETENTION_DAYS} days before they’re cleared.`}
         />
       );
     return (
       <EmptyState
-        title="No designs yet 👀"
-        description="Your first masterpiece is literally one tap away."
+        title="No designs yet."
+        description="Start with a blank canvas or pick a template."
         action={
           <Button variant="primary" onClick={() => openNewProject(defaultFormat)}>
-            Create Something
+            Create
           </Button>
         }
       />
@@ -257,6 +252,7 @@ export function ProjectsBrowser() {
       <StorageNotice />
       <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center">
         <Segmented
+          variant="underline"
           value={view}
           onChange={changeView}
           aria-label="Project view"
@@ -343,7 +339,7 @@ export function ProjectsBrowser() {
             <button
               type="button"
               onClick={() => openFolderDialog({ mode: 'create' })}
-              className="flex h-8 shrink-0 items-center gap-1.5 rounded-md border border-dashed border-line-strong px-2.5 text-[13px] font-medium text-fg-muted transition-colors hover:border-fg-muted hover:text-fg"
+              className="flex h-8 shrink-0 pressable items-center gap-1.5 rounded-full border border-dashed border-line-strong px-3 text-[13px] font-medium text-fg-muted hover:text-fg"
             >
               <FolderPlus className="size-4" /> New folder
             </button>
@@ -381,18 +377,9 @@ export function ProjectsBrowser() {
         aria-label="Filter by format"
       >
         {(['any', ...FORMAT_ORDER] as const).map((f) => (
-          <button
-            key={f}
-            type="button"
-            aria-pressed={format === f}
-            onClick={() => setFormat(f)}
-            className={cn(
-              'h-7 shrink-0 rounded-sm border px-2.5 text-xs font-medium transition-colors',
-              format === f ? 'border-line-strong bg-surface-active text-fg' : 'border-line text-fg-muted hover:text-fg',
-            )}
-          >
+          <Chip key={f} active={format === f} onClick={() => setFormat(f)}>
             {f === 'any' ? 'All formats' : FORMATS[f].label}
-          </button>
+          </Chip>
         ))}
       </div>
 

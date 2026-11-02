@@ -269,7 +269,7 @@ function FlowBody({ flow, onClose }: { flow: PhotoFlowRequest; onClose: () => vo
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Photo dump style">
                     {[...DUMP_STYLES, ...trendStyles].map((s, i) => (
                       <Fragment key={s.id}>
-                        {i === DUMP_STYLES.length && <p className="col-span-full mt-1 text-label">✦ From {dropTitle}</p>}
+                        {i === DUMP_STYLES.length && <p className="col-span-full mt-1 text-label">From {dropTitle}</p>}
                         <button
                           type="button"
                           role="radio"

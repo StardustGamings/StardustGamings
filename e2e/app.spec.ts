@@ -14,7 +14,7 @@ test.describe('onboarding', () => {
     await intro.getByRole('button', { name: 'Start Creating' }).click();
     await expect(intro).toBeHidden();
     await page.reload();
-    await expect(page.getByRole('heading', { name: /Create\.\s*Swipe\. Flex\./ })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /^(Good (morning|afternoon|evening)|Up late)/ })).toBeVisible();
     await expect(page.getByRole('dialog')).toBeHidden();
   });
 });
@@ -22,11 +22,11 @@ test.describe('onboarding', () => {
 test('home dashboard shows quick create, trending and a friendly empty state', async ({ app: page }) => {
   await pinDate(page);
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'What are we making?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Start something' })).toBeVisible();
   for (const label of ['Carousel', 'Story', 'Post', 'Reel Cover', 'Thumbnail', 'Collage', 'Poster', 'Moodboard']) {
     await expect(page.getByRole('button', { name: new RegExp(`^New ${label}:`) })).toBeVisible();
   }
-  await expect(page.getByText('No designs yet 👀')).toBeVisible();
+  await expect(page.getByText('No designs yet.')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'What’s hot right now' })).toBeVisible();
   await page.getByRole('radio', { name: 'Palettes' }).click();
   await expect(page.getByText('Acid Mint', { exact: true })).toBeVisible();
@@ -79,7 +79,7 @@ test('project management: rename, duplicate, trash with undo, restore, delete fo
   await page.getByRole('button', { name: 'Actions for Summer dump (copy)' }).click();
   await page.getByRole('menuitem', { name: 'Delete forever' }).click();
   await page.getByRole('dialog', { name: 'Delete forever?' }).getByRole('button', { name: 'Delete forever' }).click();
-  await expect(page.getByText('Trash is empty ✨')).toBeVisible();
+  await expect(page.getByText('Trash is empty.')).toBeVisible();
 
   await page.getByRole('radio', { name: /All/ }).click();
   await expect(page.getByTestId('project-card')).toHaveCount(1);
@@ -89,7 +89,7 @@ test('searching projects shows a helpful empty state', async ({ app: page }) => 
   await createCarousel(page);
   await page.goto('/projects/');
   await page.getByRole('textbox', { name: 'Search projects' }).fill('zzz-nothing');
-  await expect(page.getByText('Nothing matches that 🔍')).toBeVisible();
+  await expect(page.getByText('Nothing matches that.')).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page.getByTestId('project-card')).toHaveCount(1);
 });
@@ -156,7 +156,7 @@ test.describe('reduced motion', () => {
 
 test('missing projects get a friendly recovery screen', async ({ app: page }) => {
   await page.goto('/editor/?id=prj_doesnotexist');
-  await expect(page.getByText('We can’t find that design 🫥')).toBeVisible();
+  await expect(page.getByText('We can’t find that design.')).toBeVisible();
   await page.getByRole('link', { name: 'See your projects' }).click();
   await expect(page).toHaveURL(/\/projects\/$/);
 });

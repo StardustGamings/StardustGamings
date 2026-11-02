@@ -6,9 +6,9 @@ import { useSettings } from '@/settings/store';
 import { cn } from '@/utils/cn';
 
 const THEMES: { value: ThemePreference; label: string; bg: string; panel: string; text: string; accent: string }[] = [
-  { value: 'dark', label: 'Dark', bg: '#101012', panel: '#1E1E22', text: '#EDEDEA', accent: '#C6FF3D' },
-  { value: 'light', label: 'Light', bg: '#F4F4F1', panel: '#FFFFFF', text: '#161616', accent: '#C6FF3D' },
-  { value: 'oled', label: 'OLED', bg: '#000000', panel: '#141416', text: '#EDEDEA', accent: '#C6FF3D' },
+  { value: 'dark', label: 'Dark', bg: '#131211', panel: '#201E1C', text: '#F2EEE8', accent: '#FF6B35' },
+  { value: 'light', label: 'Light', bg: '#F4F1EA', panel: '#FFFFFF', text: '#1C1A17', accent: '#F2622E' },
+  { value: 'oled', label: 'OLED', bg: '#000000', panel: '#121110', text: '#F2EEE8', accent: '#FF6B35' },
 ];
 
 function Swatch({ t }: { t: (typeof THEMES)[number] }) {
@@ -50,7 +50,7 @@ export function ThemePicker({ labelId }: { labelId: string }) {
             <span
               className={cn(
                 'relative block h-16 overflow-hidden rounded-md border-2 transition-[border-color] duration-150',
-                active ? 'border-accent' : 'border-line group-hover:border-line-strong',
+                active ? 'border-fg' : 'border-line group-hover:border-line-strong',
               )}
             >
               {t.system ? (
@@ -66,8 +66,8 @@ export function ThemePicker({ labelId }: { labelId: string }) {
                 <Swatch t={t} />
               )}
               {active && (
-                <span className="absolute top-1.5 right-1.5 flex size-5 items-center justify-center rounded-full bg-accent text-accent-fg">
-                  <Check className="size-3" strokeWidth={3} />
+                <span className="absolute top-1.5 right-1.5 flex size-5 items-center justify-center rounded-full bg-fg text-bg">
+                  <Check className="size-3" style={{ strokeWidth: 3 }} />
                 </span>
               )}
             </span>

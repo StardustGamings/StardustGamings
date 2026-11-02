@@ -10,8 +10,7 @@ export default function TemplatesPage() {
       <header className="pb-6">
         <h1 className="text-display">Templates</h1>
         <p className="mt-2 max-w-xl text-caption">
-          {TEMPLATE_CATALOG.length} original templates ship with the app, so they work offline. Preview any of them as a swipe,
-          try another colourway, drop your photos in — and save your own designs as templates too.
+          {TEMPLATE_CATALOG.length} originals, all offline. Preview one as a swipe, try another colourway, drop your photos in.
         </p>
       </header>
       <TemplateBrowser />

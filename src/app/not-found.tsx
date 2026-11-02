@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className="py-16">
       <EmptyState
-        title="This page swiped away 👀"
+        title="This page swiped away."
         description="The link might be old, or the page moved. Your projects are all still safe on this device."
         action={
           <Link href="/" className={buttonClasses({ variant: 'primary' })}>

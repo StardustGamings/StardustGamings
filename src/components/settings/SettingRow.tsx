@@ -1,40 +1,35 @@
 import { useId, type ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
+/**
+ * A settings group in the native mobile pattern: a small-caps label, the rows in one inset
+ * group, and the explanation as a footnote underneath.
+ */
 export function SettingsSection({
   id,
   title,
   description,
-  icon,
   badge,
   children,
 }: {
   id: string;
   title: string;
   description?: ReactNode;
-  icon: ReactNode;
+  /** Kept for the section nav; groups themselves don't show icons. */
+  icon?: ReactNode;
   badge?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <section
-      id={id}
-      aria-labelledby={`${id}-title`}
-      className="scroll-mt-20 border-t border-line pt-6 first:border-t-0 first:pt-0"
-    >
-      <div className="mb-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-fg-subtle [&_svg]:size-4" aria-hidden>
-            {icon}
-          </span>
-          <h2 id={`${id}-title`} className="text-heading">
-            {title}
-          </h2>
-          {badge}
-        </div>
-        {description && <p className="mt-1 text-caption">{description}</p>}
+    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24">
+      <div className="mb-2 flex items-center gap-2 px-1">
+        <h2 id={`${id}-title`} className="text-label">
+          {title}
+        </h2>
+        {badge}
       </div>
       <div className="divide-y divide-line rounded-lg border border-line bg-surface px-4">{children}</div>
+      {description && <p className="mt-2 px-1 text-[12.5px] leading-snug text-fg-subtle">{description}</p>}
     </section>
   );
 }
@@ -58,13 +53,13 @@ export function SettingRow({
   return (
     <div
       className={cn(
-        'flex py-3.5',
+        'flex min-h-[56px] py-3',
         stacked ? 'flex-col gap-3' : 'flex-wrap items-center justify-between gap-x-4 gap-y-2.5',
         className,
       )}
     >
       <div className={cn('min-w-0', !stacked && 'flex-[1_1_220px]')}>
-        <p id={labelId} className="text-sm font-medium">
+        <p id={labelId} className="text-[15px] font-medium tracking-[-0.01em]">
           {title}
         </p>
         {description && (

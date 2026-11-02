@@ -2,12 +2,10 @@
 
 import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useTemplateLookup } from '@/templates/store';
 import { useTrendLooks, useTrends } from '@/trends/store';
 import { Segmented } from '@/components/ui/Segmented';
-import { buttonClasses } from '@/components/ui/button-styles';
 import { SectionHeader } from '@/components/home/SectionHeader';
 import { EffectCard, FilterCard } from './EffectCard';
 import { PaletteCard } from './PaletteCard';
@@ -113,28 +111,35 @@ export function Trending() {
   };
 
   return (
-    <section aria-labelledby="trending" className="mt-10">
+    <section aria-labelledby="trending" className="mt-12">
       <SectionHeader
         id="trending"
         eyebrow={newDrop ? `New drop · ${pack.title}` : `Trending · ${pack.title}`}
         title="What’s hot right now"
         description={pack.subtitle}
         action={
-          <Link href="/discover/" className={buttonClasses({ variant: 'ghost', size: 'sm', className: 'hidden sm:inline-flex' })}>
-            Discover <ArrowRight className="size-4" />
+          <Link href="/discover/" className="hidden text-[13.5px] font-medium text-accent-text hover:underline sm:inline">
+            Discover
           </Link>
         }
       />
       <div className="-mx-4 mb-5 hide-scrollbar overflow-x-auto px-4 sm:mx-0 sm:px-0">
-        <Segmented value={tab} onChange={setTab} options={TABS} aria-label="Trending category" />
+        <Segmented
+          value={tab}
+          onChange={setTab}
+          options={TABS}
+          aria-label="Trending category"
+          variant="underline"
+          className="min-w-full"
+        />
       </div>
       <AnimatePresence mode="wait">
         <motion.div
           key={tab}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.2 }}
+          initial={{ opacity: 0, x: 12 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -8 }}
+          transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
         >
           {content()}
         </motion.div>

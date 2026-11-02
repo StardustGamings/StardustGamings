@@ -65,7 +65,7 @@ function CategoryNav({ items }: { items: { id: string; label: string }[] }) {
   return (
     <nav
       aria-label="Trend categories"
-      className="sticky top-14 z-20 -mx-4 mb-8 hide-scrollbar overflow-x-auto border-b border-line bg-bg px-4 sm:mx-0 sm:px-0"
+      className="sticky top-[calc(3.5rem+max(env(safe-area-inset-top),var(--safe-area-inset-top,0px)))] z-20 -mx-4 mb-8 hide-scrollbar overflow-x-auto border-b border-line bg-bg px-4 sm:mx-0 sm:px-0"
       data-testid="trend-categories"
     >
       <ul className="flex gap-5">
@@ -73,7 +73,7 @@ function CategoryNav({ items }: { items: { id: string; label: string }[] }) {
           <li key={c.id}>
             <a
               href={`#${c.id}`}
-              className="-mb-px inline-flex h-10 items-center border-b-2 border-transparent text-[13px] font-medium whitespace-nowrap text-fg-muted transition-colors hover:border-line-strong hover:text-fg"
+              className="-mb-px inline-flex h-11 items-center border-b-2 border-transparent text-[14px] font-medium whitespace-nowrap text-fg-subtle transition-colors hover:border-line-strong hover:text-fg"
             >
               {c.label}
             </a>

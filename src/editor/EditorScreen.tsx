@@ -486,7 +486,7 @@ export function EditorScreen() {
     return (
       <div className="flex min-h-dvh items-center justify-center p-6">
         <EmptyState
-          title="We can’t find that design 🫥"
+          title="We can’t find that design."
           description="It may have been deleted, or it was made on another device. Projects live in the browser where you created them."
           action={
             <Link href="/projects/" className={buttonClasses({ variant: 'primary' })}>

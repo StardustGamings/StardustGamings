@@ -37,7 +37,7 @@ export function Rail({ children, label, itemClassName }: { children: ReactNode[]
       <ul
         ref={ref}
         aria-label={label}
-        className="-mx-4 hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-2 sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10"
+        className="-mx-4 hide-scrollbar flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto scroll-smooth px-4 pb-2 sm:-mx-6 sm:scroll-px-6 sm:gap-4 sm:px-6 lg:-mx-10 lg:scroll-px-10 lg:px-10"
       >
         {children.map((child, i) => (
           <li key={i} className={cn('shrink-0 snap-start', itemClassName)}>

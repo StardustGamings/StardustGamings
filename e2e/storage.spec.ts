@@ -216,7 +216,7 @@ test.describe('storage (desktop)', () => {
     const device = await otherDevice(browser);
     try {
       await open(device.page, '/projects/');
-      await expect(device.page.getByRole('heading', { name: 'No designs yet 👀' })).toBeVisible();
+      await expect(device.page.getByRole('heading', { name: 'No designs yet.' })).toBeVisible();
       await device.page
         .getByTestId('project-file-input')
         .setInputFiles({ name: download.suggestedFilename(), mimeType: 'application/zip', buffer: bytes });

@@ -9,6 +9,7 @@ import { useTrends } from '@/trends/store';
 import { useSettings } from '@/settings/store';
 import { formatRelativeTime } from '@/utils/time';
 import { cn } from '@/utils/cn';
+import { chipClasses } from '@/components/ui/Chip';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { toast } from '@/components/ui/toast-store';
@@ -55,7 +56,6 @@ function SourceLine() {
           Settings
         </Link>
       )}
-      <span>Trend packs are plain JSON — new drops arrive without an app update, and everything here works offline.</span>
     </p>
   );
 }
@@ -73,16 +73,16 @@ export function DropHeader() {
   const list = drops.length ? drops : [{ id: pack.id, title: pack.title, publishedAt: pack.publishedAt, url: '' }];
 
   return (
-    <header className="mb-6 border-b border-line pb-8" data-testid="drop-header">
+    <header className="mb-4 pb-6" data-testid="drop-header">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-end">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="accent">Trend drop · {monthLabel(pack.publishedAt)}</Badge>
-            {pack.id === latestId && source !== 'file' && <Badge>Latest</Badge>}
+            <p className="text-label">Trend drop · {monthLabel(pack.publishedAt)}</p>
+            {pack.id === latestId && source !== 'file' && <Badge tone="accent">Latest</Badge>}
             {source === 'file' && <Badge>Pack file preview</Badge>}
           </div>
-          <h1 className="mt-3 text-display">What’s trending</h1>
-          <p className="mt-2 text-heading text-fg-muted" data-testid="drop-title">
+          <h1 className="mt-2.5 text-display">What’s trending</h1>
+          <p className="mt-1.5 text-heading text-fg-muted italic" data-testid="drop-title">
             {pack.title}
           </p>
           <p className="mt-1 max-w-xl text-caption">{pack.subtitle}</p>
@@ -93,8 +93,7 @@ export function DropHeader() {
           ) : (
             list.length > 1 && (
               <div className="mt-5" role="radiogroup" aria-label="Trend drops" data-testid="drop-switcher">
-                <p className="mb-1.5 text-label">Drops</p>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {list.map((d) => (
                     <button
                       key={d.id}
@@ -105,15 +104,15 @@ export function DropHeader() {
                       onClick={async () => {
                         if (!(await selectDrop(d.id))) toast({ title: 'That drop isn’t available offline', tone: 'info' });
                       }}
-                      className={cn(
-                        'h-8 rounded-md border px-3 text-[13px] font-medium transition-colors',
-                        pack.id === d.id
-                          ? 'border-line-strong bg-surface-active text-fg'
-                          : 'border-line text-fg-muted hover:border-line-strong hover:text-fg',
-                      )}
+                      className={chipClasses(pack.id === d.id)}
                     >
                       {d.title ?? d.id}
-                      {d.id === latestId && <span className="ml-1.5 text-[11px] text-accent-text">New</span>}
+                      {d.id === latestId && (
+                        <>
+                          <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+                          <span className="sr-only">(new)</span>
+                        </>
+                      )}
                     </button>
                   ))}
                 </div>

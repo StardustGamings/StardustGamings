@@ -35,21 +35,20 @@ function Thumb({ project }: { project: ProjectMeta }) {
   const url = useProjects((s) => s.thumbnails[project.id]);
   const multi = project.slideCount > 1;
   return (
-    <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-bg-sunken">
-      <div className="relative flex h-[80%] w-[80%] items-center justify-center">
+    <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-lg bg-bg-sunken">
+      <div className="relative flex h-[84%] w-[84%] items-center justify-center">
         {multi && url && (
-          <span
-            aria-hidden
-            className="absolute inset-y-[4%] right-[-3%] left-[8%] rounded-sm border border-line bg-surface-hover"
-          />
+          <span aria-hidden className="absolute inset-y-[5%] right-[-4%] left-[10%] rounded-[3px] bg-surface-active" />
         )}
         {url ? (
-          // eslint-disable-next-line @next/next/no-img-element -- local object URL
-          <img
+          <motion.img
             src={url}
             alt=""
             draggable={false}
-            className="relative max-h-full max-w-full rounded-sm object-contain shadow-[var(--shadow-soft)]"
+            initial={{ opacity: 0, scale: 0.985 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.28, ease: [0.2, 0, 0, 1] }}
+            className="relative max-h-full max-w-full rounded-[3px] object-contain shadow-[var(--shadow-lift)] transition-transform duration-300 ease-[var(--ease-emphasized)] group-hover:-translate-y-0.5"
           />
         ) : (
           <span className="flex size-12 items-center justify-center rounded-md border border-line-strong text-fg-subtle">
@@ -68,9 +67,11 @@ export function ProjectCard({
   project,
   trashed = false,
   showFolder = false,
+  className,
 }: {
   project: ProjectMeta;
   trashed?: boolean;
+  className?: string;
   /** Show which folder the project is in (when the list isn't already filtered to one). */
   showFolder?: boolean;
 }) {
@@ -89,11 +90,10 @@ export function ProjectCard({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.16 } }}
       transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
-      className="group relative"
+      className={cn('group relative', className)}
       data-testid="project-card"
     >
       <div
-        className="overflow-hidden rounded-lg border border-line bg-surface transition-[border-color] duration-150 group-hover:border-line-strong"
         onDragStart={(e) => {
           if (trashed) return;
           e.dataTransfer.setData(PROJECT_DRAG_TYPE, project.id);
@@ -101,9 +101,9 @@ export function ProjectCard({
         }}
       >
         <Thumb project={project} />
-        <div className="flex items-start gap-2 border-t border-line px-3 pt-2.5 pb-2.5">
+        <div className="flex items-start gap-1 pt-2.5 pl-0.5">
           <div className="min-w-0 flex-1">
-            <h3 className="truncate font-sans text-sm font-semibold tracking-normal">
+            <h3 className="truncate text-[14px] leading-snug font-semibold tracking-[-0.01em]">
               {trashed ? (
                 project.name
               ) : (
@@ -116,7 +116,6 @@ export function ProjectCard({
               )}
             </h3>
             <p className="mt-0.5 flex items-center gap-1.5 truncate text-meta">
-              <FormatIcon format={project.format} className="size-3.5 shrink-0" />
               <span className="truncate">
                 {format.label}
                 {project.slideCount > 1 && ` · ${project.slideCount} slides`}
@@ -131,7 +130,7 @@ export function ProjectCard({
               </time>
             </p>
             {folder && (
-              <p className="mt-1 flex items-center gap-1 truncate text-[11px] font-semibold text-fg-muted">
+              <p className="mt-1 flex items-center gap-1 truncate text-[11.5px] font-medium text-fg-muted">
                 <FolderIcon className="size-3 shrink-0" style={{ color: folder.color }} fill={folder.color} fillOpacity={0.3} />
                 <span className="truncate">{folder.name}</span>
               </p>
@@ -142,7 +141,7 @@ export function ProjectCard({
               <button
                 type="button"
                 aria-label={`Actions for ${project.name}`}
-                className="relative z-10 -mr-1 flex size-8 shrink-0 items-center justify-center rounded-md text-fg-subtle transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active data-[state=open]:text-fg"
+                className="relative z-10 -mt-1 -mr-1.5 flex size-9 shrink-0 items-center justify-center rounded-md text-fg-subtle transition-colors hover:bg-surface-hover hover:text-fg data-[state=open]:bg-surface-active data-[state=open]:text-fg"
               >
                 <MoreHorizontal className="size-[18px]" />
               </button>
@@ -207,10 +206,10 @@ export function ProjectCard({
           aria-pressed={project.favorite}
           onClick={() => void actions.toggleFavorite(project.id)}
           className={cn(
-            'absolute top-4 left-4 z-10 flex size-8 items-center justify-center rounded-full transition-all',
+            'absolute top-2 left-2 z-10 flex size-8 items-center justify-center rounded-full transition-[opacity,background-color,color] duration-150',
             project.favorite
-              ? 'bg-warning text-ink'
-              : 'text-fg-muted opacity-0 glass-strong group-hover:opacity-100 hover:text-fg focus-visible:opacity-100 [@media(hover:none)]:opacity-100',
+              ? 'bg-accent-2 text-ink'
+              : 'bg-bg-elevated/90 text-fg-muted opacity-0 group-hover:opacity-100 hover:text-fg focus-visible:opacity-100',
           )}
         >
           <Star className={cn('size-4', project.favorite && 'fill-current')} />
@@ -222,9 +221,9 @@ export function ProjectCard({
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-lg border border-line bg-surface" aria-hidden>
-      <div className="aspect-[4/5] skeleton" />
-      <div className="space-y-2 border-t border-line px-3 py-3">
+    <div aria-hidden>
+      <div className="aspect-[4/5] skeleton rounded-lg" />
+      <div className="space-y-2 pt-3 pl-0.5">
         <div className="h-3.5 w-3/4 skeleton rounded-xs" />
         <div className="h-3 w-1/2 skeleton rounded-xs" />
       </div>

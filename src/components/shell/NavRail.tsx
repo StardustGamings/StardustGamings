@@ -21,7 +21,7 @@ export function NavRail() {
   return (
     <nav
       aria-label="Main"
-      className="fixed inset-y-0 left-0 z-40 hidden w-[76px] flex-col items-center border-r border-line bg-bg md:flex"
+      className="fixed inset-y-0 left-0 z-40 hidden w-[76px] flex-col items-center border-r border-line bg-bg-sunken md:flex"
     >
       <Link href="/" aria-label="Stardeck home" className="mt-3 flex size-10 items-center justify-center rounded-md">
         <LogoMark className="size-8" />
@@ -31,12 +31,12 @@ export function NavRail() {
         <motion.button
           type="button"
           onClick={() => openNewProject(defaultFormat)}
-          whileTap={{ scale: 0.94 }}
-          transition={{ duration: 0.1 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: 'spring', stiffness: 700, damping: 30 }}
           aria-label="New design"
           className="mt-5 flex size-10 items-center justify-center rounded-md bg-accent text-accent-fg transition-colors hover:bg-accent-hover"
         >
-          <Plus className="size-5" strokeWidth={2.25} />
+          <Plus className="size-5" style={{ strokeWidth: 2.25 }} />
         </motion.button>
       </Tooltip>
 
@@ -57,10 +57,10 @@ export function NavRail() {
                   <motion.span
                     layoutId="rail-active"
                     className="absolute inset-0 -z-10 rounded-md bg-surface-active"
-                    transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
+                    transition={{ type: 'spring', stiffness: 520, damping: 40 }}
                   />
                 )}
-                <item.icon className="size-5" strokeWidth={active ? 2.1 : 1.8} />
+                <item.icon className="size-5" />
                 {item.label}
                 {item.trendDot && <NewDropDot className="top-1.5 right-3.5" />}
               </Link>

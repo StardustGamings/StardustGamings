@@ -1,12 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { useSettings } from '@/settings/store';
-import { useUi } from '@/settings/ui-store';
 import { useClientValue } from '@/hooks/useClientValue';
-import { Button } from '@/components/ui/Button';
-import { buttonClasses } from '@/components/ui/button-styles';
+import { cn } from '@/utils/cn';
 
 function greetingFor(hour: number) {
   if (hour < 5) return 'Up late';
@@ -15,36 +11,31 @@ function greetingFor(hour: number) {
   return 'Good evening';
 }
 
-/** Page header for Home: who it's for, the tagline, and the two ways in. */
+// Snapshots must be stable between reads, so each is a plain string.
+const greetingNow = () => greetingFor(new Date().getHours());
+const dateNow = () => new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+
+/** Home header: today's date and a greeting. The work below is the focus, so no pitch. */
 export function HomeHero() {
-  const displayName = useSettings((s) => s.displayName);
-  const openNewProject = useUi((s) => s.openNewProject);
-  const greeting = useClientValue<string | null>(() => greetingFor(new Date().getHours()), null);
+  const displayName = useSettings((s) => s.displayName).trim();
+  const greeting = useClientValue<string | null>(greetingNow, null);
+  const date = useClientValue<string | null>(dateNow, null);
 
   return (
-    <section
-      aria-labelledby="hero-title"
-      className="flex flex-col gap-5 border-b border-line pb-8 sm:flex-row sm:items-end sm:justify-between"
-    >
-      <div className="min-w-0">
-        <p className="h-4 text-meta" suppressHydrationWarning>
-          {greeting ? `${greeting}${displayName ? `, ${displayName}` : ''}` : ''}
-        </p>
-        <h1 id="hero-title" className="mt-1.5 text-display">
-          Create. Swipe. <span className="text-accent-text">Flex.</span>
-        </h1>
-        <p className="mt-2 max-w-md text-caption">
-          Carousels, stories and covers, made on this device. Free, no watermarks, works offline.
-        </p>
-      </div>
-      <div className="flex shrink-0 flex-wrap gap-2">
-        <Button variant="primary" onClick={() => openNewProject('carousel')} iconRight={<ArrowRight className="size-4" />}>
-          New carousel
-        </Button>
-        <Link href="/templates/" className={buttonClasses({ variant: 'secondary' })}>
-          Browse templates
-        </Link>
-      </div>
-    </section>
+    <header className="pt-2 pb-7 sm:pt-4 sm:pb-9">
+      <p className="h-3.5 text-label" suppressHydrationWarning>
+        {date ?? ''}
+      </p>
+      <h1 id="hero-title" className={cn('mt-2.5 text-display', !greeting && 'invisible')} suppressHydrationWarning>
+        {greeting ?? 'Hello'}
+        {displayName ? (
+          <>
+            , <em className="text-accent-text">{displayName}</em>.
+          </>
+        ) : (
+          '.'
+        )}
+      </h1>
+    </header>
   );
 }

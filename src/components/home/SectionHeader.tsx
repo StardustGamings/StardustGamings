@@ -21,13 +21,13 @@ export function SectionHeader({
   return (
     <div className={cn('mb-4 flex items-end gap-4', className)}>
       <div className="min-w-0 flex-1">
-        {eyebrow && <p className="mb-1 text-meta">{eyebrow}</p>}
+        {eyebrow && <p className="mb-1.5 text-label">{eyebrow}</p>}
         <h2 id={id} className="text-heading">
           {title}
         </h2>
-        {description && <p className="mt-1 text-caption">{description}</p>}
+        {description && <p className="mt-1.5 max-w-xl text-caption">{description}</p>}
       </div>
-      {action}
+      {action && <div className="shrink-0 pb-0.5">{action}</div>}
     </div>
   );
 }

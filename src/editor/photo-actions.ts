@@ -297,7 +297,7 @@ export async function autoEnhance() {
   if (!asset) return;
   const auto = autoAdjustments(asset.image);
   if (!auto) {
-    toast({ title: 'This photo already looks balanced ✨', duration: 2200 });
+    toast({ title: 'This photo already looks balanced', duration: 2200 });
     return;
   }
   updateImage(el.id, (x) => ({ ...x, adjust: cleanAdjustments({ ...x.adjust, ...auto }) }));
@@ -316,7 +316,7 @@ export async function removeBackground(method: CutoutMethod) {
     if (!current || current.type !== 'image' || current.assetId !== el.assetId) return;
     const backdrop = current.cutout?.backdrop ?? cutout.backdrop;
     updateImage(el.id, (x) => ({ ...x, cutout: { ...cutout, backdrop } }));
-    toast({ title: 'Background removed ✂️', tone: 'success', action: { label: 'Undo', onClick: () => ed().undo() } });
+    toast({ title: 'Background removed', tone: 'success', action: { label: 'Undo', onClick: () => ed().undo() } });
   } catch (err) {
     const { title, description } = describeCutoutError(err);
     toast({ title, description, tone: 'error', duration: 7000 });

@@ -296,7 +296,7 @@ export function StickersPanel() {
   );
   const all = useMemo(() => [...STICKERS, ...dropStickers.filter((s) => s.id.startsWith('art:'))], [dropStickers]);
   const docs = useMemo(() => new Map([...all, ...dropStickers].map((s) => [s.id, stickerDoc(s.id)])), [all, dropStickers]);
-  const tabs = [STICKER_TABS[0]!, { id: 'drop' as const, label: `✦ ${drop.title}` }, ...STICKER_TABS.slice(1)];
+  const tabs = [STICKER_TABS[0]!, { id: 'drop' as const, label: drop.title }, ...STICKER_TABS.slice(1)];
   const list = (tab === 'drop' ? dropStickers : all).filter(
     (s) =>
       (tab === 'all' || tab === 'drop' || s.category === tab) &&
