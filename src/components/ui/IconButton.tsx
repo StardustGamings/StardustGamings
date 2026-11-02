@@ -7,9 +7,9 @@ import { Tooltip } from './Tooltip';
 
 type Size = 'sm' | 'md' | 'lg';
 const SIZES: Record<Size, string> = {
-  sm: 'size-8 rounded-md [&_svg]:size-4',
-  md: 'size-9 rounded-md [&_svg]:size-[18px]',
-  lg: 'size-11 rounded-lg [&_svg]:size-5',
+  sm: 'size-8 rounded-sm [&_svg]:size-4',
+  md: 'size-10 rounded-md [&_svg]:size-5',
+  lg: 'size-11 rounded-md [&_svg]:size-[22px]',
 };
 
 export interface IconButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
@@ -27,8 +27,8 @@ export interface IconButtonProps extends Omit<HTMLMotionProps<'button'>, 'childr
 
 const VARIANTS = {
   ghost: 'text-fg-muted hover:text-fg hover:bg-surface-hover',
-  glass: 'bg-bg-elevated border border-line text-fg hover:border-line-strong',
-  solid: 'bg-bg-elevated border border-line text-fg hover:border-line-strong',
+  glass: 'bg-surface-strong border border-line text-fg hover:border-line-strong',
+  solid: 'bg-surface-strong border border-line text-fg hover:border-line-strong',
   accent: 'bg-accent text-accent-fg hover:bg-accent-hover',
 };
 
@@ -51,8 +51,8 @@ export function IconButton({
       ref={ref}
       type={type}
       aria-label={label}
-      whileTap={{ scale: 0.94 }}
-      transition={{ duration: 0.1 }}
+      whileTap={{ scale: 0.92 }}
+      transition={{ type: 'spring', stiffness: 700, damping: 32 }}
       className={cn(
         'inline-flex shrink-0 items-center justify-center transition-colors duration-150 disabled:pointer-events-none disabled:opacity-40',
         SIZES[size],

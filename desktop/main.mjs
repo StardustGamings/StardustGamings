@@ -150,7 +150,7 @@ function createWindow() {
     minHeight: 560,
     show: false,
     title: 'Stardeck',
-    backgroundColor: '#101012',
+    backgroundColor: '#131211',
     icon: path.join(WEB_ROOT, 'icons', 'icon-512.png'),
     autoHideMenuBar: true,
     webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false, spellcheck: true },

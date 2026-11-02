@@ -1,22 +1,34 @@
 @import 'tailwindcss';
 
-/* ───────────────────────── Brand fonts (bundled, offline) ───────────────────────── */
+/* ───────────────────────── Brand fonts (bundled, offline) ─────────────────────────
+   Instrument Serif for display type (editorial, one weight, with an italic), Archivo for the
+   interface (a grotesk with some character), JetBrains Mono for numbers in fields. */
 @font-face {
-  font-family: 'Bricolage Grotesque';
+  font-family: 'Instrument Serif';
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/bricolage-grotesque/bricolage-grotesque-latin-wght-normal.woff2') format('woff2-variations');
+  src: url('/fonts/instrument-serif/instrument-serif-latin-400-normal.woff2') format('woff2');
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 200 800;
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/manrope/manrope-latin-wght-normal.woff2') format('woff2-variations');
+  src: url('/fonts/instrument-serif/instrument-serif-latin-400-italic.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/archivo/archivo-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -33,80 +45,89 @@
 }
 
 /* ───────────────────────── Design tokens ─────────────────────────
-   Neutral graphite surfaces, one accent (lime), hairline borders. Depth comes from surface steps
-   and borders; shadows are reserved for things that float (menus, dialogs, toasts). */
+   Ink and paper: warm neutrals in tonal steps (background → surface → elevated → active), one
+   strong accent (vermilion) and a quiet supporting one (butter). Depth comes from surface steps
+   and hairline borders; shadows are kept for things that float (sheets, menus, toasts).
+   Nothing depends on a gradient. */
 :root,
 [data-theme='dark'] {
-  --bg: #101012;
-  --bg-elevated: #18181b;
-  --bg-sunken: #0b0b0d;
-  --surface: #161619;
-  --surface-strong: #18181b;
-  --surface-hover: rgb(255 255 255 / 0.05);
-  --surface-active: rgb(255 255 255 / 0.09);
-  --border: rgb(255 255 255 / 0.08);
-  --border-strong: rgb(255 255 255 / 0.15);
-  --fg: #ededea;
-  --fg-muted: #a6a6a1;
-  --fg-subtle: #9a9a94;
-  --accent: #c6ff3d;
-  --accent-hover: #d3ff69;
-  --accent-fg: #101012;
-  --accent-text: #c6ff3d;
-  --ring: #c6ff3d;
-  --selection: #7b61ff;
-  --danger: #ff6b6b;
-  --success: #5ad48b;
-  --warning: #f2c94c;
-  --info: #7fb2ff;
-  --canvas-bg: #0c0c0e;
+  --bg: #131211;
+  --bg-elevated: #201e1c;
+  --bg-sunken: #0d0c0b;
+  --surface: #1b1a18;
+  --surface-strong: #262422;
+  --surface-hover: rgb(255 246 235 / 0.045);
+  --surface-active: rgb(255 246 235 / 0.085);
+  --border: rgb(255 240 225 / 0.085);
+  --border-strong: rgb(255 240 225 / 0.16);
+  --fg: #f2eee8;
+  --fg-muted: #b3ada4;
+  --fg-subtle: #a29c93;
+  --accent: #ff6b35;
+  --accent-hover: #ff8050;
+  --accent-fg: #1a0f0a;
+  --accent-text: #ff8a5c;
+  --accent-soft: rgb(255 107 53 / 0.14);
+  --accent-2: #f0d38a;
+  --ring: #ff8a5c;
+  --selection: #ff6b35;
+  --danger: #f2645f;
+  --success: #6cc497;
+  --warning: #e9b44c;
+  --info: #9db4e6;
+  --canvas-bg: #0e0d0c;
+  --scrim: rgb(8 7 6 / 0.6);
   --shadow-rgb: 0 0 0;
-  --shadow-strength: 0.55;
-  --texture-opacity: 0.035;
+  --shadow-strength: 0.5;
+  --texture-opacity: 0.04;
   color-scheme: dark;
 }
 
 [data-theme='oled'] {
   --bg: #000000;
-  --bg-elevated: #0e0e10;
+  --bg-elevated: #121110;
   --bg-sunken: #000000;
-  --surface: #0b0b0d;
-  --surface-strong: #0e0e10;
-  --surface-hover: rgb(255 255 255 / 0.06);
-  --surface-active: rgb(255 255 255 / 0.1);
-  --border: rgb(255 255 255 / 0.09);
-  --border-strong: rgb(255 255 255 / 0.16);
-  --canvas-bg: #050506;
+  --surface: #0c0b0a;
+  --surface-strong: #1a1917;
+  --surface-hover: rgb(255 246 235 / 0.055);
+  --surface-active: rgb(255 246 235 / 0.1);
+  --border: rgb(255 240 225 / 0.1);
+  --border-strong: rgb(255 240 225 / 0.18);
+  --canvas-bg: #050505;
   --texture-opacity: 0;
   color-scheme: dark;
 }
 
 [data-theme='light'] {
-  --bg: #f4f4f1;
+  --bg: #f4f1ea;
   --bg-elevated: #ffffff;
-  --bg-sunken: #ebebe7;
-  --surface: #ffffff;
+  --bg-sunken: #ebe6dc;
+  --surface: #fbf9f5;
   --surface-strong: #ffffff;
-  --surface-hover: rgb(0 0 0 / 0.04);
-  --surface-active: rgb(0 0 0 / 0.075);
-  --border: rgb(0 0 0 / 0.09);
-  --border-strong: rgb(0 0 0 / 0.17);
-  --fg: #161616;
-  --fg-muted: #55554f;
-  --fg-subtle: #686862;
-  --accent: #c6ff3d;
-  --accent-hover: #b8f22a;
-  --accent-fg: #161616;
-  --accent-text: #3d6600;
-  --ring: #3d6600;
-  --danger: #c02f2f;
-  --success: #17783d;
-  --warning: #7f5a00;
-  --info: #235cb5;
-  --canvas-bg: #e6e6e2;
-  --shadow-rgb: 20 20 16;
+  --surface-hover: rgb(40 30 20 / 0.04);
+  --surface-active: rgb(40 30 20 / 0.075);
+  --border: rgb(60 45 30 / 0.12);
+  --border-strong: rgb(60 45 30 / 0.22);
+  --fg: #1c1a17;
+  --fg-muted: #5a544b;
+  --fg-subtle: #676056;
+  --accent: #f2622e;
+  --accent-hover: #e2541f;
+  --accent-fg: #1c1a17;
+  --accent-text: #a83f15;
+  --accent-soft: rgb(242 98 46 / 0.12);
+  --accent-2: #8a6a14;
+  --ring: #a83f15;
+  --selection: #e5531f;
+  --danger: #c2352f;
+  --success: #2c7a52;
+  --warning: #8a5a00;
+  --info: #3558a8;
+  --canvas-bg: #e4dfd5;
+  --scrim: rgb(28 22 16 / 0.34);
+  --shadow-rgb: 40 30 20;
   --shadow-strength: 0.16;
-  --texture-opacity: 0.025;
+  --texture-opacity: 0.03;
   color-scheme: light;
 }
 
@@ -135,6 +156,8 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-fg: var(--accent-fg);
   --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
   --color-ring: var(--ring);
   --color-selection: var(--selection);
   --color-danger: var(--danger);
@@ -143,24 +166,22 @@
   --color-info: var(--info);
   --color-canvas: var(--canvas-bg);
 
-  --color-lime: #c6ff3d;
-  --color-mint: #3cf0c8;
-  --color-cyan: #3cf0ff;
-  --color-violet: #a06bff;
-  --color-pink: #ff5caa;
-  --color-ink: #0b0a12;
+  /* Fixed colours for things that sit on photos (labels over thumbnails), not themed. */
+  --color-ink: #151311;
+  --color-paper: #f4f1ea;
 
-  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Radii: controls sm/md, cards and panels lg, dialogs and sheets xl. */
-  --radius-xs: 4px;
+  /* Radii by role: small controls xs/sm, fields and buttons md, grouped surfaces lg,
+     sheets and dialogs xl. Only chips and toggles are fully round. */
+  --radius-xs: 3px;
   --radius-sm: 6px;
-  --radius-md: 8px;
+  --radius-md: 9px;
   --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
 
   --shadow-soft: 0 1px 2px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.5));
   --shadow-lift:
@@ -169,15 +190,17 @@
   --shadow-float:
     0 2px 6px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 0.35)),
     0 18px 44px -14px rgb(var(--shadow-rgb) / var(--shadow-strength));
+  --shadow-sheet: 0 -10px 40px -12px rgb(var(--shadow-rgb) / calc(var(--shadow-strength) * 1.1));
   --shadow-glow: 0 0 0 0 transparent;
 
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
 
   --animate-drift: drift 28s ease-in-out infinite alternate;
   --animate-drift-slow: drift 40s ease-in-out infinite alternate-reverse;
-  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-shimmer: shimmer 1.8s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-marquee: marquee 40s linear infinite;
   --animate-spin-slow: spin 14s linear infinite;
@@ -234,14 +257,15 @@
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-sans);
-    font-feature-settings: 'ss01', 'cv11';
+    font-size: 15px;
+    line-height: 1.45;
     min-height: 100dvh;
     overscroll-behavior-y: none;
     -webkit-tap-highlight-color: transparent;
   }
   ::selection {
-    background: color-mix(in srgb, var(--accent) 70%, transparent);
-    color: var(--accent-fg);
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--fg);
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -254,9 +278,11 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-display);
-    letter-spacing: -0.015em;
     text-wrap: balance;
+  }
+  /* One icon system (Lucide) at one stroke weight everywhere. */
+  svg.lucide {
+    stroke-width: 1.75px;
   }
   * {
     scrollbar-width: thin;
@@ -279,10 +305,7 @@
 
 /* Dims the page behind a dialog; "Frosted glass" (Settings → Performance) also blurs it. */
 @utility scrim {
-  background: rgb(6 6 8 / 0.62);
-  [data-theme='light'] & {
-    background: rgb(22 22 18 / 0.32);
-  }
+  background: var(--scrim);
   [data-glass='on'] & {
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
@@ -298,52 +321,71 @@
   background: var(--accent);
 }
 
+/* Tap feedback for plain buttons: a small press, back in 140ms. */
+@utility pressable {
+  transition:
+    transform 140ms var(--ease-standard),
+    background-color 150ms var(--ease-standard),
+    border-color 150ms var(--ease-standard),
+    color 150ms var(--ease-standard);
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  [data-motion='off'] &:active {
+    transform: none;
+  }
+}
+
 /* ───────────── Type scale ─────────────
-   display: page titles · heading: sections · subheading: groups · caption: supporting text ·
-   meta: small labels, counts and timestamps. */
+   display: page titles (serif) · heading: titles for sections, sheets and dialogs (serif) ·
+   subheading: groups · caption: supporting text · label: small caps eyebrows ·
+   meta: counts, sizes and timestamps. */
 @utility text-display {
   font-family: var(--font-display);
-  font-size: 28px;
-  line-height: 1.1;
-  font-weight: 650;
-  letter-spacing: -0.025em;
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.012em;
   @media (min-width: 640px) {
-    font-size: 32px;
+    font-size: 44px;
   }
 }
 
 @utility text-heading {
   font-family: var(--font-display);
-  font-size: 19px;
-  line-height: 1.25;
-  font-weight: 620;
-  letter-spacing: -0.015em;
-}
-
-@utility text-subheading {
-  font-size: 14px;
-  line-height: 1.35;
-  font-weight: 650;
+  font-size: 25px;
+  line-height: 1.08;
+  font-weight: 400;
   letter-spacing: -0.005em;
 }
 
+@utility text-subheading {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
 @utility text-caption {
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.45;
   color: var(--fg-muted);
 }
 
 @utility text-label {
-  font-size: 12px;
-  line-height: 1.3;
+  font-size: 11px;
+  line-height: 1.2;
   font-weight: 600;
-  color: var(--fg-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
 }
 
 @utility text-meta {
-  font-size: 11.5px;
+  font-size: 12px;
   line-height: 1.35;
-  font-weight: 500;
+  font-weight: 450;
   color: var(--fg-subtle);
   font-variant-numeric: tabular-nums;
 }
@@ -368,21 +410,57 @@
   animation: var(--animate-shimmer);
 }
 
+/* Safe areas: env() in browsers; the Android app also injects --safe-area-inset-* when its
+   WebView can't report them. */
 @utility safe-bottom {
-  padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  padding-bottom: max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px));
+}
+
+@utility safe-top {
+  padding-top: max(env(safe-area-inset-top), var(--safe-area-inset-top, 0px));
 }
 
 @utility checkerboard {
   background-color: #fff;
   background-image:
-    linear-gradient(45deg, #e6e4ee 25%, transparent 25%), linear-gradient(-45deg, #e6e4ee 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #e6e4ee 75%), linear-gradient(-45deg, transparent 75%, #e6e4ee 75%);
+    linear-gradient(45deg, #e8e3da 25%, transparent 25%), linear-gradient(-45deg, #e8e3da 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e8e3da 75%), linear-gradient(-45deg, transparent 75%, #e8e3da 75%);
   background-size: 16px 16px;
   background-position:
     0 0,
     0 8px,
     8px -8px,
     -8px 0;
+}
+
+/* LoadingState: two cards trading places, the front one in the accent. */
+@keyframes loading-back {
+  0%,
+  100% {
+    transform: rotate(-10deg) translateX(-3px);
+  }
+  50% {
+    transform: rotate(8deg) translateX(4px);
+  }
+}
+@keyframes loading-front {
+  0%,
+  100% {
+    transform: rotate(7deg) translateX(4px);
+  }
+  50% {
+    transform: rotate(-9deg) translateX(-3px);
+  }
+}
+.loading-card {
+  animation: loading-back 1.4s var(--ease-emphasized) infinite;
+}
+.loading-card-front {
+  animation-name: loading-front;
+}
+[data-motion='reduced'] .loading-card,
+[data-motion='off'] .loading-card {
+  animation: none;
 }
 
 /* ───────────────────────── Motion preferences ───────────────────────── */

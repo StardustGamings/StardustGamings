@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
   appId: 'com.stardustgamings.stardeck',
   appName: 'Stardeck',
   webDir: 'out',
-  backgroundColor: '#101012',
+  backgroundColor: '#131211',
   plugins: {
     SystemBars: {
       style: 'DARK',

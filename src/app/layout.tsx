@@ -27,12 +27,12 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#0A0A11',
+  themeColor: '#131211',
 };
 
 const PRELOAD_FONTS = [
-  '/fonts/bricolage-grotesque/bricolage-grotesque-latin-wght-normal.woff2',
-  '/fonts/manrope/manrope-latin-wght-normal.woff2',
+  '/fonts/instrument-serif/instrument-serif-latin-400-normal.woff2',
+  '/fonts/archivo/archivo-latin-wght-normal.woff2',
 ];
 
 export default function RootLayout({ children }: { children: ReactNode }) {

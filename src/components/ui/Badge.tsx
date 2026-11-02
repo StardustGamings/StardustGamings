@@ -5,7 +5,7 @@ type Tone = 'neutral' | 'accent' | 'violet' | 'pink' | 'success' | 'warning' | '
 
 const TONES: Record<Tone, string> = {
   neutral: 'bg-surface-hover text-fg-muted border-line',
-  accent: 'bg-accent/12 text-accent-text border-accent/25',
+  accent: 'bg-accent-soft text-accent-text border-transparent',
   // Former colour tones read as neutral labels: one accent in the chrome.
   violet: 'bg-surface-hover text-fg-muted border-line',
   pink: 'bg-surface-hover text-fg-muted border-line',
@@ -19,7 +19,7 @@ export function Badge({ children, tone = 'neutral', className }: { children: Rea
   return (
     <span
       className={cn(
-        'inline-flex h-5 shrink-0 items-center gap-1 rounded-xs border px-1.5 text-[11px] leading-none font-semibold',
+        'inline-flex h-5 shrink-0 items-center gap-1 rounded-xs border px-1.5 text-[11px] leading-none font-medium',
         TONES[tone],
         className,
       )}

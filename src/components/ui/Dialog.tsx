@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion, useDragControls } from 'motion/react';
 import { Dialog as D } from 'radix-ui';
 import { X } from 'lucide-react';
 import type { ReactNode } from 'react';
@@ -28,7 +28,8 @@ const WIDTHS = { sm: 'sm:max-w-sm', md: 'sm:max-w-lg', lg: 'sm:max-w-2xl', xl: '
 
 /**
  * Accessible modal (focus trap, Esc, scroll lock via Radix). Renders as a centred
- * card on larger screens and a swipe-down-to-close bottom sheet on phones.
+ * card on larger screens and a bottom sheet on phones: drag the handle or the title
+ * down to close it (the body still scrolls normally).
  * Enter/exit animations are CSS keyframes keyed off Radix's data-state.
  */
 export function Dialog({
@@ -44,8 +45,12 @@ export function Dialog({
   bodyClassName,
 }: DialogProps) {
   const phone = !useMediaQuery('(min-width: 640px)', true);
+  const drag = useDragControls();
   // Closing because the editor is opening: skip the exit animation (the page is changing anyway).
   const instant = useUi((s) => s.openingEditor);
+  const startDrag = (e: React.PointerEvent) => {
+    if (phone && !(e.target as HTMLElement).closest('button')) drag.start(e);
+  };
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
       <D.Portal>
@@ -62,30 +67,37 @@ export function Dialog({
         >
           <motion.div
             className={cn(
-              'relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-xl border border-line bg-bg-elevated shadow-[var(--shadow-float)] sm:rounded-xl',
+              'relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-xl border border-b-0 border-line bg-bg-elevated shadow-[var(--shadow-sheet)] sm:rounded-xl sm:border-b sm:shadow-[var(--shadow-float)]',
               className,
             )}
             drag={phone ? 'y' : false}
+            dragControls={drag}
+            dragListener={false}
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={{ top: 0, bottom: 0.6 }}
+            dragElastic={{ top: 0.04, bottom: 0.7 }}
+            dragTransition={{ bounceStiffness: 500, bounceDamping: 40 }}
             onDragEnd={(_, info) => {
-              if (info.offset.y > 120 || info.velocity.y > 600) onOpenChange(false);
+              if (info.offset.y > 110 || info.velocity.y > 550) onOpenChange(false);
             }}
           >
-            {phone && <div aria-hidden className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-line-strong" />}
-            <div className={cn('flex items-start gap-4 px-5 pt-4 sm:px-6 sm:pt-5', hideTitle && 'sr-only')}>
-              <div className="min-w-0 flex-1">
-                <D.Title className="text-heading">{title}</D.Title>
-                {description && <D.Description className="mt-1 text-caption">{description}</D.Description>}
+            <div className="shrink-0 touch-none" onPointerDown={startDrag}>
+              {phone && <div aria-hidden className="mx-auto mt-2.5 h-[5px] w-10 rounded-full bg-line-strong" />}
+              <div className={cn('flex items-start gap-4 px-5 pt-4 sm:px-6 sm:pt-6', hideTitle && 'sr-only')}>
+                <div className="min-w-0 flex-1">
+                  <D.Title className="text-heading">{title}</D.Title>
+                  {description && <D.Description className="mt-1.5 text-caption">{description}</D.Description>}
+                </div>
+                <D.Close asChild>
+                  <IconButton label="Close" icon={<X />} size="sm" tooltip={false} className="-mt-0.5 -mr-2 text-fg-muted" />
+                </D.Close>
               </div>
-              <D.Close asChild>
-                <IconButton label="Close" icon={<X />} size="sm" tooltip={false} className="-mt-1 -mr-2" />
-              </D.Close>
             </div>
             {!description && <D.Description className="sr-only">{typeof title === 'string' ? title : 'Dialog'}</D.Description>}
-            <div className={cn('min-h-0 flex-1 overflow-y-auto px-5 pt-4 pb-5 sm:px-6 sm:pb-6', bodyClassName)}>{children}</div>
+            <div className={cn('min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-5 sm:px-6 sm:pb-6', bodyClassName)}>
+              {children}
+            </div>
             {footer && (
-              <div className="flex flex-col-reverse gap-2 border-t border-line bg-bg-elevated px-5 py-3.5 safe-bottom sm:flex-row sm:justify-end sm:px-6">
+              <div className="flex flex-col-reverse gap-2 border-t border-line bg-bg-elevated px-5 py-3.5 safe-bottom sm:flex-row sm:justify-end sm:px-6 [&>button]:max-sm:h-12">
                 {footer}
               </div>
             )}

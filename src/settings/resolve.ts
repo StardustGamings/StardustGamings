@@ -11,8 +11,8 @@ export function resolveMotion(pref: MotionPreference, systemPrefersReduced: bool
 }
 
 export const THEME_COLORS: Record<ResolvedTheme, string> = {
-  dark: '#0A0A11',
-  light: '#F5F3FA',
+  dark: '#131211',
+  light: '#F4F1EA',
   oled: '#000000',
 };
 
