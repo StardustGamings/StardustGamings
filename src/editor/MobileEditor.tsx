@@ -105,14 +105,20 @@ function ToolSlot({
       aria-label={label}
       aria-pressed={active}
       className={cn(
-        'pressable relative flex h-[58px] min-w-[54px] flex-1 flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-[-0.01em]',
+        'relative flex h-[58px] min-w-[54px] flex-1 pressable flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-[-0.01em]',
         active ? 'text-fg' : 'text-fg-muted',
       )}
     >
       {active && (
-        <motion.span layoutId={highlightId} className="absolute inset-x-1 inset-y-1 rounded-md bg-surface-active" transition={SPRING} />
+        <motion.span
+          layoutId={highlightId}
+          className="absolute inset-x-1 inset-y-1 rounded-md bg-surface-active"
+          transition={SPRING}
+        />
       )}
-      <span className={cn('relative transition-colors duration-150 [&_svg]:size-[22px]', active && 'text-accent-text')}>{icon}</span>
+      <span className={cn('relative transition-colors duration-150 [&_svg]:size-[22px]', active && 'text-accent-text')}>
+        {icon}
+      </span>
       <span className="relative max-w-full truncate px-0.5">{label}</span>
     </button>
   );
@@ -132,7 +138,10 @@ function MobileToolbar({ moreOpen, onMore }: { moreOpen: boolean; onMore: (open:
     const single = selected.length === 1 ? selected[0]! : null;
     const locked = selected.every((e) => e.locked);
     return (
-      <nav aria-label="Selection actions" className="relative z-20 shrink-0 border-t border-line bg-bg-elevated safe-bottom lg:hidden">
+      <nav
+        aria-label="Selection actions"
+        className="relative z-20 shrink-0 border-t border-line bg-bg-elevated safe-bottom lg:hidden"
+      >
         <motion.div
           key="selection"
           initial={{ opacity: 0, y: 6 }}
@@ -187,8 +196,18 @@ function MobileToolbar({ moreOpen, onMore }: { moreOpen: boolean; onMore: (open:
               <ToolSlot highlightId="selection-active" label="Shuffle" icon={<Dices />} onClick={shuffleLayout} />
             )}
             <ToolSlot highlightId="selection-active" label="Duplicate" icon={<Copy />} onClick={actions.duplicateSelection} />
-            <ToolSlot highlightId="selection-active" label="Forward" icon={<ArrowUp />} onClick={() => actions.reorder('forward')} />
-            <ToolSlot highlightId="selection-active" label="Back" icon={<ArrowDown />} onClick={() => actions.reorder('backward')} />
+            <ToolSlot
+              highlightId="selection-active"
+              label="Forward"
+              icon={<ArrowUp />}
+              onClick={() => actions.reorder('forward')}
+            />
+            <ToolSlot
+              highlightId="selection-active"
+              label="Back"
+              icon={<ArrowDown />}
+              onClick={() => actions.reorder('backward')}
+            />
             <ToolSlot
               highlightId="selection-active"
               label={locked ? 'Unlock' : 'Lock'}
@@ -202,7 +221,7 @@ function MobileToolbar({ moreOpen, onMore }: { moreOpen: boolean; onMore: (open:
               type="button"
               aria-label="Done"
               onClick={() => useEditor.getState().clearSelection()}
-              className="pressable flex h-11 items-center gap-1.5 rounded-md bg-accent-soft px-3 text-[13px] font-semibold text-accent-text"
+              className="flex h-11 pressable items-center gap-1.5 rounded-md bg-accent-soft px-3 text-[13px] font-semibold text-accent-text"
             >
               <Check className="size-[18px]" />
               Done
@@ -249,17 +268,7 @@ function MobileToolbar({ moreOpen, onMore }: { moreOpen: boolean; onMore: (open:
 }
 
 /** A square tile in the More sheet. */
-function MoreTile({
-  label,
-  icon,
-  onClick,
-  pressed,
-}: {
-  label: string;
-  icon: ReactNode;
-  onClick: () => void;
-  pressed?: boolean;
-}) {
+function MoreTile({ label, icon, onClick, pressed }: { label: string; icon: ReactNode; onClick: () => void; pressed?: boolean }) {
   return (
     <button
       type="button"
@@ -267,7 +276,7 @@ function MoreTile({
       aria-pressed={pressed}
       onClick={onClick}
       className={cn(
-        'pressable flex h-[76px] flex-col items-center justify-center gap-1.5 rounded-lg text-[12px] font-medium',
+        'flex h-[76px] pressable flex-col items-center justify-center gap-1.5 rounded-lg text-[12px] font-medium',
         pressed ? 'bg-accent-soft text-accent-text' : 'bg-surface-active text-fg-muted hover:text-fg',
       )}
     >

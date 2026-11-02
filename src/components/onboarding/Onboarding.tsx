@@ -81,7 +81,7 @@ function YoursVisual() {
     return () => window.clearInterval(t);
   }, []);
   const f = FONT_CYCLE[i]!;
-  const swatches = ['#C6FF3D', '#EDEDEA', '#8E8E88', '#2B2B30', '#E9DCC9', '#D2583F'];
+  const swatches = ['#FF6B35', '#F2EEE8', '#A29C93', '#2A2825', '#EFE7DA', '#F0D38A'];
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="flex h-24 items-center">
@@ -243,7 +243,7 @@ export function Onboarding() {
                 <header className="relative flex items-center justify-between px-5 pt-[max(20px,env(safe-area-inset-top))]">
                   <span className="flex items-center gap-2">
                     <LogoMark className="size-7" />
-                    <span className="font-display text-lg font-bold tracking-[-0.04em]">stardeck</span>
+                    <span className="font-display text-[22px] leading-none">Stardeck</span>
                   </span>
                   {!last && (
                     <Button variant="ghost" size="sm" onClick={finish}>

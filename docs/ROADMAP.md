@@ -522,6 +522,16 @@ The brief's final checklist, item by item, is in [QUALITY.md](QUALITY.md).
 - Exports save straight to Downloads with one notification, other sites open in the browser, and a second launch
   focuses the open window.
 
+## Mobile redesign ✅
+
+- New identity: ink and paper neutrals with one vermilion accent (and a quiet butter one), Instrument Serif for
+  display type and Archivo for the interface, flat logo and icons. Dark, light and OLED themes redone, all AA.
+- Phone-first screens: a projects-first Home (date, greeting, Recent, Start something), underline tabs and filter
+  chips, grouped Settings in the native pattern, bottom sheets you drag by the handle, directional page transitions.
+- Phone editor: back, name, undo, redo and export on top; Templates, Text, Photos, Elements, Background and More at
+  the bottom; one draggable sheet per tool, and the slide re-fits above it; a selection bar for what's selected;
+  swipe between slides; a slide strip with reorder mode (long-press), duplicate, delete and add.
+
 ## After 1.0
 
 - Opt-in cloud backup & sync (labelled **Soon** in Settings; nothing requires it).

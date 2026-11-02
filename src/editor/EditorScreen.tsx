@@ -253,11 +253,7 @@ function Editor() {
           </div>
           {panel === 'animate' && !cropping && <Timeline />}
           {multi && !cropping && !sheetOpen && <SlideStrip />}
-          {cropping ? (
-            <CropBar layout="docked" />
-          ) : (
-            <MobileEditorChrome />
-          )}
+          {cropping ? <CropBar layout="docked" /> : <MobileEditorChrome />}
         </div>
         <Inspector />
       </div>

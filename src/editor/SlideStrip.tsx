@@ -153,7 +153,7 @@ export function SlideStrip() {
               onClick={addSlide}
               disabled={count >= MAX_SLIDES}
               aria-label="Add slide"
-              className="pressable flex items-center justify-center rounded-[4px] border border-dashed border-line-strong text-fg-muted hover:border-fg-subtle hover:text-fg disabled:opacity-40"
+              className="flex pressable items-center justify-center rounded-[4px] border border-dashed border-line-strong text-fg-muted hover:border-fg-subtle hover:text-fg disabled:opacity-40"
               style={{ width: thumbW, height: thumbH }}
             >
               <Plus className="size-5" />
@@ -169,7 +169,7 @@ export function SlideStrip() {
           <button
             type="button"
             onClick={() => setReordering(false)}
-            className="pressable flex h-10 items-center gap-1.5 rounded-md bg-accent-soft px-3 text-[13px] font-semibold text-accent-text"
+            className="flex h-10 pressable items-center gap-1.5 rounded-md bg-accent-soft px-3 text-[13px] font-semibold text-accent-text"
           >
             <Check className="size-[18px]" /> Done
           </button>
