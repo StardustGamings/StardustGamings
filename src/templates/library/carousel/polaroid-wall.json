@@ -1,0 +1,641 @@
+{
+  "id": "polaroid-wall",
+  "name": "Polaroid Wall",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "scrapbook",
+  "description": "Instant prints taped across three slides — some hang over the edge so the swipe feels continuous.",
+  "tags": [
+    "polaroid",
+    "scrapbook",
+    "photo dump",
+    "summer",
+    "seamless"
+  ],
+  "palette": [
+    "#EADBC4",
+    "#2B2530",
+    "#F4E7B8",
+    "#E86A5A"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#EADBC4"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "pw0",
+        "x": 80,
+        "y": 80,
+        "width": 480,
+        "height": 273,
+        "rotation": -5,
+        "opacity": 1,
+        "type": "text",
+        "text": "summer\nlately",
+        "fontFamily": "Caveat",
+        "fontSize": 150,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.85,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pw1",
+        "x": 560,
+        "y": 120,
+        "width": 420,
+        "height": 504,
+        "rotation": 6,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 21,
+          "x": 0,
+          "y": 8.4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.04
+      },
+      {
+        "id": "pw2",
+        "x": 589.5901954572414,
+        "y": 145.43008039453252,
+        "width": 369.6,
+        "height": 369.6,
+        "rotation": 6,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D8C3A6"
+          }
+        }
+      },
+      {
+        "id": "pw3",
+        "x": 564.5660813509653,
+        "y": 521.2786221456971,
+        "width": 369.6,
+        "height": 94.0800000000001,
+        "rotation": 6,
+        "opacity": 1,
+        "type": "text",
+        "text": "golden hour",
+        "fontFamily": "Caveat",
+        "fontSize": 35.7,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pw4",
+        "x": 90,
+        "y": 600,
+        "width": 460,
+        "height": 552,
+        "rotation": -5,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 23,
+          "x": 0,
+          "y": 9.200000000000001
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.5200000000000005
+      },
+      {
+        "id": "pw5",
+        "x": 113.59083583360771,
+        "y": 627.7750438877797,
+        "width": 404.8,
+        "height": 404.8,
+        "rotation": -5,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#CDB79A"
+          }
+        }
+      },
+      {
+        "id": "pw6",
+        "x": 136.4430715820437,
+        "y": 1039.8572937274355,
+        "width": 404.8,
+        "height": 103.03999999999994,
+        "rotation": -5,
+        "opacity": 1,
+        "type": "text",
+        "text": "road trip!",
+        "fontFamily": "Caveat",
+        "fontSize": 39.1,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pw7",
+        "x": 820,
+        "y": 560,
+        "width": 460,
+        "height": 552,
+        "rotation": 4,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 23,
+          "x": 0,
+          "y": 9.200000000000001
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.5200000000000005
+      },
+      {
+        "id": "pw8",
+        "x": 850.8087977922297,
+        "y": 587.7120536880481,
+        "width": 404.8,
+        "height": 404.8,
+        "rotation": 4,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D2BFA4"
+          }
+        }
+      },
+      {
+        "id": "pw9",
+        "x": 832.5186503765202,
+        "y": 1000.1533476661741,
+        "width": 404.8,
+        "height": 103.03999999999994,
+        "rotation": 4,
+        "opacity": 1,
+        "type": "text",
+        "text": "best day",
+        "fontFamily": "Caveat",
+        "fontSize": 39.1,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pwa",
+        "x": 1500,
+        "y": 90,
+        "width": 440,
+        "height": 528,
+        "rotation": -7,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 22,
+          "x": 0,
+          "y": 8.8
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.28
+      },
+      {
+        "id": "pwb",
+        "x": 1521.0377488901736,
+        "y": 116.72796932778184,
+        "width": 387.2,
+        "height": 387.2,
+        "rotation": -7,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9B394"
+          }
+        }
+      },
+      {
+        "id": "pwc",
+        "x": 1551.6025802161846,
+        "y": 509.9785441594255,
+        "width": 387.2,
+        "height": 98.55999999999996,
+        "rotation": -7,
+        "opacity": 1,
+        "type": "text",
+        "text": "the crew",
+        "fontFamily": "Caveat",
+        "fontSize": 37.400000000000006,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pwd",
+        "x": 1550,
+        "y": 740,
+        "width": 420,
+        "height": 504,
+        "rotation": 5,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 21,
+          "x": 0,
+          "y": 8.4
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.04
+      },
+      {
+        "id": "pwe",
+        "x": 1578.8605411954018,
+        "y": 765.3598226801466,
+        "width": 369.6,
+        "height": 369.6,
+        "rotation": 5,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D6C2A7"
+          }
+        }
+      },
+      {
+        "id": "pwf",
+        "x": 1557.9954563816123,
+        "y": 1141.6088334033107,
+        "width": 369.6,
+        "height": 94.07999999999987,
+        "rotation": 5,
+        "opacity": 1,
+        "type": "text",
+        "text": "late swims",
+        "fontFamily": "Caveat",
+        "fontSize": 35.7,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pwg",
+        "x": 1910,
+        "y": 380,
+        "width": 460,
+        "height": 552,
+        "rotation": -3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 23,
+          "x": 0,
+          "y": 9.200000000000001
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.5200000000000005
+      },
+      {
+        "id": "pwh",
+        "x": 1935.1925460128246,
+        "y": 407.66304140128966,
+        "width": 404.8,
+        "height": 404.8,
+        "rotation": -3,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#CFB89B"
+          }
+        }
+      },
+      {
+        "id": "pwi",
+        "x": 1948.9150337397245,
+        "y": 820.383705413939,
+        "width": 404.8,
+        "height": 103.03999999999994,
+        "rotation": -3,
+        "opacity": 1,
+        "type": "text",
+        "text": "sunburnt",
+        "fontFamily": "Caveat",
+        "fontSize": 39.1,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pwj",
+        "x": 2630,
+        "y": 120,
+        "width": 430,
+        "height": 516,
+        "rotation": 8,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(20,12,30,0.22)",
+          "blur": 21.5,
+          "x": 0,
+          "y": 8.6
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FBFAF7"
+        },
+        "cornerRadius": 5.16
+      },
+      {
+        "id": "pwk",
+        "x": 2661.784443341283,
+        "y": 146.2184730441125,
+        "width": 378.4,
+        "height": 378.4,
+        "rotation": 8,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D9C6AC"
+          }
+        }
+      },
+      {
+        "id": "pwl",
+        "x": 2627.673116295971,
+        "y": 529.9731766926715,
+        "width": 378.4,
+        "height": 96.31999999999995,
+        "rotation": 8,
+        "opacity": 1,
+        "type": "text",
+        "text": "no signal",
+        "fontFamily": "Caveat",
+        "fontSize": 36.550000000000004,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pwm",
+        "x": 2260,
+        "y": 1020,
+        "width": 600,
+        "height": 147,
+        "rotation": -4,
+        "opacity": 1,
+        "type": "text",
+        "text": "more soon",
+        "fontFamily": "Caveat",
+        "fontSize": 120,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#2B2530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "pwn",
+        "x": 690,
+        "y": 70,
+        "width": 150,
+        "height": 150,
+        "rotation": 10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "tint": "#F4E7B8"
+      },
+      {
+        "id": "pwo",
+        "x": 250,
+        "y": 560,
+        "width": 140,
+        "height": 140,
+        "rotation": -12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "tint": "#F4E7B8"
+      },
+      {
+        "id": "pwp",
+        "x": 990,
+        "y": 505,
+        "width": 150,
+        "height": 150,
+        "rotation": 6,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "tint": "#F4E7B8"
+      },
+      {
+        "id": "pwq",
+        "x": 1640,
+        "y": 50,
+        "width": 140,
+        "height": 140,
+        "rotation": -8,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "tint": "#F4E7B8"
+      },
+      {
+        "id": "pwr",
+        "x": 2060,
+        "y": 330,
+        "width": 150,
+        "height": 150,
+        "rotation": 4,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "tint": "#F4E7B8"
+      },
+      {
+        "id": "pws",
+        "x": 2770,
+        "y": 80,
+        "width": 140,
+        "height": 140,
+        "rotation": 12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:tape",
+        "tint": "#F4E7B8"
+      },
+      {
+        "id": "pwt",
+        "x": 2850,
+        "y": 1000,
+        "width": 150,
+        "height": 150,
+        "rotation": 10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:heart",
+        "tint": "#E86A5A"
+      },
+      {
+        "id": "pwu",
+        "x": 1160,
+        "y": 1120,
+        "width": 180,
+        "height": 180,
+        "rotation": -10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:squiggle",
+        "tint": "#2B2530"
+      },
+      {
+        "id": "pwv",
+        "x": 420,
+        "y": 1180,
+        "width": 110,
+        "height": 110,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#E86A5A"
+      }
+    ]
+  }
+}

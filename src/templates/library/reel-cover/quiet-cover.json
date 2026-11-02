@@ -1,0 +1,137 @@
+{
+  "id": "quiet-cover",
+  "name": "Quiet Cover",
+  "format": "reel-cover",
+  "sizeId": "tiktok",
+  "style": "minimal",
+  "description": "A full-bleed photo and a soft serif title, centred where the grid crop keeps it.",
+  "tags": [
+    "minimal",
+    "routine",
+    "vlog",
+    "reels",
+    "aesthetic"
+  ],
+  "palette": [
+    "#1C1A18",
+    "#FFFFFF",
+    "#D8CFC4"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#1C1A18"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "qc0",
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "adjust": {
+          "temperature": 6,
+          "fade": 8
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#8C8278"
+          }
+        }
+      },
+      {
+        "id": "qc1",
+        "x": 0,
+        "y": 1000,
+        "width": 1080,
+        "height": 920,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "linear",
+          "angle": 180,
+          "stops": [
+            {
+              "offset": 0,
+              "color": "rgba(28,26,24,0)"
+            },
+            {
+              "offset": 1,
+              "color": "rgba(28,26,24,0.7)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "qc2",
+        "x": 60,
+        "y": 1180,
+        "width": 960,
+        "height": 288,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(10,6,20,0.4)",
+          "blur": 30,
+          "x": 0,
+          "y": 6
+        },
+        "type": "text",
+        "text": "morning\nroutine",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 150,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.9,
+        "letterSpacing": 0
+      },
+      {
+        "id": "qc3",
+        "x": 60,
+        "y": 1480,
+        "width": 960,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Vol. 2",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#D8CFC4"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.3,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

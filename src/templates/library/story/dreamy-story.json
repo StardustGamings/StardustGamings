@@ -1,0 +1,242 @@
+{
+  "id": "dreamy-story",
+  "name": "Slow Sunday",
+  "format": "story",
+  "sizeId": "story",
+  "style": "soft",
+  "description": "Pastel haze, soft serif italics and a circle crop for the main character.",
+  "tags": [
+    "dreamy",
+    "soft",
+    "aesthetic",
+    "story"
+  ],
+  "palette": [
+    "#E9DFFF",
+    "#FFE3D3",
+    "#FFF4E0",
+    "#5B3E86",
+    "#F3D6E8"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "linear",
+      "angle": 180,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#E9DFFF"
+        },
+        {
+          "offset": 0.55,
+          "color": "#FFE3D3"
+        },
+        {
+          "offset": 1,
+          "color": "#FFF4E0"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "sm",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e6g",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#5B3E86"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.92,
+        "letterSpacing": -0.02,
+        "x": 80,
+        "y": 250,
+        "width": 920,
+        "height": 420,
+        "text": "slow\nsunday",
+        "fontFamily": "Fraunces",
+        "fontSize": 210
+      },
+      {
+        "id": "e6h",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F3D6E8"
+          }
+        },
+        "x": 150,
+        "y": 730,
+        "width": 780,
+        "height": 780,
+        "cornerRadius": 390,
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 14
+        },
+        "shadow": {
+          "color": "rgba(91,62,134,0.25)",
+          "blur": 60,
+          "x": 0,
+          "y": 24
+        }
+      },
+      {
+        "id": "e6i",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "emoji:✨",
+        "x": 820,
+        "y": 690,
+        "width": 160,
+        "height": 160
+      },
+      {
+        "id": "e6j",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "emoji:🌸",
+        "x": 110,
+        "y": 1420,
+        "width": 150,
+        "height": 150
+      },
+      {
+        "id": "e6k",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#5B3E86"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 90,
+        "y": 1630,
+        "width": 260,
+        "height": 60,
+        "text": "matcha",
+        "fontFamily": "Manrope",
+        "fontSize": 42,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 26,
+          "radius": 40
+        }
+      },
+      {
+        "id": "e6l",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#5B3E86"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 380,
+        "y": 1630,
+        "width": 260,
+        "height": 60,
+        "text": "vinyl",
+        "fontFamily": "Manrope",
+        "fontSize": 42,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 26,
+          "radius": 40
+        }
+      },
+      {
+        "id": "e6m",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#5B3E86"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 650,
+        "y": 1630,
+        "width": 340,
+        "height": 60,
+        "text": "no alarms",
+        "fontFamily": "Manrope",
+        "fontSize": 42,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 26,
+          "radius": 40
+        }
+      },
+      {
+        "id": "e6n",
+        "rotation": 0,
+        "opacity": 0.75,
+        "type": "text",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#5B3E86"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0,
+        "x": 80,
+        "y": 1770,
+        "width": 920,
+        "height": 50,
+        "text": "reply with your sunday ritual",
+        "fontFamily": "Manrope",
+        "fontSize": 36
+      }
+    ]
+  }
+}

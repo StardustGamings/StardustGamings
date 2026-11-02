@@ -1,0 +1,143 @@
+{
+  "id": "story-still",
+  "name": "Story Still",
+  "format": "story",
+  "sizeId": "story",
+  "style": "cinematic",
+  "description": "A full-screen photo with letterbox bars and a single subtitle.",
+  "tags": [
+    "cinematic",
+    "film",
+    "subtitles",
+    "moody",
+    "story"
+  ],
+  "palette": [
+    "#000000",
+    "#FFE45C",
+    "#E9E4DA",
+    "#2A2622"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "solid",
+      "color": "#000000"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ss0",
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "filter": {
+          "id": "cinematic",
+          "intensity": 95
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2622"
+          }
+        }
+      },
+      {
+        "id": "ss1",
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 300,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#000000"
+        }
+      },
+      {
+        "id": "ss2",
+        "x": 0,
+        "y": 1620,
+        "width": 1080,
+        "height": 300,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#000000"
+        }
+      },
+      {
+        "id": "ss3",
+        "x": 60,
+        "y": 200,
+        "width": 960,
+        "height": 32,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Chapter one",
+        "fontFamily": "Manrope",
+        "fontSize": 26,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E4DA"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.4,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "ss4",
+        "x": 60,
+        "y": 1500,
+        "width": 960,
+        "height": 54,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(0,0,0,0.9)",
+          "blur": 6,
+          "x": 0,
+          "y": 2
+        },
+        "type": "text",
+        "text": "We said we’d only stay a week.",
+        "fontFamily": "Manrope",
+        "fontSize": 44,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFE45C"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "id": "nobody-me",
+  "name": "Nobody / Me",
+  "format": "post",
+  "sizeId": "ig-square",
+  "style": "playful",
+  "description": "Nobody asked. You did it anyway. The two-line setup and one perfect pic.",
+  "tags": [
+    "meme",
+    "meme format",
+    "text meme",
+    "relatable",
+    "funny"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#0B0A12",
+    "#D9D4E4",
+    "#7A5CFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#FFFFFF"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "nm0",
+        "x": 60,
+        "y": 50,
+        "width": 960,
+        "height": 66,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Nobody:",
+        "fontFamily": "Manrope",
+        "fontSize": 54,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "nm1",
+        "x": 60,
+        "y": 150,
+        "width": 960,
+        "height": 66,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Me at 2am:",
+        "fontFamily": "Manrope",
+        "fontSize": 54,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "nm2",
+        "x": 60,
+        "y": 226,
+        "width": 960,
+        "height": 57,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "rearranging my whole feed by colour",
+        "fontFamily": "Manrope",
+        "fontSize": 46,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "nm3",
+        "x": 60,
+        "y": 330,
+        "width": 960,
+        "height": 700,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 28,
+        "placeholder": {
+          "label": "You, at 2am",
+          "fill": {
+            "type": "solid",
+            "color": "#D9D4E4"
+          }
+        }
+      }
+    ]
+  }
+}

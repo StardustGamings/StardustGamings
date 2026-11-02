@@ -1,0 +1,87 @@
+{
+  "id": "meme-caption",
+  "name": "Caption Meme",
+  "format": "post",
+  "sizeId": "ig-square",
+  "style": "playful",
+  "description": "The classic white caption bar over a reaction pic. Timeless.",
+  "tags": [
+    "meme",
+    "funny",
+    "caption"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#0B0A12",
+    "#CFCBDD"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#FFFFFF"
+    },
+    "slides": [
+      {
+        "id": "sq",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "e7b",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.15,
+        "letterSpacing": 0,
+        "x": 50,
+        "y": 44,
+        "width": 980,
+        "height": 160,
+        "text": "me after posting one (1) carousel and checking the likes every 4 seconds",
+        "fontFamily": "Manrope",
+        "fontSize": 52
+      },
+      {
+        "id": "e7c",
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#CFCBDD"
+          }
+        },
+        "x": 0,
+        "y": 230,
+        "width": 1080,
+        "height": 850
+      },
+      {
+        "id": "e7d",
+        "rotation": 10,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:skull",
+        "x": 830,
+        "y": 830,
+        "width": 200,
+        "height": 200
+      }
+    ]
+  }
+}

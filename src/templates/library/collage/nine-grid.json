@@ -1,0 +1,200 @@
+{
+  "id": "nine-grid",
+  "name": "Nine Grid",
+  "format": "collage",
+  "sizeId": "ig-square",
+  "style": "minimal",
+  "description": "Nine photos in a tidy three-by-three grid with hairline gutters.",
+  "tags": [
+    "grid",
+    "collage",
+    "photo dump",
+    "minimal",
+    "nine"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#E6E3DE",
+    "#DAD6CF",
+    "#111111"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#FFFFFF"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "ng0",
+        "x": 12,
+        "y": 12,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E6E3DE"
+          }
+        }
+      },
+      {
+        "id": "ng1",
+        "x": 368,
+        "y": 12,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DAD6CF"
+          }
+        }
+      },
+      {
+        "id": "ng2",
+        "x": 724,
+        "y": 12,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E1DDD6"
+          }
+        }
+      },
+      {
+        "id": "ng3",
+        "x": 12,
+        "y": 368,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DAD6CF"
+          }
+        }
+      },
+      {
+        "id": "ng4",
+        "x": 368,
+        "y": 368,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E1DDD6"
+          }
+        }
+      },
+      {
+        "id": "ng5",
+        "x": 724,
+        "y": 368,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E6E3DE"
+          }
+        }
+      },
+      {
+        "id": "ng6",
+        "x": 12,
+        "y": 724,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E1DDD6"
+          }
+        }
+      },
+      {
+        "id": "ng7",
+        "x": 368,
+        "y": 724,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E6E3DE"
+          }
+        }
+      },
+      {
+        "id": "ng8",
+        "x": 724,
+        "y": 724,
+        "width": 344,
+        "height": 344,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DAD6CF"
+          }
+        }
+      }
+    ]
+  }
+}

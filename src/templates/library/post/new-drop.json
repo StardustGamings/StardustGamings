@@ -1,0 +1,192 @@
+{
+  "id": "new-drop",
+  "name": "New Drop",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "bold",
+  "description": "A loud launch post: huge headline, a product in a circle and a date burst.",
+  "tags": [
+    "announcement",
+    "launch",
+    "product",
+    "sale",
+    "bold",
+    "animated"
+  ],
+  "palette": [
+    "#1B1B1F",
+    "#F6FF6B",
+    "#FFFFFF",
+    "#FF5DA2"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#1B1B1F"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null,
+        "duration": 3250
+      }
+    ],
+    "elements": [
+      {
+        "id": "nd0",
+        "x": 50,
+        "y": 40,
+        "width": 980,
+        "height": 534,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
+        "type": "text",
+        "text": "New\ndrop",
+        "fontFamily": "Anton",
+        "fontSize": 290,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#F6FF6B"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 0.86,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "nd1",
+        "x": 330,
+        "y": 560,
+        "width": 680,
+        "height": 680,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 270,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "ellipse",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#34343A"
+          }
+        }
+      },
+      {
+        "id": "nd2",
+        "x": 60,
+        "y": 700,
+        "width": 320,
+        "height": 320,
+        "rotation": -10,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 420,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:burst",
+        "tint": "#FF5DA2"
+      },
+      {
+        "id": "nd3",
+        "x": 60,
+        "y": 700,
+        "width": 320,
+        "height": 320,
+        "rotation": -10,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "09.26",
+        "fontFamily": "Anton",
+        "fontSize": 64,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1B1B1F"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "nd4",
+        "x": 60,
+        "y": 1230,
+        "width": 400,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 720,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "Link in bio",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1B1B1F"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.1,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 16,
+          "radius": 30
+        }
+      }
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
+  }
+}

@@ -1,0 +1,1744 @@
+{
+  "id": "sticker-board",
+  "name": "Sticker Board",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "playful",
+  "description": "Grid paper, bubbly frames and way too many stickers — a week recapped the fun way.",
+  "tags": [
+    "stickers",
+    "cute",
+    "week",
+    "diary",
+    "gen-z",
+    "animated"
+  ],
+  "palette": [
+    "#FBF7F0",
+    "#1C1530",
+    "#FFD84D",
+    "#FF7AB6",
+    "#7AD3FF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#FBF7F0"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null,
+        "duration": 5000
+      },
+      {
+        "id": "s1",
+        "fill": null,
+        "duration": 7500
+      },
+      {
+        "id": "s2",
+        "fill": null,
+        "duration": 5000
+      }
+    ],
+    "elements": [
+      {
+        "id": "sb0",
+        "name": "Grid",
+        "x": 90,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb1",
+        "name": "Grid",
+        "x": 180,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb2",
+        "name": "Grid",
+        "x": 270,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 420,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb3",
+        "name": "Grid",
+        "x": 360,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb4",
+        "name": "Grid",
+        "x": 450,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb5",
+        "name": "Grid",
+        "x": 540,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 870,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb6",
+        "name": "Grid",
+        "x": 630,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1020,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb7",
+        "name": "Grid",
+        "x": 720,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1170,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb8",
+        "name": "Grid",
+        "x": 810,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb9",
+        "name": "Grid",
+        "x": 900,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1470,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sba",
+        "name": "Grid",
+        "x": 990,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1620,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbb",
+        "name": "Grid",
+        "x": 1080,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbc",
+        "name": "Grid",
+        "x": 1170,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbd",
+        "name": "Grid",
+        "x": 1260,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 420,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbe",
+        "name": "Grid",
+        "x": 1350,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbf",
+        "name": "Grid",
+        "x": 1440,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbg",
+        "name": "Grid",
+        "x": 1530,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 870,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbh",
+        "name": "Grid",
+        "x": 1620,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1020,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbi",
+        "name": "Grid",
+        "x": 1710,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1170,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbj",
+        "name": "Grid",
+        "x": 1800,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbk",
+        "name": "Grid",
+        "x": 1890,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1470,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbl",
+        "name": "Grid",
+        "x": 1980,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1620,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbm",
+        "name": "Grid",
+        "x": 2070,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1770,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbn",
+        "name": "Grid",
+        "x": 2160,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 120,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbo",
+        "name": "Grid",
+        "x": 2250,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 270,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbp",
+        "name": "Grid",
+        "x": 2340,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 420,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbq",
+        "name": "Grid",
+        "x": 2430,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 570,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbr",
+        "name": "Grid",
+        "x": 2520,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 720,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbs",
+        "name": "Grid",
+        "x": 2610,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 870,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbt",
+        "name": "Grid",
+        "x": 2700,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1020,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbu",
+        "name": "Grid",
+        "x": 2790,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1170,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbv",
+        "name": "Grid",
+        "x": 2880,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1320,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbw",
+        "name": "Grid",
+        "x": 2970,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1470,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbx",
+        "name": "Grid",
+        "x": 3060,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1620,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sby",
+        "name": "Grid",
+        "x": 3150,
+        "y": 0,
+        "width": 2,
+        "height": 1350,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1770,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sbz",
+        "name": "Grid",
+        "x": 0,
+        "y": 90,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1920,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb10",
+        "name": "Grid",
+        "x": 0,
+        "y": 180,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2220,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb11",
+        "name": "Grid",
+        "x": 0,
+        "y": 270,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2370,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb12",
+        "name": "Grid",
+        "x": 0,
+        "y": 360,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2670,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb13",
+        "name": "Grid",
+        "x": 0,
+        "y": 450,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2970,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb14",
+        "name": "Grid",
+        "x": 0,
+        "y": 540,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3120,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb15",
+        "name": "Grid",
+        "x": 0,
+        "y": 630,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3420,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb16",
+        "name": "Grid",
+        "x": 0,
+        "y": 720,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3720,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb17",
+        "name": "Grid",
+        "x": 0,
+        "y": 810,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 3870,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb18",
+        "name": "Grid",
+        "x": 0,
+        "y": 900,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4170,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb19",
+        "name": "Grid",
+        "x": 0,
+        "y": 990,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4470,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb1a",
+        "name": "Grid",
+        "x": 0,
+        "y": 1080,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4770,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb1b",
+        "name": "Grid",
+        "x": 0,
+        "y": 1170,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 5070,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb1c",
+        "name": "Grid",
+        "x": 0,
+        "y": 1260,
+        "width": 3240,
+        "height": 2,
+        "rotation": 0,
+        "opacity": 1,
+        "locked": true,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 5220,
+            "duration": 500
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#E9E2F4"
+        }
+      },
+      {
+        "id": "sb1d",
+        "x": 80,
+        "y": 90,
+        "width": 760,
+        "height": 238,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 1770,
+            "duration": 500
+          }
+        },
+        "type": "text",
+        "text": "my week in\nstickers",
+        "fontFamily": "Bricolage Grotesque",
+        "fontSize": 104,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1C1530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.08,
+        "letterSpacing": 0,
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFD84D"
+          },
+          "padding": 18,
+          "radius": 22
+        }
+      },
+      {
+        "id": "sb1e",
+        "x": 120,
+        "y": 470,
+        "width": 560,
+        "height": 640,
+        "rotation": -4,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(28,21,48,0.18)",
+          "blur": 30,
+          "x": 0,
+          "y": 10
+        },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2220,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 44,
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 18
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F2D4E4"
+          }
+        }
+      },
+      {
+        "id": "sb1f",
+        "x": 110,
+        "y": 1150,
+        "width": 700,
+        "height": 69,
+        "rotation": -3,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2520,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "text",
+        "text": "mon — thrifted everything",
+        "fontFamily": "Caveat",
+        "fontSize": 56,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1C1530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sb1g",
+        "x": 860,
+        "y": 300,
+        "width": 440,
+        "height": 520,
+        "rotation": 6,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(28,21,48,0.18)",
+          "blur": 30,
+          "x": 0,
+          "y": 10
+        },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2520,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 44,
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 18
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#D3ECF7"
+          }
+        }
+      },
+      {
+        "id": "sb1h",
+        "x": 1380,
+        "y": 860,
+        "width": 600,
+        "height": 69,
+        "rotation": 3,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 4020,
+            "duration": 500
+          }
+        },
+        "type": "text",
+        "text": "wed — new playlist",
+        "fontFamily": "Caveat",
+        "fontSize": 56,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1C1530"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sb1i",
+        "x": 1500,
+        "y": 1000,
+        "width": 380,
+        "height": 300,
+        "rotation": -3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(28,21,48,0.18)",
+          "blur": 30,
+          "x": 0,
+          "y": 10
+        },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 4620,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 36,
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 16
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFE7A8"
+          }
+        }
+      },
+      {
+        "id": "sb1j",
+        "x": 2360,
+        "y": 160,
+        "width": 680,
+        "height": 760,
+        "rotation": 3,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(28,21,48,0.18)",
+          "blur": 30,
+          "x": 0,
+          "y": 10
+        },
+        "animation": {
+          "enter": {
+            "preset": "elastic",
+            "delay": 2070,
+            "duration": 1000
+          }
+        },
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 48,
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 20
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#E3D8FF"
+          }
+        }
+      },
+      {
+        "id": "sb1k",
+        "x": 2340,
+        "y": 1010,
+        "width": 720,
+        "height": 79,
+        "rotation": -2,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 2370,
+            "duration": 500
+          }
+        },
+        "type": "text",
+        "text": "sat — best day ever",
+        "fontFamily": "Caveat",
+        "fontSize": 64,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#1C1530"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "sb1l",
+        "x": 880,
+        "y": 110,
+        "width": 130,
+        "height": 130,
+        "rotation": 12,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1920,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:star",
+        "tint": "#FFD84D"
+      },
+      {
+        "id": "sb1m",
+        "x": 560,
+        "y": 430,
+        "width": 120,
+        "height": 120,
+        "rotation": -12,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2070,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:heart",
+        "tint": "#FF7AB6"
+      },
+      {
+        "id": "sb1n",
+        "x": 700,
+        "y": 1000,
+        "width": 130,
+        "height": 130,
+        "rotation": 8,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2370,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:smiley",
+        "tint": "#FFD84D"
+      },
+      {
+        "id": "sb1o",
+        "x": 1180,
+        "y": 900,
+        "width": 150,
+        "height": 150,
+        "rotation": -6,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 4320,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:daisy",
+        "tint": "#FF7AB6"
+      },
+      {
+        "id": "sb1p",
+        "x": 1280,
+        "y": 380,
+        "width": 140,
+        "height": 140,
+        "rotation": 10,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2820,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:lightning",
+        "tint": "#7AD3FF"
+      },
+      {
+        "id": "sb1q",
+        "x": 1780,
+        "y": 150,
+        "width": 150,
+        "height": 150,
+        "rotation": -8,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2070,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:crown",
+        "tint": "#FFD84D"
+      },
+      {
+        "id": "sb1r",
+        "x": 1200,
+        "y": 700,
+        "width": 150,
+        "height": 150,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 3570,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:speech",
+        "tint": "#7AD3FF"
+      },
+      {
+        "id": "sb1s",
+        "x": 1920,
+        "y": 620,
+        "width": 120,
+        "height": 120,
+        "rotation": 6,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 3270,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:pixel-heart",
+        "tint": "#FF7AB6"
+      },
+      {
+        "id": "sb1t",
+        "x": 2090,
+        "y": 1080,
+        "width": 130,
+        "height": 130,
+        "rotation": -4,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 4920,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:checkmark",
+        "tint": "#1C1530"
+      },
+      {
+        "id": "sb1u",
+        "x": 3000,
+        "y": 90,
+        "width": 140,
+        "height": 140,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 1920,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:sparkle",
+        "tint": "#FFD84D"
+      },
+      {
+        "id": "sb1v",
+        "x": 2220,
+        "y": 900,
+        "width": 150,
+        "height": 150,
+        "rotation": -10,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2220,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:globe-y2k",
+        "tint": "#7AD3FF"
+      },
+      {
+        "id": "sb1w",
+        "x": 2980,
+        "y": 1110,
+        "width": 150,
+        "height": 150,
+        "rotation": 6,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "bounce",
+            "delay": 2520,
+            "duration": 900,
+            "direction": "down"
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:arrow-loop",
+        "tint": "#1C1530"
+      }
+    ],
+    "motion": {
+      "transition": "zoom",
+      "transitionDuration": 450
+    }
+  }
+}

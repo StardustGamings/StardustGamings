@@ -1,0 +1,326 @@
+{
+  "bricolage-grotesque": [
+    {
+      "file": "/fonts/bricolage-grotesque/bricolage-grotesque-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "200 800"
+    },
+    {
+      "file": "/fonts/bricolage-grotesque/bricolage-grotesque-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "200 800"
+    }
+  ],
+  "manrope": [
+    {
+      "file": "/fonts/manrope/manrope-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "200 800"
+    },
+    {
+      "file": "/fonts/manrope/manrope-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "200 800"
+    }
+  ],
+  "unbounded": [
+    {
+      "file": "/fonts/unbounded/unbounded-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "200 900"
+    },
+    {
+      "file": "/fonts/unbounded/unbounded-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "200 900"
+    }
+  ],
+  "space-grotesk": [
+    {
+      "file": "/fonts/space-grotesk/space-grotesk-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "300 700"
+    },
+    {
+      "file": "/fonts/space-grotesk/space-grotesk-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "300 700"
+    }
+  ],
+  "syne": [
+    {
+      "file": "/fonts/syne/syne-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400 800"
+    },
+    {
+      "file": "/fonts/syne/syne-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400 800"
+    }
+  ],
+  "archivo": [
+    {
+      "file": "/fonts/archivo/archivo-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "100 900"
+    },
+    {
+      "file": "/fonts/archivo/archivo-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "100 900"
+    },
+    {
+      "file": "/fonts/archivo/archivo-latin-wght-italic.woff2",
+      "subset": "latin",
+      "style": "italic",
+      "weight": "100 900"
+    },
+    {
+      "file": "/fonts/archivo/archivo-latin-ext-wght-italic.woff2",
+      "subset": "latin-ext",
+      "style": "italic",
+      "weight": "100 900"
+    }
+  ],
+  "anton": [
+    {
+      "file": "/fonts/anton/anton-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/anton/anton-latin-ext-400-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400"
+    }
+  ],
+  "rubik-mono-one": [
+    {
+      "file": "/fonts/rubik-mono-one/rubik-mono-one-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/rubik-mono-one/rubik-mono-one-latin-ext-400-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400"
+    }
+  ],
+  "instrument-serif": [
+    {
+      "file": "/fonts/instrument-serif/instrument-serif-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/instrument-serif/instrument-serif-latin-ext-400-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/instrument-serif/instrument-serif-latin-400-italic.woff2",
+      "subset": "latin",
+      "style": "italic",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/instrument-serif/instrument-serif-latin-ext-400-italic.woff2",
+      "subset": "latin-ext",
+      "style": "italic",
+      "weight": "400"
+    }
+  ],
+  "playfair-display": [
+    {
+      "file": "/fonts/playfair-display/playfair-display-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400 900"
+    },
+    {
+      "file": "/fonts/playfair-display/playfair-display-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400 900"
+    },
+    {
+      "file": "/fonts/playfair-display/playfair-display-latin-wght-italic.woff2",
+      "subset": "latin",
+      "style": "italic",
+      "weight": "400 900"
+    },
+    {
+      "file": "/fonts/playfair-display/playfair-display-latin-ext-wght-italic.woff2",
+      "subset": "latin-ext",
+      "style": "italic",
+      "weight": "400 900"
+    }
+  ],
+  "dm-serif-display": [
+    {
+      "file": "/fonts/dm-serif-display/dm-serif-display-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/dm-serif-display/dm-serif-display-latin-ext-400-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/dm-serif-display/dm-serif-display-latin-400-italic.woff2",
+      "subset": "latin",
+      "style": "italic",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/dm-serif-display/dm-serif-display-latin-ext-400-italic.woff2",
+      "subset": "latin-ext",
+      "style": "italic",
+      "weight": "400"
+    }
+  ],
+  "fraunces": [
+    {
+      "file": "/fonts/fraunces/fraunces-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "100 900"
+    },
+    {
+      "file": "/fonts/fraunces/fraunces-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "100 900"
+    },
+    {
+      "file": "/fonts/fraunces/fraunces-latin-wght-italic.woff2",
+      "subset": "latin",
+      "style": "italic",
+      "weight": "100 900"
+    },
+    {
+      "file": "/fonts/fraunces/fraunces-latin-ext-wght-italic.woff2",
+      "subset": "latin-ext",
+      "style": "italic",
+      "weight": "100 900"
+    }
+  ],
+  "unifrakturmaguntia": [
+    {
+      "file": "/fonts/unifrakturmaguntia/unifrakturmaguntia-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    }
+  ],
+  "jetbrains-mono": [
+    {
+      "file": "/fonts/jetbrains-mono/jetbrains-mono-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "100 800"
+    },
+    {
+      "file": "/fonts/jetbrains-mono/jetbrains-mono-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "100 800"
+    },
+    {
+      "file": "/fonts/jetbrains-mono/jetbrains-mono-latin-wght-italic.woff2",
+      "subset": "latin",
+      "style": "italic",
+      "weight": "100 800"
+    },
+    {
+      "file": "/fonts/jetbrains-mono/jetbrains-mono-latin-ext-wght-italic.woff2",
+      "subset": "latin-ext",
+      "style": "italic",
+      "weight": "100 800"
+    }
+  ],
+  "silkscreen": [
+    {
+      "file": "/fonts/silkscreen/silkscreen-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/silkscreen/silkscreen-latin-700-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "700"
+    },
+    {
+      "file": "/fonts/silkscreen/silkscreen-latin-ext-400-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/silkscreen/silkscreen-latin-ext-700-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "700"
+    }
+  ],
+  "caveat": [
+    {
+      "file": "/fonts/caveat/caveat-latin-wght-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400 700"
+    },
+    {
+      "file": "/fonts/caveat/caveat-latin-ext-wght-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400 700"
+    }
+  ],
+  "permanent-marker": [
+    {
+      "file": "/fonts/permanent-marker/permanent-marker-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    }
+  ],
+  "pacifico": [
+    {
+      "file": "/fonts/pacifico/pacifico-latin-400-normal.woff2",
+      "subset": "latin",
+      "style": "normal",
+      "weight": "400"
+    },
+    {
+      "file": "/fonts/pacifico/pacifico-latin-ext-400-normal.woff2",
+      "subset": "latin-ext",
+      "style": "normal",
+      "weight": "400"
+    }
+  ]
+}

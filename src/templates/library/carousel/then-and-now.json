@@ -1,0 +1,352 @@
+{
+  "id": "then-and-now",
+  "name": "Then & Now",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "minimal",
+  "description": "Split-screen pairs — before and after, then and now — with clean labels.",
+  "tags": [
+    "split screen",
+    "before after",
+    "glow up",
+    "comparison"
+  ],
+  "palette": [
+    "#FFFFFF",
+    "#111111",
+    "#E9E9E9",
+    "#FF4D2E"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#FFFFFF"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      },
+      {
+        "id": "s1",
+        "fill": null
+      },
+      {
+        "id": "s2",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "tan0",
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 671,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "filter": {
+          "id": "vintage",
+          "intensity": 100
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DADADA"
+          }
+        }
+      },
+      {
+        "id": "tan1",
+        "x": 0,
+        "y": 679,
+        "width": 1080,
+        "height": 671,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9C9C9"
+          }
+        }
+      },
+      {
+        "id": "tan2",
+        "x": 1080,
+        "y": 0,
+        "width": 1080,
+        "height": 671,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "filter": {
+          "id": "vintage",
+          "intensity": 80
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DADADA"
+          }
+        }
+      },
+      {
+        "id": "tan3",
+        "x": 1080,
+        "y": 679,
+        "width": 1080,
+        "height": 671,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9C9C9"
+          }
+        }
+      },
+      {
+        "id": "tan4",
+        "x": 1140,
+        "y": 560,
+        "width": 400,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "2019",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 14,
+          "radius": 30
+        }
+      },
+      {
+        "id": "tan5",
+        "x": 1140,
+        "y": 1240,
+        "width": 400,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "2026",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 14,
+          "radius": 30
+        }
+      },
+      {
+        "id": "tan6",
+        "x": 2160,
+        "y": 0,
+        "width": 1080,
+        "height": 671,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "filter": {
+          "id": "vintage",
+          "intensity": 80
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#DADADA"
+          }
+        }
+      },
+      {
+        "id": "tan7",
+        "x": 2160,
+        "y": 679,
+        "width": 1080,
+        "height": 671,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#C9C9C9"
+          }
+        }
+      },
+      {
+        "id": "tan8",
+        "x": 2220,
+        "y": 560,
+        "width": 400,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Then",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 14,
+          "radius": 30
+        }
+      },
+      {
+        "id": "tan9",
+        "x": 2220,
+        "y": 1240,
+        "width": 400,
+        "height": 37,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Now",
+        "fontFamily": "Manrope",
+        "fontSize": 30,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "textTransform": "uppercase",
+        "highlight": {
+          "fill": {
+            "type": "solid",
+            "color": "#FFFFFF"
+          },
+          "padding": 14,
+          "radius": 30
+        }
+      },
+      {
+        "id": "tana",
+        "x": 60,
+        "y": 420,
+        "width": 960,
+        "height": 388,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(10,6,20,0.35)",
+          "blur": 28,
+          "x": 0,
+          "y": 6
+        },
+        "type": "text",
+        "text": "then\n& now",
+        "fontFamily": "Instrument Serif",
+        "fontSize": 220,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.82,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tanb",
+        "x": 60,
+        "y": 1240,
+        "width": 960,
+        "height": 35,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(10,6,20,0.35)",
+          "blur": 28,
+          "x": 0,
+          "y": 6
+        },
+        "type": "text",
+        "text": "Swipe to compare",
+        "fontFamily": "Manrope",
+        "fontSize": 28,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0.2,
+        "textTransform": "uppercase"
+      }
+    ]
+  }
+}

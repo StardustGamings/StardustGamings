@@ -1,0 +1,1659 @@
+[
+  {
+    "id": "big-type-drop",
+    "name": "Big Type Drop",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "bold",
+    "description": "Giant condensed type, acid lime, and a sparkle that spills across the swipe.",
+    "tags": [
+      "streetwear",
+      "giant typography",
+      "gen-z",
+      "seamless"
+    ],
+    "palette": [
+      "#C6FF3D",
+      "#0B0A12",
+      "#F4F1EA",
+      "#B3E62E"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 5,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "brutal-stats",
+    "name": "Brutal Stats",
+    "format": "carousel",
+    "sizeId": "ig-square",
+    "style": "brutalist",
+    "description": "Thick frames, huge numbers, zero fluff. Data that hits.",
+    "tags": [
+      "brutalist",
+      "business",
+      "infographic"
+    ],
+    "palette": [
+      "#F2F0EB",
+      "#0B0A12",
+      "#FF3D2E"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 3,
+    "photoSlots": 0,
+    "animated": false
+  },
+  {
+    "id": "cinema-frames",
+    "name": "Cinema Frames",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "cinematic",
+    "description": "A title card and widescreen stills with yellow subtitles — your trip, but make it a film.",
+    "tags": [
+      "cinematic",
+      "film",
+      "travel",
+      "subtitles",
+      "moody",
+      "animated"
+    ],
+    "palette": [
+      "#0A0A0A",
+      "#F2EDE4",
+      "#FFE45C",
+      "#8A857C"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 4,
+    "photoSlots": 3,
+    "animated": true
+  },
+  {
+    "id": "diagonal-drop",
+    "name": "Diagonal Drop",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "streetwear",
+    "description": "An acid-lime band cuts diagonally through three slides of a streetwear lookbook.",
+    "tags": [
+      "streetwear",
+      "diagonal",
+      "lookbook",
+      "fashion",
+      "seamless"
+    ],
+    "palette": [
+      "#101010",
+      "#D7FF3A",
+      "#F5F5F0",
+      "#2A2A2A"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "film-strip",
+    "name": "Film Strip",
+    "format": "carousel",
+    "sizeId": "ig-square",
+    "style": "cinematic",
+    "description": "One continuous roll of film that scrolls across every swipe.",
+    "tags": [
+      "film",
+      "cinematic",
+      "travel",
+      "seamless"
+    ],
+    "palette": [
+      "#111111",
+      "#1C1B1F",
+      "#F2C94C",
+      "#F4F1EA"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 3,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "five-tips",
+    "name": "Five Tips",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "minimal",
+    "description": "A clean educational carousel: a big-number cover, one tip per slide and a save-this ending.",
+    "tags": [
+      "tips",
+      "educational",
+      "list",
+      "creator",
+      "business",
+      "animated"
+    ],
+    "palette": [
+      "#F6F3EE",
+      "#111111",
+      "#FF5A36",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 5,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "layers-of-us",
+    "name": "Layers of Us",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "editorial",
+    "description": "Overlapping photos on sage paper, with one frame crossing into the next slide.",
+    "tags": [
+      "overlapping photos",
+      "editorial",
+      "couple",
+      "friends",
+      "seamless"
+    ],
+    "palette": [
+      "#EEF0EA",
+      "#1D2A22",
+      "#6F8F72",
+      "#D5DCCF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 2,
+    "photoSlots": 3,
+    "animated": false
+  },
+  {
+    "id": "magazine-issue",
+    "name": "The Issue",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "editorial",
+    "description": "A four-page magazine: cover, contents, a feature spread and a back page.",
+    "tags": [
+      "magazine",
+      "editorial",
+      "cover",
+      "fashion",
+      "animated"
+    ],
+    "palette": [
+      "#F3EEE6",
+      "#16120F",
+      "#D7342A",
+      "#B9AE9E"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 4,
+    "photoSlots": 4,
+    "animated": true
+  },
+  {
+    "id": "main-character",
+    "name": "Main Character",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "bold",
+    "description": "One giant word runs across all three slides, with photos layered over the type.",
+    "tags": [
+      "giant typography",
+      "seamless",
+      "gen-z",
+      "bold",
+      "pink",
+      "animated"
+    ],
+    "palette": [
+      "#FF4F9A",
+      "#1A0F14",
+      "#FFF1E6",
+      "#FFE14D"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 3,
+    "animated": true
+  },
+  {
+    "id": "month-recap",
+    "name": "Month Recap",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "soft",
+    "description": "A soft, blush photo diary: seven favourite moments and a list of the month’s best bits.",
+    "tags": [
+      "recap",
+      "photo dump",
+      "monthly",
+      "aesthetic",
+      "soft"
+    ],
+    "palette": [
+      "#F4E9E1",
+      "#3A2C28",
+      "#C9826B",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 4,
+    "photoSlots": 7,
+    "animated": false
+  },
+  {
+    "id": "polaroid-wall",
+    "name": "Polaroid Wall",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "scrapbook",
+    "description": "Instant prints taped across three slides — some hang over the edge so the swipe feels continuous.",
+    "tags": [
+      "polaroid",
+      "scrapbook",
+      "photo dump",
+      "summer",
+      "seamless"
+    ],
+    "palette": [
+      "#EADBC4",
+      "#2B2530",
+      "#F4E7B8",
+      "#E86A5A"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 7,
+    "animated": false
+  },
+  {
+    "id": "raw-files",
+    "name": "Raw Files",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "brutalist",
+    "description": "Hard rules, monospace captions and a red block — a brutalist portfolio in three slides.",
+    "tags": [
+      "brutalist",
+      "portfolio",
+      "grid",
+      "architecture",
+      "design"
+    ],
+    "palette": [
+      "#EDEDED",
+      "#0A0A0A",
+      "#FF2E00",
+      "#BDBDBD"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 3,
+    "animated": false
+  },
+  {
+    "id": "scrapbook-dump",
+    "name": "Scrapbook Dump",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "scrapbook",
+    "description": "Tilted polaroids, washi tape and handwritten notes on a gradient that flows across slides.",
+    "tags": [
+      "scrapbook",
+      "photo dump",
+      "cute",
+      "seamless"
+    ],
+    "palette": [
+      "#F7D6E0",
+      "#F9E8C9",
+      "#D8E8F7",
+      "#2B2233",
+      "#FF4F8B"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 5,
+    "animated": false
+  },
+  {
+    "id": "soft-editorial",
+    "name": "Soft Editorial",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "editorial",
+    "description": "Serif italics, hairline rules and calm cream paper — magazine energy.",
+    "tags": [
+      "editorial",
+      "magazine",
+      "minimal",
+      "soft"
+    ],
+    "palette": [
+      "#F3EEE6",
+      "#1D1A17",
+      "#B5553A",
+      "#DCCFBE"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 4,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "sticker-board",
+    "name": "Sticker Board",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "playful",
+    "description": "Grid paper, bubbly frames and way too many stickers — a week recapped the fun way.",
+    "tags": [
+      "stickers",
+      "cute",
+      "week",
+      "diary",
+      "gen-z",
+      "animated"
+    ],
+    "palette": [
+      "#FBF7F0",
+      "#1C1530",
+      "#FFD84D",
+      "#FF7AB6",
+      "#7AD3FF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 4,
+    "animated": true
+  },
+  {
+    "id": "then-and-now",
+    "name": "Then & Now",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "minimal",
+    "description": "Split-screen pairs — before and after, then and now — with clean labels.",
+    "tags": [
+      "split screen",
+      "before after",
+      "glow up",
+      "comparison"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#111111",
+      "#E9E9E9",
+      "#FF4D2E"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 6,
+    "animated": false
+  },
+  {
+    "id": "thread-carousel",
+    "name": "Thread",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "editorial",
+    "description": "A hook, three numbered points and a save-this ending — a thread you swipe through.",
+    "tags": [
+      "social format",
+      "thread",
+      "tips",
+      "educational",
+      "numbered",
+      "text",
+      "animated"
+    ],
+    "palette": [
+      "#F4F1EA",
+      "#0B0A12",
+      "#7A5CFF",
+      "#C6FF3D",
+      "#8E8A9C"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 5,
+    "photoSlots": 0,
+    "animated": true
+  },
+  {
+    "id": "torn-notes",
+    "name": "Torn Notes",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "scrapbook",
+    "description": "Torn paper scraps, tape and handwriting over your weekend photos.",
+    "tags": [
+      "torn paper",
+      "scrapbook",
+      "journal",
+      "weekend",
+      "aesthetic"
+    ],
+    "palette": [
+      "#CDBBA0",
+      "#F7F2E8",
+      "#2B2622",
+      "#F2E3C9"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "y2k-era",
+    "name": "Y2K Era",
+    "format": "carousel",
+    "sizeId": "ig-portrait",
+    "style": "y2k",
+    "description": "Iridescent gradient, chrome-outlined type and star-shaped frames that flow across the swipe.",
+    "tags": [
+      "y2k",
+      "gradient",
+      "chrome",
+      "stars",
+      "seamless",
+      "animated"
+    ],
+    "palette": [
+      "#B8F3FF",
+      "#E8C6FF",
+      "#FFD1EC",
+      "#2B1B5A",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 3,
+    "photoSlots": 3,
+    "animated": true
+  },
+  {
+    "id": "nine-grid",
+    "name": "Nine Grid",
+    "format": "collage",
+    "sizeId": "ig-square",
+    "style": "minimal",
+    "description": "Nine photos in a tidy three-by-three grid with hairline gutters.",
+    "tags": [
+      "grid",
+      "collage",
+      "photo dump",
+      "minimal",
+      "nine"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#E6E3DE",
+      "#DAD6CF",
+      "#111111"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 9,
+    "animated": false
+  },
+  {
+    "id": "split-collage",
+    "name": "Diagonal Split",
+    "format": "collage",
+    "sizeId": "ig-square",
+    "style": "streetwear",
+    "description": "Four photos around a rotated title band — energetic and tidy.",
+    "tags": [
+      "collage",
+      "diagonal",
+      "split screen",
+      "sport"
+    ],
+    "palette": [
+      "#101014",
+      "#FF5C5C",
+      "#FFFFFF",
+      "#3CF0FF"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "taped-strips",
+    "name": "Taped Strips",
+    "format": "collage",
+    "sizeId": "ig-square",
+    "style": "scrapbook",
+    "description": "Tall photo strips taped side by side under a torn-paper title.",
+    "tags": [
+      "scrapbook",
+      "tape",
+      "collage",
+      "journal",
+      "torn paper"
+    ],
+    "palette": [
+      "#E8E1D3",
+      "#2B2622",
+      "#F7F2E8",
+      "#C7B79C"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "coastal-mood",
+    "name": "Coastal Mood",
+    "format": "moodboard",
+    "sizeId": "moodboard",
+    "style": "editorial",
+    "description": "An asymmetric board with photos, colour swatches with HEX codes and a type pairing.",
+    "tags": [
+      "moodboard",
+      "palette",
+      "branding",
+      "coastal",
+      "editorial"
+    ],
+    "palette": [
+      "#F4F1EC",
+      "#1F2A30",
+      "#8FB3C2",
+      "#D9C6A8",
+      "#C46A4E"
+    ],
+    "width": 1600,
+    "height": 1200,
+    "slides": 1,
+    "photoSlots": 5,
+    "animated": false
+  },
+  {
+    "id": "moodboard-bento",
+    "name": "Bento Mood",
+    "format": "moodboard",
+    "sizeId": "moodboard",
+    "style": "soft",
+    "description": "A bento grid for references, with a title tile and palette chips.",
+    "tags": [
+      "moodboard",
+      "aesthetic",
+      "grid",
+      "autumn"
+    ],
+    "palette": [
+      "#EFEAE2",
+      "#C8A27A",
+      "#8C5A3C",
+      "#E9D8C4",
+      "#5B6B4F",
+      "#2F2A26"
+    ],
+    "width": 1600,
+    "height": 1200,
+    "slides": 1,
+    "photoSlots": 6,
+    "animated": false
+  },
+  {
+    "id": "pinned-board",
+    "name": "Pinned Board",
+    "format": "moodboard",
+    "sizeId": "moodboard",
+    "style": "scrapbook",
+    "description": "A cork board of pinned prints and sticky notes for planning trips, outfits or shoots.",
+    "tags": [
+      "moodboard",
+      "cork",
+      "planning",
+      "sticky notes",
+      "scrapbook"
+    ],
+    "palette": [
+      "#C9A27E",
+      "#FBFAF7",
+      "#FFE680",
+      "#2B2530",
+      "#E4574B"
+    ],
+    "width": 1600,
+    "height": 1200,
+    "slides": 1,
+    "photoSlots": 4,
+    "animated": false
+  },
+  {
+    "id": "breaking-news",
+    "name": "Breaking News",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "retro",
+    "description": "A cut-and-paste ransom-note headline over a photo — for very important updates.",
+    "tags": [
+      "newspaper",
+      "cut out letters",
+      "meme",
+      "retro",
+      "announcement",
+      "animated"
+    ],
+    "palette": [
+      "#F4F0E6",
+      "#161412",
+      "#E8432E",
+      "#F6D34A",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "date-stamp",
+    "name": "Date Stamp",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "retro",
+    "description": "One big instant print on peach, with an orange film-camera date stamp.",
+    "tags": [
+      "polaroid",
+      "film",
+      "retro",
+      "nostalgia",
+      "date"
+    ],
+    "palette": [
+      "#F5C8A8",
+      "#2B2530",
+      "#FF7A1A",
+      "#FBFAF7"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "gilded-frame",
+    "name": "Gilded Frame",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "luxury",
+    "description": "A portrait in an arch, framed with a fine gold rule and quiet serif type.",
+    "tags": [
+      "luxury",
+      "frame",
+      "portrait",
+      "elegant",
+      "dark"
+    ],
+    "palette": [
+      "#1E1A17",
+      "#C9A86A",
+      "#F3EBDD",
+      "#3A332D"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "hot-take",
+    "name": "Hot Take",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "bold",
+    "description": "A stamped HOT TAKE, one unpopular opinion and an agree / fight-me poll.",
+    "tags": [
+      "social format",
+      "opinion",
+      "poll",
+      "hot take",
+      "bold",
+      "animated"
+    ],
+    "palette": [
+      "#0B0A12",
+      "#FFFFFF",
+      "#FF4D2E",
+      "#C6FF3D",
+      "#2A2638"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 0,
+    "animated": true
+  },
+  {
+    "id": "level-up",
+    "name": "Level Up",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "y2k",
+    "description": "Four escalating levels, each one glowing a little more unhinged than the last.",
+    "tags": [
+      "meme",
+      "meme format",
+      "escalating",
+      "levels",
+      "y2k",
+      "glow",
+      "animated"
+    ],
+    "palette": [
+      "#16131F",
+      "#2C2640",
+      "#7A5CFF",
+      "#3CF0C8",
+      "#C6FF3D",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 4,
+    "animated": true
+  },
+  {
+    "id": "meme-caption",
+    "name": "Caption Meme",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "The classic white caption bar over a reaction pic. Timeless.",
+    "tags": [
+      "meme",
+      "funny",
+      "caption"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#0B0A12",
+      "#CFCBDD"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "nah-yeah",
+    "name": "Nah / Yeah",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "Two reaction pics: the thing you’re meant to do, and the thing you actually do.",
+    "tags": [
+      "meme",
+      "meme format",
+      "reaction",
+      "two panel",
+      "funny"
+    ],
+    "palette": [
+      "#FFF8E7",
+      "#0B0A12",
+      "#E8432E",
+      "#C6FF3D",
+      "#E7DDC8"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 2,
+    "animated": false
+  },
+  {
+    "id": "new-drop",
+    "name": "New Drop",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "bold",
+    "description": "A loud launch post: huge headline, a product in a circle and a date burst.",
+    "tags": [
+      "announcement",
+      "launch",
+      "product",
+      "sale",
+      "bold",
+      "animated"
+    ],
+    "palette": [
+      "#1B1B1F",
+      "#F6FF6B",
+      "#FFFFFF",
+      "#FF5DA2"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "newsprint",
+    "name": "The Daily Scroll",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "retro",
+    "description": "Blackletter masthead, columns and a headline your followers will read twice.",
+    "tags": [
+      "newspaper",
+      "retro",
+      "editorial",
+      "meme"
+    ],
+    "palette": [
+      "#ECE6D6",
+      "#1A1714",
+      "#C9C1AE",
+      "#8A8170"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "nobody-me",
+    "name": "Nobody / Me",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "Nobody asked. You did it anyway. The two-line setup and one perfect pic.",
+    "tags": [
+      "meme",
+      "meme format",
+      "text meme",
+      "relatable",
+      "funny"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#0B0A12",
+      "#D9D4E4",
+      "#7A5CFF"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "quiet-luxury",
+    "name": "Quiet Luxury",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "luxury",
+    "description": "Inset gold frame, wide-tracked caps and a whispered serif. Expensive silence.",
+    "tags": [
+      "luxury",
+      "minimal",
+      "fashion",
+      "dark"
+    ],
+    "palette": [
+      "#0F0E0D",
+      "#C9A96E",
+      "#EFE8DA",
+      "#2A2622"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "quote-card",
+    "name": "Quote Card",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "minimal",
+    "description": "An oversized quote mark and a serif line worth screenshotting.",
+    "tags": [
+      "quote",
+      "minimal",
+      "text post",
+      "motivation",
+      "animated"
+    ],
+    "palette": [
+      "#F2EFE9",
+      "#1B1916",
+      "#E0573C",
+      "#CFC8BC"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 0,
+    "animated": true
+  },
+  {
+    "id": "starter-pack",
+    "name": "Starter Pack",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "minimal",
+    "description": "Six pics that sum up a whole personality, each with a tiny deadpan label.",
+    "tags": [
+      "meme",
+      "meme format",
+      "starter pack",
+      "grid",
+      "labels"
+    ],
+    "palette": [
+      "#FFFFFF",
+      "#0B0A12",
+      "#ECE9F2",
+      "#7A5CFF"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 6,
+    "animated": false
+  },
+  {
+    "id": "text-post",
+    "name": "Text Post Card",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "minimal",
+    "description": "A short opinion on a clean card — avatar, name, the take and a row of reactions.",
+    "tags": [
+      "social format",
+      "text post",
+      "opinion",
+      "card",
+      "minimal"
+    ],
+    "palette": [
+      "#C6FF3D",
+      "#3CF0C8",
+      "#FFFFFF",
+      "#0B0A12",
+      "#8E8A9C"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "tier-list",
+    "name": "Tier List",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "playful",
+    "description": "Rank anything: four tiers, three spots each, one very strong opinion.",
+    "tags": [
+      "meme",
+      "meme format",
+      "tier list",
+      "ranking",
+      "grid"
+    ],
+    "palette": [
+      "#0B0A12",
+      "#FFFFFF",
+      "#FF5E7E",
+      "#FFB23E",
+      "#F6E94A",
+      "#7EE08A",
+      "#2A2638"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 12,
+    "animated": false
+  },
+  {
+    "id": "top-bottom",
+    "name": "Top & Bottom",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "bold",
+    "description": "The classic: one pic, a setup on top and the punchline underneath, outlined.",
+    "tags": [
+      "meme",
+      "meme format",
+      "classic",
+      "caption",
+      "impact"
+    ],
+    "palette": [
+      "#5A5470",
+      "#FFFFFF",
+      "#0B0A12"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "vibe-chart",
+    "name": "Vibe Chart",
+    "format": "post",
+    "sizeId": "ig-square",
+    "style": "playful",
+    "description": "Nine pics on two axes — organised to chaotic, soft to loud. Tag your friends.",
+    "tags": [
+      "meme",
+      "meme format",
+      "chart",
+      "grid",
+      "tag your friends"
+    ],
+    "palette": [
+      "#F4F1EA",
+      "#0B0A12",
+      "#7A5CFF",
+      "#E0DAF0"
+    ],
+    "width": 1080,
+    "height": 1080,
+    "slides": 1,
+    "photoSlots": 9,
+    "animated": false
+  },
+  {
+    "id": "y2k-chrome",
+    "name": "Y2K Chrome",
+    "format": "post",
+    "sizeId": "ig-portrait",
+    "style": "y2k",
+    "description": "Chrome gradients, wire globes and a loading-bar pill. Very 2003, very now.",
+    "tags": [
+      "y2k",
+      "futuristic",
+      "gradient",
+      "music"
+    ],
+    "palette": [
+      "#FFB3F0",
+      "#A06BFF",
+      "#3A1D8F",
+      "#3CF0FF",
+      "#C6FF3D"
+    ],
+    "width": 1080,
+    "height": 1350,
+    "slides": 1,
+    "photoSlots": 0,
+    "animated": false
+  },
+  {
+    "id": "loud-hours",
+    "name": "Loud Hours",
+    "format": "poster",
+    "sizeId": "poster",
+    "style": "streetwear",
+    "description": "A gig poster: high-contrast photo, blackletter headline and a tour list.",
+    "tags": [
+      "gig",
+      "concert",
+      "poster",
+      "music",
+      "tour",
+      "animated"
+    ],
+    "palette": [
+      "#0E0E0E",
+      "#F1F1F1",
+      "#FF2D2D",
+      "#3A3A3A"
+    ],
+    "width": 1240,
+    "height": 1754,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "night-out-poster",
+    "name": "Night Out",
+    "format": "poster",
+    "sizeId": "poster",
+    "style": "y2k",
+    "description": "Event poster with pixel type, a halo gradient and ticket-stub details.",
+    "tags": [
+      "night out",
+      "party",
+      "poster",
+      "gaming"
+    ],
+    "palette": [
+      "#0A0716",
+      "#FF3DDB",
+      "#3CF0FF",
+      "#FFD23D"
+    ],
+    "width": 1240,
+    "height": 1754,
+    "slides": 1,
+    "photoSlots": 0,
+    "animated": false
+  },
+  {
+    "id": "still-life",
+    "name": "Still Life",
+    "format": "poster",
+    "sizeId": "poster",
+    "style": "luxury",
+    "description": "A gallery exhibition poster: arch photo, fine rules and an italic serif title.",
+    "tags": [
+      "exhibition",
+      "gallery",
+      "art",
+      "poster",
+      "elegant"
+    ],
+    "palette": [
+      "#F1ECE3",
+      "#1F1B16",
+      "#A8875A",
+      "#DCD3C4"
+    ],
+    "width": 1240,
+    "height": 1754,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "swiss-poster",
+    "name": "Swiss Poster",
+    "format": "poster",
+    "sizeId": "poster",
+    "style": "brutalist",
+    "description": "A strict grid, a red circle and stacked grotesk type — international style, remixed.",
+    "tags": [
+      "swiss",
+      "poster",
+      "grid",
+      "typography",
+      "event"
+    ],
+    "palette": [
+      "#E9E4DA",
+      "#111111",
+      "#E63A26",
+      "#BDB6A8"
+    ],
+    "width": 1240,
+    "height": 1754,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "episode-cover",
+    "name": "Episode Cover",
+    "format": "reel-cover",
+    "sizeId": "tiktok",
+    "style": "bold",
+    "description": "A series cover with a giant episode number — kept inside the grid-safe area.",
+    "tags": [
+      "series",
+      "episode",
+      "reels",
+      "tiktok",
+      "bold",
+      "animated"
+    ],
+    "palette": [
+      "#FFE14D",
+      "#141414",
+      "#FFFFFF",
+      "#FF6A3D"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "grwm-cover",
+    "name": "GRWM",
+    "format": "reel-cover",
+    "sizeId": "tiktok",
+    "style": "soft",
+    "description": "Get-ready-with-me cover: rosy arch photo, big letters and a handwritten subtitle.",
+    "tags": [
+      "grwm",
+      "beauty",
+      "reels",
+      "soft",
+      "pink",
+      "animated"
+    ],
+    "palette": [
+      "#F7D9E3",
+      "#8C2F5A",
+      "#FFFFFF",
+      "#E9A6BF"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "quiet-cover",
+    "name": "Quiet Cover",
+    "format": "reel-cover",
+    "sizeId": "tiktok",
+    "style": "minimal",
+    "description": "A full-bleed photo and a soft serif title, centred where the grid crop keeps it.",
+    "tags": [
+      "minimal",
+      "routine",
+      "vlog",
+      "reels",
+      "aesthetic"
+    ],
+    "palette": [
+      "#1C1A18",
+      "#FFFFFF",
+      "#D8CFC4"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "reel-cover-pop",
+    "name": "Cover Pop",
+    "format": "reel-cover",
+    "sizeId": "tiktok",
+    "style": "retro",
+    "description": "Outlined condensed type with a hard shadow — readable at thumbnail size.",
+    "tags": [
+      "travel",
+      "reels",
+      "bold",
+      "retro"
+    ],
+    "palette": [
+      "#FF6B2C",
+      "#1A0B05",
+      "#FFF1E0",
+      "#FFD23D"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 0,
+    "animated": false
+  },
+  {
+    "id": "ask-me",
+    "name": "Ask Me Anything",
+    "format": "story",
+    "sizeId": "story",
+    "style": "soft",
+    "description": "A soft question card with your photo — answer your followers in style.",
+    "tags": [
+      "q&a",
+      "questions",
+      "story",
+      "soft",
+      "pastel"
+    ],
+    "palette": [
+      "#FDE6EF",
+      "#E4E1FF",
+      "#3B2A4A",
+      "#FFFFFF"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "countdown",
+    "name": "Countdown",
+    "format": "story",
+    "sizeId": "story",
+    "style": "y2k",
+    "description": "A glowing chrome number counting down to something big.",
+    "tags": [
+      "countdown",
+      "launch",
+      "event",
+      "y2k",
+      "night",
+      "animated"
+    ],
+    "palette": [
+      "#0D0B1F",
+      "#3A1C71",
+      "#FFFFFF",
+      "#7CF7FF",
+      "#FF6FD8"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "dreamy-story",
+    "name": "Slow Sunday",
+    "format": "story",
+    "sizeId": "story",
+    "style": "soft",
+    "description": "Pastel haze, soft serif italics and a circle crop for the main character.",
+    "tags": [
+      "dreamy",
+      "soft",
+      "aesthetic",
+      "story"
+    ],
+    "palette": [
+      "#E9DFFF",
+      "#FFE3D3",
+      "#FFF4E0",
+      "#5B3E86",
+      "#F3D6E8"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "film-roll",
+    "name": "Film Roll",
+    "format": "story",
+    "sizeId": "story",
+    "style": "retro",
+    "description": "A vertical strip of film with sprocket holes, three frames and edge markings.",
+    "tags": [
+      "film",
+      "analog",
+      "retro",
+      "photo dump",
+      "story"
+    ],
+    "palette": [
+      "#1A1A1A",
+      "#0F0F0F",
+      "#E3A857",
+      "#F2EDE4"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 3,
+    "animated": false
+  },
+  {
+    "id": "pov-caption",
+    "name": "POV",
+    "format": "story",
+    "sizeId": "story",
+    "style": "bold",
+    "description": "Full-bleed photo, a giant POV and the scenario underneath. Story-sized.",
+    "tags": [
+      "meme",
+      "meme format",
+      "pov",
+      "story",
+      "full bleed",
+      "animated"
+    ],
+    "palette": [
+      "#3B3450",
+      "#FFFFFF",
+      "#C6FF3D",
+      "#0B0A12"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": true
+  },
+  {
+    "id": "rate-my",
+    "name": "Rate My…",
+    "format": "story",
+    "sizeId": "story",
+    "style": "playful",
+    "description": "A story that asks for a score out of ten — outfit, desk, dinner, anything.",
+    "tags": [
+      "social format",
+      "story",
+      "rate",
+      "poll",
+      "interactive"
+    ],
+    "palette": [
+      "#FFE3F1",
+      "#0B0A12",
+      "#FF5EA8",
+      "#FFFFFF",
+      "#F2C6DB"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "story-still",
+    "name": "Story Still",
+    "format": "story",
+    "sizeId": "story",
+    "style": "cinematic",
+    "description": "A full-screen photo with letterbox bars and a single subtitle.",
+    "tags": [
+      "cinematic",
+      "film",
+      "subtitles",
+      "moody",
+      "story"
+    ],
+    "palette": [
+      "#000000",
+      "#FFE45C",
+      "#E9E4DA",
+      "#2A2622"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "this-or-that",
+    "name": "This or That",
+    "format": "story",
+    "sizeId": "story",
+    "style": "playful",
+    "description": "Two photos, one choice. Built for polls and hot takes.",
+    "tags": [
+      "this or that",
+      "poll",
+      "story",
+      "interactive",
+      "fun"
+    ],
+    "palette": [
+      "#7B61FF",
+      "#FFFFFF",
+      "#FFE14D",
+      "#1A1233"
+    ],
+    "width": 1080,
+    "height": 1920,
+    "slides": 1,
+    "photoSlots": 2,
+    "animated": false
+  },
+  {
+    "id": "cyber-grid",
+    "name": "Cyber Grid",
+    "format": "thumbnail",
+    "sizeId": "yt-thumbnail",
+    "style": "bold",
+    "description": "Neon grid, highlighter hook and a glowing face frame. Built for the click.",
+    "tags": [
+      "cyber",
+      "youtube",
+      "tech",
+      "bold"
+    ],
+    "palette": [
+      "#07070B",
+      "#140A2E",
+      "#3CF0FF",
+      "#C6FF3D",
+      "#FF3D71"
+    ],
+    "width": 1280,
+    "height": 720,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "slow-vlog",
+    "name": "Slow Vlog",
+    "format": "thumbnail",
+    "sizeId": "yt-thumbnail",
+    "style": "cinematic",
+    "description": "A quiet full-frame thumbnail: soft gradient, italic serif title, small episode tag.",
+    "tags": [
+      "vlog",
+      "travel",
+      "slow living",
+      "youtube",
+      "cinematic"
+    ],
+    "palette": [
+      "#1A1714",
+      "#FFFFFF",
+      "#E9DCC8",
+      "#7D6B58"
+    ],
+    "width": 1280,
+    "height": 720,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "tried-it",
+    "name": "I Tried It",
+    "format": "thumbnail",
+    "sizeId": "yt-thumbnail",
+    "style": "playful",
+    "description": "Loud yellow, a huge claim and an arrow pointing at your face.",
+    "tags": [
+      "challenge",
+      "reaction",
+      "youtube",
+      "experiment",
+      "yellow"
+    ],
+    "palette": [
+      "#FFD400",
+      "#111111",
+      "#FFFFFF",
+      "#FF3B3B"
+    ],
+    "width": 1280,
+    "height": 720,
+    "slides": 1,
+    "photoSlots": 1,
+    "animated": false
+  },
+  {
+    "id": "versus",
+    "name": "Versus",
+    "format": "thumbnail",
+    "sizeId": "yt-thumbnail",
+    "style": "bold",
+    "description": "Two sides, a diagonal split and a VS badge — built for comparison videos.",
+    "tags": [
+      "versus",
+      "comparison",
+      "youtube",
+      "challenge",
+      "bold",
+      "animated"
+    ],
+    "palette": [
+      "#FF3B3B",
+      "#2F6BFF",
+      "#FFFFFF",
+      "#111111",
+      "#FFE14D"
+    ],
+    "width": 1280,
+    "height": 720,
+    "slides": 1,
+    "photoSlots": 2,
+    "animated": true
+  }
+]

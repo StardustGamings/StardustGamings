@@ -1,0 +1,471 @@
+{
+  "id": "tier-list",
+  "name": "Tier List",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "playful",
+  "description": "Rank anything: four tiers, three spots each, one very strong opinion.",
+  "tags": [
+    "meme",
+    "meme format",
+    "tier list",
+    "ranking",
+    "grid"
+  ],
+  "palette": [
+    "#0B0A12",
+    "#FFFFFF",
+    "#FF5E7E",
+    "#FFB23E",
+    "#F6E94A",
+    "#7EE08A",
+    "#2A2638"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#0B0A12"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "tl0",
+        "x": 40,
+        "y": 40,
+        "width": 520,
+        "height": 140,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "my tier list:",
+        "fontFamily": "Unbounded",
+        "fontSize": 60,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tl1",
+        "x": 520,
+        "y": 40,
+        "width": 520,
+        "height": 74,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "snacks",
+        "fontFamily": "Caveat",
+        "fontSize": 60,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#F6E94A"
+        },
+        "align": "right",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tl2",
+        "x": 20,
+        "y": 170,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FF5E7E"
+        },
+        "cornerRadius": 16
+      },
+      {
+        "id": "tl3",
+        "x": 20,
+        "y": 170,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "S",
+        "fontFamily": "Anton",
+        "fontSize": 120,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tl4",
+        "x": 205,
+        "y": 170,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tl5",
+        "x": 493,
+        "y": 170,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tl6",
+        "x": 781,
+        "y": 170,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tl7",
+        "x": 20,
+        "y": 462,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFB23E"
+        },
+        "cornerRadius": 16
+      },
+      {
+        "id": "tl8",
+        "x": 20,
+        "y": 462,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "A",
+        "fontFamily": "Anton",
+        "fontSize": 120,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tl9",
+        "x": 205,
+        "y": 462,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tla",
+        "x": 493,
+        "y": 462,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tlb",
+        "x": 781,
+        "y": 462,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tlc",
+        "x": 20,
+        "y": 754,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#F6E94A"
+        },
+        "cornerRadius": 16
+      },
+      {
+        "id": "tld",
+        "x": 20,
+        "y": 754,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "B",
+        "fontFamily": "Anton",
+        "fontSize": 120,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tle",
+        "x": 205,
+        "y": 754,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tlf",
+        "x": 493,
+        "y": 754,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tlg",
+        "x": 781,
+        "y": 754,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tlh",
+        "x": 20,
+        "y": 1046,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#7EE08A"
+        },
+        "cornerRadius": 16
+      },
+      {
+        "id": "tli",
+        "x": 20,
+        "y": 1046,
+        "width": 170,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "C",
+        "fontFamily": "Anton",
+        "fontSize": 120,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tlj",
+        "x": 205,
+        "y": 1046,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tlk",
+        "x": 493,
+        "y": 1046,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      },
+      {
+        "id": "tll",
+        "x": 781,
+        "y": 1046,
+        "width": 276,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "cornerRadius": 16,
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#2A2638"
+          }
+        }
+      }
+    ]
+  }
+}

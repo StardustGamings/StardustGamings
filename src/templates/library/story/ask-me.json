@@ -1,0 +1,202 @@
+{
+  "id": "ask-me",
+  "name": "Ask Me Anything",
+  "format": "story",
+  "sizeId": "story",
+  "style": "soft",
+  "description": "A soft question card with your photo — answer your followers in style.",
+  "tags": [
+    "q&a",
+    "questions",
+    "story",
+    "soft",
+    "pastel"
+  ],
+  "palette": [
+    "#FDE6EF",
+    "#E4E1FF",
+    "#3B2A4A",
+    "#FFFFFF"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1920,
+    "background": {
+      "type": "linear",
+      "angle": 180,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#FDE6EF"
+        },
+        {
+          "offset": 1,
+          "color": "#E4E1FF"
+        }
+      ]
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "am0",
+        "x": 110,
+        "y": 640,
+        "width": 860,
+        "height": 640,
+        "rotation": 0,
+        "opacity": 1,
+        "shadow": {
+          "color": "rgba(59,42,74,0.12)",
+          "blur": 50,
+          "x": 0,
+          "y": 16
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "cornerRadius": 56
+      },
+      {
+        "id": "am1",
+        "x": 390,
+        "y": 480,
+        "width": 280,
+        "height": 280,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "clip": "ellipse",
+        "stroke": {
+          "color": "#FFFFFF",
+          "width": 12
+        },
+        "placeholder": {
+          "fill": {
+            "type": "solid",
+            "color": "#F3D3E1"
+          }
+        }
+      },
+      {
+        "id": "am2",
+        "x": 150,
+        "y": 800,
+        "width": 780,
+        "height": 223,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "ask me\nanything",
+        "fontFamily": "Fraunces",
+        "fontSize": 110,
+        "fontWeight": 600,
+        "fontStyle": "italic",
+        "fill": {
+          "type": "solid",
+          "color": "#3B2A4A"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 0.95,
+        "letterSpacing": 0
+      },
+      {
+        "id": "am3",
+        "x": 190,
+        "y": 1080,
+        "width": 700,
+        "height": 110,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#F4F0F8"
+        },
+        "cornerRadius": 32
+      },
+      {
+        "id": "am4",
+        "x": 230,
+        "y": 1080,
+        "width": 620,
+        "height": 110,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "type something…",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#A597B3"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "am5",
+        "x": 820,
+        "y": 560,
+        "width": 150,
+        "height": 150,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:twin-sparkle",
+        "tint": "#B79CFF"
+      },
+      {
+        "id": "am6",
+        "x": 120,
+        "y": 1320,
+        "width": 120,
+        "height": 120,
+        "rotation": -12,
+        "opacity": 1,
+        "type": "sticker",
+        "stickerId": "vector:heart",
+        "tint": "#FF8FB8"
+      },
+      {
+        "id": "am7",
+        "x": 60,
+        "y": 1560,
+        "width": 960,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "Reply to this story ↑",
+        "fontFamily": "Manrope",
+        "fontSize": 34,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#3B2A4A"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      }
+    ]
+  }
+}

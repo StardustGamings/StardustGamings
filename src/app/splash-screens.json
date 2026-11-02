@@ -1,0 +1,24 @@
+{
+  "$comment": "iOS launch screens for the installed app (CSS width × height at a device pixel ratio). iPads get both orientations. Images are made by `npm run icons`.",
+  "screens": [
+    { "width": 440, "height": 956, "ratio": 3, "devices": "iPhone 16 Pro Max" },
+    { "width": 402, "height": 874, "ratio": 3, "devices": "iPhone 16 Pro" },
+    { "width": 430, "height": 932, "ratio": 3, "devices": "iPhone 16 Plus, 15 Pro Max, 15 Plus, 14 Pro Max" },
+    { "width": 393, "height": 852, "ratio": 3, "devices": "iPhone 16, 15 Pro, 15, 14 Pro" },
+    { "width": 428, "height": 926, "ratio": 3, "devices": "iPhone 14 Plus, 13 Pro Max, 12 Pro Max" },
+    { "width": 390, "height": 844, "ratio": 3, "devices": "iPhone 14, 13 Pro, 13, 12 Pro, 12" },
+    { "width": 375, "height": 812, "ratio": 3, "devices": "iPhone 13 mini, 12 mini, 11 Pro, XS, X" },
+    { "width": 414, "height": 896, "ratio": 3, "devices": "iPhone 11 Pro Max, XS Max" },
+    { "width": 414, "height": 896, "ratio": 2, "devices": "iPhone 11, XR" },
+    { "width": 414, "height": 736, "ratio": 3, "devices": "iPhone 8 Plus" },
+    { "width": 375, "height": 667, "ratio": 2, "devices": "iPhone SE (2nd & 3rd gen), 8" },
+    { "width": 1032, "height": 1376, "ratio": 2, "devices": "iPad Pro 13\" (M4)", "ipad": true },
+    { "width": 1024, "height": 1366, "ratio": 2, "devices": "iPad Pro 12.9\"", "ipad": true },
+    { "width": 834, "height": 1210, "ratio": 2, "devices": "iPad Pro 11\" (M4)", "ipad": true },
+    { "width": 834, "height": 1194, "ratio": 2, "devices": "iPad Pro 11\"", "ipad": true },
+    { "width": 820, "height": 1180, "ratio": 2, "devices": "iPad Air 10.9\", iPad (10th gen)", "ipad": true },
+    { "width": 810, "height": 1080, "ratio": 2, "devices": "iPad 10.2\"", "ipad": true },
+    { "width": 744, "height": 1133, "ratio": 2, "devices": "iPad mini (6th gen)", "ipad": true },
+    { "width": 768, "height": 1024, "ratio": 2, "devices": "iPad 9.7\", iPad mini (5th gen)", "ipad": true }
+  ]
+}

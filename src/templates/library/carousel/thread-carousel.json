@@ -1,0 +1,721 @@
+{
+  "id": "thread-carousel",
+  "name": "Thread",
+  "format": "carousel",
+  "sizeId": "ig-portrait",
+  "style": "editorial",
+  "description": "A hook, three numbered points and a save-this ending — a thread you swipe through.",
+  "tags": [
+    "social format",
+    "thread",
+    "tips",
+    "educational",
+    "numbered",
+    "text",
+    "animated"
+  ],
+  "palette": [
+    "#F4F1EA",
+    "#0B0A12",
+    "#7A5CFF",
+    "#C6FF3D",
+    "#8E8A9C"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#F4F1EA"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "duration": 3000
+      },
+      {
+        "id": "s1",
+        "fill": null,
+        "duration": 3000
+      },
+      {
+        "id": "s2",
+        "fill": null,
+        "duration": 3000
+      },
+      {
+        "id": "s3",
+        "fill": null,
+        "duration": 3000
+      },
+      {
+        "id": "s4",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "duration": 3000
+      }
+    ],
+    "elements": [
+      {
+        "id": "tc0",
+        "x": 80,
+        "y": 80,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "1/5",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc1",
+        "x": 80,
+        "y": 300,
+        "width": 920,
+        "height": 560,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "things I wish I knew before posting every day",
+        "fontFamily": "Syne",
+        "fontSize": 90,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc2",
+        "x": 80,
+        "y": 1150,
+        "width": 700,
+        "height": 44,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "a thread — swipe",
+        "fontFamily": "Manrope",
+        "fontSize": 36,
+        "fontWeight": 700,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc3",
+        "x": 820,
+        "y": 1120,
+        "width": 140,
+        "height": 140,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 510,
+            "duration": 500
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:arrow-bold",
+        "tint": "#C6FF3D"
+      },
+      {
+        "id": "tc4",
+        "x": 1160,
+        "y": 80,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "2/5",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc5",
+        "x": 1150,
+        "y": 240,
+        "width": 800,
+        "height": 336,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "01",
+        "fontFamily": "Syne",
+        "fontSize": 300,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc6",
+        "x": 1160,
+        "y": 610,
+        "width": 120,
+        "height": 8,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        }
+      },
+      {
+        "id": "tc7",
+        "x": 1160,
+        "y": 660,
+        "width": 920,
+        "height": 108,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Batch it",
+        "fontFamily": "Syne",
+        "fontSize": 88,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc8",
+        "x": 1160,
+        "y": 800,
+        "width": 900,
+        "height": 131,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Shoot on Sunday, post all week. Future you says thanks.",
+        "fontFamily": "Manrope",
+        "fontSize": 50,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.25,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tc9",
+        "x": 2240,
+        "y": 80,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "3/5",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tca",
+        "x": 2230,
+        "y": 240,
+        "width": 800,
+        "height": 336,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "02",
+        "fontFamily": "Syne",
+        "fontSize": 300,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcb",
+        "x": 2240,
+        "y": 610,
+        "width": 120,
+        "height": 8,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        }
+      },
+      {
+        "id": "tcc",
+        "x": 2240,
+        "y": 660,
+        "width": 920,
+        "height": 108,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Hook first",
+        "fontFamily": "Syne",
+        "fontSize": 88,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcd",
+        "x": 2240,
+        "y": 800,
+        "width": 900,
+        "height": 131,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "The first slide does the work. Say the good bit up front.",
+        "fontFamily": "Manrope",
+        "fontSize": 50,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.25,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tce",
+        "x": 3320,
+        "y": 80,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "4/5",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcf",
+        "x": 3310,
+        "y": 240,
+        "width": 800,
+        "height": 336,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "03",
+        "fontFamily": "Syne",
+        "fontSize": 300,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#7A5CFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcg",
+        "x": 3320,
+        "y": 610,
+        "width": 120,
+        "height": 8,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        }
+      },
+      {
+        "id": "tch",
+        "x": 3320,
+        "y": 660,
+        "width": 920,
+        "height": 108,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 690,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Be a person",
+        "fontFamily": "Syne",
+        "fontSize": 88,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tci",
+        "x": 3320,
+        "y": 800,
+        "width": 900,
+        "height": 131,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 870,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "Nobody follows a brand voice. They follow you.",
+        "fontFamily": "Manrope",
+        "fontSize": 50,
+        "fontWeight": 500,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#4A4658"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.25,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcj",
+        "x": 4400,
+        "y": 80,
+        "width": 200,
+        "height": 42,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 150,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "5/5",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tck",
+        "x": 4400,
+        "y": 420,
+        "width": 920,
+        "height": 238,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "slide",
+            "delay": 330,
+            "duration": 650,
+            "direction": "up"
+          }
+        },
+        "type": "text",
+        "text": "save this for later",
+        "fontFamily": "Syne",
+        "fontSize": 110,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcl",
+        "x": 4400,
+        "y": 720,
+        "width": 900,
+        "height": 112,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "fade",
+            "delay": 510,
+            "duration": 600
+          }
+        },
+        "type": "text",
+        "text": "and send it to the friend who needs it",
+        "fontFamily": "Manrope",
+        "fontSize": 48,
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "tcm",
+        "x": 5120,
+        "y": 1080,
+        "width": 170,
+        "height": 170,
+        "rotation": -8,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "pop",
+            "delay": 690,
+            "duration": 500
+          }
+        },
+        "type": "sticker",
+        "stickerId": "vector:bookmark",
+        "tint": "#C6FF3D"
+      }
+    ],
+    "motion": {
+      "transition": "swipe",
+      "transitionDuration": 500
+    }
+  }
+}

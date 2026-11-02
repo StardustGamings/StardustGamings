@@ -1,0 +1,338 @@
+{
+  "$schema": "../pack.schema.json",
+  "version": 2,
+  "id": "2026-08",
+  "title": "August Drop",
+  "subtitle": "Sunburnt summer: pool blues, disposable flash and last-week-of-holiday energy.",
+  "publishedAt": "2026-08-01",
+  "accent": ["#3CC8FF", "#FFB23E"],
+  "cover": {
+    "headline": "summer, unfiltered",
+    "typography": "beach-hand",
+    "palette": "poolside",
+    "stickers": ["art:sun-burst"]
+  },
+  "templates": [
+    {
+      "templateId": "polaroid-wall",
+      "label": "Polaroid walls",
+      "heat": 94
+    },
+    {
+      "templateId": "film-roll",
+      "label": "Film roll stories",
+      "heat": 90
+    },
+    {
+      "templateId": "coastal-mood",
+      "label": "Coastal moodboards",
+      "heat": 88
+    },
+    {
+      "templateId": "taped-strips",
+      "label": "Taped strips",
+      "heat": 83
+    },
+    {
+      "templateId": "date-stamp",
+      "label": "Date stamps are back",
+      "heat": 81
+    }
+  ],
+  "layouts": [
+    {
+      "id": "postcard-grid",
+      "name": "Postcard grid",
+      "templateId": "nine-grid",
+      "description": "Nine tiles, one summer.",
+      "heat": 89
+    },
+    {
+      "id": "pinned",
+      "name": "Pinned board",
+      "templateId": "pinned-board",
+      "description": "Ticket stubs and pics pinned to cork.",
+      "heat": 80
+    }
+  ],
+  "typography": [
+    {
+      "id": "beach-hand",
+      "name": "Beach Hand",
+      "vibe": "Handwritten",
+      "sample": "wish you were here",
+      "heading": {
+        "family": "Pacifico",
+        "weight": 400
+      },
+      "body": {
+        "family": "Manrope",
+        "weight": 600
+      },
+      "heat": 91
+    },
+    {
+      "id": "tabloid",
+      "name": "Tabloid",
+      "vibe": "Bold",
+      "sample": "HOT GIRL SUMMER",
+      "heading": {
+        "family": "Anton",
+        "weight": 400,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "Archivo",
+        "weight": 600
+      },
+      "heat": 86
+    },
+    {
+      "id": "marker-note",
+      "name": "Marker Note",
+      "vibe": "Scrapbook",
+      "sample": "best week ever",
+      "heading": {
+        "family": "Permanent Marker",
+        "weight": 400
+      },
+      "body": {
+        "family": "Space Grotesk",
+        "weight": 500
+      },
+      "heat": 82
+    }
+  ],
+  "palettes": [
+    {
+      "id": "poolside",
+      "name": "Poolside",
+      "mood": "Fresh",
+      "colors": ["#3CC8FF", "#E8F8FF", "#0E3B5C", "#FFB23E", "#FFFFFF"],
+      "heat": 93
+    },
+    {
+      "id": "sunburnt",
+      "name": "Sunburnt",
+      "mood": "Warm",
+      "colors": ["#FF6B4A", "#FFD6A5", "#7A2E1F", "#FFF4E6", "#2A1510"],
+      "heat": 88
+    },
+    {
+      "id": "lemonade",
+      "name": "Lemonade",
+      "mood": "Sweet",
+      "colors": ["#FFF36B", "#FF8FB8", "#FFFDF2", "#3A2E00", "#7EE08A"],
+      "heat": 82
+    }
+  ],
+  "looks": [
+    {
+      "id": "aug-sunburnt",
+      "name": "Sunburnt",
+      "description": "Hot and a little overexposed, with a warm light leak.",
+      "swatch": ["#FF6B4A", "#FFD6A5"],
+      "adjust": {
+        "exposure": 8,
+        "temperature": 30,
+        "contrast": 10,
+        "saturation": 12,
+        "highlights": -12
+      },
+      "effects": {
+        "leak": 36,
+        "leakStyle": "amber"
+      },
+      "heat": 92
+    },
+    {
+      "id": "aug-poolside",
+      "name": "Poolside",
+      "description": "Aqua shadows, clean whites, pool-day blues.",
+      "swatch": ["#3CC8FF", "#E8F8FF"],
+      "adjust": {
+        "temperature": -20,
+        "tint": -6,
+        "vibrance": 24,
+        "brightness": 6
+      },
+      "curves": {
+        "b": [
+          {
+            "x": 0,
+            "y": 0.08
+          },
+          {
+            "x": 0.5,
+            "y": 0.56
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      "heat": 85
+    }
+  ],
+  "effects": [
+    {
+      "id": "flash-night",
+      "name": "Disposable Flash",
+      "description": "Harsh flash, warm cast, dusty edges.",
+      "css": "contrast(1.2) saturate(1.1) brightness(1.1)",
+      "overlay": "vignette",
+      "look": "disposable",
+      "intensity": 95,
+      "heat": 90
+    },
+    {
+      "id": "sunburnt-fx",
+      "name": "Sunburnt",
+      "description": "The drop's filter: hot, warm and leaking light.",
+      "css": "sepia(0.3) saturate(1.3) brightness(1.08)",
+      "overlay": "leak",
+      "look": "aug-sunburnt",
+      "intensity": 90,
+      "heat": 88
+    }
+  ],
+  "stickers": [
+    "art:sun-burst",
+    "art:wave-line",
+    "emoji:🌊",
+    "emoji:🍉",
+    "vector:daisy",
+    "vector:heart",
+    "emoji:☀️",
+    "vector:tape"
+  ],
+  "stickerArt": [
+    {
+      "id": "sun-burst",
+      "name": "Sun",
+      "defaultTint": "#FFB23E",
+      "layers": [
+        {
+          "d": "M28 50 a22 22 0 1 0 44 0 a22 22 0 1 0 -44 0 Z",
+          "fill": "tint"
+        },
+        {
+          "d": "M50 4 L50 18 M50 82 L50 96 M4 50 L18 50 M82 50 L96 50 M17 17 L27 27 M73 73 L83 83 M83 17 L73 27 M27 73 L17 83",
+          "stroke": "tint",
+          "strokeWidth": 7
+        },
+        {
+          "d": "M42 48 C42 44 46 44 46 48 M54 48 C54 44 58 44 58 48 M42 58 C46 64 54 64 58 58",
+          "stroke": "#0B0A12",
+          "strokeWidth": 3.5
+        }
+      ]
+    },
+    {
+      "id": "wave-line",
+      "name": "Wave",
+      "defaultTint": "#3CC8FF",
+      "layers": [
+        {
+          "d": "M4 60 C16 40 28 40 40 60 C52 80 64 80 76 60 C84 46 90 44 96 48 L96 96 L4 96 Z",
+          "fill": "tint"
+        },
+        {
+          "d": "M4 44 C16 24 28 24 40 44 C52 64 64 64 76 44 C84 30 90 28 96 32",
+          "stroke": "tint",
+          "strokeWidth": 6
+        }
+      ]
+    }
+  ],
+  "layoutRules": [
+    {
+      "id": "postcard-dump",
+      "name": "Postcard Dump",
+      "emoji": "🏖️",
+      "blurb": "Sun-faded polaroids on sand tones.",
+      "heat": 90,
+      "rule": {
+        "background": "palette-light",
+        "tintSlides": true,
+        "cover": "framed",
+        "perSlide": [2, 3, 2],
+        "collage": {
+          "family": "polaroid",
+          "chaos": 0.5,
+          "gutter": 0.02
+        },
+        "margin": 0.06,
+        "title": {
+          "preset": "handwritten",
+          "text": "wish you were here",
+          "placement": "bottom"
+        },
+        "stickers": ["art:sun-burst", "emoji:🌊", "emoji:🍉"],
+        "coverStickers": 2,
+        "adjust": {
+          "temperature": 14,
+          "fade": 12
+        }
+      }
+    }
+  ],
+  "formats": [
+    {
+      "id": "photo-dump",
+      "name": "Photo dump",
+      "kind": "carousel style",
+      "category": "carousel",
+      "description": "Ten slides, zero context.",
+      "templateId": "scrapbook-dump",
+      "heat": 92
+    },
+    {
+      "id": "this-or-that",
+      "name": "This or that",
+      "kind": "social format",
+      "category": "social",
+      "description": "A two-option story poll.",
+      "templateId": "this-or-that",
+      "heat": 84
+    },
+    {
+      "id": "caption-meme",
+      "name": "Caption meme",
+      "kind": "meme format",
+      "category": "meme",
+      "description": "White bar, relatable caption.",
+      "templateId": "meme-caption",
+      "heat": 80
+    }
+  ],
+  "styles": [
+    {
+      "id": "pool-day",
+      "name": "Pool Day",
+      "vibe": "Fresh",
+      "description": "Pool blues, a looping handwritten title and poolside colour.",
+      "palette": "poolside",
+      "typography": "beach-hand",
+      "look": "aug-poolside",
+      "lookIntensity": 80,
+      "stickers": ["emoji:🌊"],
+      "animate": "smooth",
+      "heat": 90
+    },
+    {
+      "id": "tabloid-summer",
+      "name": "Tabloid Summer",
+      "vibe": "Bold",
+      "description": "Sunburnt reds and loud tabloid type.",
+      "palette": "sunburnt",
+      "typography": "tabloid",
+      "look": "aug-sunburnt",
+      "lookIntensity": 75,
+      "stickers": ["art:sun-burst"],
+      "animate": "playful",
+      "heat": 85
+    }
+  ]
+}

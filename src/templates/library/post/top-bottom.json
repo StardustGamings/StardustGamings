@@ -1,0 +1,112 @@
+{
+  "id": "top-bottom",
+  "name": "Top & Bottom",
+  "format": "post",
+  "sizeId": "ig-square",
+  "style": "bold",
+  "description": "The classic: one pic, a setup on top and the punchline underneath, outlined.",
+  "tags": [
+    "meme",
+    "meme format",
+    "classic",
+    "caption",
+    "impact"
+  ],
+  "palette": [
+    "#5A5470",
+    "#FFFFFF",
+    "#0B0A12"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1080,
+    "background": {
+      "type": "solid",
+      "color": "#5A5470"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null
+      }
+    ],
+    "elements": [
+      {
+        "id": "tb0",
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1080,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "image",
+        "assetId": null,
+        "fit": "cover",
+        "placeholder": {
+          "label": "The pic",
+          "fill": {
+            "type": "solid",
+            "color": "#5A5470"
+          }
+        }
+      },
+      {
+        "id": "tb1",
+        "x": 40,
+        "y": 36,
+        "width": 1000,
+        "height": 126,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "when the carousel",
+        "fontFamily": "Anton",
+        "fontSize": 112,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase",
+        "stroke": {
+          "color": "#0B0A12",
+          "width": 10
+        }
+      },
+      {
+        "id": "tb2",
+        "x": 40,
+        "y": 920,
+        "width": 1000,
+        "height": 126,
+        "rotation": 0,
+        "opacity": 1,
+        "type": "text",
+        "text": "hits slide ten",
+        "fontFamily": "Anton",
+        "fontSize": 112,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "top",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase",
+        "stroke": {
+          "color": "#0B0A12",
+          "width": 10
+        }
+      }
+    ]
+  }
+}

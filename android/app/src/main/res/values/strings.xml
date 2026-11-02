@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Stardeck</string>
+    <string name="title_activity_main">Stardeck</string>
+    <string name="package_name">com.stardustgamings.stardeck</string>
+    <string name="custom_url_scheme">com.stardustgamings.stardeck</string>
+</resources>

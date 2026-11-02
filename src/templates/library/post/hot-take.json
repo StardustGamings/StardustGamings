@@ -1,0 +1,271 @@
+{
+  "id": "hot-take",
+  "name": "Hot Take",
+  "format": "post",
+  "sizeId": "ig-portrait",
+  "style": "bold",
+  "description": "A stamped HOT TAKE, one unpopular opinion and an agree / fight-me poll.",
+  "tags": [
+    "social format",
+    "opinion",
+    "poll",
+    "hot take",
+    "bold",
+    "animated"
+  ],
+  "palette": [
+    "#0B0A12",
+    "#FFFFFF",
+    "#FF4D2E",
+    "#C6FF3D",
+    "#2A2638"
+  ],
+  "doc": {
+    "version": 1,
+    "slideWidth": 1080,
+    "slideHeight": 1350,
+    "background": {
+      "type": "solid",
+      "color": "#0B0A12"
+    },
+    "slides": [
+      {
+        "id": "s0",
+        "fill": null,
+        "duration": 3750
+      }
+    ],
+    "elements": [
+      {
+        "id": "ht0",
+        "x": 80,
+        "y": 120,
+        "width": 560,
+        "height": 150,
+        "rotation": -4,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 210,
+            "duration": 800
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#FF4D2E"
+        },
+        "cornerRadius": 10
+      },
+      {
+        "id": "ht1",
+        "x": 80,
+        "y": 120,
+        "width": 560,
+        "height": 150,
+        "rotation": -4,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 340,
+            "duration": 1200
+          }
+        },
+        "type": "text",
+        "text": "hot take",
+        "fontFamily": "Rubik Mono One",
+        "fontSize": 70,
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "center",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textTransform": "uppercase"
+      },
+      {
+        "id": "ht2",
+        "x": 660,
+        "y": 110,
+        "width": 140,
+        "height": 140,
+        "rotation": 10,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "rotate",
+            "delay": 80,
+            "duration": 700
+          }
+        },
+        "type": "sticker",
+        "stickerId": "emoji:🔥"
+      },
+      {
+        "id": "ht3",
+        "x": 80,
+        "y": 400,
+        "width": 920,
+        "height": 496,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "glitch",
+            "delay": 470,
+            "duration": 700
+          }
+        },
+        "type": "text",
+        "text": "pineapple belongs on literally everything",
+        "fontFamily": "Archivo",
+        "fontSize": 118,
+        "fontWeight": 900,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "top",
+        "lineHeight": 1.02,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ht4",
+        "x": 80,
+        "y": 1010,
+        "width": 920,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 600,
+            "duration": 800
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#C6FF3D"
+        },
+        "cornerRadius": 60
+      },
+      {
+        "id": "ht5",
+        "x": 130,
+        "y": 1010,
+        "width": 820,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 730,
+            "duration": 1200
+          }
+        },
+        "type": "text",
+        "text": "agree",
+        "fontFamily": "Manrope",
+        "fontSize": 50,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#0B0A12"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ht6",
+        "x": 80,
+        "y": 1160,
+        "width": 920,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "blur",
+            "delay": 860,
+            "duration": 800
+          }
+        },
+        "type": "shape",
+        "shape": "rect",
+        "fill": {
+          "type": "solid",
+          "color": "#2A2638"
+        },
+        "cornerRadius": 60
+      },
+      {
+        "id": "ht7",
+        "x": 130,
+        "y": 1160,
+        "width": 820,
+        "height": 120,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "typewriter",
+            "delay": 990,
+            "duration": 1200
+          }
+        },
+        "type": "text",
+        "text": "fight me",
+        "fontFamily": "Manrope",
+        "fontSize": 50,
+        "fontWeight": 800,
+        "fontStyle": "normal",
+        "fill": {
+          "type": "solid",
+          "color": "#FFFFFF"
+        },
+        "align": "left",
+        "verticalAlign": "middle",
+        "lineHeight": 1,
+        "letterSpacing": 0
+      },
+      {
+        "id": "ht8",
+        "x": 880,
+        "y": 1170,
+        "width": 90,
+        "height": 90,
+        "rotation": 0,
+        "opacity": 1,
+        "animation": {
+          "enter": {
+            "preset": "rotate",
+            "delay": 1120,
+            "duration": 700
+          }
+        },
+        "type": "sticker",
+        "stickerId": "emoji:💀"
+      }
+    ],
+    "motion": {
+      "transition": "cut",
+      "transitionDuration": 0
+    }
+  }
+}
