@@ -80,6 +80,17 @@ describe('version history (IndexedDB)', () => {
     expect((await versions.listVersions(meta.id)).map((x) => x.id)).toEqual([second.id]);
   });
 
+  it('lists versions taken in the same millisecond in the order they were made', async () => {
+    const { meta, doc } = await repo.createProject({ format: 'post' });
+    const at = Date.now();
+    const made = [];
+    for (const note of ['a', 'b', 'c', 'd', 'e'])
+      made.push(await versions.createVersion(meta.id, doc, { kind: 'auto', note }, at));
+    const list = await versions.listVersions(meta.id);
+    expect(list.map((v) => v.note)).toEqual(['e', 'd', 'c', 'b', 'a']);
+    expect(made[0]!.createdAt).toBe(at);
+  });
+
   it('clears history but keeps named versions by default', async () => {
     const { meta, doc } = await repo.createProject({ format: 'post' });
     await versions.createVersion(meta.id, doc, { kind: 'auto' });

@@ -109,10 +109,14 @@ export async function createVersion(
 ): Promise<VersionRecord> {
   const storage = await getStorage();
   const name = options.name ? versionName(options.name) || null : null;
+  const existing = await storage.getVersions(projectId);
+  const newest = existing.reduce((t, v) => Math.max(t, v.createdAt), -Infinity);
   const version: VersionRecord = {
     id: createId('ver'),
     projectId,
-    createdAt: now,
+    // Two versions taken in the same millisecond (the design as opened, then Ctrl+S) would tie, and
+    // storage breaks ties by random id; a step past the newest keeps them in the order they were made.
+    createdAt: now <= newest && newest - now < 1000 ? newest + 1 : now,
     kind: options.kind,
     name,
     ...(options.note ? { note: options.note.slice(0, 120) } : {}),
@@ -121,8 +125,7 @@ export async function createVersion(
     bytes: documentBytes(doc),
   };
   await storage.putVersion(version);
-  const all = await storage.getVersions(projectId);
-  await storage.deleteVersions(versionsToPrune(all, now));
+  await storage.deleteVersions(versionsToPrune([...existing, version], now));
   notify({ type: 'versions', projectId });
   return version;
 }

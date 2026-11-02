@@ -416,6 +416,14 @@
   padding-bottom: max(env(safe-area-inset-bottom), var(--safe-area-inset-bottom, 0px));
 }
 
+/* Phones: while a sheet or dialog is open, notifications move from under the top bar to the very
+   top, above the sheet, so they never cover its buttons. Unlayered, so it wins over utilities. */
+@media (max-width: 1023.98px) {
+  body:has([role='dialog'][data-state='open']) [data-toaster] {
+    top: calc(8px + max(env(safe-area-inset-top), var(--safe-area-inset-top, 0px)));
+  }
+}
+
 @utility safe-top {
   padding-top: max(env(safe-area-inset-top), var(--safe-area-inset-top, 0px));
 }

@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { AlertTriangle, CheckCircle2, Info, Sparkles, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/cn';
 import { useToasts, type Toast } from './toast-store';
 
@@ -20,7 +21,7 @@ const ICON_TONES = {
   info: 'text-info',
 };
 
-function ToastCard({ toast }: { toast: Toast }) {
+function ToastCard({ toast, fromTop }: { toast: Toast; fromTop: boolean }) {
   const dismiss = useToasts((s) => s.dismiss);
   const [paused, setPaused] = useState(false);
   const remaining = useRef(toast.duration);
@@ -40,7 +41,7 @@ function ToastCard({ toast }: { toast: Toast }) {
   return (
     <motion.li
       layout
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: fromTop ? -12 : 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, transition: { duration: 0.14 } }}
       transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
@@ -80,17 +81,25 @@ function ToastCard({ toast }: { toast: Toast }) {
   );
 }
 
+/**
+ * Phones and tablets keep their controls at the bottom (tab bar, toolbar, sheets and their
+ * buttons), so notes drop in from the top there, just under the top bar, never over a button;
+ * while a sheet is open they sit at the very top, above it (see `[data-toaster]` in globals.css).
+ * Desktops use the bottom-right corner.
+ */
 export function Toaster() {
   const toasts = useToasts((s) => s.toasts);
+  const fromTop = !useMediaQuery('(min-width: 1024px)', true);
   return (
     <ol
       aria-live="polite"
       aria-label="Notifications"
-      className="pointer-events-none fixed inset-x-3 bottom-[calc(72px+env(safe-area-inset-bottom))] z-[90] flex flex-col items-center gap-2 lg:inset-x-auto lg:right-6 lg:bottom-6 lg:items-end"
+      data-toaster
+      className="pointer-events-none fixed inset-x-3 top-[calc(64px+max(env(safe-area-inset-top),var(--safe-area-inset-top,0px)))] z-[90] flex flex-col items-center gap-2 lg:inset-x-auto lg:top-auto lg:right-6 lg:bottom-6 lg:items-end"
     >
       <AnimatePresence initial={false}>
         {toasts.map((t) => (
-          <ToastCard key={t.id} toast={t} />
+          <ToastCard key={t.id} toast={t} fromTop={fromTop} />
         ))}
       </AnimatePresence>
     </ol>
