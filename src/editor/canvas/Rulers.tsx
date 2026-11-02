@@ -36,9 +36,9 @@ export function Rulers() {
       const doc = selectDoc(editor);
       if (!doc || !cam.vw) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const bg = readVar('--bg-elevated', '#15151f');
-      const fg = readVar('--fg-subtle', '#75738c');
-      const accent = readVar('--accent', '#c6ff3d');
+      const bg = readVar('--bg-elevated', '#201e1c');
+      const fg = readVar('--fg-subtle', '#a29c93');
+      const accent = readVar('--accent', '#ff6b35');
       const sel = unionRects(getElements(doc, editor.selection).map(elementBounds));
       const step = tickStep(cam.zoom);
 

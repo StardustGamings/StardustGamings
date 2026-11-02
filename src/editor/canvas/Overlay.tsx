@@ -14,10 +14,10 @@ import { usePlayback } from '../playback';
 import { useInteraction } from './interaction-store';
 import { RULER_SIZE, rotateHandlePoint, transformFrame } from './useCanvasInteractions';
 
-/** Selection chrome uses violet so it stays visible on lime (brand-coloured) designs. */
+/** Selection chrome in the accent; snapping and guides in a cool blue that reads on warm and pale designs alike. */
 const ACCENT = 'var(--selection)';
-const SNAP = '#FF3DDB';
-const GUIDE = '#3CF0FF';
+const SNAP = '#FF4F9A';
+const GUIDE = '#4AB8FF';
 
 function useView() {
   const x = useCamera((s) => s.x);
@@ -83,7 +83,7 @@ export function Overlay() {
           <path
             d={`M ${W / GRID_COLUMNS} 0 L 0 0 0 ${W / GRID_COLUMNS}`}
             fill="none"
-            stroke="rgb(160 107 255 / 0.45)"
+            stroke="rgb(140 130 120 / 0.4)"
             strokeWidth="1"
           />
         </pattern>
@@ -128,8 +128,8 @@ export function Overlay() {
                     y={origin.y + z.y * zoom}
                     width={z.width * zoom}
                     height={z.height * zoom}
-                    fill="rgb(255 92 122 / 0.12)"
-                    stroke="rgb(255 92 122 / 0.7)"
+                    fill="rgb(74 184 255 / 0.1)"
+                    stroke="rgb(74 184 255 / 0.75)"
                     strokeDasharray="4 3"
                   />
                   {z.label && z.width * zoom > 110 && z.height * zoom > 18 && (
@@ -139,7 +139,7 @@ export function Overlay() {
                       fontSize="9.5"
                       fontWeight="700"
                       textAnchor="middle"
-                      fill="#FF5C7A"
+                      fill="#4AB8FF"
                       style={{ textTransform: 'uppercase', letterSpacing: '0.06em' }}
                     >
                       {z.label}
@@ -312,7 +312,7 @@ export function Overlay() {
               return (
                 <foreignObject x={bottom.x - 70} y={bottom.y + 10} width="140" height="24">
                   <div className="flex justify-center">
-                    <span className="inline-flex items-center gap-1 rounded-sm bg-selection px-2 py-0.5 font-mono text-[10px] font-semibold text-white">
+                    <span className="inline-flex items-center gap-1 rounded-sm bg-selection px-2 py-0.5 font-mono text-[10px] font-semibold text-ink">
                       {frame.locked && <Lock className="size-2.5" />}
                       {Math.round(frame.box.width)} × {Math.round(frame.box.height)}
                     </span>

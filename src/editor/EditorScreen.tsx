@@ -3,117 +3,38 @@
 import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import {
-  ArrowDown,
-  ArrowUp,
-  Check,
-  Copy,
-  Crop,
-  Dices,
-  Grid3x3,
-  ImageUp,
-  Lock,
-  Maximize,
-  PenLine,
-  SlidersHorizontal,
-  Sparkles,
-  Trash2,
-  Type,
-  Unlock,
-  Wand2,
-  X,
-} from 'lucide-react';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Type, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { FORMATS } from '@/projects/formats';
 import { useSettings } from '@/settings/store';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { buttonClasses } from '@/components/ui/button-styles';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { IconButton } from '@/components/ui/IconButton';
-import { Spinner } from '@/components/ui/Spinner';
+import { LoadingState } from '@/components/ui/LoadingState';
 import { cn } from '@/utils/cn';
 import * as actions from './actions';
 import { useCamera } from './camera';
 import { EditorCanvas } from './canvas/EditorCanvas';
 import { EditorTopBar } from './EditorTopBar';
-import { TextPanel, ShapesPanel, StickersPanel } from './panels/AddPanels';
-import {
-  AnimatePanel,
-  EditorDialogs,
-  FiltersPanel,
-  LayoutsPanel,
-  MagicPanel,
-  PhotosPanel,
-  TemplatesPanel,
-  Timeline,
-  TrendsPanel,
-} from './lazy';
+import { EditorDialogs, Timeline } from './lazy';
 import { useUi } from '@/settings/ui-store';
 import { EditorAlerts } from './EditorAlerts';
 import { useVersions } from './versioning';
 import { subscribe } from '@/storage/sync';
-import { shuffleLayout } from './layout-actions';
 import { CropBar } from './CropBar';
 import { PhotoPicker } from './PhotoPicker';
-import { openPhotoPicker } from './file-picker';
-import { enterCrop, importAndPlace } from './photo-actions';
+import { importAndPlace } from './photo-actions';
 import { useAssets } from '@/assets/store';
-import { BackgroundPanel, DocumentPanel } from './panels/DocumentPanels';
+import { DocumentPanel } from './panels/DocumentPanels';
 import { LayersPanel } from './panels/LayersPanel';
 import { PropertiesPanel } from './panels/PropertiesPanel';
-import { useSelectedElements } from './panels/useSelection';
 import { SlideStrip } from './SlideStrip';
+import { MobileEditorChrome } from './MobileEditor';
+import { PANEL_TITLES, PanelContent } from './panel-content';
 import { usePlayback } from './playback';
-import { selectDoc, useEditor, type PanelId } from './store';
-import { PANEL_TOOLS, ToolButton, ToolRail } from './ToolRail';
+import { selectDoc, useEditor } from './store';
+import { ToolRail } from './ToolRail';
 import { useEditorShortcuts } from './useEditorShortcuts';
-
-const PANEL_TITLES: Record<PanelId, string> = {
-  templates: 'Templates',
-  text: 'Text',
-  shapes: 'Shapes',
-  stickers: 'Stickers',
-  photos: 'Photos',
-  filters: 'Filters',
-  layouts: 'Layouts',
-  animate: 'Animate',
-  trends: 'Trends',
-  magic: 'Magic',
-  design: 'Background',
-  layers: 'Layers',
-  properties: 'Edit',
-};
-
-function PanelContent({ panel }: { panel: PanelId }) {
-  switch (panel) {
-    case 'templates':
-      return <TemplatesPanel />;
-    case 'text':
-      return <TextPanel />;
-    case 'shapes':
-      return <ShapesPanel />;
-    case 'stickers':
-      return <StickersPanel />;
-    case 'photos':
-      return <PhotosPanel />;
-    case 'filters':
-      return <FiltersPanel />;
-    case 'layouts':
-      return <LayoutsPanel />;
-    case 'animate':
-      return <AnimatePanel />;
-    case 'trends':
-      return <TrendsPanel />;
-    case 'magic':
-      return <MagicPanel />;
-    case 'design':
-      return <BackgroundPanel />;
-    case 'layers':
-      return <LayersPanel />;
-    case 'properties':
-      return <PropertiesPanel />;
-  }
-}
 
 /** Desktop: the add-content flyout next to the tool rail. */
 function Flyout() {
@@ -202,136 +123,19 @@ function Inspector() {
   );
 }
 
-function MobileAction({
-  label,
-  icon,
-  onClick,
-  active,
-}: {
-  label: string;
-  icon: ReactNode;
-  onClick: () => void;
-  active?: boolean;
-}) {
+/** Phone: which slide is on screen, quietly, at the top of the canvas. */
+function SlideCounter() {
+  const active = useEditor((s) => s.activeSlide);
+  const count = useEditor((s) => selectDoc(s)?.slides.length ?? 0);
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={label}
-      aria-pressed={active}
-      className={cn(
-        'flex h-14 w-16 shrink-0 flex-col items-center justify-center gap-1 rounded-md text-[10.5px] font-medium transition-colors [&_svg]:size-5',
-        active ? 'bg-surface-active text-fg [&_svg]:text-accent-text' : 'text-fg-muted active:bg-surface-active',
-      )}
-    >
-      {icon}
-      {label}
-    </button>
-  );
-}
-
-/** Phone: tools, or contextual actions while something is selected. */
-function MobileToolbar() {
-  const panel = useEditor((s) => s.panel);
-  const setPanel = useEditor((s) => s.setPanel);
-  const showGrid = useEditor((s) => s.showGrid);
-  const toggleGrid = useEditor((s) => s.toggleGrid);
-  const selected = useSelectedElements();
-  const toggle = (p: PanelId) => setPanel(panel === p ? null : p);
-
-  if (selected.length > 0) {
-    const single = selected.length === 1 ? selected[0]! : null;
-    const locked = selected.every((e) => e.locked);
-    return (
-      <nav aria-label="Selection actions" className="z-10 shrink-0 border-t border-line bg-bg-elevated safe-bottom lg:hidden">
-        <div className="hide-scrollbar flex gap-1 overflow-x-auto px-2 py-1.5">
-          <MobileAction
-            label="Edit"
-            icon={<SlidersHorizontal />}
-            active={panel === 'properties'}
-            onClick={() => toggle('properties')}
-          />
-          {single?.type === 'text' && !single.locked && (
-            <MobileAction label="Text" icon={<PenLine />} onClick={() => useEditor.getState().setEditingText(single.id)} />
-          )}
-          {selected.some((e) => e.type === 'image' && e.assetId && !e.locked) && (
-            <MobileAction label="Filters" icon={<Wand2 />} active={panel === 'filters'} onClick={() => toggle('filters')} />
-          )}
-          {single?.type === 'image' && !single.locked && single.assetId && (
-            <MobileAction label="Crop" icon={<Crop />} onClick={() => enterCrop(single.id)} />
-          )}
-          {single?.type === 'image' && !single.locked && (
-            <MobileAction
-              label={single.assetId ? 'Replace' : 'Add photo'}
-              icon={<ImageUp />}
-              onClick={() => openPhotoPicker({ targetId: single.id, single: true })}
-            />
-          )}
-          <MobileAction label="Animate" icon={<Sparkles />} active={panel === 'animate'} onClick={() => toggle('animate')} />
-          {selected.some((e) => e.layout) && <MobileAction label="Shuffle" icon={<Dices />} onClick={shuffleLayout} />}
-          <MobileAction label="Duplicate" icon={<Copy />} onClick={actions.duplicateSelection} />
-          <MobileAction label="Forward" icon={<ArrowUp />} onClick={() => actions.reorder('forward')} />
-          <MobileAction label="Back" icon={<ArrowDown />} onClick={() => actions.reorder('backward')} />
-          <MobileAction label={locked ? 'Unlock' : 'Lock'} icon={locked ? <Unlock /> : <Lock />} onClick={actions.toggleLock} />
-          <MobileAction label="Delete" icon={<Trash2 />} onClick={actions.deleteSelection} />
-          <MobileAction label="Done" icon={<Check />} onClick={() => useEditor.getState().clearSelection()} />
-        </div>
-      </nav>
-    );
-  }
-
-  return (
-    <nav aria-label="Tools" className="z-10 shrink-0 border-t border-line bg-bg-elevated safe-bottom lg:hidden">
-      <div className="hide-scrollbar flex gap-1 overflow-x-auto px-2 py-1.5">
-        {PANEL_TOOLS.map((t) => (
-          <ToolButton
-            key={t.id}
-            tool={t}
-            orientation="horizontal"
-            active={panel === t.panel}
-            onClick={() => t.panel && toggle(t.panel)}
-          />
-        ))}
-        <span className="mx-1 w-px shrink-0 self-stretch bg-line" />
-        <MobileAction label="Fit" icon={<Maximize />} onClick={() => actions.fitSlide()} />
-        <MobileAction label="Grid" icon={<Grid3x3 />} active={showGrid} onClick={toggleGrid} />
-      </div>
-    </nav>
-  );
-}
-
-/** Phone: a non-modal sheet so the canvas stays visible while editing. */
-function MobileSheet() {
-  const panel = useEditor((s) => s.panel);
-  const setPanel = useEditor((s) => s.setPanel);
-  const hasSelection = useEditor((s) => s.selection.length > 0);
-  const phone = !useMediaQuery('(min-width: 1024px)', true);
-  const open = phone && panel !== null && !(panel === 'properties' && !hasSelection);
-  return (
-    <AnimatePresence initial={false}>
-      {open && (
-        <motion.section
-          key={panel}
-          aria-label={PANEL_TITLES[panel!]}
-          initial={{ height: 0 }}
-          animate={{ height: 'auto' }}
-          exit={{ height: 0 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 42 }}
-          className="z-10 shrink-0 overflow-hidden border-t border-line bg-bg-elevated lg:hidden"
-          data-testid="mobile-sheet"
-        >
-          <div className="flex max-h-[44dvh] flex-col">
-            <div className="flex h-11 shrink-0 items-center justify-between border-b border-line pr-1.5 pl-4">
-              <h2 className="font-sans text-[13px] font-semibold tracking-normal">{PANEL_TITLES[panel!]}</h2>
-              <IconButton label="Close panel" icon={<X />} size="sm" tooltip={false} onClick={() => setPanel(null)} />
-            </div>
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-              <PanelContent panel={panel!} />
-            </div>
-          </div>
-        </motion.section>
-      )}
-    </AnimatePresence>
+    <div className="pointer-events-none absolute top-2.5 left-1/2 z-10 -translate-x-1/2 lg:hidden" aria-hidden>
+      <span className="flex h-6 items-center gap-1 rounded-full bg-bg-elevated/85 px-2.5 font-mono text-[11px] text-fg-muted tabular-nums shadow-[var(--shadow-soft)]">
+        <motion.span key={active} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.18 }}>
+          {active + 1}
+        </motion.span>
+        <span className="opacity-50">/ {count}</span>
+      </span>
+    </div>
   );
 }
 
@@ -431,10 +235,13 @@ function Editor() {
           <div className="relative min-h-0 flex-1">
             <EditorCanvas />
             <EditorAlerts />
+            {multi && <SlideCounter />}
             <CropBar layout="floating" />
             {tool === 'text' && (
               <div className="pointer-events-none absolute top-3 left-1/2 z-20 -translate-x-1/2 rounded-md border border-line bg-bg-elevated px-3 py-1.5 text-xs font-medium text-fg-muted shadow-[var(--shadow-soft)]">
-                <Type className="mr-1 inline size-3.5" /> Click anywhere to add text · Esc to cancel
+                <Type className="mr-1 inline size-3.5" />
+                <span className="lg:hidden">Tap where the text should go</span>
+                <span className="hidden lg:inline">Click anywhere to add text · Esc to cancel</span>
               </div>
             )}
           </div>
@@ -443,10 +250,7 @@ function Editor() {
           {cropping ? (
             <CropBar layout="docked" />
           ) : (
-            <>
-              <MobileSheet />
-              <MobileToolbar />
-            </>
+            <MobileEditorChrome />
           )}
         </div>
         <Inspector />
@@ -500,8 +304,8 @@ export function EditorScreen() {
 
   if (status !== 'ready') {
     return (
-      <div className="flex min-h-dvh items-center justify-center" role="status">
-        <Spinner className="size-6 text-accent-text" label="Opening your design" />
+      <div className="flex min-h-dvh items-center justify-center">
+        <LoadingState label="Preparing your canvas…" />
       </div>
     );
   }

@@ -38,7 +38,7 @@ import {
   updateElements,
 } from '../core/ops';
 import { collectSnapTargets, gridSizeFor, snapRect, snapValue, type SnapTargets } from '../core/snapping';
-import { addText } from '../actions';
+import { addText, pageToSlide } from '../actions';
 import { assetMetaSync, commitCrop, enterCrop } from '../photo-actions';
 import { openPhotoPicker } from '../file-picker';
 import {
@@ -116,7 +116,18 @@ export function rotateHandlePoint(box: Box, zoom: number): Point {
 
 type Gesture =
   | { kind: 'none' }
-  | { kind: 'pan'; last: Point; moved: boolean; start: Point; touchTap: boolean }
+  | {
+      kind: 'pan';
+      last: Point;
+      moved: boolean;
+      start: Point;
+      touchTap: boolean;
+      /** The view was framed on a slide when the finger went down: a horizontal swipe pages. */
+      paging: boolean;
+      /** Horizontal velocity in px/ms, smoothed, and when it was last sampled. */
+      vx: number;
+      t: number;
+    }
   | { kind: 'pinch'; startDist: number; startZoom: number; lastMid: Point }
   | {
       kind: 'pending';
@@ -271,7 +282,7 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
 
       // Pan: middle button, held space, or the hand tool.
       if (e.button === 1 || useInteraction.getState().spaceHeld || editor.tool === 'hand') {
-        gesture.current = { kind: 'pan', last: p, moved: false, start: p, touchTap: false };
+        gesture.current = { kind: 'pan', last: p, moved: false, start: p, touchTap: false, paging: false, vx: 0, t: e.timeStamp };
         useInteraction.getState().set({ gesture: 'pan' });
         setCursor('grabbing');
         return;
@@ -416,7 +427,16 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
       if (pointInBox(docPoint, { ...strip, rotation: 0 })) editor.setActiveSlide(Math.floor(docPoint.x / d.slideWidth));
 
       if (kind === 'touch') {
-        gesture.current = { kind: 'pan', last: p, moved: false, start: p, touchTap: true };
+        gesture.current = {
+          kind: 'pan',
+          last: p,
+          moved: false,
+          start: p,
+          touchTap: true,
+          paging: d.slides.length > 1 && useCamera.getState().framed,
+          vx: 0,
+          t: e.timeStamp,
+        };
         return;
       }
       const base = e.shiftKey ? editor.selection : [];
@@ -472,6 +492,9 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
           const dy = p.y - g.last.y;
           if (!g.moved && Math.hypot(p.x - g.start.x, p.y - g.start.y) > DRAG_THRESHOLD.touch) g.moved = true;
           if (g.moved || !g.touchTap) useCamera.getState().panBy(dx, dy);
+          const dt = e.timeStamp - g.t;
+          if (dt > 0) g.vx = g.vx * 0.3 + (dx / dt) * 0.7;
+          g.t = e.timeStamp;
           g.last = p;
           return;
         }
@@ -689,6 +712,19 @@ export function useCanvasInteractions(viewportRef: React.RefObject<HTMLDivElemen
       switch (g.kind) {
         case 'pan':
           if (g.touchTap && !g.moved) editor.clearSelection();
+          else if (g.paging && d) {
+            // Swipe between slides: far enough or fast enough sideways pages; anything else
+            // settles back onto the slide.
+            const dx = p.x - g.start.x;
+            const dy = p.y - g.start.y;
+            const vw = useCamera.getState().vw;
+            let target = editor.activeSlide;
+            if (Math.abs(dx) > Math.abs(dy)) {
+              if (dx < -vw * 0.18 || g.vx < -0.35) target += 1;
+              else if (dx > vw * 0.18 || g.vx > 0.35) target -= 1;
+            }
+            pageToSlide(target);
+          }
           setCursor(useInteraction.getState().spaceHeld ? 'grab' : 'default');
           break;
         case 'pending':

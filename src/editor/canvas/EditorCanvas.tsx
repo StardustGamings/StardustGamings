@@ -69,8 +69,11 @@ export function EditorCanvas() {
     const el = viewportRef.current;
     if (!el) return;
     const measure = () => {
-      useCamera.getState().setViewport(el.clientWidth, el.clientHeight);
-      if (!useCamera.getState().ready && el.clientWidth > 0) actions.fitSlide(useEditor.getState().activeSlide);
+      const cam = useCamera.getState();
+      cam.setViewport(el.clientWidth, el.clientHeight);
+      // The first measure frames the first slide; after that a framed view stays framed as
+      // sheets and panels resize the canvas.
+      if ((!cam.ready || cam.framed) && el.clientWidth > 0) actions.fitSlide(useEditor.getState().activeSlide);
     };
     measure();
     const ro = new ResizeObserver(measure);

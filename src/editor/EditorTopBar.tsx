@@ -33,7 +33,7 @@ import { IconButton } from '@/components/ui/IconButton';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { LogoMark } from '@/components/ui/Logo';
 import { FormatIcon } from '@/components/home/FormatIcon';
-import { SaveIndicator } from './SaveIndicator';
+import { SaveDot, SaveIndicator } from './SaveIndicator';
 import { selectDoc, useEditor } from './store';
 import * as actions from './actions';
 import { saveVersion } from './versioning';
@@ -84,7 +84,7 @@ function NameInput() {
             e.currentTarget.blur();
           }
         }}
-        className="h-9 max-w-[40vw] min-w-0 truncate rounded-md bg-transparent px-2 text-[14px] font-semibold transition-colors outline-none hover:bg-surface-hover focus:bg-surface-hover sm:max-w-[320px]"
+        className="h-9 max-w-[36vw] min-w-0 truncate rounded-md bg-transparent px-1.5 text-[14.5px] font-semibold tracking-[-0.01em] transition-colors outline-none hover:bg-surface-hover focus:bg-surface-hover sm:max-w-[320px] sm:px-2"
       />
     </div>
   );
@@ -213,101 +213,112 @@ export function EditorTopBar() {
   const mod = useClientValue(modKey, 'Ctrl');
 
   return (
-    <header className="relative z-20 flex h-12 shrink-0 items-center gap-1 border-b border-line bg-bg-elevated px-2 sm:gap-2 sm:px-3">
-      <Tooltip content="Back to home" side="bottom">
-        <Link
-          href="/"
-          aria-label="Back to home"
-          className="flex h-9 items-center gap-1 rounded-md pr-1.5 pl-1 text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
-        >
-          <ChevronLeft className="size-5" />
-          <LogoMark className="size-6" />
-        </Link>
-      </Tooltip>
-      <NameField />
-      <SaveIndicator />
-
-      <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
-        <IconButton label="Undo" shortcut={`${mod} Z`} icon={<Undo2 />} disabled={!canUndo} onClick={undo} tooltipSide="bottom" />
-        <IconButton
-          label="Redo"
-          shortcut={`${mod} ⇧ Z`}
-          icon={<Redo2 />}
-          disabled={!canRedo}
-          onClick={redo}
-          tooltipSide="bottom"
-        />
-        <div className="mx-1 hidden h-6 w-px bg-line md:block" />
-        <div className="hidden items-center md:flex">
-          <IconButton
-            label="Zoom out"
-            shortcut={`${mod} −`}
-            icon={<Minus />}
-            size="sm"
-            onClick={() => actions.zoomStep(-1)}
-            tooltipSide="bottom"
-          />
-          <ZoomMenu />
-          <IconButton
-            label="Zoom in"
-            shortcut={`${mod} +`}
-            icon={<Plus />}
-            size="sm"
-            onClick={() => actions.zoomStep(1)}
-            tooltipSide="bottom"
-          />
-          <IconButton
-            label="Fit canvas"
-            shortcut="⇧ 1"
-            icon={<Maximize />}
-            size="sm"
-            onClick={() => actions.fitSlide()}
-            tooltipSide="bottom"
-          />
-        </div>
-        <IconButton
-          label="Swipe preview"
-          icon={<Play />}
-          onClick={() => useUi.getState().setCarouselPreview(true)}
-          tooltipSide="bottom"
-        />
-        <IconButton
-          label="Version history"
-          icon={<History />}
-          onClick={() => useUi.getState().setHistoryOpen(true)}
-          tooltipSide="bottom"
-          className="max-sm:hidden"
-          data-testid="open-history"
-        />
-        <IconButton
-          label="Save as template"
-          icon={<BookmarkPlus />}
-          onClick={() => useUi.getState().openSaveTemplate({ source: 'editor' })}
-          tooltipSide="bottom"
-          className="max-sm:hidden"
-        />
-        <IconButton
-          label="Command palette"
-          shortcut={`${mod} K`}
-          icon={<Command />}
-          onClick={() => setPaletteOpen(true)}
-          tooltipSide="bottom"
-          className="max-sm:hidden"
-        />
-        <MoreMenu />
-        <Tooltip content={`Export — PNG, JPG, WebP or PDF (${mod} ⇧ E). No watermark, ever.`} side="bottom">
-          <Button
-            variant="primary"
-            size="sm"
-            aria-label="Export"
-            icon={<Download className="size-4" />}
-            className="ml-1"
-            onClick={() => useUi.getState().openExport({ source: 'editor' })}
-            data-testid="open-export"
+    <header className="relative z-20 shrink-0 border-b border-line bg-bg-elevated safe-top">
+      <div className="flex h-12 items-center gap-1 px-1.5 sm:gap-2 sm:px-3">
+        <Tooltip content="Back to home" side="bottom">
+          <Link
+            href="/"
+            aria-label="Back to home"
+            className="flex h-10 items-center gap-1 rounded-md pr-1 pl-1 text-fg-muted transition-colors hover:bg-surface-hover hover:text-fg"
           >
-            <span className="hidden sm:inline">Export</span>
-          </Button>
+            <ChevronLeft className="size-[22px]" />
+            <LogoMark className="hidden size-6 sm:block" />
+          </Link>
         </Tooltip>
+        <NameField />
+        <SaveDot />
+        <SaveIndicator />
+
+        <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
+          <IconButton
+            label="Undo"
+            shortcut={`${mod} Z`}
+            icon={<Undo2 />}
+            disabled={!canUndo}
+            onClick={undo}
+            tooltipSide="bottom"
+          />
+          <IconButton
+            label="Redo"
+            shortcut={`${mod} ⇧ Z`}
+            icon={<Redo2 />}
+            disabled={!canRedo}
+            onClick={redo}
+            tooltipSide="bottom"
+          />
+          <div className="mx-1 hidden h-6 w-px bg-line md:block" />
+          <div className="hidden items-center md:flex">
+            <IconButton
+              label="Zoom out"
+              shortcut={`${mod} −`}
+              icon={<Minus />}
+              size="sm"
+              onClick={() => actions.zoomStep(-1)}
+              tooltipSide="bottom"
+            />
+            <ZoomMenu />
+            <IconButton
+              label="Zoom in"
+              shortcut={`${mod} +`}
+              icon={<Plus />}
+              size="sm"
+              onClick={() => actions.zoomStep(1)}
+              tooltipSide="bottom"
+            />
+            <IconButton
+              label="Fit canvas"
+              shortcut="⇧ 1"
+              icon={<Maximize />}
+              size="sm"
+              onClick={() => actions.fitSlide()}
+              tooltipSide="bottom"
+            />
+          </div>
+          <IconButton
+            label="Swipe preview"
+            icon={<Play />}
+            onClick={() => useUi.getState().setCarouselPreview(true)}
+            tooltipSide="bottom"
+            className="max-sm:hidden"
+          />
+          <IconButton
+            label="Version history"
+            icon={<History />}
+            onClick={() => useUi.getState().setHistoryOpen(true)}
+            tooltipSide="bottom"
+            className="max-sm:hidden"
+            data-testid="open-history"
+          />
+          <IconButton
+            label="Save as template"
+            icon={<BookmarkPlus />}
+            onClick={() => useUi.getState().openSaveTemplate({ source: 'editor' })}
+            tooltipSide="bottom"
+            className="max-sm:hidden"
+          />
+          <IconButton
+            label="Command palette"
+            shortcut={`${mod} K`}
+            icon={<Command />}
+            onClick={() => setPaletteOpen(true)}
+            tooltipSide="bottom"
+            className="max-sm:hidden"
+          />
+          <MoreMenu />
+          <Tooltip content={`Export — PNG, JPG, WebP or PDF (${mod} ⇧ E). No watermark, ever.`} side="bottom">
+            <Button
+              variant="primary"
+              size="sm"
+              aria-label="Export"
+              icon={<Download className="size-[18px]" />}
+              className="ml-0.5 max-sm:size-10 max-sm:px-0"
+              onClick={() => useUi.getState().openExport({ source: 'editor' })}
+              data-testid="open-export"
+            >
+              <span className="hidden sm:inline">Export</span>
+            </Button>
+          </Tooltip>
+        </div>
       </div>
     </header>
   );

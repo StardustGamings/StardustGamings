@@ -54,6 +54,16 @@ export function fitSlide(index = ed().activeSlide) {
   useCamera.getState().fitTo(slideRegion(d, index), vw < 640 ? 20 : 56);
 }
 
+/** Pages to a slide with a short glide (a swipe on the canvas). */
+export function pageToSlide(index: number) {
+  const d = doc();
+  if (!d) return;
+  const target = Math.max(0, Math.min(d.slides.length - 1, index));
+  ed().setActiveSlide(target);
+  const vw = useCamera.getState().vw;
+  useCamera.getState().fitTo(slideRegion(d, target), vw < 640 ? 20 : 56, 1, { animate: true });
+}
+
 export function fitAll() {
   const d = doc();
   if (d) useCamera.getState().fitTo(stripRegion(d), 40);

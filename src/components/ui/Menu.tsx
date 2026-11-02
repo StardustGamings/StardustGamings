@@ -11,20 +11,23 @@ export const MenuTrigger = M.Trigger;
 export function MenuContent({
   children,
   align = 'end',
+  side,
   className,
 }: {
   children: ReactNode;
   align?: 'start' | 'center' | 'end';
+  side?: 'top' | 'right' | 'bottom' | 'left';
   className?: string;
 }) {
   return (
     <M.Portal>
       <M.Content
         align={align}
+        side={side}
         sideOffset={6}
         collisionPadding={12}
         className={cn(
-          'z-[70] min-w-[200px] animate-[pop-in_120ms_var(--ease-standard)] rounded-md border border-line-strong bg-bg-elevated p-1 shadow-[var(--shadow-float)]',
+          'z-[70] min-w-[200px] animate-[pop-in_140ms_var(--ease-out-expo)] rounded-lg border border-line-strong bg-bg-elevated p-1 shadow-[var(--shadow-float)]',
           className,
         )}
       >

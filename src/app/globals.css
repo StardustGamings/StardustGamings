@@ -463,6 +463,20 @@
   animation: none;
 }
 
+/* Slide thumbnails while reordering on a phone: a small rock, so it's clear they can move. */
+@keyframes wiggle {
+  from {
+    transform: rotate(-1.2deg);
+  }
+  to {
+    transform: rotate(1.2deg);
+  }
+}
+[data-motion='reduced'] [data-reordering] *,
+[data-motion='off'] [data-reordering] * {
+  animation: none !important;
+}
+
 /* ───────────────────────── Motion preferences ───────────────────────── */
 [data-motion='reduced'] .motion-decorative,
 [data-ambient='off'] .motion-decorative {

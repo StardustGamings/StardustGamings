@@ -3,6 +3,7 @@
 import { AlertTriangle, Check, CloudOff, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { formatRelativeTime } from '@/utils/time';
+import { cn } from '@/utils/cn';
 import { useEditor } from './store';
 
 export function SaveIndicator() {
@@ -38,5 +39,26 @@ export function SaveIndicator() {
       {content.icon}
       {content.text}
     </button>
+  );
+}
+
+/** Phones: the save state as a small dot by the name (green when saved, pulsing while saving). */
+export function SaveDot() {
+  const saveState = useEditor((s) => s.saveState);
+  const label = { saved: 'Saved', dirty: 'Unsaved changes', saving: 'Saving', error: 'Couldn’t save' }[saveState];
+  return (
+    <span className="flex size-4 shrink-0 items-center justify-center sm:hidden" title={label} data-state={saveState}>
+      <span
+        aria-hidden
+        className={cn(
+          'size-1.5 rounded-full transition-colors duration-300',
+          saveState === 'saved' && 'bg-success',
+          saveState === 'saving' && 'animate-pulse bg-fg-subtle',
+          saveState === 'dirty' && 'bg-fg-subtle',
+          saveState === 'error' && 'bg-danger',
+        )}
+      />
+      <span className="sr-only">{label}</span>
+    </span>
   );
 }
