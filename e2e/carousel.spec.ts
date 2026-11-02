@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { expect, makePng, open, test } from './fixtures';
+import { expect, makePng, open, phoneTool, test } from './fixtures';
 
 /**
  * Carousel tools: smart photo dump, seamless swipe, collages (shuffle, remix,
@@ -167,7 +167,7 @@ test.describe('carousel tools (phone)', () => {
       .tap();
     await page.getByTestId('flow-create').tap();
     await expect(page.getByTestId('canvas-viewport')).toBeVisible();
-    await page.getByRole('button', { name: 'Layers', exact: true }).tap();
+    await phoneTool(page, 'Layers');
     await page.getByTestId('layers-panel').getByRole('button', { name: 'Photo', exact: true }).last().tap();
     const actions = page.getByRole('navigation', { name: 'Selection actions' });
     await expect(actions.getByRole('button', { name: 'Shuffle' })).toBeVisible();

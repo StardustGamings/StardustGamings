@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import type { Page } from '@playwright/test';
-import { expect, makePng, open, pinDate, test } from './fixtures';
+import { expect, makePng, open, phoneTool, pinDate, test } from './fixtures';
 
 /**
  * The trend system: drops loaded from JSON (scheduled by date, cached for
@@ -272,7 +272,7 @@ test.describe('trends (phone)', () => {
     await page.getByRole('button', { name: /^New Post:/ }).tap();
     await page.getByTestId('create-project').tap();
     await expect(page.getByTestId('canvas-viewport')).toBeVisible();
-    await page.getByRole('button', { name: 'Trends', exact: true }).tap();
+    await phoneTool(page, 'Trends');
     const panel = page.getByTestId('mobile-sheet').getByTestId('trends-panel');
     await expect(panel).toBeVisible();
     await panel.getByRole('button', { name: 'Recolour with Acid Mint' }).tap();

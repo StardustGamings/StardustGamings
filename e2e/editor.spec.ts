@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Page } from '@playwright/test';
-import { expect, makePng, open, test } from './fixtures';
+import { expect, makePng, open, phoneTool, test } from './fixtures';
 
 /** Opens a new single-slide post in the editor. */
 async function newPost(page: Page) {
@@ -410,13 +410,13 @@ test.describe('canvas editor (phone)', () => {
     await actions.getByRole('button', { name: 'Done' }).click();
     await expect(page.getByRole('navigation', { name: 'Tools' })).toBeVisible();
 
-    await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Layers', exact: true }).click();
+    await phoneTool(page, 'Layers');
     await expect(page.getByTestId('mobile-sheet').getByTestId('layers-panel').locator('li')).toHaveCount(2);
   });
 
   test('tap selects and deselects', async ({ app: page }) => {
     await newPost(page);
-    await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Shapes', exact: true }).click();
+    await phoneTool(page, 'Shapes');
     await page.getByRole('button', { name: 'Add Circle' }).click();
     await page.getByRole('button', { name: 'Close panel' }).click();
     await expect(page.getByTestId('mobile-sheet')).toBeHidden();
@@ -451,7 +451,7 @@ test.describe('canvas editor (phone)', () => {
     await page.keyboard.press('Escape');
 
     // A rectangle: drag its bottom-right handle outwards.
-    await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Shapes', exact: true }).click();
+    await phoneTool(page, 'Shapes');
     await page.getByRole('button', { name: 'Add Rectangle' }).click();
     await page.getByRole('button', { name: 'Close panel' }).click();
     await expect(page.getByTestId('mobile-sheet')).toBeHidden();
@@ -484,7 +484,7 @@ test.describe('canvas editor (phone)', () => {
 
   test('one-finger drag moves; two-finger pinch zooms', async ({ app: page }) => {
     await newPost(page);
-    await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'Shapes', exact: true }).click();
+    await phoneTool(page, 'Shapes');
     await page.getByRole('button', { name: 'Add Rectangle' }).click();
     await page.getByRole('button', { name: 'Close panel' }).click();
     await expect(page.getByTestId('mobile-sheet')).toBeHidden();

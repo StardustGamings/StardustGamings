@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { createCarousel, expect, makePng, open, test } from './fixtures';
+import { createCarousel, expect, makePng, open, phoneTool, test } from './fixtures';
 
 /**
  * The optional AI tools, as a build without an AI server ships them: the
@@ -246,7 +246,7 @@ test.describe('AI tools (phone)', () => {
     await page.getByRole('button', { name: /^New Post:/ }).tap();
     await page.getByTestId('create-project').tap();
     await expect(page.getByTestId('canvas-viewport')).toBeVisible();
-    await page.getByRole('button', { name: 'Magic', exact: true }).tap();
+    await phoneTool(page, 'Magic');
     const panel = page.getByTestId('mobile-sheet').getByTestId('magic-panel');
     await expect(panel).toBeVisible();
 

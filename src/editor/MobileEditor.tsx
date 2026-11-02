@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useDragControls } from 'motion/react';
 import {
+  Aperture,
   ArrowDown,
   ArrowUp,
   Check,
@@ -30,11 +31,11 @@ import {
   Trash2,
   Type,
   Unlock,
-  Wand2,
   WandSparkles,
   X,
 } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
+import { create } from 'zustand';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useUi } from '@/settings/ui-store';
 import { IconButton } from '@/components/ui/IconButton';
@@ -56,6 +57,12 @@ import { useEditor, type PanelId } from './store';
 
 const SPRING = { type: 'spring', stiffness: 520, damping: 42 } as const;
 
+/** Whether the More tools sheet is open (the slide strip steps aside while any sheet is up). */
+export const useMoreTools = create<{ open: boolean; setOpen: (open: boolean) => void }>()((set) => ({
+  open: false,
+  setOpen: (open) => set({ open }),
+}));
+
 /** Shapes and stickers share the Elements tool; it reopens on the one used last. */
 let lastElements: 'shapes' | 'stickers' = 'shapes';
 
@@ -70,7 +77,7 @@ const PRIMARY: { label: string; icon: ReactNode; panels: PanelId[]; open: () => 
 /** The rest of the tools, in the More sheet. */
 const MORE_PANELS: { panel: PanelId; label: string; icon: ReactNode }[] = [
   { panel: 'layouts', label: 'Layouts', icon: <LayoutGrid /> },
-  { panel: 'filters', label: 'Filters', icon: <Wand2 /> },
+  { panel: 'filters', label: 'Filters', icon: <Aperture /> },
   { panel: 'animate', label: 'Animate', icon: <Sparkles /> },
   { panel: 'trends', label: 'Trends', icon: <Flame /> },
   { panel: 'magic', label: 'Magic', icon: <WandSparkles /> },
@@ -153,7 +160,7 @@ function MobileToolbar({ moreOpen, onMore }: { moreOpen: boolean; onMore: (open:
               <ToolSlot
                 highlightId="selection-active"
                 label="Filters"
-                icon={<Wand2 />}
+                icon={<Aperture />}
                 active={panel === 'filters'}
                 onClick={() => toggle('filters')}
               />
@@ -418,7 +425,8 @@ function MobileSheet({ more, onMore }: { more: boolean; onMore: (open: boolean) 
 
 /** Everything below the canvas on a phone. Desktop uses the rail, flyout and inspector instead. */
 export function MobileEditorChrome() {
-  const [more, setMore] = useState(false);
+  const more = useMoreTools((s) => s.open);
+  const setMore = useMoreTools((s) => s.setOpen);
   return (
     <>
       <MobileSheet more={more} onMore={setMore} />

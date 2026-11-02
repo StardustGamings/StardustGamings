@@ -51,7 +51,7 @@ export function fitSlide(index = ed().activeSlide) {
   const d = doc();
   if (!d) return;
   const vw = useCamera.getState().vw;
-  useCamera.getState().fitTo(slideRegion(d, index), vw < 640 ? 20 : 56);
+  useCamera.getState().fitTo(slideRegion(d, index), vw < 640 ? 30 : 56);
 }
 
 /** Pages to a slide with a short glide (a swipe on the canvas). */
@@ -61,7 +61,7 @@ export function pageToSlide(index: number) {
   const target = Math.max(0, Math.min(d.slides.length - 1, index));
   ed().setActiveSlide(target);
   const vw = useCamera.getState().vw;
-  useCamera.getState().fitTo(slideRegion(d, target), vw < 640 ? 20 : 56, 1, { animate: true });
+  useCamera.getState().fitTo(slideRegion(d, target), vw < 640 ? 30 : 56, 1, { animate: true });
 }
 
 export function fitAll() {
@@ -88,7 +88,7 @@ export function goToSlide(index: number) {
   const cam = useCamera.getState();
   const viewW = cam.vw / cam.zoom;
   const visible = cam.x <= r.x && cam.x + viewW >= r.x + r.width;
-  if (!visible) cam.fitTo(r, cam.vw < 640 ? 20 : 56, Math.max(cam.zoom, 0.05));
+  if (!visible) cam.fitTo(r, cam.vw < 640 ? 30 : 56, Math.max(cam.zoom, 0.05));
 }
 
 /* ───────────── Slides ───────────── */

@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Aperture,
   Hand,
   Image as ImageIcon,
   LayoutGrid,
@@ -12,7 +13,6 @@ import {
   Smile,
   Sparkles,
   Type,
-  Wand2,
   Flame,
   WandSparkles,
 } from 'lucide-react';
@@ -48,7 +48,7 @@ export const PANEL_TOOLS: ToolDef[] = [
   { id: 'design', label: 'Background', icon: <PaintBucket />, panel: 'design' },
   { id: 'layers', label: 'Layers', icon: <Layers />, panel: 'layers' },
   { id: 'layouts', label: 'Layouts', icon: <LayoutGrid />, panel: 'layouts', shortcut: 'L' },
-  { id: 'filters', label: 'Filters', icon: <Wand2 />, panel: 'filters', shortcut: 'F' },
+  { id: 'filters', label: 'Filters', icon: <Aperture />, panel: 'filters', shortcut: 'F' },
   { id: 'animate', label: 'Animate', icon: <Sparkles />, panel: 'animate', shortcut: 'A' },
   { id: 'trends', label: 'Trends', icon: <Flame />, panel: 'trends', shortcut: 'R' },
   { id: 'magic', label: 'Magic', icon: <WandSparkles />, panel: 'magic', shortcut: 'M' },

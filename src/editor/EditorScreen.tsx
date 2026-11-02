@@ -29,7 +29,8 @@ import { DocumentPanel } from './panels/DocumentPanels';
 import { LayersPanel } from './panels/LayersPanel';
 import { PropertiesPanel } from './panels/PropertiesPanel';
 import { SlideStrip } from './SlideStrip';
-import { MobileEditorChrome } from './MobileEditor';
+import { MobileEditorChrome, useMoreTools } from './MobileEditor';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { PANEL_TITLES, PanelContent } from './panel-content';
 import { usePlayback } from './playback';
 import { selectDoc, useEditor } from './store';
@@ -128,8 +129,8 @@ function SlideCounter() {
   const active = useEditor((s) => s.activeSlide);
   const count = useEditor((s) => selectDoc(s)?.slides.length ?? 0);
   return (
-    <div className="pointer-events-none absolute top-2.5 left-1/2 z-10 -translate-x-1/2 lg:hidden" aria-hidden>
-      <span className="flex h-6 items-center gap-1 rounded-full bg-bg-elevated/85 px-2.5 font-mono text-[11px] text-fg-muted tabular-nums shadow-[var(--shadow-soft)]">
+    <div className="pointer-events-none absolute top-1.5 left-1/2 z-10 -translate-x-1/2 lg:hidden" aria-hidden>
+      <span className="flex h-5 items-center gap-1 rounded-full bg-bg-elevated/85 px-2 font-mono text-[10.5px] text-fg-muted tabular-nums">
         <motion.span key={active} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.18 }}>
           {active + 1}
         </motion.span>
@@ -146,6 +147,11 @@ function Editor() {
   const tool = useEditor((s) => s.tool);
   const cropping = useEditor((s) => s.croppingId !== null);
   const panel = useEditor((s) => s.panel);
+  const hasSelection = useEditor((s) => s.selection.length > 0);
+  const moreOpen = useMoreTools((s) => s.open);
+  const phone = !useMediaQuery('(min-width: 1024px)', true);
+  // On a phone the slide strip steps aside while a tool sheet is open, leaving room for the canvas.
+  const sheetOpen = phone && (moreOpen || (panel !== null && !(panel === 'properties' && !hasSelection)));
   const loadAssets = useAssets((s) => s.load);
   useEditorShortcuts();
 
@@ -246,7 +252,7 @@ function Editor() {
             )}
           </div>
           {panel === 'animate' && !cropping && <Timeline />}
-          {multi && !cropping && <SlideStrip />}
+          {multi && !cropping && !sheetOpen && <SlideStrip />}
           {cropping ? (
             <CropBar layout="docked" />
           ) : (

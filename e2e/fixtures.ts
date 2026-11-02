@@ -105,3 +105,17 @@ export async function frameBox(page: Page) {
   const b = (await page.getByTestId('selection-frame').boundingBox())!;
   return { ...b, cx: b.x + b.width / 2, cy: b.y + b.height / 2 };
 }
+
+/** Opens a tool from the phone editor's toolbar, wherever it lives: on the bar, under Elements or under More. */
+export async function phoneTool(page: Page, name: string) {
+  const tools = page.getByRole('navigation', { name: 'Tools' });
+  if (name === 'Shapes' || name === 'Stickers') {
+    await tools.getByRole('button', { name: 'Elements', exact: true }).click();
+    await page.getByTestId('mobile-sheet').getByRole('radio', { name, exact: true }).click();
+    return;
+  }
+  const direct = tools.getByRole('button', { name, exact: true });
+  if (await direct.count()) return direct.click();
+  await tools.getByRole('button', { name: 'More', exact: true }).click();
+  await page.getByTestId('more-tools').getByRole('button', { name, exact: true }).click();
+}

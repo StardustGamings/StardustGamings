@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import type { Download, Page } from '@playwright/test';
-import { createCarousel, expect, frameBox, open, scenePixel, test } from './fixtures';
+import { createCarousel, expect, frameBox, open, phoneTool, scenePixel, test } from './fixtures';
 
 /**
  * Motion: animation presets and timing, auto-animate, the timeline, the
@@ -298,7 +298,7 @@ test.describe('motion (phone)', () => {
 
   test('animate from the selection bar and play the slide', async ({ app: page }) => {
     await newPost(page);
-    await page.getByRole('button', { name: 'Shapes', exact: true }).first().click();
+    await phoneTool(page, 'Shapes');
     await page.getByRole('button', { name: 'Add Rectangle' }).click();
     await page.getByRole('navigation', { name: 'Selection actions' }).getByRole('button', { name: 'Animate' }).click();
     const sheet = page.getByTestId('mobile-sheet');
