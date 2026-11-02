@@ -29,7 +29,7 @@ try {
   const ready = () => page.waitForSelector('html[data-ready="true"]', { timeout: 60_000 });
   await ready();
   assert.equal(page.url(), 'app://stardeck/');
-  assert.match(await page.locator('h1').first().innerText(), /Create/);
+  assert.match(await page.locator('h1').first().innerText(), /^(Good (morning|afternoon|evening)|Up late)/);
 
   // A full page load (not an in-app link) must open that page, not Home.
   await page.goto('app://stardeck/projects/');

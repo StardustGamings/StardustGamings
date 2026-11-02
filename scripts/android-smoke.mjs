@@ -98,7 +98,7 @@ screencap('2-first-launch');
 await page.evaluate(() => localStorage.setItem('stardeck.settings', JSON.stringify({ state: { onboarded: true }, version: 1 })));
 await page.reload();
 await ready();
-assert.match(await page.locator('h1').first().innerText(), /Create/);
+assert.match(await page.locator('h1').first().innerText(), /^(Good (morning|afternoon|evening)|Up late)/);
 screencap('3-home');
 
 step('full page load of /projects/');
