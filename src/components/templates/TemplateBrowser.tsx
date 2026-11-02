@@ -96,13 +96,12 @@ export function TemplateBrowser() {
             onClick={() => inputRef.current?.click()}
             className="sm:hidden"
           />
-          <Button
-            icon={<FileUp className="size-4" />}
-            onClick={() => inputRef.current?.click()}
-            className="hidden sm:ml-auto sm:inline-flex"
-          >
-            Import template
-          </Button>
+          {/* A wrapper, not the button: its own inline-flex would beat \`hidden\`. */}
+          <span className="hidden sm:ml-auto sm:block">
+            <Button icon={<FileUp className="size-4" />} onClick={() => inputRef.current?.click()}>
+              Import template
+            </Button>
+          </span>
         </div>
         <input
           ref={inputRef}

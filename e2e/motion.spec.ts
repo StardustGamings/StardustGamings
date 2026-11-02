@@ -235,6 +235,8 @@ test.describe('motion (desktop)', () => {
   });
 
   test('video clips: add one, trim and speed, sound on or off in the exported MP4', async ({ app: page }) => {
+    // Records a clip in real time and encodes two MP4s: ~25s on its own, more beside other workers.
+    test.slow();
     await newPost(page);
     // Recorded against the wall clock: a busy machine can drop the last frames, so aim for the
     // middle of the "2.x seconds" range the checks below expect.

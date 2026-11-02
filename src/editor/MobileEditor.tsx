@@ -66,12 +66,13 @@ export const useMoreTools = create<{ open: boolean; setOpen: (open: boolean) => 
 /** Shapes and stickers share the Elements tool; it reopens on the one used last. */
 let lastElements: 'shapes' | 'stickers' = 'shapes';
 
-const PRIMARY: { label: string; icon: ReactNode; panels: PanelId[]; open: () => PanelId }[] = [
+/** `short` is shown instead of `label` on the narrowest phones, where the full word would be cut off. */
+const PRIMARY: { label: string; short?: string; icon: ReactNode; panels: PanelId[]; open: () => PanelId }[] = [
   { label: 'Templates', icon: <LayoutTemplate />, panels: ['templates'], open: () => 'templates' },
   { label: 'Text', icon: <Type />, panels: ['text'], open: () => 'text' },
   { label: 'Photos', icon: <ImageIcon />, panels: ['photos'], open: () => 'photos' },
   { label: 'Elements', icon: <Shapes />, panels: ['shapes', 'stickers'], open: () => lastElements },
-  { label: 'Background', icon: <PaintBucket />, panels: ['design'], open: () => 'design' },
+  { label: 'Background', short: 'Backdrop', icon: <PaintBucket />, panels: ['design'], open: () => 'design' },
 ];
 
 /** The rest of the tools, in the More sheet. */
@@ -87,12 +88,14 @@ const MORE_PANELS: { panel: PanelId; label: string; icon: ReactNode }[] = [
 /** One slot in the bottom toolbar: icon over label, with a soft highlight that slides to the active tool. */
 function ToolSlot({
   label,
+  short,
   icon,
   active,
   onClick,
   highlightId,
 }: {
   label: string;
+  short?: string;
   icon: ReactNode;
   active?: boolean;
   onClick: () => void;
@@ -105,7 +108,7 @@ function ToolSlot({
       aria-label={label}
       aria-pressed={active}
       className={cn(
-        'relative flex h-[58px] min-w-[54px] flex-1 pressable flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-[-0.01em]',
+        'relative flex h-[58px] min-w-[52px] flex-1 pressable flex-col items-center justify-center gap-1 text-[10.5px] font-medium tracking-[-0.01em] max-[374px]:tracking-[-0.035em] max-[374px]:[&>span]:px-0',
         active ? 'text-fg' : 'text-fg-muted',
       )}
     >
@@ -119,7 +122,14 @@ function ToolSlot({
       <span className={cn('relative transition-colors duration-150 [&_svg]:size-[22px]', active && 'text-accent-text')}>
         {icon}
       </span>
-      <span className="relative max-w-full truncate px-0.5">{label}</span>
+      {short ? (
+        <>
+          <span className="relative max-w-full truncate px-0.5 max-[374px]:hidden">{label}</span>
+          <span className="relative hidden max-w-full truncate px-0.5 max-[374px]:inline">{short}</span>
+        </>
+      ) : (
+        <span className="relative max-w-full truncate px-0.5">{label}</span>
+      )}
     </button>
   );
 }
@@ -240,6 +250,7 @@ function MobileToolbar({ moreOpen, onMore }: { moreOpen: boolean; onMore: (open:
             key={t.label}
             highlightId="tool-active"
             label={t.label}
+            short={t.short}
             icon={t.icon}
             active={!moreOpen && panel !== null && t.panels.includes(panel)}
             onClick={() => {
