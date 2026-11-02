@@ -199,7 +199,7 @@ test.describe('trends (desktop)', () => {
 
     // A drop's own sticker art.
     await page.getByRole('button', { name: 'Stickers', exact: true }).first().click();
-    await page.getByTestId('stickers-panel').getByRole('button', { name: '✦ September Drop' }).click();
+    await page.getByTestId('stickers-panel').getByRole('button', { name: 'September Drop' }).click();
     await page.getByRole('button', { name: 'Add Paper Plane sticker' }).click();
     await page.getByRole('tab', { name: 'Layers' }).click();
     await expect(page.getByTestId('layers-panel').getByText('Paper Plane')).toBeVisible();

@@ -55,7 +55,9 @@ export function QuickCreate() {
           <CarouselGlyph />
           <span>
             <span className="block text-[15px] leading-tight font-semibold">New carousel</span>
-            <span className="mt-0.5 block text-[12px] opacity-75">{SIZE_PRESETS[carousel.sizeId].ratio} · swipeable</span>
+            <span className="mt-0.5 block text-[12px] font-medium text-accent-fg">
+              {SIZE_PRESETS[carousel.sizeId].ratio} · swipeable
+            </span>
           </span>
         </button>
         <button

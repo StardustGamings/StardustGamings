@@ -392,7 +392,7 @@ function MobileSheet({ more, onMore }: { more: boolean; onMore: (open: boolean) 
               }}
             >
               <div aria-hidden className="mx-auto mt-2 h-[5px] w-9 rounded-full bg-line-strong" />
-              <div className="flex h-11 items-center justify-between gap-2 pr-1.5 pl-4">
+              <div className="flex h-12 items-center justify-between gap-2 pr-1 pl-4">
                 {elements ? (
                   <Segmented
                     size="sm"
@@ -410,7 +410,7 @@ function MobileSheet({ more, onMore }: { more: boolean; onMore: (open: boolean) 
                 ) : (
                   <h2 className="text-[15px] font-semibold tracking-[-0.01em]">{title}</h2>
                 )}
-                <IconButton label="Close panel" icon={<X />} size="sm" tooltip={false} onClick={close} />
+                <IconButton label="Close panel" icon={<X />} tooltip={false} onClick={close} />
               </div>
             </div>
             <AnimatePresence mode="wait" initial={false}>

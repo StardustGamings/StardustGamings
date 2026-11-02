@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
-import { expect, makePng, open, test } from './fixtures';
+import { expect, makePng, open, pinDate, test } from './fixtures';
 
 /**
  * Template engine: browsing and searching the library, previewing (swipe,
@@ -22,6 +22,8 @@ test.describe('templates (desktop)', () => {
   test.skip(({ isMobile }) => isMobile, 'Desktop flows; phones are covered below');
 
   test('browse, search and filter the library, then preview and use a template', async ({ app: page }) => {
+    // Colourways come from the drop that's live on the day; pin one so the test doesn't age.
+    await pinDate(page);
     await open(page, '/templates/');
     await expect(cards(page)).toHaveCount(63);
 

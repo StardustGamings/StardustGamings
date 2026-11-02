@@ -30,7 +30,10 @@ function entranceFor(from: string | null, path: string) {
 export default function Template({ children }: { children: ReactNode }) {
   const path = usePathname();
   // Decided once per mount; the module variable is updated after this page has taken its value.
+  // Pre-rendering (no window) always gets the plain fade, so the static HTML never carries one
+  // page's slide into another and hydration starts from the same values.
   const [initial] = useState(() => {
+    if (typeof window === 'undefined') return entranceFor(null, path);
     const value = entranceFor(previousPath, path);
     previousPath = path;
     return value;

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import type { Page } from '@playwright/test';
-import { expect, open, test } from './fixtures';
+import { expect, open, phoneTool, test } from './fixtures';
 
 /**
  * Accessibility: every main screen, the editor's tools and the main dialogs pass
@@ -83,12 +83,18 @@ for (const theme of ['dark', 'light'] as const) {
       await expect(page.getByTestId('canvas-viewport')).toBeVisible();
       await audit(page, `${theme} editor`);
       const tools = isMobile
-        ? ['Text', 'Photos', 'Magic']
+        ? ['Text', 'Photos', 'Stickers', 'Magic']
         : ['Templates', 'Text', 'Background', 'Filters', 'Animate', 'Trends', 'Magic'];
       for (const tool of tools) {
-        await page.getByRole('button', { name: tool, exact: true }).first().click();
+        if (isMobile) await phoneTool(page, tool);
+        else await page.getByRole('button', { name: tool, exact: true }).first().click();
         await audit(page, `${theme} editor · ${tool}`);
         if (isMobile) await page.getByRole('button', { name: 'Close panel' }).click();
+      }
+      if (isMobile) {
+        await page.getByRole('navigation', { name: 'Tools' }).getByRole('button', { name: 'More', exact: true }).click();
+        await audit(page, `${theme} editor · more tools`);
+        await page.getByRole('button', { name: 'Close panel' }).click();
       }
       if (!isMobile) {
         await page.keyboard.press('Escape');

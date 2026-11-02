@@ -280,7 +280,7 @@ test.describe('motion (desktop)', () => {
 
   test('animated templates: filter, badge and play before using one', async ({ app: page }) => {
     await open(page, '/templates/');
-    await page.getByRole('button', { name: '✦ Animated' }).click();
+    await page.getByRole('button', { name: 'Animated', exact: true }).click();
     const cards = page.getByTestId('template-card');
     await expect(cards.first()).toBeVisible();
     const count = await cards.count();

@@ -24,7 +24,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       ) : (
         <>
           <NavRail />
-          <div className="md:pl-[76px]">
+          {/* clip: a page sliding in sideways never widens the page or lets a phone zoom out. */}
+          <div className="overflow-x-clip md:pl-[76px]">
             <TopBar />
             <main id="main" className="mx-auto w-full max-w-[1320px] px-4 pt-4 pb-28 sm:px-6 md:pb-16 lg:px-10">
               {children}
